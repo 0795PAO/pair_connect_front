@@ -6,12 +6,13 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
+      "jsx": "react-jsx",  
       "baseUrl": ".",
       "paths": {
         "@/*": ["./src/*"]
       }
     },
-    "include": ["src/**/*"],  // Incluye todos los archivos dentro de la carpeta src
-    "exclude": ["node_modules", "dist"]  // Excluye las carpetas que no necesitas
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
   }
   
