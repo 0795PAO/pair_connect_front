@@ -1,12 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom', // Para pruebas que interactúan con el DOM
-    include: ['src/tests/**/*.test.{js,ts,jsx,tsx}'], // Incluye archivos .test.jsx en la carpeta src/tests/
+    environment: 'jsdom', 
+    include: ['src/tests/**/*.test.{js,ts,jsx,tsx}'], 
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
   },
 })

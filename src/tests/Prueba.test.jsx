@@ -2,15 +2,10 @@
 import { render, screen } from '@testing-library/react';
 import { useState } from 'react';
 
-// Componente Prueba
-function Prueba() {
-  const [text, setText] = useState('Hola');
-  return <div>{text}</div>;  
+function sum(a, b) {
+  return a + b
 }
 
-// Pruebas para el componente Prueba
-test('renders the Prueba component correctly', () => {
-  render(<Prueba />);
-  const textElement = screen.getByText(/Hola/i);
-  expect(textElement).toBeInTheDocument();
-});
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3)
+})
