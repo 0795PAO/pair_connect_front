@@ -1,26 +1,19 @@
 
 import ProtectedLayout from "@/layouts/ProtectedLayout";
 import PublicLayout from "@/layouts/PublicLayout";
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import App  from '../App'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicLayout />,
-    // children: [
-    //   {
-    //     path: '/',
-    //     element: <Navigate to='/login' />
-    //   },
-    //   {
-    //     path: "/login",
-    //     element: <Login />,
-    //   },
-    //   {
-    //     path: "/register",
-    //     element: <SignUp />
-    //   },
-    // ],
+    children: [
+      {
+        path: '/',
+        element: <App />
+      },
+    ],
   },
   { 
 

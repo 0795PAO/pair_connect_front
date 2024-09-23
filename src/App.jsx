@@ -7,6 +7,7 @@ import {
   Form,
 } from "@/components/ui/form"
 import CustomInput from "./components/CustomInput"
+import ModeToggle from "./components/ModeToggle"
 
 const formSchema = yup.object().shape({
   username: yup
@@ -25,12 +26,15 @@ const App = () => {
   }
 
   return (
+    <>
+      <ModeToggle/>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-[90vw] md:w-[50vw] lg:w-[90vw] p-5 border border-primary-foreground">
           <CustomInput label='Username' placeholder='username' description='Your display name' form={form} />
           <Button type="submit">Submit</Button>
         </form>
       </Form>
+    </>
 
   )
 }
