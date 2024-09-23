@@ -39,8 +39,12 @@
     --radius: 0.5rem;
     --button-hover: 191 100% 65%;
     --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
+<<<<<<< HEAD
     --success: 145 63% 49%; 
     --success-foreground: 0 0% 100%;
+=======
+    --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+>>>>>>> f5f192a7a7680939e502baa4cf7a5c0e5f6a79ac
   }
 
   .dark {
@@ -78,8 +82,12 @@
     --chart-5: 340 75% 55%;
     --button-hover: 191 100% 65%;
     --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
+<<<<<<< HEAD
     --success: 145 70% 40%; 
     --success-foreground: 0 0% 100%; 
+=======
+    --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+>>>>>>> f5f192a7a7680939e502baa4cf7a5c0e5f6a79ac
   }
 }
 
@@ -100,4 +108,12 @@
 
 .hover-shadow-custom:hover {
   box-shadow: var(--shadow-custom);
+}
+
+.border-gradient {
+  border: 2px solid var(--gradient);
+}
+
+.font-poppins {
+  font-family: "Poppins" , sans-serif;
 }

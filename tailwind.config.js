@@ -56,9 +56,8 @@ export default {
 					'5': 'hsl(var(--chart-5))'
 				},
 				button_hover: 'hsl(var(--button-hover))',
-			}
-		}
+			},
+		},
 	},
 	plugins: [require("tailwindcss-animate")],
-}
-
+};
