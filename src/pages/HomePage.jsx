@@ -1,4 +1,4 @@
-import { Calendar } from "@/components/ui/calendar";
+import { EventCalendar } from "@/components/ui/EventCalendar";
 import { useState } from "react";
 
 const HomePage = () => {
@@ -7,12 +7,7 @@ const HomePage = () => {
   return (
     <div>
       HomePage
-      <Calendar
-        mode="single"
-        selected={date}
-        onSelect={setDate}
-        className="rounded-md border"
-      />
+      <EventCalendar />
     </div>
   );
 };
