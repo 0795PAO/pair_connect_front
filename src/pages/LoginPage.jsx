@@ -1,23 +1,32 @@
-
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { useMousePosition } from "@/hooks/useMousePosition";
+import { useToast } from "@/hooks/useToast";
+import { login } from "@/services/authService";
 import LoginForm from "@/components/auth/LoginForm"
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/useToast";
-import { useState } from "react";
-import { useMousePosition } from "@/hooks/useMousePosition";
-import { Link } from "react-router-dom";
 
 const LoginPage = () => {
     const { elementRef } = useMousePosition()
     const [isOpen, setIsOpen] = useState(false);
     const { toast } = useToast();
-    const handleSubmit = (data) => {
-        console.log(data)
-        toast({
-            title: "Error",
-            description: "Las credenciales no son correctas",
-            variant: "destructive",
-        })
+    const navigate = useNavigate();
+    const handleSubmit = async (data) => {
+        try {
+            const response = await login(data);
+            if (response.status === 'success') {
+                navigate('/')
+            }
+
+        } catch (error) {
+            console.error('Error registering user', error);
+            toast({
+                title: "Error",
+                description: `${error.message}`,
+                variant: "destructive",
+            })
+        }
     }
 
     const handleRegisterSubmit = (data) => {
