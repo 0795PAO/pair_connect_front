@@ -1,10 +1,7 @@
+/* eslint-disable react/prop-types */
 import HeroButton from "./HeroButton";
 
-const HeroSection = () => {
-    const handleRegisterClick = () => {
-        console.log('Botón de "Registrarme" clicado');
-    };
-
+const HeroSection = ({handleRegisterClick}) => {
     return (
         <section className="flex flex-col items-center justify-center pt-2 mt-16 text-center bg-background"> 
             <h1 className="mb-4 font-poppins font-bold text-6xl leading-[120%] text-transparent bg-clip-text" style={{ backgroundImage: 'var(--gradient)' }}>
