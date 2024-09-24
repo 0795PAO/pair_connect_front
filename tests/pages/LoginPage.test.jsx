@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 import LoginPage from '@/pages/LoginPage';
 import { useToast } from '@/hooks/useToast';
 
-// Mock del hook useToast
 vi.mock('@/hooks/useToast', () => ({
     useToast: vi.fn(),
 }));
@@ -33,9 +32,8 @@ describe('LoginPage', () => {
         expect(recoverLink).toBeInTheDocument();
         expect(recoverLink.getAttribute('href')).toBe('/recover-password');
 
-        const registerLink = screen.getByRole('link', { name: /Regístrate/i });
+        const registerLink = screen.getByRole('button', { name: /Regístrate/i });
         expect(registerLink).toBeInTheDocument();
-        expect(registerLink.getAttribute('href')).toBe('/register'); 
     });
 
     it('calls handleSubmit and shows toast on form submission', async () => {
@@ -47,8 +45,18 @@ describe('LoginPage', () => {
 
         const submitButton = screen.getByRole('button', { name: /Iniciar sesión/i });
 
+        const emailInput = screen.getByLabelText(/correo/i);
+        const passwordInput = screen.getByLabelText(/contraseña/i);
+
+        fireEvent.change(emailInput, { target: { value: 'testuser@example.com' } });
+        fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
+    
+
         await act(async () => {
             fireEvent.click(submitButton);
+        });
+
+        await act(async () => {
             expect(mockToast).toHaveBeenCalled();
         });
 
