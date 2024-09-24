@@ -1,6 +1,8 @@
+import ModeToggle from "./ModeToggle"
+
 const Navbar = () => {
     return (
-        <div>Nav</div>
+        <div><ModeToggle/></div>
     )
 }
 export default Navbar
