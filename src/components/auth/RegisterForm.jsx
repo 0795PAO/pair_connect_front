@@ -9,7 +9,7 @@ import { Form } from '../ui/form';
 const schema = yup.object({
     username: yup.string().required('El nombre de usuario es obligatorio'),
     email: yup.string().email('Correo electrónico no válido').required('El correo electrónico es obligatorio'),
-    password: yup.string().min(8, 'La contraseña debe tener al menos 6 caracteres').required('La contraseña es obligatoria'),
+    password: yup.string().min(8, 'La contraseña debe tener al menos 8 caracteres').required('La contraseña es obligatoria'),
     confirm_password: yup.string()
         .oneOf([yup.ref('password'), null], 'Las contraseñas no coinciden')
         .required('La confirmación de la contraseña es obligatoria'),
@@ -18,6 +18,12 @@ const schema = yup.object({
 const RegisterForm = ({ handleSubmit}) => {
     const form = useForm({
         resolver: yupResolver(schema),
+        defaultValues: {
+            username: '',
+            email: '',
+            password: '',
+            confirm_password: '',
+        },
     });
 
     const registerInputs = [
@@ -49,7 +55,7 @@ const RegisterForm = ({ handleSubmit}) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-5">
+            <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
                 {registerInputs.map((input, i) => (
                     <CustomInput
                         key={i}

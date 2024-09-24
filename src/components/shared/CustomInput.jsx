@@ -3,15 +3,14 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/
 import { Input } from "../ui/input"
 
 
-const CustomInput = ({ label, placeholder, name, form, type}) => {
+const CustomInput = ({ label, placeholder, name, form, type }) => {
     return (
-
         <FormField
             control={form.control}
             name={name}
             type={type}
             render={({ field }) => (
-                <FormItem >
+                <FormItem>
                     <FormLabel>{label}</FormLabel>
                     <FormControl>
                         <Input placeholder={placeholder} {...field} />
@@ -20,7 +19,7 @@ const CustomInput = ({ label, placeholder, name, form, type}) => {
                 </FormItem>
             )}
         />
+    );
+};
 
-    )
-}
 export default CustomInput
