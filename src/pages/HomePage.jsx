@@ -1,4 +1,4 @@
-import { EventCalendar } from "@/components/ui/EventCalendar";
+import { EventCalendar } from "@/components/EventCalendar";
 import { useState } from "react";
 
 const HomePage = () => {
