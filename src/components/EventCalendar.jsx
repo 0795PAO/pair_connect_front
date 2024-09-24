@@ -8,7 +8,7 @@ import { toast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/button";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Form } from "@/components/ui/form";
-import CustomInput from "@/components/CustomInput";
+import CustomInput from "@/components/shared/CustomInput";
 
 const generateTimeOptions = () => {
   const times = [];
@@ -69,9 +69,12 @@ export const EventCalendar = () => {
   };
 
   return (
-    <div className="container mx-auto space-y-8 p-4 w-[50vw]">
+    <div className="container mx-auto space-y-8 p-4">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-4 w-[250px]"
+        >
           <CustomInput
             name="date"
             label="Seleccione la fecha"

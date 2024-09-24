@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   FormControl,
   FormDescription,
@@ -6,9 +5,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Select, SelectTrigger, SelectContent, SelectItem } from "./ui/select";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 const CustomInput = ({
   label,
