@@ -6,8 +6,9 @@ const SessionCard = ({ session }) => {
         <div
             key={session.id}
             className="relative w-full max-w-[280px] sm:max-w-[430px] md:max-w-[588px] p-4 sm:p-5 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 
-            bg-card text-card-foreground dark:bg-card-dark dark:text-card-dark-foreground my-2 
-            transition-transform duration-300 ease-in-out transform hover:scale-105 hover-shadow-custom hover:cursor-pointer"
+    bg-card text-card-foreground dark:bg-card-dark dark:text-card-dark-foreground my-2 
+    transition-transform duration-300 ease-in-out transform hover:scale-105 hover-shadow-custom cursor-pointer 
+    md:min-h-[220px] lg:min-h-[240px] flex flex-col justify-between"
             onClick={() => console.log(`Ir a la sesión: ${session.title}`)}
         >
             {session.status === "enrolled" && (

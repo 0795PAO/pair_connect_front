@@ -63,6 +63,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
     --button-hover: 191 100% 65%;
+    --shadow-custom-light: 0 2px 4px rgba(8, 223, 223, 1);
     --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
     --success: 145 70% 40%; 
     --success-foreground: 0 0% 100%; 
