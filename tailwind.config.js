@@ -41,6 +41,10 @@ export default {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'
 				},
+				success: {
+					DEFAULT: 'hsl(var(--success))',
+					foreground: 'hsl(var(--success-foreground))'
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -52,9 +56,8 @@ export default {
 					'5': 'hsl(var(--chart-5))'
 				},
 				button_hover: 'hsl(var(--button-hover))',
-			}
-		}
+			},
+		},
 	},
 	plugins: [require("tailwindcss-animate")],
-}
-
+};
