@@ -61,6 +61,9 @@ export const EventCalendar = () => {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentMonth, setCurrentMonth] = useState<Date | undefined>(
+    new Date()
+  );
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -74,6 +77,7 @@ export const EventCalendar = () => {
     const parsedDate = parse(data.date, "dd/MM/yyyy", new Date());
     setSelectedDate(parsedDate);
     setSelectedTime(data.time);
+    setCurrentMonth(parsedDate);
 
     toast({
       title: "Fecha y hora seleccionadas",
@@ -91,7 +95,6 @@ export const EventCalendar = () => {
       setLoading(true);
       setError(null);
       try {
-        // Simulación de una llamada a la API, debes reemplazar la URL con la de tu API
         const response = await fetch(
           `/api/events?date=${formattedDate}&time=${selectedTime}`
         );
@@ -99,13 +102,12 @@ export const EventCalendar = () => {
           throw new Error("Error al obtener los eventos");
         }
         const data = await response.json();
-        setEvents(data.events); // Suponiendo que la API retorna un objeto con un campo "events"
+        setEvents(data.events);
       } catch (err) {
-        // Verificación de tipo para asegurarnos que el error tiene un mensaje
         if (err instanceof Error) {
-          setError(err.message); // Usar el mensaje del error si es una instancia de Error
+          setError(err.message);
         } else {
-          setError("Error desconocido"); // Mensaje por defecto si el error no es una instancia de Error
+          setError("Error desconocido");
         }
       } finally {
         setLoading(false);
@@ -183,6 +185,7 @@ export const EventCalendar = () => {
         mode="single"
         selected={selectedDate}
         onSelect={setSelectedDate}
+        month={currentMonth}
         className="rounded-md border"
       />
 
