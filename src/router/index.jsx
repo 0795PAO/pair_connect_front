@@ -2,7 +2,11 @@
 import ProtectedLayout from "@/layouts/ProtectedLayout";
 import PublicLayout from "@/layouts/PublicLayout";
 import { createBrowserRouter } from "react-router-dom";
-import App  from '../App'
+import LoginPage from "@/pages/LoginPage";
+import AboutUsPage from "@/pages/AboutUsPage";
+import PairProgrammingPage from "@/pages/PairProgrammingPage";
+import ProjectsPage from "@/pages/ProjectsPage";
+import HomePageWrapper from "@/wrappers/HomePageWrapper";
 
 const router = createBrowserRouter([
   {
@@ -11,28 +15,32 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <App />
+        element: <HomePageWrapper />
       },
+      {
+        path: "/login",
+        element: <LoginPage />
+      },
+      {
+        path: '/about-us',
+        element: <AboutUsPage />
+      }, 
+      {
+        path: '/pair-programming',
+        element: <PairProgrammingPage />
+      }
     ],
   },
   { 
-
-      element: <ProtectedLayout />,
-      // children: [
-      //     {
-      //         path: "/home",
-      //         element: <HomePage />
-      //     },
-      //     {
-      //         path: "/destinations",
-      //         element: <DestinationPage />
-      //     },
-
-
-      // ],
+    element: <ProtectedLayout />,
+    children: [
+      {
+        path: '/projects',
+        element: <ProjectsPage/>
+      }
+    ]
   }
-
-
 ]);
 
-export default router
+export default router;
+

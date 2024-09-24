@@ -1,30 +1,25 @@
 /* eslint-disable react/prop-types */
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./ui/form"
-import { Input } from "./ui/input"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
+import { Input } from "../ui/input"
 
 
-
-
-const CustomInput = ({ label, placeholder, description, form}) => {
+const CustomInput = ({ label, placeholder, name, form, type }) => {
     return (
-
         <FormField
             control={form.control}
-            name="username"
+            name={name}
+            type={type}
             render={({ field }) => (
-                <FormItem >
+                <FormItem>
                     <FormLabel>{label}</FormLabel>
                     <FormControl>
                         <Input placeholder={placeholder} {...field} />
                     </FormControl>
-                    <FormDescription>
-                        {description}
-                    </FormDescription>
                     <FormMessage />
                 </FormItem>
             )}
         />
+    );
+};
 
-    )
-}
 export default CustomInput
