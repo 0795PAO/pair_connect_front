@@ -1,6 +1,6 @@
 const UserHomePage = () => {
     return (
-        <div>UserHomePage</div>
+        <div data-testid="user-home-page">UserHomePage</div>
     )
 }
 export default UserHomePage

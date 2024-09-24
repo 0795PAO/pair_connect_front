@@ -5,23 +5,15 @@
 @layer base {
   :root {
     --background: 240 5% 96%;
-    /* Light Fondo: #F5F5F5 (Blanco roto) */
     --foreground: 222.2 84% 4.9%;
-    /* Light Texto: #111827 (Gris casi negro) */
     --card: 210 11% 90%;
-    /* Light Acento (cards/footer): #E5E7EB (Gris pálido) */
     --card-foreground: 222.2 84% 4.9%;
-    /* Light Texto: #111827 (Gris casi negro) */
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 184 72% 65%;
-    /* Light Primario: #4AD3E5 (Cian) */
     --primary-foreground: 222.2 84% 4.9%;
-    /* Texto Primario sobre fondo claro */
     --secondary: 334 100% 66%;
-    /* Light Secondary: #FF5DA2 */
     --secondary-foreground: 222.2 84% 4.9%;
-    /* Secondary foreground igual al primary foreground (versión light) */
     --muted: 214 15% 85%;
     --muted-foreground: 210 25% 45%;
     --accent: 214 15% 85%;
@@ -42,27 +34,20 @@
     --success: 145 63% 49%; 
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+    --mouse-effect-color: 184 72% 45%;
   }
 
   .dark {
     --background: 207 17% 8%;
-    /* Dark Fondo: #0B0C10 (Negro carbón) */
     --foreground: 96 5% 95%;
-    /* Dark Texto: #F1F1F1 (Gris claro) */
     --card: 220 20% 20%;
-    /* Dark Acento (cards/footer): #1F2937 (Gris pizarra oscuro) */
     --card-foreground: 96 5% 95%;
-    /* Dark Texto: #F1F1F1 (Gris claro) */
     --popover: 207 17% 8%;
     --popover-foreground: 96 5% 95%;
     --primary: 184 72% 65%;
-    /* Dark Primario: #4AD3E5 (Cian) */
     --primary-foreground: 207 17% 8%;
-    /* Texto Primario sobre fondo oscuro */
     --secondary: 334 100% 66%;
-    /* Dark Secondary: #FF5DA2 */
     --secondary-foreground: 222.2 84% 4.9%;
-    /* Secondary foreground igual al primary foreground (versión light) */
     --muted: 214 15% 30%;
     --muted-foreground: 210 25% 65%;
     --accent: 214 15% 30%;
@@ -82,6 +67,7 @@
     --success: 145 70% 40%; 
     --success-foreground: 0 0% 100%; 
     --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+    --mouse-effect-color: var(--primary);
   }
 }
 
@@ -110,4 +96,38 @@
 
 .font-poppins {
   font-family: "Poppins" , sans-serif;
+}
+/* Classe per la card */
+.card-with-light-effect {
+  position: relative;
+  background-color: hsl(var(--background)); 
+  border-radius: var(--radius);
+}
+
+
+.card-with-light-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+/* Classe per l'effetto luce */
+.mouse-light-effect {
+  position: relative;
+  padding: 2px;
+}
+
+.mouse-light-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(150px at var(--mouse-x) var(--mouse-y), 
+    hsl(var(--mouse-effect-color)) 0%, 
+    rgba(255, 255, 255, 0.2) 40%, 
+    transparent 70%);
+  transition: background 0.1s ease-out;
+  border-radius: inherit;
 }
