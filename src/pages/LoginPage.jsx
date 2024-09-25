@@ -25,12 +25,23 @@ const LoginPage = () => {
             }
 
         } catch (error) {
-            console.error('Error registering user', error);
-            toast({
-                title: "Error",
-                description: `${error.message}`,
-                variant: "destructive",
-            })
+            if (error.response) {
+                console.error('Error status:', error.response.status);
+                toast({
+                    title: "Error",
+                    description: `${error.response.data.detail}`,
+                    variant: "destructive",
+                })
+
+            } else {
+                console.error(error.message)
+                toast({
+                    title: "Error",
+                    description: `Hubo un error inesperado intentalo mas tarde`,
+                    variant: "destructive",
+                })
+            }
+
         }
     }
 
