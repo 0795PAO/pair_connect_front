@@ -10,6 +10,10 @@ export default defineConfig({
     environment: 'jsdom', 
     setupFiles: ['./tests/setupTests.js'],
     include: ['tests/**/*.test.{js,ts,jsx,tsx}'], 
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      exclude: ['tests', 'node_modules']
+    },
   },
   resolve: {
     alias: {

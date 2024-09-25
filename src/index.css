@@ -6,21 +6,14 @@
   :root {
     --background: 240 5% 96%;
     --foreground: 222.2 84% 4.9%;
-   
     --card: 210 11% 90%;
-  
     --card-foreground: 222.2 84% 4.9%;
- 
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 184 72% 65%;
-
     --primary-foreground: 222.2 84% 4.9%;
-
     --secondary: 334 100% 66%;
-
     --secondary-foreground: 222.2 84% 4.9%;
-  
     --muted: 214 15% 85%;
     --muted-foreground: 210 25% 45%;
     --accent: 214 15% 85%;
@@ -41,27 +34,20 @@
     --success: 145 63% 49%; 
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+    --mouse-effect-color: 184 72% 45%;
   }
 
   .dark {
     --background: 207 17% 8%;
-
     --foreground: 96 5% 95%;
- 
     --card: 220 20% 20%;
-  
     --card-foreground: 96 5% 95%;
-  
     --popover: 207 17% 8%;
     --popover-foreground: 96 5% 95%;
     --primary: 184 72% 65%;
- 
     --primary-foreground: 207 17% 8%;
-
     --secondary: 334 100% 66%;
-  
     --secondary-foreground: 222.2 84% 4.9%;
-  
     --muted: 214 15% 30%;
     --muted-foreground: 210 25% 65%;
     --accent: 214 15% 30%;
@@ -81,6 +67,7 @@
     --success: 145 70% 40%; 
     --success-foreground: 0 0% 100%; 
     --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+    --mouse-effect-color: var(--primary);
   }
 }
 
@@ -110,4 +97,38 @@
 
 .font-poppins {
   font-family: "Poppins" , sans-serif;
+}
+/* Classe per la card */
+.card-with-light-effect {
+  position: relative;
+  background-color: hsl(var(--background)); 
+  border-radius: var(--radius);
+}
+
+
+.card-with-light-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+/* Classe per l'effetto luce */
+.mouse-light-effect {
+  position: relative;
+  padding: 2px;
+}
+
+.mouse-light-effect::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(150px at var(--mouse-x) var(--mouse-y), 
+    hsl(var(--mouse-effect-color)) 0%, 
+    rgba(255, 255, 255, 0.2) 40%, 
+    transparent 70%);
+  transition: background 0.1s ease-out;
+  border-radius: inherit;
 }
