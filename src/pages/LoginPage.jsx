@@ -2,20 +2,25 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { useToast } from "@/hooks/useToast";
+import { useAuth } from "@/hooks/useAuth";
 import { login } from "@/services/authService";
 import LoginForm from "@/components/auth/LoginForm"
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import { Button } from "@/components/ui/button";
 
+
 const LoginPage = () => {
     const { elementRef } = useMousePosition()
     const [isOpen, setIsOpen] = useState(false);
+    const { setIsAuthenticated } = useAuth();
     const { toast } = useToast();
     const navigate = useNavigate();
     const handleSubmit = async (data) => {
         try {
             const response = await login(data);
-            if (response.status === 'success') {
+            if (response.access) {
+                console.log('here')
+                setIsAuthenticated(true);
                 navigate('/')
             }
 
