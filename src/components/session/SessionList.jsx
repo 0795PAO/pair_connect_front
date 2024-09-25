@@ -7,101 +7,101 @@ const simulatedSessions = [
         id: 1,
         title: "Desarrollar App de Pair Programming",
         description: "Quiero desarrollar una app para hacer pair programming.",
-        date: "2024-09-20T10:00:00",
+        date: "2024-09-15T10:00:00",
         technologies: ["Django", "Python"],
         owner: {
             username: "italianCookieMonster",
             avatar: "/photo_italian.svg",
         },
-        status: "enrolled",
+        status: "",
     },
     {
         id: 2,
         title: "Crear un Blog con React",
         description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
-        date: "2024-09-20T11:00:00",
+        date: "2024-09-15T11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
             username: "Fire Fairy 84",
             avatar: "/photo_fire.svg",
         },
-        status: "pending",
+        status: "",
     },
     {
         id: 3,
         title: "Covid Tracker",
         description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
-        date: "2024-09-25T09:00:00",
+        date: "2024-09-15T09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
             username: "Naminé",
             avatar: "/photo_namine.svg",
         },
         projectImage: "/project_covid.svg",
-        status: "editable",
+        status: "",
     },
     {
         id: 4,
         title: "Desarrollar App de Pair Programming",
         description: "Quiero desarrollar una app para hacer pair programming.",
-        date: "2024-09-20T10:00:00",
+        date: "2024-09-15T10:00:00",
         technologies: ["Django", "Python"],
         owner: {
             username: "Dpoetess",
             avatar: "/photo_default.svg",
         },
-        status: "enrolled",
+        status: "",
     },
     {
         id: 5,
         title: "Crear un Blog con React",
         description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
-        date: "2024-09-20T11:00:00",
+        date: "2024-09-16T11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
             username: "0795PAO",
             avatar: "/photo_default.svg",
         },
-        status: "pending",
+        status: "",
     },
     {
         id: 6,
         title: "Covid Tracker",
         description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
-        date: "2024-09-25T09:00:00",
+        date: "2024-09-16T09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
             username: "Naminé",
             avatar: "/photo_namine.svg",
         },
         projectImage: "/project_covid.svg",
-        status: "editable",
+        status: "",
     },
     {
         id: 7,
         title: "Crear un Blog con React",
         description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
-        date: "2024-09-25T11:00:00",
+        date: "2024-09-16T11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
             username: "Fire Fairy 84",
             avatar: "/photo_fire.svg",
         },
         projectImage: "photo_default_project.svg",
-        status: "pending",
+        status: "",
     },
     {
         id: 8,
         title: "Covid Tracker",
         description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
-        date: "2024-09-25T09:00:00",
+        date: "2024-09-16T09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
             username: "italianCookieMonster",
             avatar: "/photo_italian.svg",
         },
         projectImage: "/project_covid.svg",
-        status: "editable",
+        status: "",
     },
 ];
 
@@ -139,30 +139,26 @@ const SessionList = () => {
         fetchSessions();
     }, []);
 
-    const enrolledSessions = sessions.filter(session => session.status === 'enrolled');
-    const pendingSessions = sessions.filter(session => session.status === 'pending');
-    const editableSessions = sessions.filter(session => session.status === 'editable');
-
     const sessionsByDate = groupSessionsByDate(sessions);
 
     return (
         <section className="max-w-6xl mx-auto my-10">
-            <h3 className="mb-4 text-4xl font-bold">Sesiones Programadas</h3>
+            <h3 className="mb-4 text-4xl font-bold">Sesiones Programadas:</h3>
 
             {Object.keys(sessionsByDate).map((date) => (
                 <div key={date} className="mb-8">
-                <h4 className="mb-4 text-lg font-semibold">{date}</h4>
-                <div className="grid justify-center grid-cols-1 gap-6 md:grid-cols-2">
-                    {sessionsByDate[date].map((session) => (
-                        <div key={session.id} className="mx-auto">
-                            <SessionCard session={session} />
-                        </div>
-                    ))}
+                    <h4 className="mb-4 text-lg font-semibold">{date}</h4>
+                    <div className="grid justify-center grid-cols-1 gap-6 md:grid-cols-2">
+                        {sessionsByDate[date].map((session) => (
+                            <div key={session.id} className="mx-auto">
+                                <SessionCard session={session} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        ))}
-    </section>
-);
+            ))}
+        </section>
+    );
 };
 
 export default SessionList

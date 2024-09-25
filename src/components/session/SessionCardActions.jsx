@@ -8,6 +8,7 @@ const SessionCardActions = ({ session }) => {
                 onClick={() => console.log(`Editar sesión: ${session.id}`)}
                 className="p-1 rounded sm:p-2 bg-card text-card-foreground hover:bg-primary hover:text-primary-foreground"
                 aria-label="Editar sesión"
+                title="Editar sesión" 
             >
                 <ReactSVG
                     src="/icon_edit.svg"
@@ -24,6 +25,7 @@ const SessionCardActions = ({ session }) => {
                 onClick={() => console.log(`Eliminar sesión: ${session.id}`)}
                 className="p-1 rounded sm:p-2 bg-card text-card-foreground hover:bg-secondary hover:text-secondary-foreground"
                 aria-label="Eliminar sesión"
+                title="Eliminar sesión"
             >
                 <ReactSVG
                     src="/icon_delete.svg"
