@@ -30,10 +30,15 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
     --button-hover: 191 100% 65%;
-    --shadow-custom: 36px 36px 36px 36px rgba(50, 209, 255, 0.50);
-    --success: 145 63% 49%; 
+    --shadow-custom: 0px 0px 10px 12px rgba(12, 183, 230, 0.127);
+    --card-session-shadow-dark: 0 4px 12px 0 rgb(18, 174, 194);
+    --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
-    --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+    --gradient: linear-gradient(
+      to right,
+      rgba(8, 223, 223, 1),
+      rgba(255, 93, 162, 1)
+    );
     --mouse-effect-color: 184 72% 45%;
   }
 
@@ -64,9 +69,14 @@
     --chart-5: 340 75% 55%;
     --button-hover: 191 100% 65%;
     --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
-    --success: 145 70% 40%; 
-    --success-foreground: 0 0% 100%; 
-    --gradient: linear-gradient(to right, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1));
+    --card-session-shadow-light: 0 4px 12px 0 rgba(8, 223, 223, 1);
+    --success: 145 70% 40%;
+    --success-foreground: 0 0% 100%;
+    --gradient: linear-gradient(
+      to right,
+      rgba(8, 223, 223, 1),
+      rgba(255, 93, 162, 1)
+    );
     --mouse-effect-color: var(--primary);
   }
 }
@@ -79,12 +89,12 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Source Code Pro', monospace;
+    font-family: "Source Code Pro", monospace;
   }
 }
 
 .custom-shadow {
-  --shadow-custom: 36px 36px 36px 36px rgba(50, 209, 255, 0.50);
+  --shadow-custom: 36px 36px 36px 36px rgba(50, 209, 255, 0.5);
 }
 
 .hover-shadow-custom:hover {
@@ -96,18 +106,17 @@
 }
 
 .font-poppins {
-  font-family: "Poppins" , sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 /* Classe per la card */
 .card-with-light-effect {
   position: relative;
-  background-color: hsl(var(--background)); 
+  background-color: hsl(var(--background));
   border-radius: var(--radius);
 }
 
-
 .card-with-light-effect::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: var(--radius);
@@ -121,14 +130,29 @@
 }
 
 .mouse-light-effect::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(150px at var(--mouse-x) var(--mouse-y), 
-    hsl(var(--mouse-effect-color)) 0%, 
-    rgba(255, 255, 255, 0.2) 40%, 
-    transparent 70%);
+  background: radial-gradient(
+    150px at var(--mouse-x) var(--mouse-y),
+    hsl(var(--mouse-effect-color)) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 70%
+  );
   transition: background 0.1s ease-out;
   border-radius: inherit;
+}
+
+.card-session {
+  border-radius: var(--radius);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card-session:hover {
+  box-shadow: var(--card-session-shadow-light);
+}
+
+.dark .card-session:hover {
+  box-shadow: var(--card-session-shadow-dark);
 }

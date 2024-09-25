@@ -25,8 +25,7 @@ const reducer = (state, action) => {
     case "ADD_TOAST":
       return {
         ...state,
-        toasts: [action.toast, ...state.toasts].slice(0,
-          TOAST_LIMIT),
+        toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       };
     case "UPDATE_TOAST":
       return {
@@ -49,9 +48,9 @@ const reducer = (state, action) => {
         toasts: state.toasts.map((t) =>
           t.id === toastId || toastId === undefined
             ? {
-              ...t,
-              open: false,
-            }
+                ...t,
+                open: false,
+              }
             : t
         ),
       };
@@ -65,8 +64,7 @@ const reducer = (state, action) => {
       }
       return {
         ...state,
-        toasts: state.toasts.filter((t) => t.id !==
-          action.toastId),
+        toasts: state.toasts.filter((t) => t.id !== action.toastId),
       };
     default:
       return state;
@@ -87,10 +85,11 @@ function toast({ ...props }) {
       type: "UPDATE_TOAST",
       toast: { ...props, id },
     });
-  const dismiss = () => dispatch({
-    type: "DISMISS_TOAST", toastId:
-      id
-  });
+  const dismiss = () =>
+    dispatch({
+      type: "DISMISS_TOAST",
+      toastId: id,
+    });
   dispatch({
     type: "ADD_TOAST",
     toast: {
@@ -122,10 +121,11 @@ function useToast() {
   return {
     ...state,
     toast,
-    dismiss: (toastId) => dispatch({
-      type: "DISMISS_TOAST",
-      toastId
-    }),
+    dismiss: (toastId) =>
+      dispatch({
+        type: "DISMISS_TOAST",
+        toastId,
+      }),
   };
 }
 export { useToast, toast };
