@@ -5,6 +5,10 @@ export default {
 		"./src/**/*.{js,ts,jsx,tsx}",],
 	theme: {
 		extend: {
+			boxShadow: {
+				'card-session-shadow-light': '0 4px 12px 0 rgba(8, 223, 223, 1)',
+				'card-session-shadow-dark': '0 4px 12px 0 rgb(18, 174, 194)', 
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -59,5 +63,8 @@ export default {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require('tailwindcss-animate'),
+		require('@tailwindcss/line-clamp'),
+	],
 };
