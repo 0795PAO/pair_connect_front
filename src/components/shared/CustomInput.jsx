@@ -33,7 +33,10 @@ const CustomInput = ({
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
-                <SelectTrigger className="w-[240px] pl-3 text-left">
+                <SelectTrigger
+                  className="w-[240px] pl-3 text-left"
+                  aria-labelledby={`${name}-label`}
+                >
                   {field.value || "Seleccione una opción"}
                 </SelectTrigger>
                 <SelectContent>
