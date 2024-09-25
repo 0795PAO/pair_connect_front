@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import HeroButton from '@/components/HeroButton';
+import HeroButton from '@/components/landing/HeroButton';
 
 describe('HeroButton', () => {
     it('renders HeroButton with correct text', () => {
