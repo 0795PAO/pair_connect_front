@@ -1,9 +1,8 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
-import HomePage from '@/pages/HomePage'; // aggiorna il percorso secondo la tua struttura
+import HomePage from '@/pages/HomePage';
 import { registerUser } from '@/services/authService';
 import { BrowserRouter } from 'react-router-dom'
-import { useToast } from '@/hooks/useToast';
 
 vi.mock('@/services/authService', () => ({
     registerUser: vi.fn(),
