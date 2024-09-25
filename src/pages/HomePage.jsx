@@ -11,28 +11,47 @@ const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (data) => {
+    setLoading(true);
     try {
       const response = await registerUser(data);
-      if (response.status === "success") {
+      if (response.status === 201) {
         toast({
           title: "Registrado",
-          description: "Se ha registrado correctamente",
+          description: "Se ha registrado correctamente, controle su correo para activar su cuenta",
           variant: "success",
         });
         const timeoutId = setTimeout(() => {
-          navigate("/login");
-        }, 4000);
+          navigate("/");
+        }, 5000);
         return () => clearTimeout(timeoutId);
       }
     } catch (error) {
       console.error("Error registering user", error);
+      
+      let errorMessage = "Ocurrió un error al registrarse";
+
+      if (error.response) {
+        const errorData = error.response.data;
+        
+        if (errorData.password) {
+          errorMessage = errorData.password.join(" ");
+        } else if (errorData.email) {
+          errorMessage = errorData.email.join(" ");
+        } else if (errorData.non_field_errors) {
+          errorMessage = errorData.non_field_errors.join(" ");
+        }
+      }
+
       toast({
         title: "Error",
-        description: `${error.message}`,
+        description: errorMessage,
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,6 +74,7 @@ const HomePage = () => {
         open={isOpen}
         onOpenChange={setIsOpen}
         handleSubmit={handleSubmit}
+        loading={loading}
       />
     </div>
   );
