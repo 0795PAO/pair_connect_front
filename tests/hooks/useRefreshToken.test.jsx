@@ -50,7 +50,6 @@ describe('useTokenRefresh', () => {
         refreshToken.mockResolvedValueOnce('new_token');
 
         const { result } = renderHook(() => useTokenRefresh(setIsAuthenticated));
-        console.log("I am the result from the hook ",result.current)
         await waitFor(() => {
             expect(refreshToken).toHaveBeenCalled();
             expect(setIsAuthenticated).toHaveBeenCalledWith(true);
@@ -61,12 +60,10 @@ describe('useTokenRefresh', () => {
         const mockToken = 'expired_token';
         const mockDecodedToken = { exp: Date.now() / 1000 - 3600 }; 
         localStorage.setItem(ACCESS_TOKEN, mockToken);
-        console.log("I am the mock token ", mockToken)
         jwtDecode.mockReturnValue(mockDecodedToken);
         refreshToken.mockRejectedValueOnce(new Error('Refresh failed'));
 
         const { result } = renderHook(() => useTokenRefresh(setIsAuthenticated));
-        console.log("I am the result from the hook ", result.current)
         await waitFor(() => {
             expect(refreshToken).toHaveBeenCalled();
             expect(setIsAuthenticated).toHaveBeenCalledWith(false);
