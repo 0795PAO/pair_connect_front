@@ -50,12 +50,14 @@ describe('authService - logout', () => {
         vi.clearAllMocks();  
     });
     beforeEach(() => {
+        vi.spyOn(Storage.prototype, 'getItem')
         vi.spyOn(Storage.prototype, 'removeItem');
     });
 
     it('should logout successfully and remove tokens', async () => {
         const mockResponse = { data: {} };
 
+        localStorage.getItem.mockReturnValue(REFRESH_TOKEN);
         api.post.mockResolvedValueOnce(mockResponse);
 
         const result = await logout();
@@ -64,7 +66,7 @@ describe('authService - logout', () => {
         expect(localStorage.removeItem).toHaveBeenCalledWith(REFRESH_TOKEN);
 
         expect(result).toEqual(mockResponse.data);
-        expect(api.post).toHaveBeenCalledWith(AUTH_URLS.LOGOUT, undefined);
+        expect(api.post).toHaveBeenCalledWith(AUTH_URLS.LOGOUT, { refresh: REFRESH_TOKEN });
     });
 
     it.skip('should throw error on failed logout', async () => {
@@ -75,6 +77,16 @@ describe('authService - logout', () => {
         await expect(logout()).rejects.toThrow('Logout failed');
     });
 
+});
+
+describe('authService - refreshToken', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();  
+    });
+    beforeEach(() => {
+        vi.spyOn(Storage.prototype, 'getItem')
+        vi.spyOn(Storage.prototype, 'setItem');
+    });
     it('should refresh token successfully and store new access token', async () => {
         const mockResponse = { data: { access: 'new_access_token' } };
     
@@ -126,7 +138,7 @@ describe('authService - logout', () => {
     
         await expect(refreshToken()).rejects.toThrow('Failed to refresh token');
     });
-});
+})
 
 
 

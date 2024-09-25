@@ -10,12 +10,12 @@ const schema = yup.object({
     username: yup.string().required('El nombre de usuario es obligatorio'),
     email: yup.string().email('Correo electrónico no válido').required('El correo electrónico es obligatorio'),
     password: yup.string().min(8, 'La contraseña debe tener al menos 8 caracteres').required('La contraseña es obligatoria'),
-    confirm_password: yup.string()
+    re_password: yup.string()
         .oneOf([yup.ref('password'), null], 'Las contraseñas no coinciden')
         .required('La confirmación de la contraseña es obligatoria'),
 });
 
-const RegisterForm = ({ handleSubmit}) => {
+const RegisterForm = ({ handleSubmit, loading}) => {
     const form = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
@@ -27,6 +27,12 @@ const RegisterForm = ({ handleSubmit}) => {
     });
 
     const registerInputs = [
+        {
+            name: 'name',
+            type: 'text',
+            placeholder: 'Nombre',
+            label: 'Nombre',
+        },
         {
             name: "username",
             type: "text",
@@ -46,7 +52,7 @@ const RegisterForm = ({ handleSubmit}) => {
             label: "Contraseña",
         },
         {
-            name: "confirm_password",
+            name: "re_password",
             type: "password",
             placeholder: "Confirma tu contraseña",
             label: "Confirmar contraseña",
@@ -66,7 +72,7 @@ const RegisterForm = ({ handleSubmit}) => {
                         type={input.type}
                     />
                 ))}
-                <Button type="submit" className="w-[50%] self-center">Enviar</Button>
+                <Button type="submit" className="w-[50%] self-center">{loading ? 'Cargando...' : 'Enviar'}</Button>
             </form>
         </Form>
     );

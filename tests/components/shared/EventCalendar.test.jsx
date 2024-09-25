@@ -6,10 +6,9 @@ import {
   act,
 } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
-import { EventCalendar } from "@/components/EventCalendar";
+import { EventCalendar } from "@/components/shared/EventCalendar";
 import { toast } from "@/hooks/useToast";
 import { parse } from "date-fns";
-import { CodeSandboxLogoIcon } from "@radix-ui/react-icons";
 
 vi.mock("@/hooks/useToast", () => ({
   toast: vi.fn(),
