@@ -3,11 +3,13 @@ import { refreshToken } from '@/services/authService';
 import { ACCESS_TOKEN } from '@/config/constants';
 import { jwtDecode } from 'jwt-decode';
 
-export const useTokenRefresh = (setIsAuthenticated) => {
+export const useTokenRefresh = (isAuthenticated, setIsAuthenticated) => {
     useEffect(() => {
+        if (!isAuthenticated){
+            return
+        }
         const auth = async () => {
             const token = localStorage.getItem(ACCESS_TOKEN);
-            console.log(token)
             if (!token) {
                 setIsAuthenticated(false);
                 return;
@@ -30,5 +32,5 @@ export const useTokenRefresh = (setIsAuthenticated) => {
         };
 
         auth();
-    }, [setIsAuthenticated]);
+    }, [setIsAuthenticated, isAuthenticated]);
 };
