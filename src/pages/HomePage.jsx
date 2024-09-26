@@ -62,12 +62,13 @@ const HomePage = () => {
       <HeroSection handleRegisterClick={setIsOpen} />
       <SessionList />
 
-      <section className="flex flex-col items-center justify-center gap-5 text-center">
-        <h3 className="text-xl font-bold">No te lo pienses más</h3>
+      <section className="flex flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
+        <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
         <Button
           variant="specialShadow"
           onClick={() => setIsOpen(true)}
           size="lg"
+          title={"Si quieres hacer match, te toca registrarte =D "} 
         >
           Regístrate
         </Button>

@@ -73,10 +73,10 @@
     --success: 145 70% 40%;
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(
-      to right,
-      rgba(8, 223, 223, 1),
-      rgba(255, 93, 162, 1)
-    );
+    to right,
+    rgba(8, 223, 223, 1),
+    rgba(255, 93, 162, 1)
+  );
     --mouse-effect-color: var(--primary);
   }
 }
@@ -85,11 +85,15 @@
   * {
     @apply border-border;
   }
-
+  
   body {
     @apply bg-background text-foreground;
     font-family: "Source Code Pro", monospace;
   }
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .custom-shadow {
@@ -107,6 +111,7 @@
 .font-poppins {
   font-family: "Poppins", sans-serif;
 }
+
 /* Classe per la card */
 .card-with-light-effect {
   position: relative;
@@ -179,4 +184,35 @@
 
 .restore {
   animation: restoreEffect 0.5s ease forwards;
+}
+
+
+/* h1 */
+.gradient-text {
+  background-image: var(--gradient);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
