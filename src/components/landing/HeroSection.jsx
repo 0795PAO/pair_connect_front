@@ -4,17 +4,34 @@ import 'animate.css';
 
 const HeroSection = ({ handleRegisterClick }) => {
     return (
-        <section className="flex flex-col items-center justify-center pt-2 mt-40 mb-40 text-center bg-background">
+        <section className="relative flex flex-col items-center justify-center text-center hero-section bg-background motion-reduce:transform-none">
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+
             <h1
-                className="mb-10 font-poppins font-bold text-6xl md:text-7xl lg:text-9xl leading-[120%]  gradient-text cursor-pointer animate__zoomIn animate__animated "
+                className="mb-10 font-poppins font-bold text-6xl md:text-7xl lg:text-9xl leading-[120%] gradient-text cursor-pointer animate__zoomIn animate__animated motion-reduce:transform-none"
                 style={{ backgroundImage: 'var(--gradient)' }}
             >
                 Pair Connect
             </h1>
-            <p className="text-xl mb-28 md:text-2xl lg:text-3xl text-foreground">
+            <p className="mb-24 text-xl md:text-2xl lg:text-3xl text-foreground">
                 Conecta, programa y crece en equipo
             </p>
             <HeroButton text="Regístrate aquí" onClick={handleRegisterClick} />
+
+            <p className="mt-10 text-xs md:text-sm lg:text-sm text-foreground">
+                Una vez completado el registro, obtendrás acceso a los detalles de contacto
+            </p>
+            <img src="/arrow-gradient.svg" alt="Down Arrow" className="w-12 h-12 mt-10 animate-bounce motion-reduce:transform-none" />
+
         </section>
     );
 };
