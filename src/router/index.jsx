@@ -7,6 +7,7 @@ import AboutUsPage from "@/pages/AboutUsPage";
 import PairProgrammingPage from "@/pages/PairProgrammingPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import HomePageWrapper from "@/wrappers/HomePageWrapper";
+import ActivationPage from "@/pages/ActivationPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/pair-programming',
         element: <PairProgrammingPage />
+      },
+      {
+        path: '/activate/:uid/:token',
+        element: <ActivationPage/>
       }
     ],
   },

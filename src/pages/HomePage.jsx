@@ -40,6 +40,8 @@ const HomePage = () => {
           errorMessage = errorData.password.join(" ");
         } else if (errorData.email) {
           errorMessage = errorData.email.join(" ");
+        } else if (errorData.username) {
+          errorMessage = errorData.username.join(" ");
         } else if (errorData.non_field_errors) {
           errorMessage = errorData.non_field_errors.join(" ");
         }
