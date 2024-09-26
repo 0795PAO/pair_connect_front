@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ModeToggle from "./ModeToggle";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/hooks/useToast";
+import { logout } from "@/services/authService";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, logout } = useAuth(); // Asegúrate de extraer 'logout'
+  const { isAuthenticated } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -106,3 +108,5 @@ const Navbar = () => {
     </nav>
   );
 };
+
+export default Navbar;

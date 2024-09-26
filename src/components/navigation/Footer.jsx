@@ -1,6 +1,5 @@
 import FacebookIcon from "../icons/FacebookIcon";
 import YouTubeIcon from "../icons/YoutubeIcon";
-import XIcon from "../icons/XIcon";
 import InstagramIcon from "../icons/InstagramIcon";
 import { Button } from "../ui/button";
 
@@ -24,9 +23,6 @@ const Footer = () => {
           </Button>
           <Button variant="ghost" size="icon">
             <YouTubeIcon />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <XIcon />
           </Button>
           <Button variant="ghost" size="icon">
             <InstagramIcon />
