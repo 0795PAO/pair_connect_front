@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ModeToggle from "./ModeToggle";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated } = useAuth();
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [menuColor, setMenuColor] = useState("");
+  const { isAuthenticated, logout } = useAuth(); // Asegúrate de extraer 'logout'
+  const navigate = useNavigate(); // Llama a la función para obtener el `navigate` correctamente
 
   const navlinks = [
     { name: "Home", to: "/" },
@@ -18,6 +17,11 @@ const Navbar = () => {
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleLogout = () => {
+    logout(); // Cierra la sesión
+    navigate("/"); // Redirige a la página de inicio
+  };
 
   return (
     <nav className={`shadow-lg px-6 py-4`}>
@@ -41,13 +45,22 @@ const Navbar = () => {
               {item.name}
             </NavLink>
           ))}
-          {isAuthenticated && <NavLink to="/profile">Mi perfil</NavLink>}
+          {isAuthenticated && (
+            <>
+              <NavLink to="/profile">Mi perfil</NavLink>
+              <NavLink to="/projects">Mis proyectos</NavLink>
+            </>
+          )}
         </div>
 
         {/* Toggle, Login y Menú */}
         <div className="flex items-center space-x-4">
           <ModeToggle />
-          <Button>Login</Button>
+          {isAuthenticated ? (
+            <Button onClick={handleLogout}>Log Out</Button>
+          ) : (
+            <Button>Login</Button>
+          )}
           <div className="lg:hidden">
             {" "}
             {/* Menú móvil visible solo en pantallas pequeñas */}
@@ -60,13 +73,18 @@ const Navbar = () => {
 
       {/* Menú móvil para pantallas pequeñas */}
       {isOpen && (
-        <div className="md:hidden flex flex-col items-left space-y-2 py-5">
+        <div className="lg:hidden flex flex-col items-left space-y-2 py-5">
           {navlinks.map((item) => (
             <NavLink key={item.name} to={item.to}>
               {item.name}
             </NavLink>
           ))}
-          {isAuthenticated && <NavLink to="/profile">Mi perfil</NavLink>}
+          {isAuthenticated && (
+            <>
+              <NavLink to="/profile">Mi perfil</NavLink>
+              <NavLink to="/projects">Mis proyectos</NavLink>
+            </>
+          )}
         </div>
       )}
     </nav>
