@@ -13,13 +13,13 @@ const ActivationPage = () => {
             try {
                 const response = await activateAccount({ uid, token });
                 console.log(response);
-                setActivationStatus("Account activated successfully!"); setTimeout(() => {
+                setActivationStatus("¡Account activado con éxito!"); setTimeout(() => {
                     navigate("/login"); 
                 }, 4000)
 
             } catch (error) {
                 console.log(error);
-                setActivationStatus("Activation failed. Please try again.");
+                setActivationStatus("Hubo un fallo en la activación. Por favor, intentalo mas tarde.");
             }
         };
 
@@ -28,7 +28,7 @@ const ActivationPage = () => {
 
     return (
         <div>
-            <h1>{activationStatus ? activationStatus : "Activating account..."}</h1>
+            <h1 className="text-2xl font-bold">{activationStatus ? activationStatus : "Activando tu cuenta..."}</h1>
         </div>
     );
 };
