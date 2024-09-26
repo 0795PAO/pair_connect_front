@@ -7,7 +7,6 @@ export const useTokenRefresh = (setIsAuthenticated) => {
     useEffect(() => {
         const auth = async () => {
             const token = localStorage.getItem(ACCESS_TOKEN);
-            console.log(token)
             if (!token) {
                 setIsAuthenticated(false);
                 return;

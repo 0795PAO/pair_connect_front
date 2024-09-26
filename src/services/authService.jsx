@@ -3,7 +3,6 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/config/constants';
 import api from '@/config/apiInterceptor';
 
 
-
 export const login = async (user) => {
     try {
         const response = await api.post(AUTH_URLS.LOGIN, user);

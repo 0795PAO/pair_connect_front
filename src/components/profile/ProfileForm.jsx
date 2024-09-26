@@ -61,7 +61,7 @@ const ProfileForm = ({ handleSubmit, loading }) => {
         },
         {
             name: "image",
-            type: "text",
+            type: "file",
             placeholder: "Avatar",
             label: "Avatar",
         },

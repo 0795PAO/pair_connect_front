@@ -51,6 +51,8 @@ const CustomInput = ({
             ) : (
               <Input
                 placeholder={placeholder}
+                type={type}
+                id={name}
                 {...field}
                 value={field.value || ""}
               />
