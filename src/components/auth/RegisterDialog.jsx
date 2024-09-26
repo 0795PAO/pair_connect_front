@@ -10,7 +10,7 @@ import {
 } from '../ui/dialog';
 import RegisterForm from './RegisterForm';
 
-const RegisterDialog = ({ open, onOpenChange, handleSubmit }) => {
+const RegisterDialog = ({ open, onOpenChange, handleSubmit, loading }) => {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="gap-6 w-[90vw] md:w-full rounded-lg">
@@ -19,7 +19,7 @@ const RegisterDialog = ({ open, onOpenChange, handleSubmit }) => {
                     <DialogDescription className="text-center mt-3 mb-5 text-md">
                         Crea tu cuenta rellenando los campos abajo.
                     </DialogDescription>
-                    <RegisterForm handleSubmit={handleSubmit}/>
+                    <RegisterForm handleSubmit={handleSubmit} loading={loading}/>
                 </DialogHeader>
                 <DialogFooter className="text-center sm:justify-center flex-col items-center justify-center gap-2">
                     <p>¿Ya te has registrado?</p>

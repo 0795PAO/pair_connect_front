@@ -7,5 +7,6 @@ export const AUTH_URLS = {
     REFRESH: `${API_BASE_URL}auth/jwt/refresh/`,
     USER_UPDATE: `${API_BASE_URL}auth/users/me/`, // PATCH REQUEST NOT PUT 
     LOGOUT: `${API_BASE_URL}auth/jwt/logout/`,
+    ACTIVATE: `${API_BASE_URL}auth/users/activation/`,
 };
 
