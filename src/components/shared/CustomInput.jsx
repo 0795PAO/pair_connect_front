@@ -14,6 +14,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 
+import { Textarea } from "@/components/ui/textarea";
+
 const CustomInput = ({
   label,
   placeholder,
@@ -22,6 +24,7 @@ const CustomInput = ({
   form,
   type,
   options,
+  accept,
 }) => {
   return (
     <FormField
@@ -47,6 +50,12 @@ const CustomInput = ({
                   ))}
                 </SelectContent>
               </Select>
+              ) : type === "textarea" ? (
+                <Textarea
+                  placeholder={placeholder}
+                  {...field}
+                  value={field.value || ""}
+                />
             ) : (
               <Input
                 placeholder={placeholder}
