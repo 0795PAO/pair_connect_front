@@ -30,7 +30,7 @@ const CustomInput = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel htmlFor={name}>{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>

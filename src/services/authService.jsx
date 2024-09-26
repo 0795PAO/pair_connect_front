@@ -49,10 +49,12 @@ export const logout = async () => {
     try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
         const response = await api.post(AUTH_URLS.LOGOUT, { refresh: refreshToken });
-        if (response.data) {
+        console.log(response)
+        if (response) {
             localStorage.removeItem(ACCESS_TOKEN);
             localStorage.removeItem(REFRESH_TOKEN);
         }
+
         return response;
     } catch (err) {
         console.error(err);
