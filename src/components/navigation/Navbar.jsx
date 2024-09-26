@@ -5,12 +5,12 @@ import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/useToast";
-import { logout } from "@/services/authService";
+import { logout as logoutService } from "@/services/authService";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -31,7 +31,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await logout();
+      const response = await logoutService();
       console.log(response);
       if (response.status === 200) {
         toast({
@@ -39,7 +39,8 @@ const Navbar = () => {
           description: "Se ha cerrado la sesión correctamente",
           variant: "success",
         });
-        setTimeout(() => navigate("/login"), 4000);
+        logout();
+        navigate("/");
       }
     } catch (err) {
       toast({
