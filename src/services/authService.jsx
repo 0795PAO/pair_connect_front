@@ -53,7 +53,7 @@ export const logout = async () => {
             localStorage.removeItem(ACCESS_TOKEN);
             localStorage.removeItem(REFRESH_TOKEN);
         }
-        return response.data;
+        return response;
     } catch (err) {
         console.error(err);
         throw err;

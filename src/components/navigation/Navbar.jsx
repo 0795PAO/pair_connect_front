@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/useToast";
 import { logout } from "@/services/authService";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,11 +32,12 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await logout();
-      if (response.status === 201) {
+      console.log(response);
+      if (response.status === 200) {
         toast({
           title: "Logout",
           description: "Se ha cerrado la sesión correctamente",
-          variant: "Success",
+          variant: "success",
         });
         setTimeout(() => navigate("/login"), 4000);
       }
@@ -84,7 +86,7 @@ const Navbar = () => {
           ))}
           {isAuthenticated && (
             <>
-              <NavLink to="/profile">Mi perfil</NavLink>
+              <NavLink to="/my-profile">Mi perfil</NavLink>
               <NavLink to="/projects">Mis proyectos</NavLink>
             </>
           )}
@@ -95,7 +97,7 @@ const Navbar = () => {
           {isAuthenticated ? (
             <Button onClick={handleLogout}>Log Out</Button>
           ) : (
-            <Button>Login</Button>
+            <Button><Link to="/login">Login</Link></Button>
           )}
           <div className="lg:hidden" ref={menuRef}>
             <button
