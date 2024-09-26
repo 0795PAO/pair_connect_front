@@ -1,8 +1,9 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useState, useEffect } from 'react';
 import SessionCard from '@/components/session/SessionCard';
 
 // Datos simulados BORRAR
-const simulatedSessions = [
+export const simulatedSessions = [
     {
         id: 1,
         title: "Desarrollar App de Pair Programming",
@@ -71,7 +72,7 @@ const simulatedSessions = [
         date: "2024-09-16 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
-            username: "Naminé",
+            username: "Naminé1",
             avatar: "/photo_namine.svg",
         },
         projectImage: "/project_covid.svg",
@@ -84,7 +85,7 @@ const simulatedSessions = [
         date: "2024-09-17 11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
-            username: "Fire Fairy 84",
+            username: "Fire Fairy 84-1",
             avatar: "/photo_fire.svg",
         },
         projectImage: "photo_default_project.svg",
@@ -97,7 +98,7 @@ const simulatedSessions = [
         date: "2024-09-16 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
-            username: "italianCookieMonster",
+            username: "italianCookieMonster2",
             avatar: "/photo_italian.svg",
         },
         projectImage: "/project_covid.svg",
