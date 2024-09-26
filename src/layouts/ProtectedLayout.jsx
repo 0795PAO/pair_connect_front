@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useTokenRefresh } from "@/hooks/useTokenRefresh";
 import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const ProtectedLayout = () => {
@@ -30,6 +31,8 @@ const ProtectedLayout = () => {
                 <Outlet />
             </main>
             <Footer />
+            <Toaster />
+
         </>
     ) : (
         <Navigate to="/login" />

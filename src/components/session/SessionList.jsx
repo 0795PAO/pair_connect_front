@@ -7,7 +7,7 @@ const simulatedSessions = [
         id: 1,
         title: "Desarrollar App de Pair Programming",
         description: "Quiero desarrollar una app para hacer pair programming.",
-        date: "2024-09-15T10:00:00",
+        date: "2024-09-15 10:00:00",
         technologies: ["Django", "Python"],
         owner: {
             username: "italianCookieMonster",
@@ -19,7 +19,7 @@ const simulatedSessions = [
         id: 2,
         title: "Crear un Blog con React",
         description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
-        date: "2024-09-15T11:00:00",
+        date: "2024-09-15 11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
             username: "Fire Fairy 84",
@@ -31,7 +31,7 @@ const simulatedSessions = [
         id: 3,
         title: "Covid Tracker",
         description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
-        date: "2024-09-15T09:00:00",
+        date: "2024-09-15 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
             username: "Naminé",
@@ -44,7 +44,7 @@ const simulatedSessions = [
         id: 4,
         title: "Desarrollar App de Pair Programming",
         description: "Quiero desarrollar una app para hacer pair programming.",
-        date: "2024-09-15T10:00:00",
+        date: "2024-09-15 10:00:00",
         technologies: ["Django", "Python"],
         owner: {
             username: "Dpoetess",
@@ -56,7 +56,7 @@ const simulatedSessions = [
         id: 5,
         title: "Crear un Blog con React",
         description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
-        date: "2024-09-16T11:00:00",
+        date: "2024-09-16 11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
             username: "0795PAO",
@@ -68,7 +68,7 @@ const simulatedSessions = [
         id: 6,
         title: "Covid Tracker",
         description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
-        date: "2024-09-16T09:00:00",
+        date: "2024-09-16 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
             username: "Naminé",
@@ -81,7 +81,7 @@ const simulatedSessions = [
         id: 7,
         title: "Crear un Blog con React",
         description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
-        date: "2024-09-16T11:00:00",
+        date: "2024-09-17 11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
             username: "Fire Fairy 84",
@@ -94,7 +94,7 @@ const simulatedSessions = [
         id: 8,
         title: "Covid Tracker",
         description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
-        date: "2024-09-16T09:00:00",
+        date: "2024-09-16 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
             username: "italianCookieMonster",
