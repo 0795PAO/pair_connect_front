@@ -9,9 +9,11 @@ import { Toaster } from "@/components/ui/toaster";
 
 const ProtectedLayout = () => {
     const { isAuthenticated, setIsAuthenticated } = useAuth();
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    useTokenRefresh(setIsAuthenticated);
+
+    useTokenRefresh(isAuthenticated, setIsAuthenticated);
+
 
     useEffect(() => {
         if (isAuthenticated !== null) {
@@ -19,9 +21,9 @@ const ProtectedLayout = () => {
         }
     }, [isAuthenticated]);
 
-    
+
     if (loading) {
-        return <div>Loading...</div>; 
+        return <div>Loading...</div>;
     }
 
     return isAuthenticated ? (
