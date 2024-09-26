@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
+import { MultiSelector } from "@/components/ui/multiSelector"
 
 const CustomInput = ({
   label,
@@ -56,6 +57,13 @@ const CustomInput = ({
                   placeholder={placeholder}
                   {...field}
                   value={field.value || ""}
+                />
+              ) : type === "multiselect" ? (
+                <MultiSelector
+                  options={options}
+                  value={field.value || []}
+                  onChange={field.onChange}
+                  placeholder={placeholder}
                 />
             ) : (
               <Input

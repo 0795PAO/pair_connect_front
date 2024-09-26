@@ -12,17 +12,29 @@ const ProjectsPage = () => {
 
     useEffect(() => {
     // Fetch the user's projects from the backend
+    /*     const fetchProjects = async () => {
+            try {
+            const response = await api.get('projects/');
+            setProjects(response.data);
+            } catch (error) {
+            console.error('Error fetching projects', error);
+            }
+        };
+        
+        fetchProjects(); */
+
     // For now, we'll simulate with an empty array
         setProjects([]);
     }, []);
 
     const handleProjectClick = (project) => {
-        setSelectedProject(project);
+        //navigate(`/projects/${project.id}`);
+        navigate("/projects");
     };
 
     const handleCreateProject = () => {
-        navigate("/create-project");  // Redirect to the form page
-      };
+        navigate("/projects/create");  // Redirect to the form page
+    };
 
     return (
         <div className="container mx-auto p-4">
@@ -43,4 +55,5 @@ const ProjectsPage = () => {
     </div>
   );
 };
+
 export default ProjectsPage

@@ -1,6 +1,5 @@
 import api from "@/config/apiInterceptor";
 import { useForm } from "react-hook-form";
-import { Dialog } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import CustomInput from "@/components/shared/CustomInput";
@@ -15,6 +14,30 @@ const schema = yup.object().shape({
   languages: yup.array().min(1, "Seleccione al menos un lenguaje"),
   level: yup.string().required("El nivel es obligatorio"),
 });
+
+const languageOptions = [
+    { value: "cpp", label: "C++" },
+    { value: "java", label: "Java" },
+    { value: "python", label: "Python" },
+    { value: "javascript", label: "JavaScript" },
+    { value: "php", label: "PHP" },
+    { value: "typescript", label: "TypeScript" },
+    { value: "bash", label: "Bash" },
+    { value: "nodejs", label: "Node.js" },
+    { value: "sql", label: "SQL" },
+    { value: "r", label: "R" },
+    { value: "spring", label: "Spring" },
+    { value: "react", label: "React" },
+    { value: "vuejs", label: "Vue.js" },
+    { value: "angular", label: "Angular" },
+    { value: "svelte", label: "Svelte" },
+    { value: "django", label: "Django" },
+    { value: "ruby-on-rails", label: "Ruby on Rails" },
+    { value: "laravel", label: "Laravel" },
+    { value: "jest", label: "Jest" },
+    { value: "pytest", label: "PyTest" },
+  ]
+
 
 const ProjectForm = ({ onClose, onProjectCreated }) => {
   const form = useForm({
@@ -60,64 +83,74 @@ const ProjectForm = ({ onClose, onProjectCreated }) => {
   };
 
   return (
-    <Dialog open onOpenChange={onClose}>
-      <Dialog.Content>
-        <Dialog.Header>
-          <Dialog.Title>Crear Proyecto</Dialog.Title>
-        </Dialog.Header>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-4">
-            <CustomInput
-              name="image"
-              label="Imagen del proyecto"
-              type="file"
-              accept="image/*"
-              form={form}
-            />
-            <CustomInput
-              name="title"
-              label="Título"
-              placeholder="Título del proyecto"
-              form={form}
-            />
-            <CustomInput
-              name="description"
-              label="Descripción"
-              placeholder="Descripción del proyecto"
-              type="textarea"
-              form={form}
-            />
-            <CustomInput
-              name="stack"
-              label="Stack"
-              type="select"
-              options={["Frontend", "Backend", "Fullstack"]}
-              form={form}
-            />
-            <CustomInput
-              name="languages"
-              label="Lenguajes y frameworks"
-              type="multiselect"
-              options={["JavaScript", "Python", "React", "Django"]} // Fetch from your skills_proglanguage table
-              form={form}
-            />
-            <CustomInput
-              name="level"
-              label="Nivel"
-              type="select"
-              options={["Junior", "Mid", "Senior"]}
-              form={form}
-            />
-            <div className="flex justify-end space-x-2">
+    <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 className="text-2xl font-bold mb-4">Crear Proyecto</h1>
+      <Form {...form}>
+          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="col-span-1 sm:col-span-2">
+                <CustomInput
+                    name="title"
+                    label="Título"
+                    placeholder="Título del proyecto"
+                    form={form}
+                />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+                <CustomInput
+                    name="description"
+                    label="Descripción"
+                    placeholder="Descripción del proyecto"
+                    type="textarea"
+                    form={form}
+                />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+                <CustomInput
+                    name="stack"
+                    label="Stack"
+                    type="select"
+                    options={["Frontend", "Backend", "Fullstack"]}
+                    form={form}
+                />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+                <CustomInput
+                    name="languages"
+                    label="Lenguajes y frameworks"
+                    type="multiselect"
+                    options={languageOptions}
+                    placeholder="Seleccione lenguajes y frameworks"
+                    form={form}
+                />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+                <CustomInput
+                    name="level"
+                    label="Nivel"
+                    type="select"
+                    options={["Junior", "Mid", "Senior"]}
+                    form={form}
+                />
+            </div>
+            <div className="col-span-1 sm:col-span-2">
+                <CustomInput
+                    name="image"
+                    label="Imagen del proyecto"
+                    type="file"
+                    id="file"
+                    accept="image/*"
+                    form={form}
+                />
+            </div>
+            <div className="flex justify-center space-x-2 col-span-1 sm:col-span-2">
               <Button variant="secondary" onClick={onClose}>
                 Cancelar
               </Button>
               <Button type="submit">Crear Proyecto</Button>
-            </div>
-          </form>
-        </Form>
-      </Dialog.Content>
-    </Dialog>
+              </div>
+        </form>
+      </Form>
+    </div>
   );
 };
 
