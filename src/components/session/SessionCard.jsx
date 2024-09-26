@@ -8,6 +8,7 @@ const SessionCard = ({ session }) => {
             bg-card text-card-foreground dark:bg-card-dark dark:text-card-dark-foreground my-2 
             transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-card-session-shadow-light dark:hover:shadow-card-session-shadow-dark cursor-pointer 
             md:min-h-[220px] lg:min-h-[240px] flex flex-col justify-between"
+            data-testid="session-card" 
             onClick={() => console.log(`Ir a la sesión: ${session.title}`)}
         >
             {session.status && session.status !== "default" && (

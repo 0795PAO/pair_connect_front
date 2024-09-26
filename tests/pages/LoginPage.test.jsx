@@ -1,65 +1,66 @@
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import LoginPage from '@/pages/LoginPage';
-import { useToast } from '@/hooks/useToast';
-
-vi.mock('@/hooks/useToast', () => ({
-    useToast: vi.fn(),
-}));
+import { vi, expect, describe, it, beforeEach } from 'vitest';
+import { BrowserRouter } from 'react-router-dom';
+import { login } from '@/services/authService';
+import { useAuth } from '@/hooks/useAuth';
 
 describe('LoginPage', () => {
-    const mockToast = vi.fn();
+    beforeEach(async () => {
+        vi.mock('@/hooks/useMousePosition', () => ({
+            useMousePosition: vi.fn(() => ({ elementRef: null })),
+        }));
 
-    beforeEach(() => {
-        useToast.mockReturnValue({
-            toast: mockToast,
-        });
+        vi.mock('@/hooks/useToast', () => ({
+            useToast: vi.fn(() => ({ toast: vi.fn() })),
+        }));
+
+        vi.mock('@/hooks/useAuth', () => ({
+            useAuth: vi.fn(() => ({ setIsAuthenticated: vi.fn() })),
+        }));
+
+        vi.mock('@/services/authService', () => ({
+            login: vi.fn(),
+        }))
+    });
+    it('renders the login form and register button', () => {
+        render(<BrowserRouter> <LoginPage /> </BrowserRouter>);
+
+        expect(screen.getByText('Pair Connect')).toBeInTheDocument();
+
+        expect(screen.getByRole('button', { name: /iniciar sesión/i })).toBeInTheDocument();
+
+        expect(screen.getByRole('button', { name: /regístrate/i })).toBeInTheDocument();
     });
 
-    it('renders the login page content', () => {
+
+    it('should submit form and authenticate user on success', async () => {
+        const mockData = { email: 'test@example.com', password: 'password' };
+        const mockResponse = { access: 'token' };
+        const setIsAuthenticated = vi.fn();
+
+        login.mockResolvedValueOnce(mockResponse);
+
+        vi.mocked(useAuth).mockReturnValue({ setIsAuthenticated });
+
         render(
-            <MemoryRouter>
+            <BrowserRouter>
                 <LoginPage />
-            </MemoryRouter>
+            </BrowserRouter>
         );
 
-        expect(screen.getByText(/Pair Connect/i)).toBeInTheDocument();
-
-        expect(screen.getByRole('form')).toBeInTheDocument();
-
-        const recoverLink = screen.getByRole('link', { name: /Recupera contraseña/i });
-        expect(recoverLink).toBeInTheDocument();
-        expect(recoverLink.getAttribute('href')).toBe('/recover-password');
-
-        const registerLink = screen.getByRole('button', { name: /Regístrate/i });
-        expect(registerLink).toBeInTheDocument();
-    });
-
-    it('calls handleSubmit and shows toast on form submission', async () => {
-        render(
-            <MemoryRouter>
-                <LoginPage />
-            </MemoryRouter>
-        );
-
-        const submitButton = screen.getByRole('button', { name: /Iniciar sesión/i });
-
-        const emailInput = screen.getByLabelText(/correo/i);
-        const passwordInput = screen.getByLabelText(/contraseña/i);
-
-        fireEvent.change(emailInput, { target: { value: 'testuser@example.com' } });
-        fireEvent.change(passwordInput, { target: { value: 'testpassword' } });
-    
-
-        await act(async () => {
-            fireEvent.click(submitButton);
+        fireEvent.change(screen.getByLabelText(/correo/i), {
+            target: { value: mockData.email },
+        });
+        fireEvent.change(screen.getByLabelText(/contraseña/i), {
+            target: { value: mockData.password },
         });
 
-        await act(async () => {
-            expect(mockToast).toHaveBeenCalled();
-        });
+        fireEvent.click(screen.getByRole('button', { name: /iniciar sesión/i }));
 
-        
+        await waitFor(() => {
+            expect(setIsAuthenticated).toHaveBeenCalledWith(true);
+        });
     });
+
 });

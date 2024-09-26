@@ -8,7 +8,28 @@ import { useAuth } from "@/hooks/useAuth";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth(); // Asegúrate de extraer 'logout'
-  const navigate = useNavigate(); // Llama a la función para obtener el `navigate` correctamente
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      if (response.status === 201) {
+        toast({
+          title: "Logout",
+          description: "Se ha cerrado la sesión correctamente",
+          variant: "Success",
+        });
+        setTimeout(() => navigate("/login"), 4000);
+      }
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: `${err.message}`,
+        variant: "destructive",
+      });
+    }
+  };
 
   const navlinks = [
     { name: "Home", to: "/" },
@@ -17,11 +38,6 @@ const Navbar = () => {
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  const handleLogout = () => {
-    logout(); // Cierra la sesión
-    navigate("/"); // Redirige a la página de inicio
-  };
 
   return (
     <nav className={`shadow-lg px-6 py-4`}>
@@ -90,5 +106,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
