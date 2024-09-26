@@ -82,7 +82,6 @@
 }
 
 @layer base {
-
   * {
     @apply border-border;
   }
@@ -155,4 +154,38 @@
 
 .dark .card-session:hover {
   box-shadow: var(--card-session-shadow-dark);
+}
+
+@keyframes breakEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(20deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes restoreEffect {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.break {
+  animation: breakEffect 0.5s ease forwards;
+}
+
+.restore {
+  animation: restoreEffect 0.5s ease forwards;
 }
