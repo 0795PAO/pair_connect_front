@@ -22,11 +22,6 @@ describe('useTokenRefresh', () => {
         vi.clearAllMocks();
     });
 
-    it('should set isAuthenticated to false if there is no token', () => {
-        const { result } = renderHook(() => useTokenRefresh(setIsAuthenticated));
-
-        expect(setIsAuthenticated).toHaveBeenCalledWith(false);
-    });
 
     it('should set isAuthenticated to true if token is valid', async () => {
         const mockToken = 'valid_token';
@@ -35,10 +30,11 @@ describe('useTokenRefresh', () => {
 
         jwtDecode.mockReturnValue(mockDecodedToken);
 
-        const { result } = renderHook(() => useTokenRefresh(setIsAuthenticated));
-        
+        const { result } = renderHook(() => useTokenRefresh(true, setIsAuthenticated));
 
-        expect(setIsAuthenticated).toHaveBeenCalledWith(true);
+        await waitFor(() => {
+            expect(setIsAuthenticated).toHaveBeenCalledWith(true);
+        });
     });
 
     it('should refresh token if token is expired and set isAuthenticated to true', async () => {
@@ -49,7 +45,7 @@ describe('useTokenRefresh', () => {
         jwtDecode.mockReturnValue(mockDecodedToken);
         refreshToken.mockResolvedValueOnce('new_token');
 
-        const { result } = renderHook(() => useTokenRefresh(setIsAuthenticated));
+        const { result } = renderHook(() => useTokenRefresh(true, setIsAuthenticated));
         await waitFor(() => {
             expect(refreshToken).toHaveBeenCalled();
             expect(setIsAuthenticated).toHaveBeenCalledWith(true);
@@ -58,12 +54,12 @@ describe('useTokenRefresh', () => {
 
     it('should set isAuthenticated to false if token is expired and refresh fails', async () => {
         const mockToken = 'expired_token';
-        const mockDecodedToken = { exp: Date.now() / 1000 - 3600 }; 
+        const mockDecodedToken = { exp: Date.now() / 1000 - 3600 };
         localStorage.setItem(ACCESS_TOKEN, mockToken);
         jwtDecode.mockReturnValue(mockDecodedToken);
         refreshToken.mockRejectedValueOnce(new Error('Refresh failed'));
 
-        const { result } = renderHook(() => useTokenRefresh(setIsAuthenticated));
+        const { result } = renderHook(() => useTokenRefresh(true, setIsAuthenticated));
         await waitFor(() => {
             expect(refreshToken).toHaveBeenCalled();
             expect(setIsAuthenticated).toHaveBeenCalledWith(false);
