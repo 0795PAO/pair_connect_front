@@ -1,4 +1,7 @@
 import FacebookIcon from "../icons/FacebookIcon";
+import YouTubeIcon from "../icons/YoutubeIcon";
+import XIcon from "../icons/XIcon";
+import InstagramIcon from "../icons/InstagramIcon";
 import { Button } from "../ui/button";
 
 const Footer = () => {
@@ -18,6 +21,15 @@ const Footer = () => {
         <div className="flex space-x-4">
           <Button variant="ghost" size="icon">
             <FacebookIcon />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <YouTubeIcon />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <XIcon />
+          </Button>
+          <Button variant="ghost" size="icon">
+            <InstagramIcon />
           </Button>
         </div>
       </div>
