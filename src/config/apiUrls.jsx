@@ -5,8 +5,12 @@ export const AUTH_URLS = {
     LOGIN: `${API_BASE_URL}auth/jwt/create/`,
     REGISTER: `${API_BASE_URL}auth/users/`,
     REFRESH: `${API_BASE_URL}auth/jwt/refresh/`,
-    USER_UPDATE: `${API_BASE_URL}auth/users/me/`, // PATCH REQUEST NOT PUT 
     LOGOUT: `${API_BASE_URL}auth/jwt/logout/`,
     ACTIVATE: `${API_BASE_URL}auth/users/activation/`,
 };
+
+export const PROFILE_URLS = {
+    GET: `${API_BASE_URL}auth/users/me`,
+    UPDATE: `${API_BASE_URL}auth/users/me/`, // PATCH REQUEST NOT PUT 
+}
 

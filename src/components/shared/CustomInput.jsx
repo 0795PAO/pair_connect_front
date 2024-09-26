@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   FormControl,
   FormDescription,
@@ -34,7 +35,7 @@ const CustomInput = ({
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
                 <SelectTrigger
-                  className="w-[240px] pl-3 text-left"
+                  className="pl-3 text-left"
                   aria-labelledby={`${name}-label`}
                 >
                   {field.value || "Seleccione una opción"}
@@ -50,6 +51,8 @@ const CustomInput = ({
             ) : (
               <Input
                 placeholder={placeholder}
+                type={type}
+                id={name}
                 {...field}
                 value={field.value || ""}
               />

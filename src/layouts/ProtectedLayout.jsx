@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useTokenRefresh } from "@/hooks/useTokenRefresh";
 import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const ProtectedLayout = () => {
@@ -26,10 +27,12 @@ const ProtectedLayout = () => {
     return isAuthenticated ? (
         <>
             <Navbar />
-            <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center">
+            <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center my-10">
                 <Outlet />
             </main>
             <Footer />
+            <Toaster />
+
         </>
     ) : (
         <Navigate to="/login" />
