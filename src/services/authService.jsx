@@ -3,7 +3,6 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/config/constants';
 import api from '@/config/apiInterceptor';
 
 
-
 export const login = async (user) => {
     try {
         const response = await api.post(AUTH_URLS.LOGIN, user);
@@ -54,7 +53,7 @@ export const logout = async () => {
             localStorage.removeItem(ACCESS_TOKEN);
             localStorage.removeItem(REFRESH_TOKEN);
         }
-        return response.data;
+        return response;
     } catch (err) {
         console.error(err);
         throw err;

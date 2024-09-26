@@ -6,7 +6,7 @@
   :root {
     --background: 240 5% 96%;
     --foreground: 222.2 84% 4.9%;
-    --card: 210 11% 90%;
+    --card: 210 11% 90%; 
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
@@ -31,7 +31,7 @@
     --radius: 0.5rem;
     --button-hover: 191 100% 65%;
     --shadow-custom: 0px 0px 10px 12px rgba(12, 183, 230, 0.127);
-    --card-session-shadow-dark: 0 4px 12px 0 rgb(18, 174, 194);
+    --special-shadow: 0 4px 12px 0 rgb(18, 174, 194);
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(
@@ -40,6 +40,7 @@
       rgba(255, 93, 162, 1)
     );
     --mouse-effect-color: 184 72% 45%;
+ 
   }
 
   .dark {
@@ -69,7 +70,7 @@
     --chart-5: 340 75% 55%;
     --button-hover: 191 100% 65%;
     --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
-    --card-session-shadow-light: 0 4px 12px 0 rgba(8, 223, 223, 1);
+    --special-shadow: 0 4px 12px 0 rgba(8, 223, 223, 1);
     --success: 145 70% 40%;
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(
@@ -78,6 +79,7 @@
       rgba(255, 93, 162, 1)
     );
     --mouse-effect-color: var(--primary);
+
   }
 }
 
@@ -143,15 +145,40 @@
   border-radius: inherit;
 }
 
-.card-session {
-  border-radius: var(--radius);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.special-shadow:hover {
+  box-shadow: var(--special-shadow);
 }
 
-.card-session:hover {
-  box-shadow: var(--card-session-shadow-light);
+@keyframes breakEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(20deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
 }
 
-.dark .card-session:hover {
-  box-shadow: var(--card-session-shadow-dark);
+@keyframes restoreEffect {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.break {
+  animation: breakEffect 0.5s ease forwards;
+}
+
+.restore {
+  animation: restoreEffect 0.5s ease forwards;
 }
