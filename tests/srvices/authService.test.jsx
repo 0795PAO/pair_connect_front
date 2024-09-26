@@ -1,4 +1,4 @@
-import { login, logout, refreshToken, registerUser } from '@/services/authService';
+import { login, logout, refreshToken, registerUser, activateAccount } from '@/services/authService';
 import { AUTH_URLS } from '@/config/apiUrls';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '@/config/constants';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
@@ -171,6 +171,32 @@ describe('authService - registerUser', () => {
     });
 });
 
+describe('authService - activateAccount', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+    });
+
+    it('should activate account successfully and return response', async () => {
+        const mockResponse = { data: { success: true } };
+        const mockData = { uid: 'test_uid', token: 'test_token' };
+
+        api.post.mockResolvedValueOnce(mockResponse);
+
+        const result = await activateAccount(mockData);
+
+        expect(api.post).toHaveBeenCalledWith(AUTH_URLS.ACTIVATE, mockData);
+        expect(result).toEqual(mockResponse);
+    });
+
+    it('should throw an error on failed account activation', async () => {
+        const mockError = new Error('Activation failed');
+        const mockData = { uid: 'test_uid', token: 'test_token' };
+
+        api.post.mockRejectedValueOnce(mockError);
+
+        await expect(activateAccount(mockData)).rejects.toThrow('Activation failed');
+    });
+});
 
 
 
