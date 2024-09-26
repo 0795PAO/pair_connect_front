@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ModeToggle from "./ModeToggle";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
@@ -12,8 +12,21 @@ const Navbar = () => {
   const { isAuthenticated } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isBreaking, setIsBreaking] = useState(false);
-  const [isRestoring, setIsRestoring] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   const handleLogout = async () => {
     try {
@@ -37,18 +50,7 @@ const Navbar = () => {
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    setIsBreaking(true);
-    setTimeout(() => {
-      setIsBreaking(false);
-      setIsRestoring(true);
-      navigate("/");
-    }, 500);
-  };
-
-  const handleAnimationEnd = () => {
-    if (isRestoring) {
-      setIsRestoring(false);
-    }
+    navigate("/");
   };
 
   const navlinks = [
@@ -60,18 +62,11 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="shadow-lg px-6 py-4">
+    <nav className="px-6 py-4" style={{ boxShadow: "var(--shadow-custom)" }}>
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-3">
           <a href="/" onClick={handleLogoClick} className="h-10">
-            <img
-              src="/logo.svg"
-              alt="logo"
-              className={`w-[35px] ${isBreaking ? "break" : ""} ${
-                isRestoring ? "restore" : ""
-              }`}
-              onAnimationEnd={handleAnimationEnd}
-            />
+            <img src="/logo.svg" alt="logo" className="w-[35px]" />
           </a>
           <span
             className="font-poppins font-bold text-[36px] leading-[120%] hidden md:block text-transparent bg-clip-text"
@@ -102,7 +97,7 @@ const Navbar = () => {
           ) : (
             <Button>Login</Button>
           )}
-          <div className="lg:hidden">
+          <div className="lg:hidden" ref={menuRef}>
             <button
               onClick={toggleMenu}
               className="focus:outline-none hover:text-primary"
@@ -114,7 +109,10 @@ const Navbar = () => {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden flex flex-col items-left space-y-2 py-5">
+        <div
+          className="lg:hidden flex flex-col items-left space-y-2 py-5"
+          ref={menuRef}
+        >
           {navlinks.map((item) => (
             <NavLink
               key={item.name}
@@ -126,7 +124,7 @@ const Navbar = () => {
           ))}
           {isAuthenticated && (
             <>
-              <NavLink to="/my-profile">Mi perfil</NavLink>
+              <NavLink to="/profile">Mi perfil</NavLink>
               <NavLink to="/projects">Mis proyectos</NavLink>
             </>
           )}
