@@ -1,0 +1,17 @@
+{
+    "stacks": [
+        "Frontend",
+        "Backend",
+        "Fullstack"
+    ],
+    "languages": [
+        "JavaScript",
+        "Python",
+        "TypeScript"
+    ],
+    "levels": [
+        "Junior",
+        "Middle",
+        "Senior"
+    ]
+}

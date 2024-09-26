@@ -8,6 +8,7 @@ import PairProgrammingPage from "@/pages/PairProgrammingPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import HomePageWrapper from "@/wrappers/HomePageWrapper";
 import ActivationPage from "@/pages/ActivationPage";
+import MyProfilePage from "@/pages/MyProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: '/projects',
         element: <ProjectsPage/>
+      }, 
+      {
+        path: '/my-profile',
+        element: <MyProfilePage/>
       }
     ]
   }
