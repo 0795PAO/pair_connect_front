@@ -98,10 +98,6 @@
   cursor: pointer;
 }
 
-.custom-cursor {
-  cursor: url('/cursor.svg') 16 16, auto;
-}
-
 .custom-shadow {
   --shadow-custom: 36px 36px 36px 36px rgba(50, 209, 255, 0.5);
 }
@@ -336,8 +332,9 @@
   animation-delay: 4.5s;
 }
 
-/* Animation arrow*/
-@keyframes bounce {
+
+/* arrow */
+@keyframes customBounce {
   0%, 100% {
     transform: translateY(0);
   }
@@ -346,6 +343,6 @@
   }
 }
 
-.arrow {
-  animation: bounce 2s infinite;
+.slow-bounce {
+  animation: customBounce 1.7s infinite;
 }
