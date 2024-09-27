@@ -37,7 +37,7 @@ describe('HomePage', () => {
     it('should open the RegisterDialog when clicking the register button', async () => {
         render(<BrowserRouter><HomePage /></BrowserRouter>);
 
-        const registerButton = screen.getByRole('button', { name: /Regístrate/i });
+        const registerButton = screen.getByLabelText('hero-gradient-register-button');
 
         fireEvent.click(registerButton);
 
