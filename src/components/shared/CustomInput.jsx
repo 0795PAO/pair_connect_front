@@ -14,6 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Textarea } from "../ui/textarea";
 
 const CustomInput = ({
   label,
@@ -23,6 +24,7 @@ const CustomInput = ({
   form,
   type,
   options,
+  multiple = false,
 }) => {
   return (
     <FormField
@@ -37,6 +39,7 @@ const CustomInput = ({
                 <SelectTrigger
                   className="pl-3 text-left"
                   aria-labelledby={`${name}-label`}
+                  multiple={multiple}
                 >
                   {field.value || "Seleccione una opción"}
                 </SelectTrigger>
@@ -48,15 +51,23 @@ const CustomInput = ({
                   ))}
                 </SelectContent>
               </Select>
-            ) : (
-              <Input
+            ) : type === "textarea" ? (
+              <Textarea
+                placeholder={placeholder}
+                id={name}
+                {...field}
+                value={field.value || ""}
+              />
+            )
+              :
+              (<Input
                 placeholder={placeholder}
                 type={type}
                 id={name}
                 {...field}
                 value={field.value || ""}
               />
-            )}
+              )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
