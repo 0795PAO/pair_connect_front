@@ -5,35 +5,33 @@ import { useTokenRefresh } from "@/hooks/useTokenRefresh";
 import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
 const ProtectedLayout = () => {
-    const { isAuthenticated, setIsAuthenticated } = useAuth();
-    const [loading, setLoading] = useState(true);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
 
-    useTokenRefresh(setIsAuthenticated);
+  // useTokenRefresh(setIsAuthenticated);
 
-    useEffect(() => {
-        if (isAuthenticated !== null) {
-            setLoading(false);
-        }
-    }, [isAuthenticated]);
-
-    
-    if (loading) {
-        return <div>Loading...</div>; 
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      setLoading(false);
     }
+  }, [isAuthenticated]);
 
-    return isAuthenticated ? (
-        <>
-            <Navbar />
-            <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center">
-                <Outlet />
-            </main>
-            <Footer />
-        </>
-    ) : (
-        <Navigate to="/login" />
-    );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return isAuthenticated ? (
+    <>
+      <Navbar />
+      <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center">
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
 export default ProtectedLayout;

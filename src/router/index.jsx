@@ -1,4 +1,3 @@
-
 import ProtectedLayout from "@/layouts/ProtectedLayout";
 import PublicLayout from "@/layouts/PublicLayout";
 import { createBrowserRouter } from "react-router-dom";
@@ -8,6 +7,7 @@ import PairProgrammingPage from "@/pages/PairProgrammingPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import HomePageWrapper from "@/wrappers/HomePageWrapper";
 import ActivationPage from "@/pages/ActivationPage";
+import ProjectDetailsPage from "@/pages/ProjectDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -15,37 +15,45 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       {
-        path: '/',
-        element: <HomePageWrapper />
+        path: "/",
+        element: <HomePageWrapper />,
       },
       {
         path: "/login",
-        element: <LoginPage />
+        element: <LoginPage />,
       },
       {
-        path: '/about-us',
-        element: <AboutUsPage />
-      }, 
-      {
-        path: '/pair-programming',
-        element: <PairProgrammingPage />
+        path: "/about-us",
+        element: <AboutUsPage />,
       },
       {
-        path: '/activate/:uid/:token',
-        element: <ActivationPage/>
-      }
+        path: "/pair-programming",
+        element: <PairProgrammingPage />,
+      },
+      {
+        path: "/activate/:uid/:token",
+        element: <ActivationPage />,
+      },
     ],
   },
-  { 
+  {
     element: <ProtectedLayout />,
     children: [
       {
-        path: '/projects',
-        element: <ProjectsPage/>
-      }
-    ]
-  }
+        path: "/projects",
+        element: <ProjectsPage />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedLayout />,
+    children: [
+      {
+        path: "/my-project",
+        element: <ProjectDetailsPage />,
+      },
+    ],
+  },
 ]);
 
 export default router;
-

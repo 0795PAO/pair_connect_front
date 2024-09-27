@@ -1,14 +1,14 @@
-import UserHomePage from '@/pages/UserHomePage';
-import { useAuth } from '@/hooks/useAuth';
-import { useTokenRefresh } from '@/hooks/useTokenRefresh';
-import HomePage from '@/pages/HomePage';
+import UserHomePage from "@/pages/UserHomePage";
+import { useAuth } from "@/hooks/useAuth";
+import { useTokenRefresh } from "@/hooks/useTokenRefresh";
+import HomePage from "@/pages/HomePage";
 
 const HomePageWrapper = () => {
-    const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
 
-    useTokenRefresh(setIsAuthenticated);
+  // useTokenRefresh(setIsAuthenticated);
 
-    return isAuthenticated ? <UserHomePage /> : <HomePage />;
+  return isAuthenticated ? <UserHomePage /> : <HomePage />;
 };
 
 export default HomePageWrapper;

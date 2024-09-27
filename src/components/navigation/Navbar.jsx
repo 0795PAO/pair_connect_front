@@ -13,6 +13,8 @@ const Navbar = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const menuRef = useRef(null);
+  const [isBreaking, setIsBreaking] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -50,7 +52,17 @@ const Navbar = () => {
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    navigate("/");
+    setIsBreaking(true);
+    setTimeout(() => {
+      setIsBreaking(false);
+      setIsRestoring(true);
+      navigate("/");
+    }, 500);
+  };
+  const handleAnimationEnd = () => {
+    if (isRestoring) {
+      setIsRestoring(false);
+    }
   };
 
   const navlinks = [
@@ -65,9 +77,16 @@ const Navbar = () => {
     <nav className="px-6 py-4" style={{ boxShadow: "var(--shadow-custom)" }}>
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-3">
-          <a href="/" onClick={handleLogoClick} className="h-10">
-            <img src="/logo.svg" alt="logo" className="w-[35px]" />
-          </a>
+          <NavLink href="/" onClick={handleLogoClick} className="h-10">
+            <img
+              src="/logo.svg"
+              alt="logo"
+              className={`w-[35px] ${isBreaking ? "break" : ""} ${
+                isRestoring ? "restore" : ""
+              }`}
+              onAnimationEnd={handleAnimationEnd}
+            />
+          </NavLink>
           <span
             className="font-poppins font-bold text-[36px] leading-[120%] hidden md:block text-transparent bg-clip-text"
             style={{ backgroundImage: "var(--gradient)" }}
