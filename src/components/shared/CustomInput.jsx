@@ -27,6 +27,7 @@ const CustomInput = ({
   type,
   options,
   accept,
+  multiple = false,
 }) => {
   return (
     <FormField
@@ -34,13 +35,14 @@ const CustomInput = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel htmlFor={name}>{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
                 <SelectTrigger
                   className={`pl-3 text-left ${!field.value ? "text-muted-foreground" : ""}`}
                   aria-labelledby={`${name}-label`}
+                  multiple={multiple}
                 >
                   {field.value || "Seleccione una opción"}
                 </SelectTrigger>
@@ -73,7 +75,7 @@ const CustomInput = ({
                 {...field}
                 value={field.value || ""}
               />
-            )}
+              )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

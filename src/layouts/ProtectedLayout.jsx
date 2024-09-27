@@ -1,19 +1,17 @@
 import Footer from "@/components/navigation/Footer";
 import Navbar from "@/components/navigation/Navbar";
 import { useAuth } from "@/hooks/useAuth";
-import { useTokenRefresh } from "@/hooks/useTokenRefresh";
 import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 
 
 const ProtectedLayout = () => {
-    const { isAuthenticated, setIsAuthenticated } = useAuth();
-    const [loading, setLoading] = useState(false);
+    const { isAuthenticated } = useAuth();
+    const [loading, setLoading] = useState(true);
 
 
-    useTokenRefresh(isAuthenticated, setIsAuthenticated);
-
+    console.log(isAuthenticated);
 
     useEffect(() => {
         if (isAuthenticated !== null) {

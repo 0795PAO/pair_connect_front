@@ -33,11 +33,12 @@ const ProfileForm = ({ handleSubmit, loading }) => {
 
     const profileInputs = [
         {
-            name: 'languages',
+            name: 'prog_language',
             type: 'select',
             placeholder: 'Javascript, React',
             label: 'Languaje y Frameworks',
             options: options?.languages || [],
+            multiple: true,
         },
         {
             name: 'stack',
@@ -60,7 +61,7 @@ const ProfileForm = ({ handleSubmit, loading }) => {
             label: "Sobre mi",
         },
         {
-            name: "image",
+            name: "photo",
             type: "file",
             placeholder: "Avatar",
             label: "Avatar",
