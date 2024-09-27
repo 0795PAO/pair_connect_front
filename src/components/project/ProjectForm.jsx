@@ -82,72 +82,77 @@ const ProjectForm = ({ onClose, onProjectCreated }) => {
     }
   };
 
+  const projectInputs = [
+    {
+      name: "title",
+      label: "Título",
+      placeholder: "Título del proyecto",
+      type: "text",
+    },
+    {
+      name: "description",
+      label: "Descripción",
+      placeholder: "Descripción del proyecto",
+      type: "textarea",
+    },
+    {
+      name: "stack",
+      label: "Stack",
+      type: "select",
+      options: ["Frontend", "Backend", "Fullstack"],
+      placeholder: "Seleccione una opción",
+    },
+    {
+      name: "languages",
+      label: "Lenguajes y frameworks",
+      type: "multiselect",
+      options: languageOptions,
+      placeholder: "Seleccione lenguajes y frameworks",
+    },
+    {
+      name: "level",
+      label: "Nivel",
+      type: "select",
+      options: ["Junior", "Mid", "Senior"],
+      placeholder: "Seleccione un nivel",
+    },
+    {
+      name: "image",
+      label: "Imagen del proyecto",
+      type: "file",
+      accept: "image/*",
+      placeholder: "Seleccione una imagen",
+    },
+  ];
+
   return (
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold mb-4">Crear Proyecto</h1>
       <Form {...form}>
-          <form onSubmit={form.handleSubmit(handleFormSubmit)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="col-span-1 sm:col-span-2">
-                <CustomInput
-                    name="title"
-                    label="Título"
-                    placeholder="Título del proyecto"
-                    form={form}
-                />
+        <form
+          onSubmit={form.handleSubmit(handleFormSubmit)}
+          className="flex flex-col gap-5"
+        >
+          {projectInputs.map((input, index) => (
+            <div key={index} className={input.colSpan}>
+              <CustomInput
+                form={form}
+                name={input.name}
+                label={input.label}
+                placeholder={input.placeholder}
+                type={input.type}
+                options={input.options}
+                accept={input.accept}
+                multiple={input.multiple}
+              />
             </div>
-            <div className="col-span-1 sm:col-span-2">
-                <CustomInput
-                    name="description"
-                    label="Descripción"
-                    placeholder="Descripción del proyecto"
-                    type="textarea"
-                    form={form}
-                />
-            </div>
-            <div className="col-span-1 sm:col-span-2">
-                <CustomInput
-                    name="stack"
-                    label="Stack"
-                    type="select"
-                    options={["Frontend", "Backend", "Fullstack"]}
-                    form={form}
-                />
-            </div>
-            <div className="col-span-1 sm:col-span-2">
-                <CustomInput
-                    name="languages"
-                    label="Lenguajes y frameworks"
-                    type="multiselect"
-                    options={languageOptions}
-                    placeholder="Seleccione lenguajes y frameworks"
-                    form={form}
-                />
-            </div>
-            <div className="col-span-1 sm:col-span-2">
-                <CustomInput
-                    name="level"
-                    label="Nivel"
-                    type="select"
-                    options={["Junior", "Mid", "Senior"]}
-                    form={form}
-                />
-            </div>
-            <div className="col-span-1 sm:col-span-2">
-                <CustomInput
-                    name="image"
-                    label="Imagen del proyecto"
-                    type="file"
-                    id="file"
-                    accept="image/*"
-                    form={form}
-                />
-            </div>
-            <div className="flex justify-center space-x-2 col-span-1 sm:col-span-2">
-              <Button variant="secondary" onClick={onClose}>
-                Cancelar
-              </Button>
-              <Button type="submit">Crear Proyecto</Button>
-              </div>
+          ))}
+          <div className="flex justify-center space-x-2 col-span-1 sm:col-span-2">
+            <Button variant="secondary" onClick={onClose}>
+              Cancelar
+            </Button>
+            <Button type="submit">Crear Proyecto</Button>
+          </div>
         </form>
       </Form>
     </div>
