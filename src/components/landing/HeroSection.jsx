@@ -29,7 +29,7 @@ const HeroSection = ({ handleRegisterClick }) => {
 
 
             <p className="mt-10 text-xs md:text-sm lg:text-sm text-foreground">
-                Una vez completado el registro, obtendrás acceso a los detalles de contacto
+                Echa un vistazo a las próximas sesiones
             </p>
 
             <img src="/arrow-gradient.svg" alt="Down Arrow" className="w-12 h-12 mt-10 animate-bounce motion-reduce:transform-none slow-bounce" />
