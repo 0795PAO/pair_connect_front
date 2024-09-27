@@ -1,12 +1,10 @@
 import UserHomePage from '@/pages/UserHomePage';
 import { useAuth } from '@/hooks/useAuth';
-import { useTokenRefresh } from '@/hooks/useTokenRefresh';
 import HomePage from '@/pages/HomePage';
 
 const HomePageWrapper = () => {
-    const { isAuthenticated, setIsAuthenticated } = useAuth();
+    const { isAuthenticated } = useAuth();
 
-    useTokenRefresh(isAuthenticated, setIsAuthenticated);
 
     return isAuthenticated ? <UserHomePage /> : <HomePage />;
 };

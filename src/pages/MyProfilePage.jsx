@@ -4,11 +4,29 @@ import { useState, useEffect } from "react";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const MyProfilePage = () => {
     const { elementRef } = useMousePosition()
     const { data: user, isLoading, error } = useProfile();
     const [showForm, setShowForm] = useState(false);
+    const queryClient = useQueryClient();
+
+    const mutation = useMutation(updateUser, {
+        onSuccess: (data) => {
+
+            queryClient.invalidateQueries(['profile']);
+            console.log('Profilo aggiornato:', data);
+        },
+        onError: (error) => {
+            console.error('Errore durante l\'aggiornamento del profilo', error);
+        }
+    });
+
+    const handleFormSubmit = (updatedData) => {
+        mutation.mutate(updatedData);
+        setShowForm(false);
+    }
 
     useEffect(() => {
         console.log("User data:", user);
@@ -28,11 +46,6 @@ const MyProfilePage = () => {
     }
 
 
-
-    const handleFormSubmit = (updatedData) => {
-        console.log("Dati aggiornati:", updatedData);
-        setShowForm(false);
-    }
 
     if (showForm) {
         return (
