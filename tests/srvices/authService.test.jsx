@@ -55,17 +55,16 @@ describe('authService - logout', () => {
     });
 
     it('should logout successfully and remove tokens', async () => {
-        const mockResponse = { data: {} };
+        const mockResponse = {};
 
         localStorage.getItem.mockReturnValue(REFRESH_TOKEN);
         api.post.mockResolvedValueOnce(mockResponse);
 
         const result = await logout();
-
         expect(localStorage.removeItem).toHaveBeenCalledWith(ACCESS_TOKEN);
         expect(localStorage.removeItem).toHaveBeenCalledWith(REFRESH_TOKEN);
 
-        expect(result).toEqual(mockResponse.data);
+        expect(result).toEqual(mockResponse);
         expect(api.post).toHaveBeenCalledWith(AUTH_URLS.LOGOUT, { refresh: REFRESH_TOKEN });
     });
 

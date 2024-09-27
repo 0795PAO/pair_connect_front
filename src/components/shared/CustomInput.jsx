@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   FormControl,
   FormDescription,
@@ -13,6 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Textarea } from "../ui/textarea";
 
 const CustomInput = ({
   label,
@@ -22,6 +24,7 @@ const CustomInput = ({
   form,
   type,
   options,
+  multiple = false,
 }) => {
   return (
     <FormField
@@ -29,13 +32,14 @@ const CustomInput = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel htmlFor={name}>{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
                 <SelectTrigger
-                  className="w-[240px] pl-3 text-left"
+                  className="pl-3 text-left"
                   aria-labelledby={`${name}-label`}
+                  multiple={multiple}
                 >
                   {field.value || "Seleccione una opción"}
                 </SelectTrigger>
@@ -47,13 +51,23 @@ const CustomInput = ({
                   ))}
                 </SelectContent>
               </Select>
-            ) : (
-              <Input
+            ) : type === "textarea" ? (
+              <Textarea
                 placeholder={placeholder}
+                id={name}
                 {...field}
                 value={field.value || ""}
               />
-            )}
+            )
+              :
+              (<Input
+                placeholder={placeholder}
+                type={type}
+                id={name}
+                {...field}
+                value={field.value || ""}
+              />
+              )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
