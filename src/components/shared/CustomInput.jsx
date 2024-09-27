@@ -39,7 +39,7 @@ const CustomInput = ({
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
                 <SelectTrigger
-                  className="pl-3 text-left"
+                  className={`pl-3 text-left ${!field.value ? "text-muted-foreground" : ""}`}
                   aria-labelledby={`${name}-label`}
                 >
                   {field.value || "Seleccione una opción"}

@@ -44,7 +44,7 @@ const ProjectsPage = () => {
         <>
           {projects.length === 0 ? (
             <div className="text-center">
-              <p className="text-lg">No hay proyectos creados</p>
+              <p className="text-lg mb-4">No hay proyectos creados</p>
               <Button onClick={handleCreateProject}>Crear Proyecto</Button>
             </div>
           ) : (

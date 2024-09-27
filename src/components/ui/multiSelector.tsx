@@ -88,7 +88,7 @@ export function MultiSelector({ options, value, onChange, placeholder }: MultiSe
                     onValueChange={setInputValue}
                     className="min-w-full bg-muted-foreground text-black"
                 />
-                <CommandEmpty>No options found.</CommandEmpty>
+                <CommandEmpty>Opción no encontrado.</CommandEmpty>
                 <CommandGroup>
                     <CommandList>
                         {filteredOptions.slice(0, 5).map((option) => (
