@@ -77,7 +77,7 @@ export function MultiSelector({ options, value, onChange, placeholder }: MultiSe
                         </span>
                     )}
                 </div>
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-30" />
             </Button>
         </PopoverTrigger>
         <PopoverContent className="min-w-full p-0 overflow-hidden rounded-md  bg-popover text-popover-foreground" side="bottom" align="start" sideOffset={5}>

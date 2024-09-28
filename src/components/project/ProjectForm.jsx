@@ -8,8 +8,8 @@ import * as yup from "yup";
 
 
 const schema = yup.object().shape({
-  title: yup.string().required("El título es obligatorio"),
-  description: yup.string().required("La descripción es obligatoria"),
+  title: yup.string().required("Tu proyecto falta un título"),
+  description: yup.string().required("Explícanos de qué va tu proyecto"),
   stack: yup.string().required("El stack es obligatorio"),
   languages: yup.array().min(1, "Seleccione al menos un lenguaje"),
   level: yup.string().required("El nivel es obligatorio"),
@@ -86,13 +86,13 @@ const ProjectForm = ({ onClose, onProjectCreated }) => {
     {
       name: "title",
       label: "Título",
-      placeholder: "Título del proyecto",
+      placeholder: "Un título molón para tu proyecto",
       type: "text",
     },
     {
       name: "description",
       label: "Descripción",
-      placeholder: "Descripción del proyecto",
+      placeholder: "Escribe la esencia de tu proyecto aquí",
       type: "textarea",
     },
     {
@@ -100,42 +100,40 @@ const ProjectForm = ({ onClose, onProjectCreated }) => {
       label: "Stack",
       type: "select",
       options: ["Frontend", "Backend", "Fullstack"],
-      placeholder: "Seleccione una opción",
+      placeholder: "¿Frontend, Backend o ambos?",
     },
     {
       name: "languages",
       label: "Lenguajes y frameworks",
       type: "multiselect",
       options: languageOptions,
-      placeholder: "Seleccione lenguajes y frameworks",
+      placeholder: "En qué idioma habla tu proyecto?",
     },
     {
       name: "level",
       label: "Nivel",
       type: "select",
       options: ["Junior", "Mid", "Senior"],
-      placeholder: "Seleccione un nivel",
+      placeholder: "Grado de maestría",
     },
     {
       name: "image",
       label: "Imagen del proyecto",
       type: "file",
       accept: "image/*",
-      placeholder: "Seleccione una imagen",
+      placeholder: "Clicka y ponle rostro a tu proyecto",
     },
   ];
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold mb-4">Crear Proyecto</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleFormSubmit)}
           className="flex flex-col gap-5"
         >
           {projectInputs.map((input, index) => (
-            <div key={index} className={input.colSpan}>
               <CustomInput
+                key={index}
                 form={form}
                 name={input.name}
                 label={input.label}
@@ -145,17 +143,15 @@ const ProjectForm = ({ onClose, onProjectCreated }) => {
                 accept={input.accept}
                 multiple={input.multiple}
               />
-            </div>
           ))}
           <div className="flex justify-center space-x-2 col-span-1 sm:col-span-2">
             <Button variant="secondary" onClick={onClose}>
-              Cancelar
+              Ahora no
             </Button>
-            <Button type="submit">Crear Proyecto</Button>
+            <Button type="submit" className="font-bold">Crear Proyecto</Button>
           </div>
         </form>
       </Form>
-    </div>
   );
 };
 

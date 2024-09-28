@@ -17,6 +17,8 @@ import {
 
 import { Textarea } from "@/components/ui/textarea";
 import { MultiSelector } from "@/components/ui/multiSelector"
+import { Button } from "@/components/ui/button";
+import CustomFileInput from "@/components/shared/CustomFileInput";
 
 const CustomInput = ({
   label,
@@ -30,11 +32,11 @@ const CustomInput = ({
   multiple = false,
 }) => {
   return (
-    <FormField
+    <FormField 
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="text-left">
           <FormLabel htmlFor={name}>{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
@@ -44,7 +46,7 @@ const CustomInput = ({
                   aria-labelledby={`${name}-label`}
                   multiple={multiple}
                 >
-                  {field.value || "Seleccione una opción"}
+                  {field.value || placeholder|| "Seleccione una opción"}
                 </SelectTrigger>
                 <SelectContent>
                   {options.map((option) => (
@@ -65,6 +67,13 @@ const CustomInput = ({
                   options={options}
                   value={field.value || []}
                   onChange={field.onChange}
+                  placeholder={placeholder}
+                />
+              ) : type === "file" ? (
+                <CustomFileInput
+                  field={field}
+                  accept={accept}
+                  multiple={multiple}
                   placeholder={placeholder}
                 />
             ) : (
