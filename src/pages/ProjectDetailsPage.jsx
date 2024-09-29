@@ -10,9 +10,9 @@ const SignupPopup = ({ closePopup, saveMessage, projectName }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <h3 className="text-xl font-bold mb-4">
-          ¡Nos alegra ver que quieras apuntarte a la sesión de {projectName}!
+          ¡Nos alegra ver que quieras apuntarte a la sesión del {projectName}!
         </h3>
-        <p className="mb-4">¿Quieres dejar un mensaje?</p>
+        <p className="mb-4 ">¿Quieres dejar un mensaje?</p>
         <textarea
           className="border rounded-md p-2 w-full mb-4"
           placeholder="Escribe un mensaje"
@@ -20,12 +20,12 @@ const SignupPopup = ({ closePopup, saveMessage, projectName }) => {
           onChange={(e) => setMessage(e.target.value)}
         ></textarea>
         <div className="flex justify-between">
-          <button
-            className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded"
+          <Button
             onClick={closePopup}
+            className="border border-primaryforeground  bg-"
           >
             Volver
-          </button>
+          </Button>
           <Button onClick={() => saveMessage(message)}>Guardar</Button>
         </div>
       </div>
@@ -40,12 +40,7 @@ const SuccessPopup = ({ closePopup }) => {
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
         <h3 className="text-xl font-bold mb-4">¡Mensaje enviado con éxito!</h3>
         <div className="flex justify-center">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={closePopup}
-          >
-            Cerrar
-          </button>
+          <Button onClick={closePopup}>Cerrar</Button>
         </div>
       </div>
     </div>
@@ -93,10 +88,10 @@ const ProjectDetailsPage = () => {
   };
 
   return (
-    <div className="p-6 bg-card h-full ">
+    <div className="pt-0 mt-0 p-6">
       <section className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{projectData.title}</h1>
-        <p className="text-gray-500 mb-4">{projectData.date}</p>
+        <p className="mb-4">{projectData.date}</p>
         <img
           src={projectData.image}
           alt="proyecto"
@@ -109,21 +104,31 @@ const ProjectDetailsPage = () => {
         <p className="mb-4">{projectData.profile}</p>
 
         <h2 className="text-2xl font-bold mb-2">Colaboradores:</h2>
-        <div className="flex gap-4 mb-4">
-          {projectData.collaborators.map((collaborator, index) => (
-            <div key={index} className="text-center">
-              <img
-                src={collaborator.avatar}
-                alt={collaborator.name}
-                className="w-12 h-12 rounded-full mb-2"
-              />
-              <p>{collaborator.name}</p>
-            </div>
-          ))}
-        </div>
+        <section className="mb-8">
+          <div className="flex flex-wrap justify-between items-center mb-4 w-full ml-1">
+            {projectData.collaborators.map((collaborator, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center text-center"
+              >
+                <img
+                  src={collaborator.avatar}
+                  alt={collaborator.name}
+                  className="w-12 h-12 rounded-full mb-2"
+                />
+                <p>{collaborator.name}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </section>
 
-      <Button onClick={openSignupPopup}>Apúntate</Button>
+      <Button
+        onClick={openSignupPopup}
+        className="w-[30%] mx-auto my-auto flex justify-center items-center"
+      >
+        Apúntate
+      </Button>
 
       {showSignupPopup && (
         <SignupPopup
