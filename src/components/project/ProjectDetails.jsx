@@ -38,9 +38,9 @@ const ProjectDetails = () => {
       </section>
       <section>
         <h2 className="text-xl font-semibold">Required Skills</h2>
-        <p>Stack: {project.stack}</p>
-        <p>Languages and Frameworks: {project.languages.join(", ")}</p>
-        <p>Level: {project.level}</p>
+        <p>Stack: {project.stack_name}</p>
+        <p>Languages and Frameworks: {project.language_names.join(", ")}</p>
+        <p>Level: {project.level_name}</p>
       </section>
       {/* Placeholder section for session creation */}
       <section>

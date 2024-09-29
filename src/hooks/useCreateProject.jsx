@@ -12,31 +12,31 @@ const createProject = async (projectData) => {
 
   projectData.languages.forEach(lang => formData.append("languages", Number(lang)));
 
+  // Check if the image exists and is a valid file
   if (projectData.image && projectData.image.length > 0) {
-    formData.append("image", projectData.image[0]);
+    const imageFile = projectData.image[0];  // Ensure this is a File object
+    console.log("Appending image:", imageFile);
+    formData.append("image", imageFile);
+  } else {
+    console.error("No valid image file detected.");
   }
 
-  if (projectData.image) {
-    if (projectData.image instanceof File) {
-      console.log("Appending image:", projectData.image); // Verify if the image is a File object
-      formData.append("image", projectData.image);
-    } else {
-      console.error("No valid image file detected.");
-    }
-  }
-  
   // Log the contents of FormData before sending it
   for (let [key, value] of formData.entries()) {
     console.log(`${key}:`, value);
   }
 
-  const response = await api.post(PROJECT_URLS.CREATE_PROJECT, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-
-  return response.data;
+  try {
+    const response = await api.post(PROJECT_URLS.CREATE_PROJECT, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating project:", error.response?.data || error.message);
+    throw error;
+  }
 };
 
 export const useCreateProject = () => {

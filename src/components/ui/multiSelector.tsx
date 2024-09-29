@@ -88,7 +88,7 @@ export function MultiSelector({
                         key={i}
                         role="button"
                         onClick={() => handleSetValue(val)}
-                        className="relative group px-2 py-1 pr-4 rounded-xl border bg-primary text-white text-xs font-medium cursor-pointer focus:outline-none hover:bg-primary-dark"
+                        className="relative group px-2 py-1 pr-4 rounded-xl border bg-primary text-black text-xs font-medium cursor-pointer focus:outline-none hover:bg-primary-dark"
                         tabIndex={0} // Allows the div to be focusable, simulating button behavior
                         onKeyPress={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {
@@ -98,7 +98,7 @@ export function MultiSelector({
                         >
                         {/* Safely access foundOption.label or use a fallback */}
                         {foundOption?.label ?? "Unknown"} 
-                        <X className="absolute top-0 right-0 mt-0.5 mr-0.5 h-3 w-3 text-white group-hover:text-red-600" />
+                        <X className="absolute top-0 right-0 mt-0.5 mr-0.5 h-3 w-3 text-black group-hover:text-red-600" />
                         </div>
                     );
                     })
@@ -112,7 +112,7 @@ export function MultiSelector({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="p-1 max-h-60 overflow-y-auto rounded-md bg-popover text-popover-foreground"
+          className="p-1 max-h-60 overflow-y-hidden rounded-md bg-popover text-popover-foreground"
           side="bottom"
           align="start"
           sideOffset={5}
@@ -120,18 +120,20 @@ export function MultiSelector({
         >
           <Command>
             {searchable && (
-              <CommandInput
-                placeholder={placeholder || "Search..."}
-                value={inputValue} // Bind the search input to inputValue
-                onValueChange={(value) => setInputValue(value)} // Update inputValue on change
-                className="w-full p-2 bg-offwhite text-black border border-input focus:outline-none rounded-md"
-              />
+              <div className="sticky top-0 bg-popover p-2 z-10">
+                <CommandInput
+                  placeholder={"Escribe..." || placeholder}
+                  value={inputValue} // Bind the search input to inputValue
+                  onValueChange={(value) => setInputValue(value)} // Update inputValue on change
+                  className="w-full p-2 bg-offwhite text-black border border-input focus:outline-none rounded-md"
+                />
+              </div>
             )}
             {filteredOptions.length === 0 ? (
               <CommandEmpty>Opción no encontrado.</CommandEmpty>
             ) : (
               <CommandGroup>
-                <CommandList>
+                <CommandList className="max-h-60 p-2 overflow-y-auto">
                   {filteredOptions.map((option) => (
                     <CommandItem
                       key={option.value}
