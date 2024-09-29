@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import { Input } from "@/components/ui/input";
-import { Camera, ImageIcon } from "lucide-react"; 
+import { Camera } from "lucide-react"; 
 
 const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
   const inputRef = useRef(null);
+  const [fileName, setFileName] = useState(""); // Local state to track file name
 
   const handleClick = () => {
     inputRef.current.click();
@@ -11,14 +12,15 @@ const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
 
   const handleChange = (e) => {
     const files = e.target.files;
-    field.onChange(e);
 
-    // Update the displayed value
+    field.onChange(files); // Pass the file data to React Hook Form
+
     if (files.length > 0) {
-      const fileNames = Array.from(files).map((file) => file.name).join(", ");
-      field.onChange(fileNames);
+      // Update the displayed file name
+      const selectedFileName = Array.from(files).map((file) => file.name).join(", ");
+      setFileName(selectedFileName); // Set the local state with the file name
     } else {
-      field.onChange("");
+      setFileName(""); // Clear the file name if no file is selected
     }
   };
 
@@ -37,7 +39,7 @@ const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
         readOnly
         onClick={handleClick}
         placeholder={placeholder || "Seleccionar archivo"}
-        value={field.value || ""}
+        value={fileName}
         className="cursor-pointer pr-10 w-full"
       />
       <Camera

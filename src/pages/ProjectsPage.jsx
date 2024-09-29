@@ -3,61 +3,69 @@ import ProjectList from "@/components/project/ProjectList";
 import { useNavigate } from "react-router-dom";
 import { useProfile } from "@/hooks/useProfile";
 import { useProjects } from "@/hooks/useProjects"; 
+import { useEffect } from 'react';
 
 const ProjectsPage = () => {
-    const { data: user, isLoading: isProfileLoading } = useProfile();
-    const { data: projects, isLoading, isError, error } = useProjects(); // Fetch the projects using the hook
-    const navigate = useNavigate(); 
+  const { data: user, isLoading: isProfileLoading, isError: isProfileError } = useProfile();
+  const { data: projects, isLoading: isProjectsLoading, isError: isProjectsError, error: projectsError } = useProjects();
+  const navigate = useNavigate(); 
 
-    const handleProjectClick = (project) => {
-      navigate(`/projects/${project.id}`);
-    };
+  useEffect(() => {
+    console.log("Projects data:", projects);
+    console.log("User data:", user);
+  }, [projects, user]);
 
-    const handleCreateProject = () => {
-        navigate("/projects/create");  // Redirect to the form page
-    };
+  const handleProjectClick = (project) => {
+    navigate(`/projects/${project.id}`);
+  };
 
-    const userProjects = projects?.filter(project => project.owner_id === user.id) || [];
+  const handleCreateProject = () => {
+      navigate("/projects/create");  // Redirect to the form page
+  };
 
-    return (
-      <>
-        {/* Greeting Section (Always visible) */}
-        <section className="w-full py-4 flex flex-col items-center text-center">
-          {!isProfileLoading && user && (
-            <h1 className="text-3xl font-bold">Hola, {user.username}</h1>
-          )}
-        </section>
+  // Determine which projects belong to the current user
+  const userProjects = (projects && user) 
+  ? projects.filter(project => project.owner_id === user.id)
+  : [];
 
-        {/* Main Section */}
-        <section className="mt-8">
-          <div className="container mx-auto p-4">
-            
-            {/* Loading and Error States for Projects */}
-            {isLoading ? (
-              <p>Loading projects...</p>
-            ) : isError ? (
-              <p>Error fetching projects: {error.message}</p>
-            ) : (
-              <>
-                {/* Check if user has projects */}
-                {userProjects.length === 0 ? (
-                  <div className="text-center">
-                    <p className="text-lg mb-4">Todavía no tienes proyectos creados</p>
-                  </div>
-                ) : (
-                  <ProjectList projects={userProjects} onProjectClick={handleProjectClick} />
-                )}
-              </>
-            )}
+  if (isProfileLoading || isProjectsLoading) {
+      return <p>Loading profile and projects...</p>; // Show a loader until both profile and projects are fetched
+  }
 
-            {/* "Crear Proyecto" Button (Always visible) */}
-            <div className="text-center mt-8">
-              <Button onClick={handleCreateProject}>Crear Proyecto</Button>
+  if (isProfileError || isProjectsError) {
+      return <p>Error fetching data: {projectsError ? projectsError.message : "Profile fetch failed"}</p>;
+  }
+
+  return (
+    <>
+      {/* Greeting Section (Always visible) */}
+      <section className="w-full py-4 flex flex-col items-center text-center">
+        {!isProfileLoading && user && (
+          <h1 className="text-3xl font-bold">Hola, {user.username}</h1>
+        )}
+      </section>
+
+      {/* Main Section */}
+      <section className="mt-8">
+        <div className="container mx-auto p-4">
+          
+          {/* Check if user has projects */}
+          {userProjects.length === 0 ? (
+            <div className="text-center">
+              <p className="text-lg mb-4">Todavía no tienes proyectos creados</p>
             </div>
+          ) : (
+            <ProjectList projects={userProjects} onProjectClick={handleProjectClick} />
+          )}
+
+          {/* "Crear Proyecto" Button (Always visible) */}
+          <div className="text-center mt-8">
+            <Button onClick={handleCreateProject}>Crear Proyecto</Button>
           </div>
-        </section>
-    </>
-    );
+        </div>
+      </section>
+  </>
+  );
 };
 
 export default ProjectsPage

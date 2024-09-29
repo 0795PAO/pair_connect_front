@@ -24,14 +24,29 @@ const ProjectFormPage = () => {
   const createProjectMutation = useCreateProject();
 
   const handleFormSubmit = (formData) => {
+    
+    console.log('Form data submitted:', formData);
+
+    if (formData.image && formData.image.length > 0) {
+      console.log("Image file:", formData.image[0]);
+    } else {
+      console.log("No image file selected.");
+    }
+
     createProjectMutation.mutate(formData, {
-        onSuccess: (data) => {
-            queryClient.invalidateQueries(['projects']);
-            navigate(`/projects/${data.id}`);
-        },
-        onError: (error) => {
-            console.error('Error creating project:', error);
+      onSuccess: (data) => {
+        console.log("Project created:", data); // Log the response to check the data object
+        queryClient.invalidateQueries(['projects']);
+        if (data?.id) {
+          console.log("Navigating to project with ID:", data.id); // Log the ID before navigating
+          navigate(`/projects/${data.id}`); // Navigate to the newly created project detail page
+        } else {
+          console.error("No project ID found in the response.");
         }
+      },
+      onError: (error) => {
+        console.error('Error creating project:', error);
+      },
     });
   };
 

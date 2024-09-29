@@ -15,8 +15,8 @@ export const PROFILE_URLS = {
 }
 
 export const PROJECT_URLS = {
-    GET: `${API_BASE_URL}projects/projects/`,
-    CREATE: `${API_BASE_URL}projects/projects/`,
+    GET_PROJECTS: `${API_BASE_URL}projects/projects/`,
+    CREATE_PROJECT: `${API_BASE_URL}projects/projects/`,
 }
 
 export const SKILLS_URLS = {

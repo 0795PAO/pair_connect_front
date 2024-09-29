@@ -66,6 +66,10 @@ const ProjectForm = ({ handleSubmit, loading, options }) => {
         type: 'file',
         placeholder: 'Clicka y ponle rostro a tu proyecto',
         label: 'Imagen del proyecto',
+        onChange: (event) => {
+            const file = event.target.files[0];
+            console.log("Selected image:", file);
+          }
     },
 ];
  

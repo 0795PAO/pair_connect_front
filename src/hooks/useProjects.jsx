@@ -3,7 +3,7 @@ import api from '@/config/apiInterceptor';
 import { PROJECT_URLS } from '@/config/apiUrls';
 
 const fetchProjects = async () => {
-    const response = await api.get(PROJECT_URLS.GET);
+    const response = await api.get(PROJECT_URLS.GET_PROJECTS);
     
     // Check if `response.data` contains the actual array of projects
     const projects = Array.isArray(response.data) ? response.data : response.data.results || [];
