@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     element: <ProtectedLayout />,
     children: [
       {
-        path: "/my-project",
+        path: "/projects/:projectId",
         element: <ProjectDetailsPage />,
       },
 
