@@ -14,11 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-
-import { Textarea } from "@/components/ui/textarea";
-import { MultiSelector } from "@/components/ui/multiSelector"
-import { Button } from "@/components/ui/button";
-import CustomFileInput from "@/components/shared/CustomFileInput";
+import { Textarea } from "../ui/textarea";
 
 const CustomInput = ({
   label,
@@ -28,25 +24,24 @@ const CustomInput = ({
   form,
   type,
   options,
-  accept,
   multiple = false,
 }) => {
   return (
-    <FormField 
+    <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="text-left">
+        <FormItem>
           <FormLabel htmlFor={name}>{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
                 <SelectTrigger
-                  className={`pl-3 text-left ${!field.value ? "text-muted-foreground" : ""}`}
+                  className="pl-3 text-left"
                   aria-labelledby={`${name}-label`}
                   multiple={multiple}
                 >
-                  {field.value || placeholder|| "Seleccione una opción"}
+                  {field.value || "Seleccione una opción"}
                 </SelectTrigger>
                 <SelectContent>
                   {options.map((option) => (
@@ -56,28 +51,16 @@ const CustomInput = ({
                   ))}
                 </SelectContent>
               </Select>
-              ) : type === "textarea" ? (
-                <Textarea
-                  placeholder={placeholder}
-                  {...field}
-                  value={field.value || ""}
-                />
-              ) : type === "multiselect" ? (
-                <MultiSelector
-                  options={options}
-                  value={field.value || []}
-                  onChange={field.onChange}
-                  placeholder={placeholder}
-                />
-              ) : type === "file" ? (
-                <CustomFileInput
-                  field={field}
-                  accept={accept}
-                  multiple={multiple}
-                  placeholder={placeholder}
-                />
-            ) : (
-              <Input
+            ) : type === "textarea" ? (
+              <Textarea
+                placeholder={placeholder}
+                id={name}
+                {...field}
+                value={field.value || ""}
+              />
+            )
+              :
+              (<Input
                 placeholder={placeholder}
                 type={type}
                 id={name}

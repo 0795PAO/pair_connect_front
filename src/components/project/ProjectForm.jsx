@@ -1,158 +1,95 @@
-import api from "@/config/apiInterceptor";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import CustomInput from "@/components/shared/CustomInput";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Button } from '../ui/button';
+import CustomDynamicInput from '../shared/CustomDynamicInput';
+import { Form } from '../ui/form';
 
-
-const schema = yup.object().shape({
-  title: yup.string().required("Tu proyecto falta un título"),
-  description: yup.string().required("Explícanos de qué va tu proyecto"),
-  stack: yup.string().required("El stack es obligatorio"),
-  languages: yup.array().min(1, "Seleccione al menos un lenguaje"),
-  level: yup.string().required("El nivel es obligatorio"),
+const schema = yup.object({
+  name: yup.string().required('El título es obligatorio'),
+  description: yup.string().required('La descripción es obligatoria'),
+  stack: yup.string().required('El stack es obligatorio'),
+  languages: yup.array().min(1, 'Seleccione al menos un lenguaje').of(yup.string().required('Selecciona lenguajes válidos')),
+  level: yup.string().required('El nivel es obligatorio'),
+  image: yup.mixed().nullable().notRequired()
 });
 
-const languageOptions = [
-    { value: "cpp", label: "C++" },
-    { value: "java", label: "Java" },
-    { value: "python", label: "Python" },
-    { value: "javascript", label: "JavaScript" },
-    { value: "php", label: "PHP" },
-    { value: "typescript", label: "TypeScript" },
-    { value: "bash", label: "Bash" },
-    { value: "nodejs", label: "Node.js" },
-    { value: "sql", label: "SQL" },
-    { value: "r", label: "R" },
-    { value: "spring", label: "Spring" },
-    { value: "react", label: "React" },
-    { value: "vuejs", label: "Vue.js" },
-    { value: "angular", label: "Angular" },
-    { value: "svelte", label: "Svelte" },
-    { value: "django", label: "Django" },
-    { value: "ruby-on-rails", label: "Ruby on Rails" },
-    { value: "laravel", label: "Laravel" },
-    { value: "jest", label: "Jest" },
-    { value: "pytest", label: "PyTest" },
-  ]
-
-
-const ProjectForm = ({ onClose, onProjectCreated }) => {
+const ProjectForm = ({ handleSubmit, loading, options }) => {
   const form = useForm({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      title: "",
-      description: "",
-      stack: "",
-      languages: [],
-      level: "",
-      image: null,
-    },
+      resolver: yupResolver(schema),
+      defaultValues: {
+          name: '',
+          description: '',
+          stack: '',
+          languages: [],
+          level: '',
+          image: null,
+      },
   });
-
-  const handleFormSubmit = async (data) => {
-    try {
-      const formData = new FormData();
-
-      // Append form fields
-      formData.append('title', data.title);
-      formData.append('description', data.description);
-      formData.append('stack', data.stack);
-      formData.append('level', data.level);
-      formData.append('languages', JSON.stringify(data.languages));
-
-      // Append the image file if it exists
-      if (data.image && data.image.length > 0) {
-        formData.append('image', data.image[0]);
-      }
-
-      // Use the axios instance with interceptors
-      const response = await api.post('projects/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      onProjectCreated(response.data);
-    } catch (error) {
-      console.error('Error creating project', error);
-      // Handle errors (e.g., display error messages)
-    }
-  };
 
   const projectInputs = [
     {
-      name: "title",
-      label: "Título",
-      placeholder: "Un título molón para tu proyecto",
-      type: "text",
+        name: 'name',
+        type: 'text',
+        placeholder: 'Un título molón para tu proyecto',
+        label: 'Título',
     },
     {
-      name: "description",
-      label: "Descripción",
-      placeholder: "Escribe la esencia de tu proyecto aquí",
-      type: "textarea",
+        name: 'description',
+        type: 'textarea',
+        placeholder: 'Escribe la esencia de tu proyecto aquí',
+        label: 'Descripción',
     },
     {
-      name: "stack",
-      label: "Stack",
-      type: "select",
-      options: ["Frontend", "Backend", "Fullstack"],
-      placeholder: "¿Frontend, Backend o ambos?",
+        name: 'stack',
+        type: 'select',
+        placeholder: 'Frontend, Backend o ambos',
+        label: 'Stack',
+        options: options?.stacks || [],  // Use dynamic data
     },
     {
-      name: "languages",
-      label: "Lenguajes y frameworks",
-      type: "multiselect",
-      options: languageOptions,
-      placeholder: "En qué idioma habla tu proyecto?",
+        name: 'languages',
+        type: 'multiselect',
+        placeholder: '¿En qué idioma habla tu proyecto?',
+        label: 'Lenguajes y frameworks',
+        options: options?.languages || [],  // Use dynamic data
     },
     {
-      name: "level",
-      label: "Nivel",
-      type: "select",
-      options: ["Junior", "Mid", "Senior"],
-      placeholder: "Grado de maestría",
+        name: 'level',
+        type: 'select',
+        placeholder: 'Grado de maestría',
+        label: 'Nivel',
+        options: options?.levels || [],  // Use dynamic data
     },
     {
-      name: "image",
-      label: "Imagen del proyecto",
-      type: "file",
-      accept: "image/*",
-      placeholder: "Clicka y ponle rostro a tu proyecto",
+        name: 'image',
+        type: 'file',
+        placeholder: 'Clicka y ponle rostro a tu proyecto',
+        label: 'Imagen del proyecto',
     },
-  ];
-
-  return (
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleFormSubmit)}
-          className="flex flex-col gap-5"
-        >
-          {projectInputs.map((input, index) => (
-              <CustomInput
-                key={index}
-                form={form}
-                name={input.name}
-                label={input.label}
-                placeholder={input.placeholder}
-                type={input.type}
-                options={input.options}
-                accept={input.accept}
-                multiple={input.multiple}
+];
+ 
+return (
+  <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
+          {projectInputs.map((input, i) => (
+              <CustomDynamicInput
+                  key={i}
+                  form={form}
+                  placeholder={input.placeholder}
+                  label={input.label}
+                  name={input.name}
+                  type={input.type}
+                  options={input.options} // For select/multiselect
+                  accept={input.accept}  // For file inputs
               />
           ))}
-          <div className="flex justify-center space-x-2 col-span-1 sm:col-span-2">
-            <Button variant="secondary" onClick={onClose}>
-              Ahora no
-            </Button>
-            <Button type="submit" className="font-bold">Crear Proyecto</Button>
-          </div>
-        </form>
-      </Form>
-  );
+          <Button type="submit" className="w-[50%] self-center">
+              {loading ? 'Cargando...' : 'Crear Proyecto'}
+          </Button>
+      </form>
+  </Form>
+);
 };
 
 export default ProjectForm;

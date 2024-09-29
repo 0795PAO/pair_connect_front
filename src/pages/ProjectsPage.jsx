@@ -1,59 +1,63 @@
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import ProjectList from "@/components/project/ProjectList";
-//import ProjectForm from "@/components/project/ProjectForm";
-import ProjectDetails from "@/components/project/ProjectDetails";
 import { useNavigate } from "react-router-dom";
+import { useProfile } from "@/hooks/useProfile";
+import { useProjects } from "@/hooks/useProjects"; 
 
 const ProjectsPage = () => {
-    const [projects, setProjects] = useState([]);
-    const [selectedProject, setSelectedProject] = useState(null);
+    const { data: user, isLoading: isProfileLoading } = useProfile();
+    const { data: projects, isLoading, isError, error } = useProjects(); // Fetch the projects using the hook
     const navigate = useNavigate(); 
 
-    useEffect(() => {
-    // Fetch the user's projects from the backend
-    /*     const fetchProjects = async () => {
-            try {
-            const response = await api.get('projects/');
-            setProjects(response.data);
-            } catch (error) {
-            console.error('Error fetching projects', error);
-            }
-        };
-        
-        fetchProjects(); */
-
-    // For now, we'll simulate with an empty array
-        setProjects([]);
-    }, []);
-
     const handleProjectClick = (project) => {
-        //navigate(`/projects/${project.id}`);
-        navigate("/projects");
+      navigate(`/projects/${project.id}`);
     };
 
     const handleCreateProject = () => {
         navigate("/projects/create");  // Redirect to the form page
     };
 
+    const userProjects = projects?.filter(project => project.owner_id === user.id) || [];
+
     return (
-        <div className="container mx-auto p-4">
-      {selectedProject ? (
-        <ProjectDetails project={selectedProject} />
-      ) : (
-        <>
-          {projects.length === 0 ? (
-            <div className="text-center">
-              <p className="text-lg mb-4">No hay proyectos creados</p>
+      <>
+        {/* Greeting Section (Always visible) */}
+        <section className="w-full py-4 flex flex-col items-center text-center">
+          {!isProfileLoading && user && (
+            <h1 className="text-3xl font-bold">Hola, {user.username}</h1>
+          )}
+        </section>
+
+        {/* Main Section */}
+        <section className="mt-8">
+          <div className="container mx-auto p-4">
+            
+            {/* Loading and Error States for Projects */}
+            {isLoading ? (
+              <p>Loading projects...</p>
+            ) : isError ? (
+              <p>Error fetching projects: {error.message}</p>
+            ) : (
+              <>
+                {/* Check if user has projects */}
+                {userProjects.length === 0 ? (
+                  <div className="text-center">
+                    <p className="text-lg mb-4">Todavía no tienes proyectos creados</p>
+                  </div>
+                ) : (
+                  <ProjectList projects={userProjects} onProjectClick={handleProjectClick} />
+                )}
+              </>
+            )}
+
+            {/* "Crear Proyecto" Button (Always visible) */}
+            <div className="text-center mt-8">
               <Button onClick={handleCreateProject}>Crear Proyecto</Button>
             </div>
-          ) : (
-            <ProjectList projects={projects} onProjectClick={handleProjectClick} />
-          )}
-        </>
-      )}
-    </div>
-  );
+          </div>
+        </section>
+    </>
+    );
 };
 
 export default ProjectsPage
