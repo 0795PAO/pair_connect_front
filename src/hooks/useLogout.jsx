@@ -14,6 +14,8 @@ const useLogout = () => {
         try {
             const response = await logoutService();
             if (response.status === 200) {
+                console.log(response.status)
+                console.log('Logout successful');
                 queryClient.invalidateQueries(['profile']);
                 logout();
                 toast({
@@ -24,6 +26,7 @@ const useLogout = () => {
                 navigate('/');
             }
         } catch (err) {
+            console.log(err)
             toast({
                 title: "Error",
                 description: `${err.message}`,
