@@ -12,7 +12,7 @@ const MyProfilePage = () => {
     const [showForm, setShowForm] = useState(false);
     const queryClient = useQueryClient();
 
-    const mutation = useMutation(updateUser, {
+    const mutation = useMutation( {
         onSuccess: (data) => {
 
             queryClient.invalidateQueries(['profile']);

@@ -9,6 +9,8 @@ import HomePageWrapper from "@/wrappers/HomePageWrapper";
 import ActivationPage from "@/pages/ActivationPage";
 import MyProfilePage from "@/pages/MyProfilePage";
 import SesionsDetailsPage from "@/pages/SesionsDetailsPage";
+import ProjectDetails from "@/components/project/ProjectDetails";
+import ProjectFormPage from "@/pages/ProjectFormPage";
 
 const router = createBrowserRouter([
   {
@@ -50,17 +52,20 @@ const router = createBrowserRouter([
     element: <ProtectedLayout />,
     children: [
       {
-        path: "/sesions/:proyectId",
-        element: <SesionsDetailsPage />,
-      },
-
-      {
-        path: "/projects",
-        element: <ProjectsPage />,
-      },
-      {
         path: "/my-profile",
         element: <MyProfilePage />,
+      },
+      {
+        path: "/projects/create",
+        element: <ProjectFormPage />,
+      },
+      {
+        path: "/projects/:id",
+        element: <ProjectDetails />,
+      },
+      {
+        path: "/sesions/:proyectId",
+        element: <SesionsDetailsPage />,
       },
     ],
   },
