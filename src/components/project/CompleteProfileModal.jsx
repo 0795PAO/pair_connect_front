@@ -23,8 +23,8 @@ const CompleteProfileModal = ({ open, onOpenChange }) => {
 
     const handleSubmit = (data) => {
         updateProfileMutation.mutate(data, {
-            onSuccess: () => onOpenChange(false), 
-            
+            onSuccess: () => onOpenChange(false),
+
         });
     };
 
@@ -34,7 +34,8 @@ const CompleteProfileModal = ({ open, onOpenChange }) => {
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="gap-6 w-[90vw] md:w-full rounded-lg">
+            <DialogContent className="gap-6 w-[90vw] md:w-full rounded-lg"
+                onInteractOutside={(event) => event.preventDefault()}>
                 <DialogHeader>
                     <DialogTitle className="text-center my-3 text-xl">
                         <Logo /></DialogTitle>
