@@ -69,8 +69,8 @@ const ProfileForm = ({ handleSubmit, loading }) => {
         {
             name: "telephone",
             type: "text",
-            placeholder: "Numero Telefón",
-            label: "Numero Telefón",
+            placeholder: "Numero Telefóno",
+            label: "Numero Telefóno",
         },
         {
             name: 'linkedin_link',
@@ -93,11 +93,11 @@ const ProfileForm = ({ handleSubmit, loading }) => {
     ];
 
     if (isLoading) {
-        return <p>Loading options...</p>;
+        return <p>Cargando opciones...</p>;
     }
 
     if (error) {
-        return <p>Error loading options</p>;
+        return <p>Error al cargar las opciones</p>;
     }
 
     return (
@@ -122,4 +122,4 @@ const ProfileForm = ({ handleSubmit, loading }) => {
     );
 };
 
-export default ProfileForm;
+export default ProfileForm
