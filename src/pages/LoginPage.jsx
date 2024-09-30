@@ -53,7 +53,7 @@ const LoginPage = () => {
             if (response.status === 201) {
                 toast({
                     title: "Registrado",
-                    description: "Se ha registrado correctamente, controle su correo para activar su cuenta",
+                    description: "Te has registrado correctamente! =D revisa tu correo para activar tu cuenta",
                     variant: "success",
                 });
                 const timeoutId = setTimeout(() => {
@@ -64,7 +64,7 @@ const LoginPage = () => {
         } catch (error) {
             console.error("Error registering user", error);
 
-            let errorMessage = "Ocurrió un error al registrarse";
+            let errorMessage = "Oh! Vaya! ha ocurrido un error al registrarte :(";
 
             if (error.response) {
                 const errorData = error.response.data;
@@ -95,14 +95,14 @@ const LoginPage = () => {
                 Pair Connect
             </h1>
             <div className="border rounded-lg md:w-[40vw] mouse-light-effect" ref={elementRef}>
-                <div className="card-with-light-effect p-5" >
+                <div className="p-5 card-with-light-effect" >
                     <LoginForm handleSubmit={handleSubmit} />
-                    <p className="flex text-center sm:justify-center flex-col items-center justify-center gap-2 mt-8">¿Has olvidado tu contraseña?
-                        <Link to="/recover-password" className="block text-secondary font-bold">Recupera contraseña</Link>
+                    <p className="flex flex-col items-center justify-center gap-2 mt-8 text-center sm:justify-center">¿Has olvidado tu contraseña?
+                        <Link to="/recover-password" className="block font-bold text-secondary">Recupera contraseña</Link>
                     </p>
                 </div>
             </div>
-            <p className="flex text-center sm:justify-center flex-col items-center justify-center gap-2 mt-12 md:flex-row">¿Aun no estas registrado?
+            <p className="flex flex-col items-center justify-center gap-2 mt-12 text-center sm:justify-center md:flex-row">¿Aún no estás registrado?
                 <Button variant="link" className="block font-bold" onClick={() => setIsOpen(true)}>Regístrate</Button>
             </p>
             <RegisterDialog open={isOpen} onOpenChange={setIsOpen} handleSubmit={handleRegisterSubmit} loading={loading} />

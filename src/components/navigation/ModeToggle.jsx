@@ -35,4 +35,4 @@ const ModeToggle = () => {
     );
 };
 
-export default ModeToggle;
+export default ModeToggle

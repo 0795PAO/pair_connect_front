@@ -19,6 +19,4 @@ const HeroButton = ({ text, onClick }) => {
     );
 };
 
-
-
 export default HeroButton
