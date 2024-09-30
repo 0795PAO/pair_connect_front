@@ -9,6 +9,8 @@ import ProjectsPage from "@/pages/ProjectsPage";
 import HomePageWrapper from "@/wrappers/HomePageWrapper";
 import ActivationPage from "@/pages/ActivationPage";
 import MyProfilePage from "@/pages/MyProfilePage";
+import ProjectDetails from "@/components/project/ProjectDetails";
+import ProjectFormPage from "@/pages/ProjectFormPage";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: '/my-profile',
         element: <MyProfilePage/>
+      },
+      {
+        path: '/projects/create',
+        element: <ProjectFormPage />,
+      },
+      {
+        path: '/projects/:id',
+        element: <ProjectDetails />,
       }
     ]
   }

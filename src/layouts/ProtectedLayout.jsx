@@ -10,6 +10,7 @@ const ProtectedLayout = () => {
     const { isAuthenticated } = useAuth();
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         if (isAuthenticated !== null) {
             setLoading(false);
