@@ -6,25 +6,34 @@ import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUser } from "@/services/profileService";
+import { useToast } from "@/hooks/useToast";
 
 const MyProfilePage = () => {
     const { elementRef } = useMousePosition()
     const { data: user, isLoading, error } = useProfile();
     const [showForm, setShowForm] = useState(false);
+    const { toast } = useToast();
     const queryClient = useQueryClient();
 
-    // const mutation = useMutation(updateUser, {
-    //     onSuccess: (data) => {
+    const mutation = useMutation({
+        mutationFn: updateUser,
+        onSuccess: (data) => {
 
-    //         queryClient.invalidateQueries(['profile']);
-    //         console.log('Profilo aggiornato:', data);
-    //     },
-    //     onError: (error) => {
-    //         console.error('Errore durante l\'aggiornamento del profilo', error);
-    //     }
-    // });
+            queryClient.invalidateQueries(['profile']);
+            console.log('Profilo aggiornato:', data);
+        },
+        onError: (error) => {
+            console.error('Error during profile update', error);
+            toast({
+                title: 'Error',
+                description: 'An error occurred while updating your profile. Please try again later.',
+                variant: 'destructive',
+            })
+        }
+    });
 
     const handleFormSubmit = (updatedData) => {
+        console.log('hola')
         mutation.mutate(updatedData);
         setShowForm(false);
     }
