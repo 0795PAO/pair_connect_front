@@ -1,53 +1,10 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router-dom";
+import SimplePopUp from "@/components/shared/SimplePopUp";
+import PopupWithInput from "@/components/shared/PopupWithInput";
 
-// Componente del Popup para la inscripción
-const SignupPopup = ({ closePopup, saveMessage, projectName }) => {
-  const [message, setMessage] = useState("");
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-        <h3 className="text-xl font-bold mb-4">
-          ¡Nos alegra ver que quieras apuntarte a la sesión del {projectName}!
-        </h3>
-        <p className="mb-4 ">¿Quieres dejar un mensaje?</p>
-        <textarea
-          className="border rounded-md p-2 w-full mb-4"
-          placeholder="Escribe un mensaje"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
-        <div className="flex justify-between">
-          <Button
-            onClick={closePopup}
-            className="border border-primaryforeground  bg-"
-          >
-            Volver
-          </Button>
-          <Button onClick={() => saveMessage(message)}>Guardar</Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Componente del Popup para confirmación de éxito
-const SuccessPopup = ({ closePopup }) => {
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-        <h3 className="text-xl font-bold mb-4">¡Mensaje enviado con éxito!</h3>
-        <div className="flex justify-center">
-          <Button onClick={closePopup}>Cerrar</Button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const ProjectDetailsPage = () => {
+const SesionsDetailsPage = () => {
   const { projectId } = useParams(); // Así obtenemos el ID del proyecto desde la URL
   const [showSignupPopup, setShowSignupPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -131,15 +88,26 @@ const ProjectDetailsPage = () => {
       </Button>
 
       {showSignupPopup && (
-        <SignupPopup
+        <PopupWithInput
           closePopup={closePopup}
           saveMessage={saveMessage}
           projectName={projectData.title}
+          title={`¡Nos alegra ver que quieras apuntarte a la sesión del ${projectData.title}!`}
+          subtitle="¿Quieres dejar un mensaje?"
+          placeholder="Escribe un mensaje"
+          closeButtonText="Volver"
+          saveButtonText="Guardar"
         />
       )}
-      {showSuccessPopup && <SuccessPopup closePopup={closePopup} />}
+      {showSuccessPopup && (
+        <SimplePopUp
+          closePopup={closePopup}
+          message="¡Tu mensaje ha sido enviado correctamente!"
+          closeText="Cerrar"
+        />
+      )}
     </div>
   );
 };
 
-export default ProjectDetailsPage;
+export default SesionsDetailsPage;

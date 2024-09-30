@@ -7,8 +7,8 @@ import PairProgrammingPage from "@/pages/PairProgrammingPage";
 import ProjectsPage from "@/pages/ProjectsPage";
 import HomePageWrapper from "@/wrappers/HomePageWrapper";
 import ActivationPage from "@/pages/ActivationPage";
-import ProjectDetailsPage from "@/pages/ProjectDetailsPage";
 import MyProfilePage from "@/pages/MyProfilePage";
+import SesionsDetailsPage from "@/pages/SesionsDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -50,8 +50,8 @@ const router = createBrowserRouter([
     element: <ProtectedLayout />,
     children: [
       {
-        path: "/projects/:projectId",
-        element: <ProjectDetailsPage />,
+        path: "/sesions/:proyectId",
+        element: <SesionsDetailsPage />,
       },
 
       {
