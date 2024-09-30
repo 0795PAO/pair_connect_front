@@ -68,9 +68,9 @@ const Navbar = () => {
     <nav className="px-6 py-4" style={{ boxShadow: "var(--shadow-custom)" }}>
       <div className="flex justify-between items-center">
         <div className="flex items-center space-x-3">
-          <a href="/" onClick={handleLogoClick} className="h-10">
+          <Link href="/" onClick={handleLogoClick} className="h-10">
             <img src="/logo.svg" alt="logo" className="w-[35px]" />
-          </a>
+          </Link>
           <span
             className="font-poppins font-bold text-[36px] leading-[120%] hidden md:block text-transparent bg-clip-text"
             style={{ backgroundImage: "var(--gradient)" }}

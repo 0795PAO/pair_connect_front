@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
-import Modal from "@/components/shared/Modal";
 import { useProfile } from "@/hooks/useProfile";
+import CompleteProfileModal from "@/components/project/CompleteProfileModal";
 
 
 
@@ -17,10 +17,6 @@ const UserHomePage = () => {
   }, [user]);
 
 
-  const onOpenChange = () => {
-    setOpen(false);
-  };
-
   return (
     <div data-testid="user-home-page" className="flex flex-col gap-5 w-full items-center">
       {isLoading && <Loader />}
@@ -30,13 +26,7 @@ const UserHomePage = () => {
       </h1>
         <h2 className="text-3xl font-semibold self-start">Hola, {user?.username}</h2>
         <EventCalendar />
-        <Modal
-          title="Completa tu perfil"
-          message="Completa tu perfil para poder ver filtrar las sessiones para ti"
-          border_color="primary"
-          open={open}
-          onOpenChange={onOpenChange}
-        />
+        <CompleteProfileModal open={open} onOpenChange={setOpen} />
       </>}
     </div>
 

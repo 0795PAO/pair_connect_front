@@ -3,6 +3,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import router from './router';
+import { useEffect } from 'react';
+import { fetchLevels } from './hooks/useLevels';
+import { fetchStacks } from './hooks/useStacks';
+import { fetchLanguages } from './hooks/useLanguages';
 
 
 const queryClient = new QueryClient({
@@ -16,7 +20,26 @@ const queryClient = new QueryClient({
 });
 
 
+
+
 const App = () => {
+
+    useEffect(() => {
+        queryClient.prefetchQuery({
+            queryKey: ['levels'],
+            queryFn: fetchLevels
+        });
+        queryClient.prefetchQuery(
+            {
+                queryKey: ['stacks'],
+                queryFn: fetchStacks
+            });
+        queryClient.prefetchQuery({
+            queryKey: ['languages'], 
+            queryFn: fetchLanguages
+        });
+    }, []);
+
     return (
         <AuthProvider>
             <ThemeProvider>

@@ -11,6 +11,7 @@ import ActivationPage from "@/pages/ActivationPage";
 import MyProfilePage from "@/pages/MyProfilePage";
 import ProjectDetails from "@/components/project/ProjectDetails";
 import ProjectFormPage from "@/pages/ProjectFormPage";
+import MyProfileFormPage from "@/pages/MyProfileFormPage";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: '/my-profile',
         element: <MyProfilePage/>
+      },
+      {
+        path: '/my-profile/edit',
+        element: <MyProfileFormPage/>
       },
       {
         path: '/projects/create',

@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+/* eslint-disable react/prop-types */
+import { useMemo } from "react";
 import {
   FormControl,
   FormDescription,
@@ -62,8 +63,8 @@ const isOptionObject = (option) =>
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem className="text-left">
-          <FormLabel htmlFor={name}>{label}</FormLabel>
+        <FormItem className="text-left text-lg">
+          <FormLabel htmlFor={name} className="text-base">{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={(val) => field.onChange(val)}>
