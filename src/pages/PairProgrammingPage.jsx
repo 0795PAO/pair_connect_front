@@ -59,32 +59,49 @@ const PairProgrammingPage = () => {
     return (
         <div>
             <section className="flex flex-col items-center justify-center gap-2 mt-20 mb-20 text-center">
-                <h1 className="mb-4 text-4xl font-bold">Sobre el Pair Programming</h1>
-                <h2 className="mb-6 text-xl ">"El código fluye mejor cuando se comparte con un colega"</h2>
-                <h2 className="mb-4 text-3xl font-bold">Navegador</h2>
-                <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[300px] mb-6 block mx-auto" />
-                <p className="mb-6 text-xl text-justify">
-                    El programador más experimentado puede asumir los roles tácticos de desarrollo mientras que el programador menos experimentado recibe las indicaciones y progresa con velocidad en el despliegue de cada proyecto, al mismo tiempo que incrementa su nivel de programación y experiencia.
-                </p>
-                <h2 className="mb-4 text-3xl font-bold">Emparejamiento de Ping Pong</h2>
-                <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[300px] mb-6 block mx-auto" />
-                <p className="mb-6 text-xl text-justify">
-                Driver/navigator son intercambiados constantemente como la pelota de ping pong. Mediante este tipo de pair programming los programadores pueden familiarizarse con el desarrollo dirigido por test o TDD y obtener una sinergia grupal que focaliza la atención para que ambos mejoren su desempeño.
-                </p>
-                <h2 className="mb-4 text-3xl font-bold">Pomodoro</h2>
-                <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[300px] mb-6 block mx-auto" />
-                <p className="mb-6 text-xl text-justify">
-                    El método pomodoro se utiliza para focalizar la atención. Mediante este estilo los programadores trabajan sesiones de 25 minutos, descansando 5 minutos entre sesión y sesión hasta completar 4 sesiones para conseguir una pausa más larga de 15 minutos.
-                    Lo bueno de aplicar el método pomodoro en pair programming es que además de aumentar la concentración cada equipo puede utilizar los tiempos de sesión para intercambiar los roles y lograr así que ambos miembros ocupen 2 veces el rol de conductor y 2 veces el rol de navegador durante cada ciclo pomodoro completado.
-                </p>
-                    <Button
-                        variant="specialShadow"
-                        onClick={() => setIsOpen(true)}
-                        size="lg"
-                        title={"Si quieres hacer match, te toca registrarte =D "}
-                    >
-                        Regístrarme
-                    </Button>
+                <h1 className="mb-7 text-6xl font-bold">Sobre el Pair Programming</h1>
+                <h2 className="mb-10 text-4xl ">"El código fluye mejor cuando se comparte con un colega"</h2>
+                <div className="flex flex-col items-center justify-center mx-auto mb-8 w-[800px] md:w-[70%]">
+                    <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                        <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[100%] md:w-[600px] mb-4 md:mr-8" />
+                        <div className="flex flex-col">
+                            <h2 className="mb-2 text-4xl font-bold text-justify">Navegador:</h2>
+                            <p className="text-xl text-justify">
+                                El programador más experimentado puede asumir los roles tácticos de desarrollo mientras que el programador menos experimentado recibe las indicaciones y progresa con velocidad en el despliegue de cada proyecto, al mismo tiempo que incrementa su nivel de programación y experiencia.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-center mx-auto mb-8 w-[800px] md:w-[70%]">
+                    <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                        <div className="flex flex-col">
+                            <h2 className="mb-2 text-4xl font-bold text-left">Emparejamiento de Ping Pong:</h2>
+                            <p className="text-xl text-justify">
+                                Driver/navigator son intercambiados constantemente como la pelota de ping pong. Mediante este tipo de pair programming los programadores pueden familiarizarse con el desarrollo dirigido por test o TDD y obtener una sinergia grupal que focaliza la atención para que ambos mejoren su desempeño.
+                            </p>
+                        </div>
+                        <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[100%] md:w-[600px] mb-4 md:ml-8" />
+                    </div>
+                </div>
+                <div className="flex flex-col items-center justify-center mx-auto mb-20 w-[800px] md:w-[70%]">
+                    <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                        <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[100%] md:w-[600px] mb- md:mr-8" />
+                        <div className="flex flex-col">
+                            <h2 className="mb-2 text-4xl font-bold text-justify">Pomodoro:</h2>
+                            <p className="text-xl text-justify">
+                                El método pomodoro se utiliza para focalizar la atención. Mediante este estilo los programadores trabajan sesiones de 25 minutos, descansando 5 minutos entre sesión y sesión hasta completar 4 sesiones para conseguir una pausa más larga de 15 minutos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <Button
+                    variant="specialShadow"
+                    onClick={() => setIsOpen(true)}
+                    size="lg"
+                    title={"Si quieres hacer match, te toca registrarte =D "}
+                >
+                    Regístrarme
+                </Button>
             </section>
             <RegisterDialog
                 open={isOpen}
