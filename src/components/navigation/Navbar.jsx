@@ -4,16 +4,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { useToast } from "@/hooks/useToast";
-import { logout as logoutService } from "@/services/authService";
 import { Link } from "react-router-dom";
+import useLogout from "@/hooks/useLogout";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
-  const { toast } = useToast();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const menuRef = useRef(null);
+  const { handleLogout } = useLogout();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,27 +28,7 @@ const Navbar = () => {
     };
   }, [menuRef]);
 
-  const handleLogout = async () => {
-    try {
-      const response = await logoutService();
-      console.log(response);
-      if (response.status === 200) {
-        toast({
-          title: "Logout",
-          description: "Se ha cerrado la sesión correctamente",
-          variant: "success",
-        });
-        logout();
-        navigate("/");
-      }
-    } catch (err) {
-      toast({
-        title: "Error",
-        description: `${err.message}`,
-        variant: "destructive",
-      });
-    }
-  };
+
 
   const handleLogoClick = (e) => {
     e.preventDefault();

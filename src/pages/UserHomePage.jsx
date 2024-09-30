@@ -8,10 +8,11 @@ import CompleteProfileModal from "@/components/project/CompleteProfileModal";
 
 const UserHomePage = () => {
   const { data: user, isLoading, error } = useProfile();
+  console.log(user);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (user && (!user.prog_language || !user.stack || !user.level)) {
+    if (user && (!user.prog_language || !user.stack )) {
       setOpen(true);
     }
   }, [user]);
