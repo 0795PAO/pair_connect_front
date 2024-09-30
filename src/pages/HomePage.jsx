@@ -20,7 +20,7 @@ const HomePage = () => {
       if (response.status === 201) {
         toast({
           title: "Registrado",
-          description: "Se ha registrado correctamente, controle su correo para activar su cuenta",
+          description: "¡Te has registrado correctamente! =D revisa tu correo para activar tu cuenta",
           variant: "success",
         });
         const timeoutId = setTimeout(() => {
@@ -31,7 +31,7 @@ const HomePage = () => {
     } catch (error) {
       console.error("Error registering user", error);
       
-      let errorMessage = "Ocurrió un error al registrarse";
+      let errorMessage = "Oh! Vaya! ha ocurrido un error al registrarte :(";
 
       if (error.response) {
         const errorData = error.response.data;
@@ -83,4 +83,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePage

@@ -13,13 +13,13 @@ const ActivationPage = () => {
             try {
                 const response = await activateAccount({ uid, token });
                 console.log(response);
-                setActivationStatus("¡Account activado con éxito!"); setTimeout(() => {
+                setActivationStatus("¡Cuenta activado con éxito!"); setTimeout(() => {
                     navigate("/login"); 
                 }, 4000)
 
             } catch (error) {
                 console.log(error);
-                setActivationStatus("Hubo un fallo en la activación. Por favor, intentalo mas tarde.");
+                setActivationStatus("Hubo un fallo en la activación. Por favor, intentalo más tarde.");
             }
         };
 
@@ -33,4 +33,4 @@ const ActivationPage = () => {
     );
 };
 
-export default ActivationPage;
+export default ActivationPage

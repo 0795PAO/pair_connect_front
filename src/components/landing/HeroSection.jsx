@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import HeroButton from "./HeroButton";
+import '@/styles/shooting-stars.css';
 import 'animate.css';
 
 const HeroSection = ({ handleRegisterClick }) => {
