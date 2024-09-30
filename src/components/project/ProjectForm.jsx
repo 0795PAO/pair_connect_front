@@ -14,7 +14,7 @@ const schema = yup.object({
   image: yup.mixed().nullable().notRequired()
 });
 
-const ProjectForm = ({ handleSubmit, loading, options }) => {
+const ProjectForm = ({ handleSubmit, loading, options, onCancel }) => {
   const form = useForm({
       resolver: yupResolver(schema),
       defaultValues: {
@@ -88,9 +88,14 @@ return (
                   accept={input.accept}  // For file inputs
               />
           ))}
-          <Button type="submit" className="w-[50%] self-center">
-              {loading ? 'Cargando...' : 'Crear Proyecto'}
-          </Button>
+          <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
+            <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>
+              Ahora no
+            </Button>
+            <Button type="submit" className="w-[50%] self-center whitespace-normal break-words">
+                {loading ? 'Cargando...' : 'Crear Proyecto'}
+            </Button>
+          </div>
       </form>
   </Form>
 );

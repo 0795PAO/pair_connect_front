@@ -73,7 +73,7 @@ export function MultiSelector({
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="min-w-full justify-between border border-input hover:bg-transparent hover:border-primary focus:border-primary focus:ring-primary col-span-1 sm:col-span-2"
+            className="flex h-9 w-full justify-between border border-input hover:bg-transparent hover:border-primary focus:border-primary focus:ring-primary col-span-1 sm:col-span-2"
             ref={buttonRef} // Reference to the Button element
           >
             <div className="flex-1 min-w-0 flex gap-2 flex-wrap overflow-hidden">
