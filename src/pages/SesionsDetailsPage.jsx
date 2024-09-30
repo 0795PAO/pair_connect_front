@@ -1,33 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import SimplePopUp from "@/components/shared/SimplePopUp";
 import PopupWithInput from "@/components/shared/PopupWithInput";
+import { useSessionDetails } from "@/hooks/useSessionDetails";
+import { useProjectDetails } from "@/hooks/useProjectDetails";
 
 const SesionsDetailsPage = () => {
-  const { projectId } = useParams(); // Así obtenemos el ID del proyecto desde la URL
+  const { projectId } = useParams();
+  const navigate = useNavigate();
+
+  console.log("Project ID:", projectId);
+
   const [showSignupPopup, setShowSignupPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  // Datos hardcodeados, cuando haya info hay que borrarlo
-  const projectData = {
-    logo: "/path-to-logo.png",
-    title: `Proyecto ${projectId}`,
-    date: "15 Septiembre 2024, 10:00h",
-    image: "/path-to-image.png",
-    description:
-      "Este es un proyecto de ejemplo donde trabajaremos en equipo para lograr objetivos específicos. Se usarán varias tecnologías modernas.",
-    profile:
-      "Buscamos desarrolladores con experiencia en React, Node.js y MongoDB. Conocimiento en CSS y Tailwind es un plus.",
-    collaborators: [
-      { name: "Namine", avatar: "../../public/photo_namine.svg" },
-      { name: "Italian", avatar: "../../public/photo_italian.svg" },
-      {
-        name: "Fire Fairy",
-        avatar: "../../public/photo_fire.svg",
-      },
-    ],
-  };
+  const {
+    data: sessionData,
+    isLoading: isSessionLoading,
+    isError: isSessionError,
+  } = useSessionDetails(projectId);
+  const {
+    data: projectData,
+    isLoading: isProjectLoading,
+    isError: isProjectError,
+  } = useProjectDetails(projectId);
+
+  useEffect(() => {
+    if (!projectId) {
+      console.error("Project ID no está disponible");
+    }
+  }, [projectId]);
+
+  if (isSessionLoading || isProjectLoading) {
+    return <p>Cargando los detalles de la sesión y del proyecto...</p>;
+  }
+
+  if (isSessionError || isProjectError) {
+    return (
+      <p>Hubo un error al cargar los detalles de la sesión o el proyecto.</p>
+    );
+  }
+
+  if (!projectData || !sessionData) {
+    return <p>No se encontraron datos para este proyecto o sesión.</p>;
+  }
 
   const openSignupPopup = () => {
     setShowSignupPopup(true);
@@ -44,40 +61,89 @@ const SesionsDetailsPage = () => {
     setShowSuccessPopup(true);
   };
 
+  // Filtrar futuras sesiones
+  const futureSessions =
+    sessionData.future_sessions?.filter(
+      (session) => new Date(session.schedule_date_time) > new Date()
+    ) || [];
+
   return (
     <div className="pt-0 mt-0 p-6">
       <section className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{projectData.title}</h1>
-        <p className="mb-4">{projectData.date}</p>
+        <h1 className="text-3xl font-bold mb-2">{projectData.name}</h1>
+        <p className="mb-4">{sessionData.schedule_date_time}</p>
         <img
-          src={projectData.image}
+          src={projectData.image_url}
           alt="proyecto"
           className="w-full mb-4 rounded-lg"
         />
         <h2 className="text-2xl font-bold mb-2">Sobre el proyecto:</h2>
         <p className="mb-4">{projectData.description}</p>
 
-        <h2 className="text-2xl font-bold mb-2">El perfil que se busca:</h2>
-        <p className="mb-4">{projectData.profile}</p>
+        {sessionData.description && (
+          <>
+            <h2 className="text-2xl font-bold mb-2">
+              Descripción de la sesión:
+            </h2>
+            <p className="mb-4">{sessionData.description}</p>
+          </>
+        )}
 
-        <h2 className="text-2xl font-bold mb-2">Colaboradores:</h2>
-        <section className="mb-8">
-          <div className="flex flex-wrap justify-between items-center mb-4 w-full ml-1">
-            {projectData.collaborators.map((collaborator, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center text-center"
-              >
-                <img
-                  src={collaborator.avatar}
-                  alt={collaborator.name}
-                  className="w-12 h-12 rounded-full mb-2"
-                />
-                <p>{collaborator.name}</p>
-              </div>
-            ))}
+        {projectData.stack_name && (
+          <>
+            <h2 className="text-2xl font-bold mb-2">Stack del proyecto:</h2>
+            <p className="mb-4">{projectData.stack_name}</p>
+          </>
+        )}
+
+        {/* Lenguajes independientes */}
+        {sessionData.languages && sessionData.languages.length > 0 && (
+          <>
+            <h2 className="text-2xl font-bold mb-2">Lenguajes requeridos:</h2>
+            <ul className="mb-4 list-disc list-inside">
+              {sessionData.languages.map((language, index) => (
+                <li key={index}>{language}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        <h2 className="text-2xl font-bold mb-2">El perfil que se busca:</h2>
+        <p className="mb-4">{sessionData.level_name}</p>
+
+        {/* Futuras Sesiones */}
+        {futureSessions.length > 0 && (
+          <>
+            <h2 className="text-2xl font-bold mb-2">Futuras Sesiones:</h2>
+            <ul className="mb-4 list-disc list-inside">
+              {futureSessions.map((session, index) => (
+                <li key={index}>
+                  <button
+                    className="text-blue-500 underline"
+                    onClick={() => navigate(`/sessions/${session.id}`)}
+                  >
+                    {session.schedule_date_time} - {session.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {/* Información del Dueño del Proyecto */}
+        {projectData.owner && (
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-2">
+              Información del Dueño del Proyecto:
+            </h2>
+            <button
+              className="text-blue-500 underline"
+              onClick={() => navigate(`/profile/${projectData.owner.id}`)}
+            >
+              {projectData.owner.name}
+            </button>
           </div>
-        </section>
+        )}
       </section>
 
       <Button
@@ -91,14 +157,15 @@ const SesionsDetailsPage = () => {
         <PopupWithInput
           closePopup={closePopup}
           saveMessage={saveMessage}
-          projectName={projectData.title}
-          title={`¡Nos alegra ver que quieras apuntarte a la sesión del ${projectData.title}!`}
+          projectName={projectData.name}
+          title={`¡Nos alegra ver que quieras apuntarte a la sesión del ${projectData.name}!`}
           subtitle="¿Quieres dejar un mensaje?"
           placeholder="Escribe un mensaje"
           closeButtonText="Volver"
           saveButtonText="Guardar"
         />
       )}
+
       {showSuccessPopup && (
         <SimplePopUp
           closePopup={closePopup}

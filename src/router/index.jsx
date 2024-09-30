@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         element: <ProjectDetails />,
       },
       {
-        path: "/sesions/:proyectId",
+        path: "/sessions/:projectId",
         element: <SesionsDetailsPage />,
       },
     ],
