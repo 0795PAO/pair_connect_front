@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
-import CompleteProfileModal from "@/components/project/CompleteProfileModal";
+import CompleteProfileModal from "@/components/profile/CompleteProfileModal";
 
 
 
