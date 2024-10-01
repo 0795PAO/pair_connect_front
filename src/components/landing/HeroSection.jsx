@@ -1,16 +1,39 @@
 /* eslint-disable react/prop-types */
 import HeroButton from "./HeroButton";
+import '@/styles/shooting-stars.css';
+import 'animate.css';
 
-const HeroSection = ({handleRegisterClick}) => {
+const HeroSection = ({ handleRegisterClick }) => {
     return (
-        <section className="flex flex-col items-center justify-center pt-2 mt-16 text-center bg-background"> 
-            <h1 className="mb-4 font-poppins font-bold text-6xl leading-[120%] text-transparent bg-clip-text" style={{ backgroundImage: 'var(--gradient)' }}>
+        <section className="relative flex flex-col items-center justify-center text-center hero-section bg-background motion-reduce:transform-none">
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+            <div className="shooting-star-cyan"></div>
+            <div className="shooting-star-pink"></div>
+
+            <h1
+                className="mb-10 font-poppins font-bold text-6xl md:text-7xl lg:text-9xl leading-[120%] gradient-text cursor-pointer animate__zoomIn animate__animated motion-reduce:transform-none"
+                style={{ backgroundImage: 'var(--gradient)' }}
+            >
                 Pair Connect
             </h1>
-            <p className="mb-6 text-lg text-foreground">
-                Encuentra tu colega para aprender y codificar.
+            <p className="mb-24 text-xl md:text-2xl lg:text-3xl text-foreground">
+                Conecta, programa y crece en equipo
             </p>
-            <HeroButton text="Registrarme" onClick={handleRegisterClick} />
+            <HeroButton text="Regístrate aquí" onClick={handleRegisterClick} />
+
+
+            <p className="mt-10 text-xs md:text-sm lg:text-sm text-foreground">
+                Echa un vistazo a las próximas sesiones
+            </p>
+
+            <img src="/arrow-gradient.svg" alt="Down Arrow" className="w-12 h-12 mt-10 animate-bounce motion-reduce:transform-none slow-bounce" />
         </section>
     );
 };

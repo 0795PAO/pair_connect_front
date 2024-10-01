@@ -15,19 +15,19 @@ const RegisterDialog = ({ open, onOpenChange, handleSubmit, loading }) => {
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="gap-6 w-[90vw] md:w-full rounded-lg">
                 <DialogHeader>
-                    <DialogTitle className="text-center my-3 text-xl">Registro</DialogTitle>
-                    <DialogDescription className="text-center mt-3 mb-5 text-md">
+                    <DialogTitle className="my-3 text-xl text-center">Registro</DialogTitle>
+                    <DialogDescription className="mt-3 mb-5 text-center text-md">
                         Crea tu cuenta rellenando los campos abajo.
                     </DialogDescription>
                     <RegisterForm handleSubmit={handleSubmit} loading={loading}/>
                 </DialogHeader>
-                <DialogFooter className="text-center sm:justify-center flex-col items-center justify-center gap-2">
+                <DialogFooter className="flex-col items-center justify-center gap-2 text-center sm:justify-center">
                     <p>¿Ya te has registrado?</p>
-                    <Link to="/login" className="text-secondary font-bold">Inicia sesión</Link>
+                    <Link to="/login" className="font-bold text-secondary">Inicia sesión</Link>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
     );
 };
 
-export default RegisterDialog;
+export default RegisterDialog
