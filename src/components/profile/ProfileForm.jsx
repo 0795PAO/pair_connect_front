@@ -77,8 +77,8 @@ const ProfileForm = ({ handleSubmit, loading, options }) => {
         {
             name: "telephone",
             type: "text",
-            placeholder: "Numero Telefón",
-            label: "Numero Telefón",
+            placeholder: "Numero Telefóno",
+            label: "Numero Telefóno",
         },
         {
             name: 'linkedin_link',
@@ -99,6 +99,7 @@ const ProfileForm = ({ handleSubmit, loading, options }) => {
             label: 'Discord',
         }
     ];
+
 
     return (
         <Form {...form}>
@@ -123,4 +124,4 @@ const ProfileForm = ({ handleSubmit, loading, options }) => {
     );
 };
 
-export default ProfileForm;
+export default ProfileForm

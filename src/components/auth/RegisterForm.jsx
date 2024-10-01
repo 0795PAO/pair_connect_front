@@ -78,4 +78,4 @@ const RegisterForm = ({ handleSubmit, loading}) => {
     );
 };
 
-export default RegisterForm;
+export default RegisterForm

@@ -9,4 +9,4 @@ const HomePageWrapper = () => {
     return isAuthenticated ? <UserHomePage /> : <HomePage />;
 };
 
-export default HomePageWrapper;
+export default HomePageWrapper

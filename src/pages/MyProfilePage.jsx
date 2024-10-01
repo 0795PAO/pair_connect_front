@@ -8,8 +8,6 @@ const MyProfilePage = () => {
     const { data: user, isLoading, error } = useProfile();
 
 
-
-
     if (isLoading) {
         return <Loader />;
     }
@@ -20,7 +18,6 @@ const MyProfilePage = () => {
     }
 
 
-
     return (
         <>
         <div>MyProfilePage {user?.username}</div>
@@ -28,8 +25,5 @@ const MyProfilePage = () => {
         </>
     )
 }
-
-
-
 
 export default MyProfilePage

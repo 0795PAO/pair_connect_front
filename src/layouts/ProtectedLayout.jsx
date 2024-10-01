@@ -37,4 +37,4 @@ const ProtectedLayout = () => {
     );
 };
 
-export default ProtectedLayout;
+export default ProtectedLayout
