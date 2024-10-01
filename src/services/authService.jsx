@@ -48,6 +48,7 @@ export const registerUser = async (user) => {
 export const logout = async () => {
     try {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        console.log(refreshToken)
         const response = await api.post(AUTH_URLS.LOGOUT, { refresh: refreshToken });
         console.log(response)
         if (response) {

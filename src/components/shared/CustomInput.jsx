@@ -77,4 +77,4 @@ const CustomInput = ({
   );
 };
 
-export default CustomInput
+export default CustomInput;

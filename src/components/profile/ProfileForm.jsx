@@ -3,14 +3,13 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from '../ui/button';
-import CustomInput from '../shared/CustomInput';
 import { Form } from '../ui/form';
-import { useOptions } from '@/hooks/useOptions';
+import CustomDynamicInput from '../shared/CustomDynamicInput';
 
 const schema = yup.object({
-    languages: yup.string().required('El campo de lenguajes es obligatorio'),
-    stack: yup.string().required('El campo stack es obligatorio'),
-    level: yup.string().required('El campo de nivel es obligatorio'),
+    languages: yup.string().optional(),
+    stack: yup.string().optional(),
+    level: yup.string().optional(),
     about_me: yup.string().optional(),
     image: yup.string().optional(),
     telephone: yup.string().optional(),
@@ -19,15 +18,20 @@ const schema = yup.object({
     discord_link: yup.string().optional(),
 });
 
-const ProfileForm = ({ handleSubmit, loading }) => {
-    const { data: options, isLoading, error } = useOptions();
+const ProfileForm = ({ handleSubmit, loading, options }) => {
 
     const form = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
-            languages: '',
+            prog_language: [],
             stack: '',
             level: '',
+            about_me: '',
+            image: null,
+            telephone: '',
+            linkedin_link: '',
+            github_link: '',
+            discord_link: '',
         },
     });
 
@@ -43,7 +47,7 @@ const ProfileForm = ({ handleSubmit, loading }) => {
         {
             name: 'stack',
             type: 'select',
-            placeholder: 'Frontend',
+            placeholder: 'Frontend, Backend o ambos',
             label: 'Stack',
             options: options?.stacks || [], 
         },
@@ -65,6 +69,10 @@ const ProfileForm = ({ handleSubmit, loading }) => {
             type: "file",
             placeholder: "Avatar",
             label: "Avatar",
+            onChange: (event) => {
+                const file = event.target.files[0];
+                console.log("Selected image:", file);
+            }
         },
         {
             name: "telephone",
@@ -92,19 +100,12 @@ const ProfileForm = ({ handleSubmit, loading }) => {
         }
     ];
 
-    if (isLoading) {
-        return <p>Cargando opciones...</p>;
-    }
-
-    if (error) {
-        return <p>Error al cargar las opciones</p>;
-    }
 
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
                 {profileInputs.map((input, i) => (
-                    <CustomInput
+                    <CustomDynamicInput
                         key={i}
                         form={form}
                         placeholder={input.placeholder}
@@ -112,6 +113,7 @@ const ProfileForm = ({ handleSubmit, loading }) => {
                         name={input.name}
                         type={input.type}
                         options={input.options} 
+                        accept={input.accept}
                     />
                 ))}
                 <Button type="submit" className="w-[50%] self-center">
