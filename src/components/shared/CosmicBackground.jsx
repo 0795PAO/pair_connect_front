@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import '@/styles/cosmic-background.css';
 
-const CosmicBackground = () => {
+const CosmicBackground = ({ maxSparkles = 100 }) => {
     const [sparkles, setSparkles] = useState([]);
 
     useEffect(() => {
@@ -11,7 +12,13 @@ const CosmicBackground = () => {
                 y: Math.random() * 100,
                 size: Math.random() * 5,
             };
-            setSparkles((prevSparkles) => [...prevSparkles, sparkle]);
+            setSparkles((prevSparkles) => {
+                if (prevSparkles.length >= maxSparkles) {
+                    return [...prevSparkles.slice(1), sparkle];
+                } else {
+                    return [...prevSparkles, sparkle];
+                }
+            });
         };
 
         const intervalId = setInterval(() => {
@@ -19,24 +26,24 @@ const CosmicBackground = () => {
         }, 100);
 
         return () => clearInterval(intervalId);
-    }, []);
+    }, [maxSparkles]);
 
     return (
         <div className="cosmic-background">
-    {sparkles.map((sparkle, index) => (
-        <div
-            key={index}
-            className={`absolute rounded-full bg-cyan-400 animate-pulse opacity-50 ${Math.random() < 0.5 ? 'bg-pink-400' : ''}`}
-            style={{
-                top: `${sparkle.y}%`,
-                left: `${sparkle.x}%`,
-                width: `${sparkle.size}px`,
-                height: `${sparkle.size}px`,
-            }}
-        />
-    ))}
-</div>
+            {sparkles.map((sparkle, index) => (
+                <div
+                    key={index}
+                    className="sparkle bg-secondary dark:bg-primary"
+                    style={{
+                        top: `${sparkle.y}%`,
+                        left: `${sparkle.x}%`,
+                        width: `${sparkle.size}px`,
+                        height: `${sparkle.size}px`,
+                    }}
+                />
+            ))}
+        </div>
     );
 };
 
-export default CosmicBackground
+export default CosmicBackground;
