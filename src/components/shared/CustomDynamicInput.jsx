@@ -67,7 +67,7 @@ const isOptionObject = (option) =>
           <FormLabel htmlFor={name} className="text-base">{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
-              <Select value={field.value || ""} onValueChange={(val) => field.onChange(val)}>
+              <Select value={field.value || ""} onValueChange={(val) => field.onChange(val)} name={name}>
                 <SelectTrigger
                   className={`pl-3 text-left ${
                     !field.value ? "text-muted-foreground" : ""
@@ -99,13 +99,15 @@ const isOptionObject = (option) =>
                 onChange={handleMultiChange}
                 placeholder={placeholder}
                 searchable // Allow search
+                name={name}
               />
             ) : type === "file" ? (
               <CustomFileInput
-                field={field} // Custom file input
+                field={field}
                 accept={accept}
                 multiple={multiple}
                 placeholder={placeholder}
+
               />
             ) : (
               <Input

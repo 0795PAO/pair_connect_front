@@ -9,7 +9,7 @@ export const useUpdateProfile = () => {
     return useMutation({
         mutationFn: updateUser,
         onSuccess: () => {
-            queryClient.invalidateQueries(['profile']);  // Invalidare il profilo per il refetch
+            queryClient.invalidateQueries(['profile']);  
             toast({
                 title: 'Perfil completado',
                 description: 'Tu perfil ha sido actualizado con éxito.',
