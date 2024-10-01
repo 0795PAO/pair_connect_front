@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -6,12 +7,12 @@ import CustomDynamicInput from '../shared/CustomDynamicInput';
 import { Form } from '../ui/form';
 
 const schema = yup.object({
-  name: yup.string().required('El título es obligatorio'),
-  description: yup.string().required('La descripción es obligatoria'),
-  stack: yup.string().required('El stack es obligatorio'),
-  languages: yup.array().min(1, 'Seleccione al menos un lenguaje').of(yup.string().required('Selecciona lenguajes válidos')),
-  level: yup.string().required('El nivel es obligatorio'),
-  image: yup.mixed().nullable().notRequired()
+    name: yup.string().required('El título es obligatorio'),
+    description: yup.string().required('La descripción es obligatoria'),
+    stack: yup.string().required('El stack es obligatorio'),
+    languages: yup.array().min(1, 'Seleccione al menos un lenguaje').of(yup.string().required('Selecciona lenguajes válidos')),
+    level: yup.string().required('El nivel es obligatorio'),
+    image: yup.mixed().nullable().notRequired()
 });
 
 const ProjectForm = ({ handleSubmit, loading, options, onCancel }) => {

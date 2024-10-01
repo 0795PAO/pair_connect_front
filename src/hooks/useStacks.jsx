@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import api from '@/config/apiInterceptor';
 import { SKILLS_URLS } from '@/config/apiUrls';
 
-const fetchStacks = async () => {
+export const fetchStacks = async () => {
   const response = await api.get(SKILLS_URLS.STACKS);
   return response.data.map(stack => ({
     value: stack.id.toString(),

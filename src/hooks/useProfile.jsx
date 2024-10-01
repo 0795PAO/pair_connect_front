@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery} from '@tanstack/react-query';
 import { getUser } from '@/services/profileService';
 
 export const useProfile = () => {
@@ -8,3 +8,4 @@ export const useProfile = () => {
         staleTime: 1000 * 60 * 15,
     });
 };
+

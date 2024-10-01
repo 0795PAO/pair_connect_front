@@ -11,8 +11,6 @@ const ProtectedLayout = () => {
     const [loading, setLoading] = useState(true);
 
 
-    console.log(isAuthenticated);
-
     useEffect(() => {
         if (isAuthenticated !== null) {
             setLoading(false);
@@ -39,4 +37,4 @@ const ProtectedLayout = () => {
     );
 };
 
-export default ProtectedLayout;
+export default ProtectedLayout

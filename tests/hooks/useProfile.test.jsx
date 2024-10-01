@@ -41,7 +41,6 @@ describe('useProfile', () => {
         getUser.mockRejectedValueOnce(mockError); 
 
         const { result } = renderHook(() => useProfile(), { wrapper: createWrapper() }); 
-        console.log(result.current.isError)
         await waitFor(() => expect(result.current.isError).toBe(true));
         expect(getUser).toHaveBeenCalledTimes(1);
 
