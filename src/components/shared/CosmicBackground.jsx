@@ -46,4 +46,4 @@ const CosmicBackground = ({ maxSparkles = 100 }) => {
     );
 };
 
-export default CosmicBackground;
+export default CosmicBackground
