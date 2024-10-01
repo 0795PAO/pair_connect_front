@@ -55,8 +55,8 @@ export const simulatedSessions = [
     },
     {
         id: 5,
-        title: "Crear un Blog con React",
-        description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
+        title: "Google Store Clone",
+        description: "Réplica de la página web de google store.",
         date: "2024-09-16 11:00:00",
         technologies: ["React", "Tailwind"],
         owner: {
@@ -67,8 +67,8 @@ export const simulatedSessions = [
     },
     {
         id: 6,
-        title: "Covid Tracker",
-        description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
+        title: "Covid Tracker2",
+        description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap2.",
         date: "2024-09-16 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {
@@ -80,10 +80,10 @@ export const simulatedSessions = [
     },
     {
         id: 7,
-        title: "Crear un Blog con React",
-        description: "Aprendemos a crear un blog moderno usando React y Tailwind.",
+        title: "Kamakura Food",
+        description: "Desarrollar con javascript las funcionalidades de la aplicación Kamakura Food.",
         date: "2024-09-17 11:00:00",
-        technologies: ["React", "Tailwind"],
+        technologies: ["Javascript"],
         owner: {
             username: "Fire Fairy 84-1",
             avatar: "/photo_fire.svg",
@@ -93,8 +93,8 @@ export const simulatedSessions = [
     },
     {
         id: 8,
-        title: "Covid Tracker",
-        description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap.",
+        title: "Covid Tracker3",
+        description: "Desarrollar con REACT el front-end de un dashboard que muestra de manera dinámica la información de la API de Disease covimap3.",
         date: "2024-09-16 09:00:00",
         technologies: ["Node.js", "Express", "MongoDB"],
         owner: {

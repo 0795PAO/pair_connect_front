@@ -70,7 +70,7 @@ const Navbar = () => {
 
   const navlinks = [
     { name: "Home", to: "/" },
-    { name: "Sobre nosotros", to: "/about-us" },
+    { name: "Sobre el equipo", to: "/about-us" },
     { name: "Pair programming", to: "/pair-programming" },
   ];
 
@@ -78,7 +78,7 @@ const Navbar = () => {
 
   return (
     <nav className="px-6 py-4" style={{ boxShadow: "var(--shadow-custom)" }}>
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <NavLink href="/" onClick={handleLogoClick} className="h-10">
             <img
@@ -98,7 +98,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        <div className="hidden lg:flex space-x-8">
+        <div className="hidden space-x-8 lg:flex">
           {navlinks.map((item) => (
             <NavLink key={item.name} to={item.to}>
               {item.name}
@@ -132,7 +132,7 @@ const Navbar = () => {
 
       {isOpen && (
         <div
-          className="lg:hidden flex flex-col items-left space-y-2 py-5"
+          className="flex flex-col py-5 space-y-2 lg:hidden items-left"
           ref={menuRef}
         >
           {navlinks.map((item) => (
@@ -156,4 +156,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar

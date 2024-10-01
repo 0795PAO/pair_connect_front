@@ -54,4 +54,4 @@ const LoginForm = ({ handleSubmit}) => {
     );
 };
 
-export default LoginForm;
+export default LoginForm

@@ -8,8 +8,8 @@ describe('HeroSection', () => {
 
         expect(screen.getByText(/Pair Connect/i)).toBeInTheDocument();
 
-        expect(screen.getByText(/Encuentra tu colega para aprender y codificar/i)).toBeInTheDocument();
+        expect(screen.getByText(/Conecta, programa y crece en equipo/i)).toBeInTheDocument();
 
-        expect(screen.getByText(/Registrarme/i)).toBeInTheDocument();
+        expect(screen.getByText(/Regístrate aquí/i)).toBeInTheDocument();
     });
 });
