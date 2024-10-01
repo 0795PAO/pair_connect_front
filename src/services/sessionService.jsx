@@ -5,6 +5,7 @@ import { SESSION_URLS, PROJECT_URLS } from "@/config/apiUrls";
 export const getSessionDetails = async (projectId) => {
   try {
     const response = await api.get(`${PROJECT_URLS.GET_PROJECTS}${projectId}/`);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching session details:", error);
@@ -16,6 +17,8 @@ export const getSessionDetails = async (projectId) => {
 export const getProjectForSession = async (projectId) => {
   try {
     const response = await api.get(PROJECT_URLS.GET_PROJECT_BY_ID(projectId));
+    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.error("Error fetching project details:", error);

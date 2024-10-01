@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import api from "@/config/apiInterceptor"; // Asegúrate de que esto está correctamente configurado
+import api from "@/config/apiInterceptor";
 import { PROJECT_URLS } from "@/config/apiUrls";
 
 // Función para obtener detalles del proyecto por su ID

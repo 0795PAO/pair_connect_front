@@ -70,52 +70,62 @@ const SesionsDetailsPage = () => {
   return (
     <div className="pt-0 mt-0 p-6">
       <section className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{projectData.name}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-center">
+          {projectData.name}
+        </h1>
         <p className="mb-4">{sessionData.schedule_date_time}</p>
         <img
           src={projectData.image_url}
           alt="proyecto"
           className="w-full mb-4 rounded-lg"
         />
-        <h2 className="text-2xl font-bold mb-2">Sobre el proyecto:</h2>
-        <p className="mb-4">{projectData.description}</p>
+        <h2 className="text-xl font-bold mt-6 ">Sobre el proyecto:</h2>
+        <p className="mb-10">{projectData.description}</p>
 
         {sessionData.description && (
           <>
-            <h2 className="text-2xl font-bold mb-2">
+            <h2 className="text-xl font-bold mb-2">
               Descripción de la sesión:
             </h2>
-            <p className="mb-4">{sessionData.description}</p>
+            <p className="mb-10">{sessionData.description}</p>
           </>
         )}
 
         {projectData.stack_name && (
           <>
-            <h2 className="text-2xl font-bold mb-2">Stack del proyecto:</h2>
-            <p className="mb-4">{projectData.stack_name}</p>
+            <h2 className="text-xl font-bold mb-2">Stack del proyecto:</h2>
+            <p className="mb-10">{projectData.stack_name}</p>
           </>
         )}
 
-        {/* Lenguajes independientes */}
-        {sessionData.languages && sessionData.languages.length > 0 && (
+        {/* Lenguajes con estilo moderno */}
+        {Array.isArray(projectData.language_names) &&
+        projectData.language_names.length > 0 ? (
           <>
-            <h2 className="text-2xl font-bold mb-2">Lenguajes requeridos:</h2>
-            <ul className="mb-4 list-disc list-inside">
-              {sessionData.languages.map((language, index) => (
-                <li key={index}>{language}</li>
+            <h2 className="text-xl font-bold mb-5">Lenguajes requeridos:</h2>
+            <ul className="mb-14 flex flex-wrap gap-2">
+              {projectData.language_names.map((language, index) => (
+                <li
+                  key={index}
+                  className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform"
+                >
+                  {language}
+                </li>
               ))}
             </ul>
           </>
+        ) : (
+          <p>No se han especificado lenguajes para este proyecto.</p>
         )}
 
-        <h2 className="text-2xl font-bold mb-2">El perfil que se busca:</h2>
-        <p className="mb-4">{sessionData.level_name}</p>
+        <h2 className="text-xl font-bold mb-2">El perfil que se busca:</h2>
+        <p className="mb-10">{sessionData.level_name}</p>
 
         {/* Futuras Sesiones */}
         {futureSessions.length > 0 && (
           <>
-            <h2 className="text-2xl font-bold mb-2">Futuras Sesiones:</h2>
-            <ul className="mb-4 list-disc list-inside">
+            <h2 className="text-xl font-bold mb-10">Futuras Sesiones:</h2>
+            <ul className="mb-6 list-disc list-inside">
               {futureSessions.map((session, index) => (
                 <li key={index}>
                   <button
@@ -131,9 +141,9 @@ const SesionsDetailsPage = () => {
         )}
 
         {/* Información del Dueño del Proyecto */}
-        {projectData.owner && (
-          <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-2">
+        {projectData.owner ? (
+          <div className="mt-10">
+            <h2 className="text-xl font-bold mb-2">
               Información del Dueño del Proyecto:
             </h2>
             <button
@@ -143,6 +153,8 @@ const SesionsDetailsPage = () => {
               {projectData.owner.name}
             </button>
           </div>
+        ) : (
+          <p>Información del dueño no disponible.</p>
         )}
       </section>
 

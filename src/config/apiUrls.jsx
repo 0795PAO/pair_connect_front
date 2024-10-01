@@ -26,11 +26,11 @@ export const SKILLS_URLS = {
   LANGUAGES: `${API_BASE_URL}skills/languages/`,
 };
 export const SESSION_URLS = {
-  GET_SESSIONS: `${API_BASE_URL}projects/`, // Para obtener todas las sesiones
-  GET_SESSION_BY_ID: (id) => `${API_BASE_URL}projects/${id}/`, // Para obtener detalles de una sesión por ID
-  CREATE_SESSION: `${API_BASE_URL}projects/sessions/`, // Para crear una sesión
+  GET_SESSIONS: `${API_BASE_URL}projects/`,
+  GET_SESSION_BY_ID: (id) => `${API_BASE_URL}projects/${id}/`,
+  CREATE_SESSION: `${API_BASE_URL}projects/sessions/`,
 };
 
 export const PARTICIPANT_URLS = {
-  GET_INTERESTED_PARTICIPANTS: `${API_BASE_URL}projects/interested-participants/`, // Para obtener todos los interesados
+  GET_INTERESTED_PARTICIPANTS: `${API_BASE_URL}projects/interested-participants/`,
 };
