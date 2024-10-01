@@ -27,7 +27,7 @@ const ProjectsPage = () => {
   const userProjects = (projects && user) 
   ? projects.filter(project => project.owner_id === user.id)
   : [];
-
+  
   if (isProfileLoading || isProjectsLoading) {
       return <p>Loading profile and projects...</p>; // Show a loader until both profile and projects are fetched
   }

@@ -1,18 +1,15 @@
+import ProjectCard from './ProjectCard';  // Import the ProjectCard component
+
 const ProjectList = ({ projects, onProjectClick }) => {
-    return (
-      <div className="space-y-4">
-        {projects.map((project) => (
-          <div
-            key={project.id}
-            className="p-4 border rounded-md cursor-pointer hover:bg-gray-100"
-            onClick={() => onProjectClick(project)}
-          >
-            <h2 className="text-xl font-semibold">{project.title}</h2>
-            <p>{project.description}</p>
-          </div>
-        ))}
-      </div>
-    );
-  };
-  
-  export default ProjectList;
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <div key={project.id} onClick={() => onProjectClick(project)}>
+          <ProjectCard project={project} />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default ProjectList;
