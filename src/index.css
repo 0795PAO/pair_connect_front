@@ -6,7 +6,7 @@
   :root {
     --background: 240 5% 96%;
     --foreground: 222.2 84% 4.9%;
-    --card: 210 11% 90%; 
+    --card: 210 11% 90%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
@@ -34,11 +34,14 @@
     --special-shadow: 0 4px 12px 0 rgb(18, 174, 194);
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
-    --gradient: linear-gradient(
-      to right,
-      rgba(8, 223, 223, 1),
-      rgba(255, 93, 162, 1)
-    );
+    --gradient: linear-gradient(to right,
+        rgba(8, 223, 223, 1),
+        rgba(255, 93, 162, 1));
+    --gradient2: linear-gradient(to right,
+        rgba(240, 92, 186, 1),
+        rgba(24, 224, 234, 1),
+        rgba(239, 64, 181, 1)
+      );
     --mouse-effect-color: 184 72% 45%;
   }
 
@@ -72,13 +75,15 @@
     --special-shadow: 0 4px 12px 0 rgba(8, 223, 223, 1);
     --success: 145 70% 40%;
     --success-foreground: 0 0% 100%;
-    --gradient: linear-gradient(
-    to right,
-    rgba(8, 223, 223, 1),
-    rgba(255, 93, 162, 1)
-  );
+    --gradient: linear-gradient(to right,
+        rgba(8, 223, 223, 1),
+        rgba(255, 93, 162, 1));
+    --gradient2: linear-gradient(to right,
+        rgba(219, 62, 180, 1),
+        rgba(238, 213, 224, 1),
+        rgba(219, 62, 180, 1)
+      );
     --mouse-effect-color: var(--primary);
-
   }
 }
 
@@ -86,7 +91,7 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground;
     font-family: "Source Code Pro", monospace;
@@ -139,12 +144,10 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(
-    150px at var(--mouse-x) var(--mouse-y),
-    hsl(var(--mouse-effect-color)) 0%,
-    rgba(255, 255, 255, 0.2) 40%,
-    transparent 70%
-  );
+  background: radial-gradient(150px at var(--mouse-x) var(--mouse-y),
+      hsl(var(--mouse-effect-color)) 0%,
+      rgba(255, 255, 255, 0.2) 40%,
+      transparent 70%);
   transition: background 0.1s ease-out;
   border-radius: inherit;
 }
@@ -158,10 +161,12 @@
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.5) rotate(20deg);
     opacity: 0.5;
   }
+
   100% {
     transform: scale(0);
     opacity: 0;
@@ -173,6 +178,7 @@
     transform: scale(0);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -209,9 +215,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -219,9 +227,12 @@
 
 /* arrow */
 @keyframes customBounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -229,4 +240,46 @@
 
 .slow-bounce {
   animation: customBounce 1.7s infinite;
+}
+
+/* h1 with gradient2 */
+.gradient2-text {
+  background-image: var(--gradient2);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient2-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+/*neon from cian to pinkk */
+.neon-border {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1)) border-box;
+  border: 2px solid transparent;
+  box-shadow: 
+    0 0 10px rgba(8, 223, 223, 0.7), 
+    0 0 20px rgba(8, 223, 223, 0.6), 
+    0 0 30px rgba(8, 223, 223, 0.5),
+    0 0 20px rgba(240, 92, 186, 0.4), 
+    0 0 30px rgba(24, 224, 234, 0.3), 
+    0 0 40px rgba(239, 64, 181, 0.2);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 1s ease-in-out;
+}
+
+.neon-border:hover {
+  box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9), 0 0 60px rgba(255, 93, 162, 0.8);
 }
