@@ -14,7 +14,7 @@ const TeamCard = ({ member }) => {
                 className="relative w-full max-w-[320px] sm:max-w-[450px] md:max-w-[500px] lg:max-w-[700px] sm:p-5 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 bg-card text-card-foreground transition-transform duration-300 ease-in-out transform hover:scale-10 hover:shadow-white cursor-pointer flex flex-col justify-between hover:scale-105"
                 data-testid="team-card"
             >
-                <div className="flex items-center gap-5 pt-2">
+                <div className="flex items-center gap-5 p-3">
                     <img
                         src={member.avatar || "/photo_default_user.svg"}
                         alt={`${member.name}'s avatar`}

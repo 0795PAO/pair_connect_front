@@ -37,25 +37,39 @@ const teamMembers = [
         avatar: "/team/esther.webp",
         description: "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
     },
-    {
-        name: 'Alejandro',
-        role: 'Stakeholder',
-        avatar: "/team/alejandro.webp",
-        description: "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
-    },
 ];
+
+const stakeholder = {
+    name: 'Alejandro',
+    role: 'Stakeholder',
+    avatar: "/team/alejandro.webp",
+    description: "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
+};
 
 const TeamList = () => {
     return (
         <section id="team-section" className="py-10 team-section">
             <h2 className="mb-8 text-3xl font-bold text-center">Las desarrolladoras</h2>
+
             <div className="grid w-full max-w-screen-lg grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
-                    {teamMembers.map((member, index) => (
-                        <TeamCard key={index} member={member} />
-                    ))}
-                </div>
+                {teamMembers.map((member, index) => (
+                    <TeamCard key={index} member={member} />
+                ))}
+            </div>
+
+            <h2 className="mt-12 mb-8 text-3xl font-bold text-center">Stakeholder</h2>
+
+            <div className="flex justify-center">
+                <TeamCard
+                    member={stakeholder}
+                    className="w-full sm:w-1/2 lg:w-1/3"
+                />
+            </div>
         </section>
     );
 };
 
-export default TeamList
+export default TeamList;
+
+
+
