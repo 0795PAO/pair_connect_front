@@ -19,11 +19,11 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
         defaultValues: defaultValues || '',
     });
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        form.setValue('photo', file); 
-        console.log("Selected image:", file);
-    };
+    // const handleFileChange = (event) => {
+    //     const file = event.target.files[0];
+    //     form.setValue('photo', file); 
+    //     console.log("Selected image:", file);
+    // };
 
 
     const inputs = [
@@ -38,7 +38,6 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
             type: "file",
             placeholder: "Avatar",
             label: "Avatar",
-            onChange: handleFileChange
         },
     ]
 
@@ -57,7 +56,14 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} role="form" className="flex flex-col gap-5 my-5">
                 {inputs.map((input) => (
-                    <CustomDynamicInput key={input.name} {...input} />
+                    <CustomDynamicInput 
+                    key={input.name}
+                    type={input.type}
+
+                    label={input.label}
+                    placeholder={input.placeholder}
+                    name={input.name}
+                    />
                 ))}
                 <Button variant="secondary" type="submit" disabled={form.formState.isSubmitting}>Continuar</Button>
             </form>
