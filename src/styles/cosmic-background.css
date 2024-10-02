@@ -4,16 +4,24 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: 10;
     overflow: hidden;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+    opacity: 1;
     pointer-events: none; 
 }
 
-.cosmic-background .sparkle {
-    position: absolute;
-    border-radius: 50%;
-    background-color: cyan;
-    animation: pulse 1s infinite;
-    opacity: 0.5;
-    pointer-events: none; 
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
 }

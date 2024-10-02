@@ -32,6 +32,7 @@
     --button-hover: 191 100% 65%;
     --shadow-custom: 0px 0px 10px 12px rgba(12, 183, 230, 0.127);
     --special-shadow: 0 4px 12px 0 rgb(18, 174, 194);
+    --shadow-white: 0 4px 12px 0 rgba(255, 255, 255, 0.5);
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(to right,
@@ -42,6 +43,7 @@
         rgba(24, 224, 234, 1),
         rgba(239, 64, 181, 1)
       );
+      
     --mouse-effect-color: 184 72% 45%;
   }
 
@@ -73,6 +75,7 @@
     --button-hover: 191 100% 65%;
     --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
     --special-shadow: 0 4px 12px 0 rgba(8, 223, 223, 1);
+    --shadow-white: 0 4px 12px 0 rgba(255, 255, 255, 0.5);
     --success: 145 70% 40%;
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(to right,
@@ -283,3 +286,5 @@
 .neon-border:hover {
   box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9), 0 0 60px rgba(255, 93, 162, 0.8);
 }
+
+
