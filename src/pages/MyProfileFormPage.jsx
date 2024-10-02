@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUser } from "@/services/profileService";
 import { Loader } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
-import { Link } from "react-router-dom";
 import { useStacks } from "@/hooks/useStacks";
 import { useLevels } from "@/hooks/useLevels";
 import { useLanguages } from "@/hooks/useLanguages";
@@ -38,7 +37,7 @@ const MyProfileFormPage = () => {
     });
 
     const handleFormSubmit = (updatedData) => {
-        console.log('hola')
+        console.log(updatedData);
         mutation.mutate(updatedData);
     }
 
@@ -63,14 +62,14 @@ const MyProfileFormPage = () => {
             <section className="flex flex-col items-center justify-center gap-5 text-center w-[80vw] md:w-[60vw]">
                 <div className="border rounded-lg  w-[80vw] mouse-light-effect md:w-[60vw] " ref={elementRef}>
                     <div className="card-with-light-effect p-5" >
-                        <ProfileForm handleSubmit={handleFormSubmit} options={{ stacks, levels, languages }}/>
+                        <ProfileForm 
+                            options={{ stacks, levels, languages }} 
+                            handleSubmit={handleFormSubmit}
+                            defaultValues={user}
+                            />
                     </div>
                 </div>
             </section>
-
-            <p className="flex text-center sm:justify-center flex-col items-center justify-center gap-2 mt-12 md:flex-row">Lo haré mas tarde
-                <Link to="/" className="bold text-secondary">Saltar</Link>
-            </p>
 
         </>
     )

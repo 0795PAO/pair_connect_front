@@ -19,7 +19,7 @@ const AboutUsPage = () => {
     };
 
     return (
-        <section>
+        <section className="relative min-h-screen" >
             <CosmicBackground />
 
             <AboutUsContent onClick={scrollToRegisterButton} />
