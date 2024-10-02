@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 
 const HeroButton = ({ text, onClick }) => {
     return (
