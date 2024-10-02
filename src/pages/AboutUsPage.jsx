@@ -12,9 +12,8 @@ const AboutUsPage = () => {
     const { handleRegister, loading } = useRegister();
 
     const registerButtonRef = useRef(null);
-    const teamSectionRef = useRef(null); // Ref para la sección del equipo
+    const teamSectionRef = useRef(null); 
 
-    // Función para desplazarse hacia la sección del equipo
     const scrollToTeamSection = () => {
         if (teamSectionRef.current) {
             teamSectionRef.current.scrollIntoView({ behavior: "smooth" });
@@ -24,20 +23,13 @@ const AboutUsPage = () => {
     return (
         <section className="relative min-h-screen">
             <CosmicBackground />
-
-            {/* Este onClick ahora desplaza hacia la sección del equipo */}
             <AboutUsContent onClick={scrollToTeamSection} />
 
-            <div className="flex flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
-
-                {/* Ref para la sección del equipo */}
+            <div className="flex flex-col items-center gap-5 mt-20 mb-20 text-center">
                 <div ref={teamSectionRef}>
                     <TeamList />
                 </div>
-
                 <h3 className="mb-6 text-xl font-bold">¡Únete a Pair Connect!</h3>
-
-                {/* Botón de registro */}
                 <Button
                     variant="doubleColorButton"
                     onClick={() => setIsOpen(true)}
@@ -48,8 +40,6 @@ const AboutUsPage = () => {
                     Regístrate
                 </Button>
             </div>
-
-            {/* Modal de registro */}
             <RegisterDialog
                 open={isOpen}
                 onOpenChange={setIsOpen}
