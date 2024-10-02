@@ -4,7 +4,7 @@ import AboutUsContent from '@/components/about/AboutUsContent';
 
 const AboutUsPage = () => {
     return (
-        <section >
+        <section className="relative min-h-screen" >
             <CosmicBackground />
             <AboutUsContent />
         </section>
