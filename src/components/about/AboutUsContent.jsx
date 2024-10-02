@@ -1,6 +1,9 @@
-const AboutUsContent = () => {
+/* eslint-disable react/prop-types */
+const AboutUsContent = ({ onClick }) => {
     return (
-        <div className="relative flex flex-col items-center justify-center p-4 m-0 mt-10">
+        <div className="relative flex flex-col items-center justify-center p-4 m-0 mt-10"
+            onClick={onClick}
+        >
             <div className="max-w-4xl cursor-pointer neon-border bg-background">
                 <h1 className="mb-8 text-4xl font-bold text-center text-transparent bg-clip-text gradient2-text">
                     Sobre el equipo

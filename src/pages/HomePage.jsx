@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef  } from "react";
 import { Button } from "@/components/ui/button";
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import HeroSection from "@/components/landing/HeroSection";
@@ -9,10 +9,21 @@ const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleRegister, loading } = useRegister();
 
+  const sessionListRef = useRef(null);
+
+  const scrollToSessions = () => {
+    if (sessionListRef.current) {
+      sessionListRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+
   return (
     <div data-testid="home-page">
-      <HeroSection handleRegisterClick={setIsOpen} />
-      <SessionList />
+      <HeroSection handleRegisterClick={setIsOpen} onArrowClick={scrollToSessions} />
+      <div ref={sessionListRef}>
+        <SessionList />
+      </div>
 
       <section className="flex flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
         <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
