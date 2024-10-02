@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import SessionCardActions from "./SessionCardActions";
+import SessionCardActions from "@/components/session/SessionCardActions";
 
 const SessionCard = ({ session }) => {
   return (

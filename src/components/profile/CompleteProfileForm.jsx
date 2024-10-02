@@ -44,7 +44,7 @@ const CompleteProfileForm = ({ options, handleSubmit }) => {
             options: options?.stacks || [],
         },
     ]
-
+    
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5 my-5">

@@ -5,6 +5,15 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        custom: 'var(--shadow-custom)',
+        special: 'var(--special-shadow)',
+        white: 'var(--shadow-white)',
+      },
+      backgroundImage: {
+        gradient: 'var(--gradient)',
+        gradient2: 'var(--gradient2)',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

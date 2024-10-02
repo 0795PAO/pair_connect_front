@@ -56,74 +56,41 @@ const PairProgrammingPage = () => {
     };
 
     return (
-        <div className="px-2 sm:px-4"> {/* Ajustado para padding en dispositivos pequeños */}
+        <div className="px-2 sm:px-4"> 
             <section className="flex flex-col items-center justify-center gap-2 mt-10 mb-10 text-center sm:mt-20 sm:mb-20">
-                {/* Título principal */}
-                <h1 className="mb-6 text-3xl sm:text-5xl font-bold text-center text-transparent bg-clip-text gradient2-text">
-                    Sobre el Pair Programming
-                </h1>
-                {/* Subtítulo */}
-                <h2 className="mb-8 text-lg sm:text-xl md:text-2xl">
-                    "El código fluye mejor cuando se comparte con un colega"
-                </h2>
-
-                {/* Sección 1 */}
+                <h1 className="mb-6 text-3xl sm:text-5xl font-bold text-center text-transparent bg-clip-text gradient2-text">Sobre el Pair Programming</h1>
+                <h2 className="mb-8 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-blue-200 drop-shadow-lg animate-pulse-slow">"El código fluye mejor cuando se comparte con un colega"</h2>
+                <style jsx>{`@keyframes pulse-slow {0%, 100% {transform: scale(1);}50% {transform: scale(1.05);}}.animate-pulse-slow {animation: pulse-slow 3s ease-in-out infinite;}`}</style>
                 <div className="flex flex-col items-center justify-center mx-auto mb-8 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
-                    <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                        <img src="/neon1.png" alt="navegador" className="w-full sm:w-[80%] md:w-[600px] mb-4 md:mr-8 border-4 neon-border shadow-neon" />
-                        <div className="flex flex-col">
-                            {/* Título de sección */}
-                            <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Navegador:</h2>
-                            <p className="text-sm sm:text-base md:text-lg text-justify">
-                                Uno de los programadores (el driver) escribe el código, mientras que el otro (el navigator) observa y revisa en busca de errores o sugerencias. El navigator también se encarga de guiar y asegurar que el enfoque general del proyecto esté alineado con los objetivos. Esta técnica permite una codificación más precisa y mejora la calidad del código.
-                            </p>
+                    <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-6">
+                        <img src="/code1.jpg" alt="navegador" className="w-full sm:w-[80%] md:w-[450px] mb-4 md:mb-0 rounded-lg border-2"/>
+                        <div className="flex flex-col space-y-4">
+                            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Navegador</h2>
+                            <p className="text-sm sm:text-base md:text-lg text-justify">Los roles cambian continuamente: uno de los programadores crea una prueba y el otro implementa el código para pasarla. Luego, intercambian roles. Esto fomenta el desarrollo orientado a pruebas (TDD) y facilita trabajar en pequeñas tareas.</p>
                         </div>
                     </div>
                 </div>
-
-                {/* Sección 2 */}
                 <div className="flex flex-col items-center justify-center mx-auto mb-8 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
-                    <div className="flex flex-col md:flex-row items-center justify-center w-full">
+                    <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-8">
                         <div className="flex flex-col">
-                            {/* Título de sección */}
                             <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-left gradient2-text">Emparejamiento de Ping Pong:</h2>
-                            <p className="text-sm sm:text-base md:text-lg text-justify">
-                                Aquí los roles cambian constantemente. Un programador escribe una prueba para un pequeño fragmento de código, y el otro se encarga de implementar la funcionalidad que hace que esa prueba pase. Después, cambian roles. Este enfoque promueve el desarrollo orientado a pruebas (TDD) y ayuda a los programadores a pensar en pequeñas unidades de trabajo.
-                            </p>
+                            <p className="text-sm sm:text-base md:text-lg text-justify"> Aquí los roles cambian constantemente. Un programador escribe una prueba para un pequeño fragmento de código, y el otro se encarga de implementar la funcionalidad que hace que esa prueba pase. Después, cambian roles. Este enfoque promueve el desarrollo orientado a pruebas (TDD) y ayuda a los programadores a pensar en pequeñas unidades de trabajo.</p>
                         </div>
-                        <img src="/imagenneon2.jpg" alt="navegador" className="w-full sm:w-[80%] md:w-[600px] mb-4 md:ml-8 border-4 neon-border shadow-neon" />
+                        <img src="/neon3.jpeg" alt="navegador" className="w-full sm:w-[80%] md:w-[500px] mb-4 md:mr-0 rounded-lg border-2 border-neon-blue shadow-neon"/>
                     </div>
                 </div>
-
-                {/* Sección 3 */}
-                <div className="flex flex-col items-center justify-center mx-auto mb-12 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
-                    <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                        <img src="/" alt="navegador" className="w-full sm:w-[80%] md:w-[600px] mb-4 md:mr-8" />
-                        <div className="flex flex-col">
-                            {/* Título de sección */}
-                            <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Pomodoro:</h2>
-                            <p className="text-sm sm:text-base md:text-lg text-justify">
-                                Mediante este estilo los programadores trabajan sesiones de 25 minutos, descansando 5 minutos entre sesión y sesión hasta completar 4 sesiones para conseguir una pausa más larga de 15 minutos. Mejorar la productividad, ya que ayuda a mantener el enfoque en tareas concretas, reducir distracciones y prevenir el agotamiento mental al distribuir el esfuerzo en intervalos medidos y descansar de manera planificada.
-                            </p>
+                <div className="flex flex-col items-center justify-center mx-auto mb-20 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
+                    <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-6">
+                        <img src="/neon2.png" alt="navegador" className="w-full sm:w-[80%] md:w-[400px] mb-4 md:mb-0 rounded-lg border-2" />
+                        <div className="flex flex-col space-y-4">
+                            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Pomodoro</h2>
+                            <p className="text-sm sm:text-base md:text-lg text-justify">Este método divide el trabajo en sesiones de 25 minutos con descansos cortos, mejorando el enfoque, reduciendo distracciones y evitando el agotamiento. Lo bueno de aplicar el método pomodoro en pair programming es que además de aumentar la concentración es intercambiar los roles y lograr así que ambos miembros ocupen 2 veces el rol.</p>
                         </div>
                     </div>
                 </div>
-                <Button
-                    variant="specialShadow"
-                    onClick={() => setIsOpen(true)}
-                    size="lg"
-                    title={"Si quieres hacer match, te toca registrarte =D "}
-                >
-                    Regístrarme
-                </Button>
+                <Button variant="specialShadow" onClick={() => setIsOpen(true)} size="lg" title={"Si quieres hacer match, te toca registrarte =D "}>Regístrarme</Button>
             </section>
-
-            <RegisterDialog
-                open={isOpen}
-                onOpenChange={setIsOpen}
-                handleSubmit={handleSubmit}
-                loading={loading}
-            />
+            <RegisterDialog open={isOpen} onOpenChange={setIsOpen} handleSubmit={handleSubmit} loading={loading} />
         </div>
     );
 };
