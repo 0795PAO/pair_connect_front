@@ -1,11 +1,10 @@
 import api from "@/config/apiInterceptor";
-import { SESSION_URLS, PROJECT_URLS } from "@/config/apiUrls";
+import { SESSION_URLS } from "@/config/apiUrls";
 
-// Obtener detalles de una sesión por su ID
-export const getSessionDetails = async (projectId) => {
+export const getSessionDetails = async (sessionId) => {
   try {
-    const response = await api.get(`${PROJECT_URLS.GET_PROJECTS}${projectId}/`);
-    console.log(response.data);
+    const response = await api.get(SESSION_URLS.GET_SESSION_BY_ID(sessionId));
+    console.log("Session details:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching session details:", error);
@@ -13,12 +12,12 @@ export const getSessionDetails = async (projectId) => {
   }
 };
 
-// Obtener detalles del proyecto por su ID
 export const getProjectForSession = async (projectId) => {
   try {
-    const response = await api.get(PROJECT_URLS.GET_PROJECT_BY_ID(projectId));
-    console.log(response.data);
-
+    const response = await api.get(
+      `${SESSION_URLS.GET_PROJECT_BY_ID(projectId)}`
+    );
+    console.log("Project details:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching project details:", error);

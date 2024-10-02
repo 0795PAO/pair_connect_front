@@ -11,6 +11,7 @@ import MyProfilePage from "@/pages/MyProfilePage";
 import SesionsDetailsPage from "@/pages/SesionsDetailsPage";
 import ProjectDetails from "@/components/project/ProjectDetails";
 import ProjectFormPage from "@/pages/ProjectFormPage";
+import PublicProfileId from "@/pages/PublicProfileId";
 
 const router = createBrowserRouter([
   {
@@ -64,8 +65,12 @@ const router = createBrowserRouter([
         element: <ProjectDetails />,
       },
       {
-        path: "/sessions/:projectId",
+        path: "/sessions/:sessionId",
         element: <SesionsDetailsPage />,
+      },
+      {
+        path: "/profile/:id",
+        element: <PublicProfileId />,
       },
     ],
   },

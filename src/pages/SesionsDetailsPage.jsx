@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
 import SimplePopUp from "@/components/shared/SimplePopUp";
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
+import HeroButton from "@/components/landing/HeroButton";
 
-const SesionsDetailsPage = () => {
-  const { projectId } = useParams();
+const SessionsDetailsPage = () => {
+  const { sessionId } = useParams();
   const navigate = useNavigate();
 
-  console.log("Project ID:", projectId);
+  console.log("Session ID:", sessionId);
 
   const [showSignupPopup, setShowSignupPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -19,18 +20,21 @@ const SesionsDetailsPage = () => {
     data: sessionData,
     isLoading: isSessionLoading,
     isError: isSessionError,
-  } = useSessionDetails(projectId);
+  } = useSessionDetails(sessionId);
+
   const {
     data: projectData,
     isLoading: isProjectLoading,
     isError: isProjectError,
-  } = useProjectDetails(projectId);
+  } = useProjectDetails(sessionData?.project_id);
+
+  console.log(projectData);
 
   useEffect(() => {
-    if (!projectId) {
-      console.error("Project ID no está disponible");
+    if (!sessionId) {
+      console.error("Session ID no está disponible");
     }
-  }, [projectId]);
+  }, [sessionId]);
 
   if (isSessionLoading || isProjectLoading) {
     return <p>Cargando los detalles de la sesión y del proyecto...</p>;
@@ -45,6 +49,10 @@ const SesionsDetailsPage = () => {
   if (!projectData || !sessionData) {
     return <p>No se encontraron datos para este proyecto o sesión.</p>;
   }
+
+  const projectOwnerId = projectData.owner_id;
+  const projectOwnerName = projectData.owner_name;
+  const projectOwnerAvatar = projectData.owner_avatar_url;
 
   const openSignupPopup = () => {
     setShowSignupPopup(true);
@@ -61,110 +69,121 @@ const SesionsDetailsPage = () => {
     setShowSuccessPopup(true);
   };
 
-  // Filtrar futuras sesiones
-  const futureSessions =
-    sessionData.future_sessions?.filter(
-      (session) => new Date(session.schedule_date_time) > new Date()
-    ) || [];
-
   return (
     <div className="pt-0 mt-0 p-6">
-      <section className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-center">
-          {projectData.name}
-        </h1>
-        <p className="mb-4">{sessionData.schedule_date_time}</p>
-        <img
-          src={projectData.image_url}
-          alt="proyecto"
-          className="w-full mb-4 rounded-lg"
-        />
-        <h2 className="text-xl font-bold mt-6 ">Sobre el proyecto:</h2>
-        <p className="mb-10">{projectData.description}</p>
+      <section className="grid grid-cols-1 lg:grid-cols-2  mb-8 lg:pl-24 gap-8">
+        <div className="flex flex-col items-center lg:items-start">
+          <h1 className="text-6xl font-bold mb-6 text-center gradient2-text lg: text-center gradient2-text">
+            {projectData.name}
+          </h1>
 
-        {sessionData.description && (
-          <>
-            <h2 className="text-xl font-bold mb-2">
-              Descripción de la sesión:
-            </h2>
-            <p className="mb-10">{sessionData.description}</p>
-          </>
-        )}
+          <img
+            src={projectData.image_url}
+            alt="proyecto"
+            className="w-full lg:w-3/4 lg:mx-0 mx-auto mb-6 rounded-lg"
+          />
 
-        {projectData.stack_name && (
-          <>
-            <h2 className="text-xl font-bold mb-2">Stack del proyecto:</h2>
-            <p className="mb-10">{projectData.stack_name}</p>
-          </>
-        )}
+          <h2 className="text-xl font-bold mb-4">Sobre el proyecto:</h2>
+          <p className="mb-6">{projectData.description}</p>
 
-        {/* Lenguajes con estilo moderno */}
-        {Array.isArray(projectData.language_names) &&
-        projectData.language_names.length > 0 ? (
-          <>
-            <h2 className="text-xl font-bold mb-5">Lenguajes requeridos:</h2>
-            <ul className="mb-14 flex flex-wrap gap-2">
-              {projectData.language_names.map((language, index) => (
-                <li
-                  key={index}
-                  className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform"
+          {projectOwnerId ? (
+            <div className="mt-4 mb-4 lg:mt-6 lg:mb-6">
+              <h2 className="text-xl font-bold mb-4">
+                Responsable del proyecto:
+              </h2>
+              <div className="flex items-center space-x-4">
+                {projectOwnerAvatar && (
+                  <img
+                    src={projectOwnerAvatar}
+                    alt="avatar"
+                    className="w-10 h-10 rounded-full"
+                  />
+                )}
+                <button
+                  className="hover:text-primary transition-colors duration-300"
+                  onClick={() => navigate(`/profile/${projectOwnerId}`)}
                 >
-                  {language}
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <p>No se han especificado lenguajes para este proyecto.</p>
-        )}
+                  {projectOwnerName || "Nombre no disponible"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p className="mb-6">Información del dueño no disponible.</p>
+          )}
+        </div>
 
-        <h2 className="text-xl font-bold mb-2">El perfil que se busca:</h2>
-        <p className="mb-10">{sessionData.level_name}</p>
+        <div>
+          {sessionData.description && (
+            <>
+              <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                Descripción de la sesión:
+              </h2>
+              <p className="mb-4 lg:mb-6">{sessionData.description}</p>
+            </>
+          )}
 
-        {/* Futuras Sesiones */}
-        {futureSessions.length > 0 && (
-          <>
-            <h2 className="text-xl font-bold mb-10">Futuras Sesiones:</h2>
-            <ul className="mb-6 list-disc list-inside">
-              {futureSessions.map((session, index) => (
-                <li key={index}>
-                  <button
-                    className="text-blue-500 underline"
-                    onClick={() => navigate(`/sessions/${session.id}`)}
+          {sessionData.schedule_date_time && (
+            <>
+              <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                Fecha de la sesión:
+              </h2>
+              <p className="mb-4 lg:mb-6">
+                {new Date(sessionData.schedule_date_time).toLocaleString()}
+              </p>
+            </>
+          )}
+
+          {sessionData.duration && (
+            <>
+              <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                Duración de la sesión:
+              </h2>
+              <p className="mb-4 lg:mb-6">{sessionData.duration}</p>
+            </>
+          )}
+
+          {projectData.stack_name && (
+            <>
+              <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                Stack de la sesión:
+              </h2>
+              <p className="mb-4 lg:mb-6">{projectData.stack_name}</p>
+            </>
+          )}
+
+          {Array.isArray(sessionData.language_names) &&
+          sessionData.language_names.length > 0 ? (
+            <>
+              <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                Lenguajes requeridos:
+              </h2>
+              <ul className="mb-4 lg:mb-6 flex flex-wrap gap-2">
+                {sessionData.language_names.map((language, index) => (
+                  <li
+                    key={index}
+                    className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform"
                   >
-                    {session.schedule_date_time} - {session.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+                    {language}
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p className="mb-4 lg:mb-6">
+              No se han especificado lenguajes para esta sesión.
+            </p>
+          )}
 
-        {/* Información del Dueño del Proyecto */}
-        {projectData.owner ? (
-          <div className="mt-10">
-            <h2 className="text-xl font-bold mb-2">
-              Información del Dueño del Proyecto:
-            </h2>
-            <button
-              className="text-blue-500 underline"
-              onClick={() => navigate(`/profile/${projectData.owner.id}`)}
-            >
-              {projectData.owner.name}
-            </button>
-          </div>
-        ) : (
-          <p>Información del dueño no disponible.</p>
-        )}
+          <h2 className="text-xl font-bold mb-4 lg:mb-6">
+            El perfil que se busca:
+          </h2>
+          <p className="mb-4 lg:mb-6">{sessionData.level_name}</p>
+        </div>
       </section>
 
-      <Button
-        onClick={openSignupPopup}
-        className="w-[30%] mx-auto my-auto flex justify-center items-center"
-      >
-        Apúntate
-      </Button>
-
+      <div className="flex justify-center mt-8">
+        <HeroButton onClick={openSignupPopup} text="Apúntate" />
+      </div>
       {showSignupPopup && (
         <PopupWithInput
           closePopup={closePopup}
@@ -189,4 +208,4 @@ const SesionsDetailsPage = () => {
   );
 };
 
-export default SesionsDetailsPage;
+export default SessionsDetailsPage;

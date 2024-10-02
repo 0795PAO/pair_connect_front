@@ -27,7 +27,8 @@ export const SKILLS_URLS = {
 };
 export const SESSION_URLS = {
   GET_SESSIONS: `${API_BASE_URL}projects/`,
-  GET_SESSION_BY_ID: (id) => `${API_BASE_URL}projects/${id}/`,
+  GET_SESSION_BY_ID: (sessionId) =>
+    `${API_BASE_URL}projects/sessions/${sessionId}/`, // URL para obtener una sesión específica
   CREATE_SESSION: `${API_BASE_URL}projects/sessions/`,
 };
 
