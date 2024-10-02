@@ -41,7 +41,6 @@ const ProfileForm = ({ loading, options, handleSubmit, defaultValues }) => {
         {
             name: 'prog_language',
             type: 'select',
-            placeholder: 'Javascript, React',
             label: 'Languaje y Frameworks',
             options: options?.languages || [],
             multiple: true,

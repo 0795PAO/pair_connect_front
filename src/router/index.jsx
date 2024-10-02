@@ -12,6 +12,9 @@ import MyProfilePage from "@/pages/MyProfilePage";
 import ProjectDetails from "@/components/project/ProjectDetails";
 import ProjectFormPage from "@/pages/ProjectFormPage";
 import MyProfileFormPage from "@/pages/MyProfileFormPage";
+import MyProfileInfo from "@/components/profile/MyProfileInfo";
+import MyProfileSession from "@/components/profile/MyProfileSession";
+import MyProfileBadges from "@/components/profile/MyProfileBadges";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +52,26 @@ const router = createBrowserRouter([
       }, 
       {
         path: '/my-profile',
-        element: <MyProfilePage/>
+        element: <MyProfilePage/>,
+        children: [
+          
+        {
+          path: '/my-profile',
+          element: <MyProfileInfo />
+
+        },
+        {
+          path: '/my-profile/sessions',
+          element: <MyProfileSession />
+        },
+        {
+          path: '/my-profile/badges',
+          element: <MyProfileBadges />
+        }
+      
+      
+      ]
+
       },
       {
         path: '/my-profile/edit',
@@ -62,7 +84,7 @@ const router = createBrowserRouter([
       {
         path: '/projects/:id',
         element: <ProjectDetails />,
-      }
+      },
     ]
   }
 ]);

@@ -110,7 +110,6 @@ const CustomDynamicInput = ({
                   field={field}
                   accept={accept}
                   multiple={multiple}
-                  placeholder={placeholder}
                   value={field.value || defaultValue || ""}
 
                 />
