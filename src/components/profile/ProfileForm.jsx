@@ -8,18 +8,12 @@ import CustomDynamicInput from '../shared/CustomDynamicInput';
 import { useEffect } from 'react';
 
 const schema = yup.object({
-    prog_language: yup.array().of(yup.number()
-        .transform((value, originalValue) => Number(originalValue))
-        .typeError('Debe ser un número válido')
-        .optional(),),
     stack: yup.number()
         .transform((value, originalValue) => Number(originalValue))
         .typeError('Debe ser un Ì válido'),
     level: yup.number()
         .transform((value, originalValue) => Number(originalValue))
         .typeError('Debe ser un número válido'),
-    about_me: yup.string().optional().nullable(),
-    image: yup.string().optional().nullable(),
     telephone: yup.string().optional().nullable(),
     linkedin_link: yup.string().optional().nullable(),
     github_link: yup.string().optional().nullable(),
@@ -64,24 +58,7 @@ const ProfileForm = ({ loading, options, handleSubmit, defaultValues }) => {
             multiple: false,
             defaultValues: defaultValues?.level || '',
         },
-        {
-            name: "about_me",
-            type: "textarea",
-            placeholder: "Sobre mi",
-            label: "Sobre mi",
-            defaultValue: defaultValues?.about_me || '',
-        },
-        {
-            name: "photo",
-            type: "file",
-            placeholder: "Avatar",
-            label: "Avatar",
-            onChange: (event) => {
-                const file = event.target.files[0];
-                console.log("Selected image:", file);
-            },
-            defaultValue: defaultValues?.image || '',
-        },
+  
         {
             name: "telephone",
             type: "text",

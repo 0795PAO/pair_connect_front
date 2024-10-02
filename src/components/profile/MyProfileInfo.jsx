@@ -10,9 +10,9 @@ const MyProfileInfo = () => {
 
 
     return (
-        <div className="py-5 flex flex-col gap-5 items-center justify-center text-center">
-            <div className="p-5 w-full">
-                <h2 className="text-2xl font-semibold my-4 text-primary text-left">
+        <div className="py-5 grid grid-col gap-5 items-center justify-center text-center">
+            <div className="flex flex-col gap-8 p-5 w-full">
+                <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
                     Lenguajes de programmación
                 </h2>
                 <ul className="text-center">
@@ -23,16 +23,16 @@ const MyProfileInfo = () => {
                     ))}
                 </ul>
             </div>
-            <div className="p-5 w-full">
-                <h2 className="text-2xl font-semibold my-4 text-primary  text-left">
+            <div className=" flex flex-col gap-8 p-5 w-full">
+                <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
                     Stack
                 </h2>
                 <p>
                     {user?.stack_name}
                 </p>
             </div>
-            <div className="p-5 w-full">
-                <h2 className="text-2xl font-semibold my-4 text-primary  text-left">
+            <div className=" flex flex-col gap-8 p-5 w-full">
+                <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
                     Nivel
                 </h2>
                 <p>

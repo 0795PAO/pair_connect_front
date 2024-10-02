@@ -1,16 +1,17 @@
-
+import MyProfileNav from "@/components/profile/MyProfileNav";
+import UpdateProfileModal from "@/components/profile/UpdateProfileModal";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useProfile } from "@/hooks/useProfile";
 import { Edit, Trash } from "lucide-react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 
 const MyProfilePage = () => {
     const { data: user, isLoading, error } = useProfile();
-    const location = useLocation();
-
-    console.log(user)
+    const [open, setOpen] = useState(false);
+    const [formType, setType] = useState("");
     if (isLoading) {
         return <Loader />;
     }
@@ -20,14 +21,19 @@ const MyProfilePage = () => {
         return <p>Error: {error.message}</p>
     }
 
+    const handleEditClick = () => {
+        setOpen(true);
+        setType("about_avatar")
+    }
 
     return (
         <>
-            <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-                <div className="flex-col gap-8 justify-start items-center text-left w-[100%] p-5" style={{ boxShadow: "var(--shadow-custom)" }}>
-                    <h1 className="text-5xl font-bold mb-8 mt-4 text-transparent bg-clip-text gradient2-text text-center md:text-left">Mi perfil</h1>
-                    <div className="self-end text-right w-full font-light">
-                        <Button variant="ghost" size="icon" className="hover:text-primary font-light"><Edit /></Button>
+            <h1 className="p-5 text-5xl font-bold mt-4 text-transparent bg-clip-text gradient2-text text-center md:text-left">Mi perfil</h1>
+            <div className="grid grid-cols-1x w-full h-full lg:grid-cols-2" >
+
+                <div className="flex flex-col gap-8 justify-start items-center text-left w-[100%] p-5" >
+                    <div className="self-end text-right w-full font-light px-8">
+                        <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={handleEditClick}><Edit /></Button>
                         <Button variant="ghost" size="icon" className="hover:text-primary font-light"><Trash /></Button>
                     </div>
                     <div className="flex justify-center items-center w-full text-left gap-6">
@@ -44,19 +50,8 @@ const MyProfilePage = () => {
                             </p>
                         </div>
                     </div>
-                    <nav className="mt-8">
-                        <ul className="flex justify-evenly items-center">
-                            <li className={`${location.pathname === "/my-profile" ? "text-secondary" : ""} hover:text-secondary font-semibold`}>
-                                <Link to="/my-profile">Info</Link>
-                            </li>
-                            <li className={`${location.pathname === "/my-profile/sessions" ? "text-secondary" : ""} hover:text-secondary font-semibold`}>
-                                <Link to="/my-profile/sessions">Mi sesiones</Link>
-                            </li>
-                            <li className={`${location.pathname === "/my-profile/badges" ? "text-secondary" : ""} hover:text-secondary font-semibold`}>
-                                <Link to="/my-profile/badges">Badges</Link>
-                            </li>
-                        </ul>
-                    </nav>
+                    <MyProfileNav />
+                    <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
                 </div>
                 <div>
                     <Outlet />
