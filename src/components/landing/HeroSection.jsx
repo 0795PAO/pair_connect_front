@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import HeroButton from "./HeroButton";
+import HeroButton from "@/components/landing/HeroButton";
 import '@/styles/shooting-stars.css';
 import 'animate.css';
 
