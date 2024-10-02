@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const MyProfilePage = () => {
     const { data: user, isLoading, error } = useProfile();
 
-
+    console.log(user)
     if (isLoading) {
         return <Loader />;
     }
@@ -20,7 +20,11 @@ const MyProfilePage = () => {
 
     return (
         <>
-        <div>MyProfilePage {user?.username}</div>
+        <div className="flex flex-col justify-start items-start w-[80%] text-left gap-6">
+        <h1 className="text-6xl font-bold">Mi perfil</h1>
+        <p className="text-3xl font-semibold">{user?.username}</p>
+        <img src={user?.photo} alt="Profile" className="w-96 h-96 rounded-full"/>
+        </div>
         <Link to="/my-profile/edit">Edit Profile</Link>
         </>
     )

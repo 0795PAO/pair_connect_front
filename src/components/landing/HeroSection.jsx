@@ -3,7 +3,7 @@ import HeroButton from "./HeroButton";
 import '@/styles/shooting-stars.css';
 import 'animate.css';
 
-const HeroSection = ({ handleRegisterClick }) => {
+const HeroSection = ({ handleRegisterClick, onArrowClick  }) => {
     return (
         <section className="relative flex flex-col items-center justify-center text-center hero-section bg-background motion-reduce:transform-none">
             <div className="shooting-star-cyan"></div>
@@ -33,7 +33,12 @@ const HeroSection = ({ handleRegisterClick }) => {
                 Echa un vistazo a las próximas sesiones
             </p>
 
-            <img src="/arrow-gradient.svg" alt="Down Arrow" className="w-12 h-12 mt-10 animate-bounce motion-reduce:transform-none slow-bounce" />
+            <img
+                src="/arrow-gradient.svg"
+                alt="Down Arrow"
+                className="w-12 h-12 mt-10 cursor-pointer animate-bounce motion-reduce:transform-none slow-bounce"
+                onClick={onArrowClick} 
+            />
         </section>
     );
 };
