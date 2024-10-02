@@ -5,7 +5,6 @@ import RegisterDialog from "@/components/auth/RegisterDialog";
 import { registerUser } from "@/services/authService";
 import { useNavigate } from "react-router-dom";
 
-
 const PairProgrammingPage = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { toast } = useToast();
@@ -57,39 +56,54 @@ const PairProgrammingPage = () => {
     };
 
     return (
-        <div>
-            <section className="flex flex-col items-center justify-center gap-2 mt-20 mb-20 text-center">
-                <h1 className="mb-7 text-6xl font-bold">Sobre el Pair Programming</h1>
-                <h2 className="mb-10 text-4xl ">"El código fluye mejor cuando se comparte con un colega"</h2>
-                <div className="flex flex-col items-center justify-center mx-auto mb-8 w-[800px] md:w-[70%]">
+        <div className="px-2 sm:px-4"> {/* Ajustado para padding en dispositivos pequeños */}
+            <section className="flex flex-col items-center justify-center gap-2 mt-10 mb-10 text-center sm:mt-20 sm:mb-20">
+                {/* Título principal */}
+                <h1 className="mb-6 text-3xl sm:text-5xl font-bold text-center text-transparent bg-clip-text gradient2-text">
+                    Sobre el Pair Programming
+                </h1>
+                {/* Subtítulo */}
+                <h2 className="mb-8 text-lg sm:text-xl md:text-2xl">
+                    "El código fluye mejor cuando se comparte con un colega"
+                </h2>
+
+                {/* Sección 1 */}
+                <div className="flex flex-col items-center justify-center mx-auto mb-8 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
                     <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                        <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[100%] md:w-[600px] mb-4 md:mr-8" />
+                        <img src="/neon1.png" alt="navegador" className="w-full sm:w-[80%] md:w-[600px] mb-4 md:mr-8 border-4 neon-border shadow-neon" />
                         <div className="flex flex-col">
-                            <h2 className="mb-2 text-4xl font-bold text-justify">Navegador:</h2>
-                            <p className="text-xl text-justify">
-                                El programador más experimentado puede asumir los roles tácticos de desarrollo mientras que el programador menos experimentado recibe las indicaciones y progresa con velocidad en el despliegue de cada proyecto, al mismo tiempo que incrementa su nivel de programación y experiencia.
+                            {/* Título de sección */}
+                            <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Navegador:</h2>
+                            <p className="text-sm sm:text-base md:text-lg text-justify">
+                                Uno de los programadores (el driver) escribe el código, mientras que el otro (el navigator) observa y revisa en busca de errores o sugerencias. El navigator también se encarga de guiar y asegurar que el enfoque general del proyecto esté alineado con los objetivos. Esta técnica permite una codificación más precisa y mejora la calidad del código.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center mx-auto mb-8 w-[800px] md:w-[70%]">
+
+                {/* Sección 2 */}
+                <div className="flex flex-col items-center justify-center mx-auto mb-8 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
                     <div className="flex flex-col md:flex-row items-center justify-center w-full">
                         <div className="flex flex-col">
-                            <h2 className="mb-2 text-4xl font-bold text-left">Emparejamiento de Ping Pong:</h2>
-                            <p className="text-xl text-justify">
-                                Driver/navigator son intercambiados constantemente como la pelota de ping pong. Mediante este tipo de pair programming los programadores pueden familiarizarse con el desarrollo dirigido por test o TDD y obtener una sinergia grupal que focaliza la atención para que ambos mejoren su desempeño.
+                            {/* Título de sección */}
+                            <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-left gradient2-text">Emparejamiento de Ping Pong:</h2>
+                            <p className="text-sm sm:text-base md:text-lg text-justify">
+                                Aquí los roles cambian constantemente. Un programador escribe una prueba para un pequeño fragmento de código, y el otro se encarga de implementar la funcionalidad que hace que esa prueba pase. Después, cambian roles. Este enfoque promueve el desarrollo orientado a pruebas (TDD) y ayuda a los programadores a pensar en pequeñas unidades de trabajo.
                             </p>
                         </div>
-                        <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[100%] md:w-[600px] mb-4 md:ml-8" />
+                        <img src="/imagenneon2.jpg" alt="navegador" className="w-full sm:w-[80%] md:w-[600px] mb-4 md:ml-8 border-4 neon-border shadow-neon" />
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center mx-auto mb-20 w-[800px] md:w-[70%]">
+
+                {/* Sección 3 */}
+                <div className="flex flex-col items-center justify-center mx-auto mb-12 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
                     <div className="flex flex-col md:flex-row items-center justify-center w-full">
-                        <img src="/Pair-Programming1.1.jpg" alt="navegador" class="w-[100%] md:w-[600px] mb- md:mr-8" />
+                        <img src="/" alt="navegador" className="w-full sm:w-[80%] md:w-[600px] mb-4 md:mr-8" />
                         <div className="flex flex-col">
-                            <h2 className="mb-2 text-4xl font-bold text-justify">Pomodoro:</h2>
-                            <p className="text-xl text-justify">
-                                El método pomodoro se utiliza para focalizar la atención. Mediante este estilo los programadores trabajan sesiones de 25 minutos, descansando 5 minutos entre sesión y sesión hasta completar 4 sesiones para conseguir una pausa más larga de 15 minutos.
+                            {/* Título de sección */}
+                            <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Pomodoro:</h2>
+                            <p className="text-sm sm:text-base md:text-lg text-justify">
+                                Mediante este estilo los programadores trabajan sesiones de 25 minutos, descansando 5 minutos entre sesión y sesión hasta completar 4 sesiones para conseguir una pausa más larga de 15 minutos. Mejorar la productividad, ya que ayuda a mantener el enfoque en tareas concretas, reducir distracciones y prevenir el agotamiento mental al distribuir el esfuerzo en intervalos medidos y descansar de manera planificada.
                             </p>
                         </div>
                     </div>
@@ -103,6 +117,7 @@ const PairProgrammingPage = () => {
                     Regístrarme
                 </Button>
             </section>
+
             <RegisterDialog
                 open={isOpen}
                 onOpenChange={setIsOpen}
@@ -111,5 +126,6 @@ const PairProgrammingPage = () => {
             />
         </div>
     );
-}
-export default PairProgrammingPage
+};
+
+export default PairProgrammingPage;
