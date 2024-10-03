@@ -15,7 +15,12 @@ export const getUser = async () => {
 
 export const updateUser = async (data) => {
     try {
-        const response = await api.patch(PROFILE_URLS.UPDATE, data);
+        const response = await api.patch(PROFILE_URLS.UPDATE, data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+              },
+        });
+        
         return response;
     } catch (error) {
         console.error('Error registering user', error);
