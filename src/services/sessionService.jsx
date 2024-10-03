@@ -24,3 +24,24 @@ export const getProjectForSession = async (projectId) => {
     throw error;
   }
 };
+
+export const getSuggestedSessions = async () => {
+  try {
+    const response = await api.get(SESSION_URLS.GET_SUGGESTED_SESSIONS);
+    console.log("Suggested sessions:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching suggested sessions:", error);
+    throw error;
+  }
+};
+
+export const getAllSessions = async () => {
+  try {
+    const response = await api.get(SESSION_URLS.GET_ALL_SESSIONS);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all sessions:", error);
+    throw error;
+  }
+};

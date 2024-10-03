@@ -4,6 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import { Loader } from "lucide-react";
 
 const ProtectedLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -15,8 +16,8 @@ const ProtectedLayout = () => {
     }
   }, [isAuthenticated]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (loading) { 
+    return <Loader />;
   }
 
   return isAuthenticated ? (

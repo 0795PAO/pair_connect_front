@@ -4,6 +4,7 @@ import { useToast } from '@/hooks/useToast';
 
 export const useUpdateProfile = () => {
     const queryClient = useQueryClient();
+    queryClient.refetchQueries(['profile']);
     const { toast } = useToast();
 
     return useMutation({
