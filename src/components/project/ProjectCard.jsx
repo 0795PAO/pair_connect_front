@@ -1,8 +1,7 @@
 const ProjectCard = ({ project }) => {
     return (
       <div
-        className="relative w-full max-w-[280px] sm:max-w-[430px] md:max-w-[588px] p-4 sm:p-5 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 
-        bg-card text-card-foreground my-2 transition-transform duration-300 ease-in-out transform hover:scale-105  cursor-pointer flex flex-col justify-between"
+        className="special-shadow w-full max-w-[320px] h-full max-h-[140px] p-4 rounded-lg border border-neutral-300 dark:border-neutral-800 bg-card text-card-foreground transition-transform duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex flex-col justify-between"
       >
         <div className="flex items-center justify-between">
           {/* Project Name */}
