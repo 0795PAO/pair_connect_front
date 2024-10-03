@@ -32,7 +32,7 @@
     --button-hover: 191 100% 65%;
     --shadow-custom: 0px 0px 10px 12px rgba(12, 183, 230, 0.127);
     --special-shadow: 0 4px 12px 0 rgb(18, 174, 194);
-    --shadow-white: 0 4px 12px 0 rgba(255, 255, 255, 0.5);
+    --shadow-white: 0 4px 12px 0 rgba(147, 112, 219, 1);
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
     --gradient: linear-gradient(to right,
@@ -41,9 +41,11 @@
     --gradient2: linear-gradient(to right,
         rgba(240, 92, 186, 1),
         rgba(24, 224, 234, 1),
-        rgba(239, 64, 181, 1)
-      );
-      
+        rgba(239, 64, 181, 1));
+    --gradient3: linear-gradient(to right,
+        rgba(255, 93, 162, 1),
+        rgba(147, 112, 219, 1));
+
     --mouse-effect-color: 184 72% 45%;
   }
 
@@ -84,8 +86,11 @@
     --gradient2: linear-gradient(to right,
         rgba(219, 62, 180, 1),
         rgba(238, 213, 224, 1),
-        rgba(219, 62, 180, 1)
-      );
+        rgba(219, 62, 180, 1));
+    --gradient3: linear-gradient(to right,
+        rgba(255, 255, 255, 1),
+        rgba(147, 112, 219, 1));
+
     --mouse-effect-color: var(--primary);
   }
 }
@@ -263,6 +268,30 @@
   will-change: background-size, background-position;
 }
 
+/* h1 with gradient3 */
+.gradient3-text {
+  background-image: var(--gradient3);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient3-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /*neon from cian to pinkk */
 .neon-border {
   position: relative;
@@ -272,12 +301,12 @@
   background-color: rgba(255, 255, 255, 0.05);
   background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1)) border-box;
   border: 2px solid transparent;
-  box-shadow: 
-    0 0 10px rgba(8, 223, 223, 0.7), 
-    0 0 20px rgba(8, 223, 223, 0.6), 
+  box-shadow:
+    0 0 10px rgba(8, 223, 223, 0.7),
+    0 0 20px rgba(8, 223, 223, 0.6),
     0 0 30px rgba(8, 223, 223, 0.5),
-    0 0 20px rgba(240, 92, 186, 0.4), 
-    0 0 30px rgba(24, 224, 234, 0.3), 
+    0 0 20px rgba(240, 92, 186, 0.4),
+    0 0 30px rgba(24, 224, 234, 0.3),
     0 0 40px rgba(239, 64, 181, 0.2);
   backdrop-filter: blur(10px);
   transition: box-shadow 1s ease-in-out;
@@ -287,4 +316,30 @@
   box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9), 0 0 60px rgba(255, 93, 162, 0.8);
 }
 
+/* Neon Border - Fixed Purple and Hover Blue */
+.neon-border {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(0, 255, 255, 1)) border-box;
+  border: 2px solid transparent;
+  
+  /* Sombra fija en azul y lila */
+  box-shadow:
+    0 0 10px rgba(0, 229, 255, 0.7), /* Azul */
+    0 0 20px rgba(193, 59, 177, 0.6), /* Azul */
+    0 0 30px rgba(255, 78, 205, 0.5); /* Lila */
+  
+  backdrop-filter: blur(10px);
+  transition: box-shadow 1s ease-in-out;
+}
 
+.neon-border:hover {
+  /* Sombra cambiante a lila y azul */
+  box-shadow:
+    0 0 25px rgba(255, 78, 205, 1), /* Lila */
+    0 0 50px rgba(34, 214, 199, 0.9), /* Lila */
+    0 0 60px rgba(0, 229, 255, 0.8); /* Azul */
+}

@@ -10,7 +10,7 @@ const CosmicBackground = ({ maxSparkles = 100 }) => {
             const sparkle = {
                 x: Math.random() * 100,
                 y: Math.random() * 100,
-                size: Math.random() * 5,
+                size: Math.random() * 4 + 1, 
             };
             setSparkles((prevSparkles) => {
                 if (prevSparkles.length >= maxSparkles) {
@@ -33,7 +33,7 @@ const CosmicBackground = ({ maxSparkles = 100 }) => {
             {sparkles.map((sparkle, index) => (
                 <div
                     key={index}
-                    className="sparkle bg-secondary dark:bg-primary"
+                    className="sparkle bg-gradient3 dark:bg-primary"
                     style={{
                         top: `${sparkle.y}%`,
                         left: `${sparkle.x}%`,
