@@ -1,9 +1,7 @@
-/* eslint-disable react-refresh/only-export-components */
-import { useState, useEffect } from 'react';
 import SessionCard from '@/components/session/SessionCard';
 
 // Datos simulados BORRAR
-export const simulatedSessions = [
+/*export const simulatedSessions = [
     {
         id: 1,
         title: "Desarrollar App de Pair Programming",
@@ -104,7 +102,7 @@ export const simulatedSessions = [
         projectImage: "/project_covid.svg",
         status: "",
     },
-];
+]; */
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -124,22 +122,8 @@ const groupSessionsByDate = (sessions) => {
 };
 
 
-const SessionList = () => {
-    const [sessions, setSessions] = useState([]);
-
-    useEffect(() => {
-        // Simula la llamada a la API
-        const fetchSessions = async () => {
-            // Aquí reemplazaremos la llamada a la API cuando esté lista
-            // const response = await fetch('/api/sessions');
-            // const data = await response.json();
-            // setSessions(data);
-            setSessions(simulatedSessions);
-        };
-
-        fetchSessions();
-    }, []);
-
+const SessionList = ({sessions}) => {
+    
     const sessionsByDate = groupSessionsByDate(sessions);
 
     return (
