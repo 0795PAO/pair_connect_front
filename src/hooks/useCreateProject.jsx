@@ -1,8 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createProject } from '@/services/projectService';
+
 import api from '@/config/apiInterceptor';
 import { PROJECT_URLS } from '@/config/apiUrls';
 
-const createProject = async (projectData) => {
+/* const createProject = async (projectData) => {
   const formData = new FormData();
 
   formData.append("name", projectData.name);
@@ -37,7 +39,7 @@ const createProject = async (projectData) => {
     console.error("Error creating project:", error.response?.data || error.message);
     throw error;
   }
-};
+}; */
 
 export const useCreateProject = () => {
   const queryClient = useQueryClient();
