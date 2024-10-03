@@ -30,6 +30,8 @@ export const SESSION_URLS = {
   GET_SESSION_BY_ID: (sessionId) =>
     `${API_BASE_URL}projects/sessions/${sessionId}/`,
   CREATE_SESSION: `${API_BASE_URL}projects/sessions/`,
+  GET_PROYECT_SESSIONS: (proyectId) =>
+    `${API_BASE_URL}projects/project-sessions/${proyectId}`,
   GET_SUGGESTED_SESSIONS: `${API_BASE_URL}projects/users/suggested-sessions/`,
 };
 
