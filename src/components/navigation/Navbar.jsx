@@ -28,11 +28,19 @@ const Navbar = () => {
     };
   }, [menuRef]);
 
-
-
   const handleLogoClick = (e) => {
     e.preventDefault();
-    navigate("/");
+    setIsBreaking(true);
+    setTimeout(() => {
+      setIsBreaking(false);
+      setIsRestoring(true);
+      navigate("/");
+    }, 500);
+  };
+  const handleAnimationEnd = () => {
+    if (isRestoring) {
+      setIsRestoring(false);
+    }
   };
 
   const navlinks = [
@@ -77,7 +85,9 @@ const Navbar = () => {
           {isAuthenticated ? (
             <Button onClick={handleLogout}>Log Out</Button>
           ) : (
-            <Button><Link to="/login">Login</Link></Button>
+            <Button>
+              <Link to="/login">Login</Link>
+            </Button>
           )}
           <div className="lg:hidden" ref={menuRef}>
             <button
@@ -116,4 +126,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar
+export default Navbar;

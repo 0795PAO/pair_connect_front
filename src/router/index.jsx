@@ -1,4 +1,3 @@
-
 import ProtectedLayout from "@/layouts/ProtectedLayout";
 import PublicLayout from "@/layouts/PublicLayout";
 import { createBrowserRouter } from "react-router-dom";
@@ -9,12 +8,10 @@ import ProjectsPage from "@/pages/ProjectsPage";
 import HomePageWrapper from "@/wrappers/HomePageWrapper";
 import ActivationPage from "@/pages/ActivationPage";
 import MyProfilePage from "@/pages/MyProfilePage";
+import SesionsDetailsPage from "@/pages/SesionsDetailsPage";
 import ProjectDetails from "@/components/project/ProjectDetails";
 import ProjectFormPage from "@/pages/ProjectFormPage";
-// import MyProfileFormPage from "@/pages/MyProfileFormPage";
-import MyProfileInfo from "@/components/profile/MyProfileInfo";
-import MyProfileSession from "@/components/profile/MyProfileSession";
-import MyProfileBadges from "@/components/profile/MyProfileBadges";
+import PublicProfileId from "@/pages/PublicProfileId";
 
 const router = createBrowserRouter([
   {
@@ -22,72 +19,61 @@ const router = createBrowserRouter([
     element: <PublicLayout />,
     children: [
       {
-        path: '/',
-        element: <HomePageWrapper />
+        path: "/",
+        element: <HomePageWrapper />,
       },
       {
         path: "/login",
-        element: <LoginPage />
+        element: <LoginPage />,
       },
       {
-        path: '/about-us',
-        element: <AboutUsPage />
-      }, 
-      {
-        path: '/pair-programming',
-        element: <PairProgrammingPage />
+        path: "/about-us",
+        element: <AboutUsPage />,
       },
       {
-        path: '/activate/:uid/:token',
-        element: <ActivationPage/>
-      }
+        path: "/pair-programming",
+        element: <PairProgrammingPage />,
+      },
+      {
+        path: "/activate/:uid/:token",
+        element: <ActivationPage />,
+      },
     ],
   },
-  { 
+  {
     element: <ProtectedLayout />,
     children: [
       {
-        path: '/projects',
-        element: <ProjectsPage/>
-      }, 
-      {
-        path: '/my-profile',
-        element: <MyProfilePage/>,
-        children: [
-          
-        {
-          path: '/my-profile',
-          element: <MyProfileInfo />
-
-        },
-        {
-          path: '/my-profile/sessions',
-          element: <MyProfileSession />
-        },
-        {
-          path: '/my-profile/badges',
-          element: <MyProfileBadges />
-        }
-      
-      
-      ]
-
+        path: "/projects",
+        element: <ProjectsPage />,
       },
-      // {
-      //   path: '/my-profile/edit',
-      //   element: <MyProfileFormPage/>
-      // },
+    ],
+  },
+  {
+    element: <ProtectedLayout />,
+    children: [
       {
-        path: '/projects/create',
+        path: "/my-profile",
+        element: <MyProfilePage />,
+      },
+      {
+        path: "/projects/create",
         element: <ProjectFormPage />,
       },
       {
-        path: '/projects/:id',
+        path: "/projects/:id",
         element: <ProjectDetails />,
       },
-    ]
-  }
+      {
+        path: "/sessions/:sessionId",
+        element: <SesionsDetailsPage />,
+      },
+      {
+        path: "/profile/:id",
+        element: <PublicProfileId />,
+      },
+    ],
+  },
 ]);
 
-export default router
-
+export default router;

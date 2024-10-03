@@ -55,9 +55,8 @@ const CustomDynamicInput = ({
 
   // Handle changes from MultiSelector
   const handleMultiChange = (newValues) => {
-    setValue(name, newValues, { shouldValidate: true });
+    setValue(name, newValues || [], { shouldValidate: true });
   };
-
 
   return (
     <FormField

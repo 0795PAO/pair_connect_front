@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '@/config/apiInterceptor';
+import { getProjects } from '@/services/projectService';
+
+/* import api from '@/config/apiInterceptor';
 import { PROJECT_URLS } from '@/config/apiUrls';
 
 export const fetchProjects = async () => {
@@ -16,16 +18,16 @@ export const fetchProjects = async () => {
       languages: project.languages,
       level: project.level,
     }));
-  };
+  }; */
 
 export const useProjects = () => {
   return useQuery({
     queryKey: ['projects'],
-    queryFn: fetchProjects,
+    queryFn: getProjects,
     staleTime: 1000 * 60 * 60, 
     cacheTime: 1000 * 60 * 60,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,  
-    refetchOnReconnect: false,
+    onError: (error) => {
+      console.error('Error fetching projects:', error);
+    },
   });
 };
