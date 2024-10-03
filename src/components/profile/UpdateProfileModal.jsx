@@ -6,7 +6,6 @@ import {
     DialogTitle,
     DialogDescription,
 } from '../ui/dialog';
-import CompleteProfileForm from './CompleteProfileForm';
 import { useLanguages } from '@/hooks/useLanguages';
 import { Loader } from 'lucide-react';
 import { useStacks } from '@/hooks/useStacks';
@@ -16,6 +15,7 @@ import AboutMeForm from './AboutMeForm';
 import { useProfile } from '@/hooks/useProfile';
 import { useLevels } from '@/hooks/useLevels';
 import ContactForm from './ContactForm';
+import UpdateLanguageForm from './UpdateLanguageForm';
 
 
 const UpdateProfileModal = ({ open, onOpenChange, type }) => {
@@ -54,7 +54,7 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
                             <AboutMeForm  handleSubmit={handleSubmit} defaultValues={{ photo: user?.photo, about_me: user?.about_me}}/>
                         : type === 'contact' ?
                             <ContactForm  handleSubmit={handleSubmit} user={user}/>
-                        : <CompleteProfileForm handleSubmit={handleSubmit} options={{ languages, stacks, levels }} user={user} />
+                        : <UpdateLanguageForm handleSubmit={handleSubmit} options={{ languages, stacks, levels }} user={user} />
                     }
                 </DialogHeader>
             </DialogContent>

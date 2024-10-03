@@ -57,7 +57,7 @@ const MyProfileInfo = () => {
             </div>
             <div className="py-5 grid grid-col gap-5 items-center justify-center text-center">
                 <div className="self-end text-right w-full font-light px-8">
-                    <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={() => handleEditClick("contacts")}><Edit /></Button>
+                    <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={() => handleEditClick("contact")}><Edit /></Button>
                 </div>
                 <div className="flex flex-col gap-8 p-5 w-full">
                     <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">

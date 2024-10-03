@@ -11,7 +11,7 @@ import ActivationPage from "@/pages/ActivationPage";
 import MyProfilePage from "@/pages/MyProfilePage";
 import ProjectDetails from "@/components/project/ProjectDetails";
 import ProjectFormPage from "@/pages/ProjectFormPage";
-import MyProfileFormPage from "@/pages/MyProfileFormPage";
+// import MyProfileFormPage from "@/pages/MyProfileFormPage";
 import MyProfileInfo from "@/components/profile/MyProfileInfo";
 import MyProfileSession from "@/components/profile/MyProfileSession";
 import MyProfileBadges from "@/components/profile/MyProfileBadges";
@@ -73,10 +73,10 @@ const router = createBrowserRouter([
       ]
 
       },
-      {
-        path: '/my-profile/edit',
-        element: <MyProfileFormPage/>
-      },
+      // {
+      //   path: '/my-profile/edit',
+      //   element: <MyProfileFormPage/>
+      // },
       {
         path: '/projects/create',
         element: <ProjectFormPage />,
