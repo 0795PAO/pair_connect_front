@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
-import { useSuggestedSessions } from "@/hooks/useSuggestedSessions";
+import { useSuggestedSessions } from "@/hooks/useSuggestedSessions"; // Actualiza el hook
 import CompleteProfileModal from "@/components/profile/CompleteProfileModal";
 
 const UserHomePage = () => {
@@ -10,7 +10,7 @@ const UserHomePage = () => {
   const [open, setOpen] = useState(false);
 
   const { data: sessions = [], isLoading: isSessionsLoading } =
-    useSuggestedSessions();
+    useSuggestedSessions(); // Inicializa sessions como array vacío
 
   useEffect(() => {
     if (user && (!user.prog_language || !user.stack)) {
