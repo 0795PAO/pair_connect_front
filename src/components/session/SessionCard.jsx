@@ -35,7 +35,7 @@ const SessionCard = ({ session }) => {
 
       <div className="flex flex-col justify-between pr-[70px] sm:pr-[90px] md:pr-[120px]">
         <p className="text-xs sm:text-sm md:text-lg text-muted-foreground dark:text-muted-foreground-dark">
-          {session.date}
+          {session.scheduled_date_time}
         </p>
         <div
           className="min-h-[2.5em] flex items-center"
@@ -44,28 +44,28 @@ const SessionCard = ({ session }) => {
           }}
         >
           <h3 className="text-sm font-bold leading-tight sm:text-base md:text-xl line-clamp-2">
-            {session.title}
+            {session.title ? session.title : "Sin título"}
           </h3>
         </div>
         <div className="flex items-center gap-2 sm:gap-2">
           <img
-            src={session.owner.avatar || "/photo_default_user.svg"}
-            alt={`${session.owner.username}'s avatar`}
+            src="/photo_default.svg"
+            alt={`${session.owner_name}'s avatar`}
             className="w-5 h-5 rounded-full sm:w-6 sm:h-6 md:w-8 md:h-8"
           />
           <span className="text-xs sm:text-sm md:text-base">
-            {session.owner.username}
+            {session.owner_name}
           </span>
         </div>
         <p className="text-xs truncate sm:text-sm md:text-base text-muted-foreground dark:text-muted-foreground-dark">
-          {session.technologies.join(", ")}
+          {session.language_names ? session.language_names.join(", ") : "No especificado"}
         </p>
         <p className="text-xs sm:text-sm md:text-base line-clamp-2">
           {session.description}
         </p>
       </div>
       <img
-        src={session.projectImage || "/photo_default_project.svg"}
+        src="/photo_default_project.svg"
         alt="Imagen del proyecto"
         className="absolute object-cover w-10 h-10 rounded-full bottom-2 right-2 sm:w-14 sm:h-14 md:w-24 md:h-24"
       />
