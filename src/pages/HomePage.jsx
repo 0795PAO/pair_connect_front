@@ -1,14 +1,15 @@
-import { useState, useRef, useEffect  } from "react";
+import { useState, useRef  } from "react";
 import { Button } from "@/components/ui/button";
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import HeroSection from "@/components/landing/HeroSection";
 import SessionList from "@/components/session/SessionList";
 import { useRegister } from "@/hooks/useRegister";  
-import api from "@/config/apiInterceptor";
+import { useAllSessions } from "@/hooks/useAllSessions";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleRegister, loading } = useRegister();
+  const { data: sessions, loading: loadingSessions, error } = useAllSessions();
 
   const sessionListRef = useRef(null);
 
@@ -18,20 +19,15 @@ const HomePage = () => {
     }
   };
 
-
-  
-  useEffect(() => {
-    getSessions()
-  }, [])
+ 
 
   return (
     <div data-testid="home-page">
       <HeroSection handleRegisterClick={setIsOpen} onArrowClick={scrollToSessions} />
       <div ref={sessionListRef}>
-      
+        <SessionList sessions={sessions} loading={loadingSessions} error={error} />
       </div>
-    
-
+  
       <section className="flex flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
         <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
         <Button
