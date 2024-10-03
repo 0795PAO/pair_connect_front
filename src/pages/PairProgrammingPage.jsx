@@ -58,15 +58,15 @@ const PairProgrammingPage = () => {
     return (
         <div className="px-2 sm:px-4"> 
             <section className="flex flex-col items-center justify-center gap-2 mt-10 mb-10 text-center sm:mt-20 sm:mb-20">
-                <h1 className="mb-6 text-3xl sm:text-5xl font-bold text-center text-transparent bg-clip-text gradient2-text">Sobre el Pair Programming</h1>
-                <h2 className="mb-8 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-300 to-blue-200 drop-shadow-lg animate-pulse-slow">"El código fluye mejor cuando se comparte con un colega"</h2>
-                <style jsx>{`@keyframes pulse-slow {0%, 100% {transform: scale(1);}50% {transform: scale(1.05);}}.animate-pulse-slow {animation: pulse-slow 3s ease-in-out infinite;}`}</style>
+                <h1 className="mb-6 text-3xl sm:text-7xl font-bold text-center text-transparent bg-clip-text gradient2-text">Sobre el Pair Programming</h1>
+                <h2 className="mb-8 text-lg sm:text-xl md:text-2xl lg:text-1xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-100 via-purple-300 to-blue-500 drop-shadow-lg animate-pulse-slow">"El código fluye mejor cuando se comparte con un colega"</h2>
+                
                 <div className="flex flex-col items-center justify-center mx-auto mb-8 w-full sm:w-[90%] md:w-[70%] neon-border bg-background p-4 transition-colors duration-500 hover:bg-neon-hover">
                     <div className="flex flex-col md:flex-row items-center justify-center w-full md:space-x-6">
                         <img src="/code1.jpg" alt="navegador" className="w-full sm:w-[80%] md:w-[450px] mb-4 md:mb-0 rounded-lg border-2"/>
                         <div className="flex flex-col space-y-4">
                             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-justify gradient2-text">Navegador</h2>
-                            <p className="text-sm sm:text-base md:text-lg text-justify">Los roles cambian continuamente: uno de los programadores crea una prueba y el otro implementa el código para pasarla. Luego, intercambian roles. Esto fomenta el desarrollo orientado a pruebas (TDD) y facilita trabajar en pequeñas tareas.</p>
+                            <p className="text-sm sm:text-base md:text-lg text-justify">Un programador sera el guía dando instrucciones mientras el otro programador escribe. Funciona mejor cuando un principiante escribe y un experto lo guía, permitiendo que el primero aprenda al practicar.</p>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@ const PairProgrammingPage = () => {
                         </div>
                     </div>
                 </div>
-                <Button variant="specialShadow" onClick={() => setIsOpen(true)} size="lg" title={"Si quieres hacer match, te toca registrarte =D "}>Regístrarme</Button>
+                <Button variant="specialShadow" onClick={() => setIsOpen(true)} size="lg" title={"Si quieres hacer match, te toca registrarte =D "}>Regístrate</Button>
             </section>
             <RegisterDialog open={isOpen} onOpenChange={setIsOpen} handleSubmit={handleSubmit} loading={loading} />
         </div>
