@@ -11,11 +11,17 @@ const ProtectedLayout = () => {
 
   console.log(isAuthenticated);
 
-  useEffect(() => {
-    if (isAuthenticated !== null) {
-      setLoading(false);
+    useEffect(() => {
+        if (isAuthenticated !== null) {
+            setLoading(false);
+        }
+    }, [isAuthenticated]);
+
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated];
 
   if (loading) {
     return <div>Loading...</div>;

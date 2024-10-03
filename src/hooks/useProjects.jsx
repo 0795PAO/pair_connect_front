@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import api from '@/config/apiInterceptor';
 import { PROJECT_URLS } from '@/config/apiUrls';
 
-const fetchProjects = async () => {
+export const fetchProjects = async () => {
     const response = await api.get(PROJECT_URLS.GET_PROJECTS);
     
     // Check if `response.data` contains the actual array of projects
@@ -22,7 +22,10 @@ export const useProjects = () => {
   return useQuery({
     queryKey: ['projects'],
     queryFn: fetchProjects,
-    staleTime: 1000 * 60 * 15, // 15 minutes
-    cacheTime: 1000 * 60 * 30, // 30 minutes
+    staleTime: 1000 * 60 * 60, 
+    cacheTime: 1000 * 60 * 60,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,  
+    refetchOnReconnect: false,
   });
 };

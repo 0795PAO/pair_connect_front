@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProjectForm from '@/components/project/ProjectForm';
 import { useStacks } from '@/hooks/useStacks';
@@ -6,7 +6,7 @@ import { useLevels } from '@/hooks/useLevels';
 import { useLanguages } from '@/hooks/useLanguages';
 import { useCreateProject } from '@/hooks/useCreateProject';
 import Loader from '@/components/shared/Loader';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useMousePosition } from "@/hooks/useMousePosition";
 
 

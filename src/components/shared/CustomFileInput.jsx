@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Camera } from "lucide-react"; 
