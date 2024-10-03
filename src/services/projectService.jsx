@@ -1,10 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createProject } from '@/services/projectService';
-
 import api from '@/config/apiInterceptor';
 import { PROJECT_URLS } from '@/config/apiUrls';
 
-/* const createProject = async (projectData) => {
+// Create Project
+export const createProject = async (projectData) => {
   const formData = new FormData();
 
   formData.append("name", projectData.name);
@@ -16,14 +14,12 @@ import { PROJECT_URLS } from '@/config/apiUrls';
 
   // Check if the image exists and is a valid file
   if (projectData.image && projectData.image.length > 0) {
-    const imageFile = projectData.image[0];  // Ensure this is a File object
+    const imageFile = projectData.image[0];
     console.log("Appending image:", imageFile);
     formData.append("image", imageFile);
-  } else {
-    console.error("No valid image file detected.");
   }
 
-  // Log the contents of FormData before sending it
+  // Log FormData content
   for (let [key, value] of formData.entries()) {
     console.log(`${key}:`, value);
   }
@@ -39,18 +35,15 @@ import { PROJECT_URLS } from '@/config/apiUrls';
     console.error("Error creating project:", error.response?.data || error.message);
     throw error;
   }
-}; */
+};
 
-export const useCreateProject = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: createProject,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['projects']);
-    },
-    onError: (error) => {
-      console.error("Error creating project:", error);
-    },
-  });
+// Fetch Projects
+export const getProjects = async () => {
+  try {
+    const response = await api.get(PROJECT_URLS.GET_PROJECTS);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching projects:', error.response?.data || error.message);
+    throw error;
+  }
 };
