@@ -9,19 +9,11 @@ const ProtectedLayout = () => {
   const { isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(true);
 
-  console.log(isAuthenticated);
-
-    useEffect(() => {
-        if (isAuthenticated !== null) {
-            setLoading(false);
-        }
-    }, [isAuthenticated]);
-
-
-    if (loading) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      setLoading(false);
     }
-  }, [isAuthenticated];
+  }, [isAuthenticated]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,4 +33,4 @@ const ProtectedLayout = () => {
   );
 };
 
-export default ProtectedLayout
+export default ProtectedLayout;
