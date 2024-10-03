@@ -58,16 +58,15 @@ const CustomInput = ({
                 {...field}
                 value={field.value || ""}
               />
-            )
-              :
-              (<Input
+            ) : (
+              <Input
                 placeholder={placeholder}
                 type={type}
                 id={name}
                 {...field}
                 value={field.value || ""}
               />
-              )}
+            )}
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
