@@ -1,7 +1,7 @@
-import Footer from "@/components/navigation/Footer"
-import Navbar from "@/components/navigation/Navbar"
-import { Toaster } from "@/components/ui/toaster"
-import { Outlet } from "react-router-dom"
+import Footer from "@/components/navigation/Footer";
+import Navbar from "@/components/navigation/Navbar";
+import { Toaster } from "@/components/ui/toaster";
+import { Outlet } from "react-router-dom";
 
 const PublicLayout = () => {
 
