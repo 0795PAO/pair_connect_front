@@ -11,21 +11,19 @@ const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
     inputRef.current.click();
   };
 
-  // const handleChange = (e) => {
-  //   const files = e.target.files;
-
-  //   field.onChange(files); // Pass the file data to React Hook Form
-
-  //   if (files.length > 0) {
-  //     // Update the displayed file name
-  //     const selectedFileName = Array.from(files).map((file) => file.name).join(", ");
-  //     setFileName(selectedFileName); // Set the local state with the file name
-  //   } else {
-  //     setFileName(""); // Clear the file name if no file is selected
-  //   }
-  // };
-
   const handleChange = (e) => {
+    const files = e.target.files;
+      field.onChange(files); // Pass the file data to React Hook Form
+      if (files.length > 0) {
+  // Update the displayed file name
+      const selectedFileName = Array.from(files).map((file) => file.name).join(", ");
+      setFileName(selectedFileName); // Set the local state with the file name
+    } else {
+    setFileName(""); // Clear the file name if no file is selected
+    }
+  };
+
+/*   const handleChange = (e) => {
     const files = e.target.files;
 
     if (multiple) {
@@ -41,7 +39,7 @@ const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
         setFileName("");
       }
     };
-  }
+  } */
 
     return (
       <div className="relative w-full">
