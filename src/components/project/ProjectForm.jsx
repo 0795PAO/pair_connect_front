@@ -15,86 +15,91 @@ const schema = yup.object({
     image: yup.mixed().nullable().notRequired()
 });
 
-const ProjectForm = ({ handleSubmit, loading, options }) => {
-    const form = useForm({
-        resolver: yupResolver(schema),
-        defaultValues: {
-            name: '',
-            description: '',
-            stack: '',
-            languages: [],
-            level: '',
-            image: null,
-        },
-    });
+const ProjectForm = ({ handleSubmit, loading, options, onCancel }) => {
+  const form = useForm({
+      resolver: yupResolver(schema),
+      defaultValues: {
+          name: '',
+          description: '',
+          stack: '',
+          languages: [],
+          level: '',
+          image: null,
+      },
+  });
 
-    const projectInputs = [
-        {
-            name: 'name',
-            type: 'text',
-            placeholder: 'Un título molón para tu proyecto',
-            label: 'Título',
-        },
-        {
-            name: 'description',
-            type: 'textarea',
-            placeholder: 'Escribe la esencia de tu proyecto aquí',
-            label: 'Descripción',
-        },
-        {
-            name: 'stack',
-            type: 'select',
-            placeholder: 'Frontend, Backend o ambos',
-            label: 'Stack',
-            options: options?.stacks || [],  // Use dynamic data
-        },
-        {
-            name: 'languages',
-            type: 'multiselect',
-            placeholder: '¿En qué idioma habla tu proyecto?',
-            label: 'Lenguajes y frameworks',
-            options: options?.languages || [],  // Use dynamic data
-        },
-        {
-            name: 'level',
-            type: 'select',
-            placeholder: 'Grado de maestría',
-            label: 'Nivel',
-            options: options?.levels || [],  // Use dynamic data
-        },
-        {
-            name: 'image',
-            type: 'file',
-            placeholder: 'Clicka y ponle rostro a tu proyecto',
-            label: 'Imagen del proyecto',
-            onChange: (event) => {
-                const file = event.target.files[0];
-                console.log("Selected image:", file);
-            }
-        },
-    ];
-
-    return (
-        <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
-                {projectInputs.map((input, i) => (
-                    <CustomDynamicInput
-                        key={i}
-                        form={form}
-                        placeholder={input.placeholder}
-                        label={input.label}
-                        name={input.name}
-                        type={input.type}
-                        options={input.options} // For select/multiselect
-                        accept={input.accept}  // For file inputs
-                    />
-                ))}
-                <Button type="submit" className="w-[50%] self-center">
-                    {loading ? 'Cargando...' : 'Crear Proyecto'}
-                </Button>
-            </form>
-        </Form>
-    );
+  const projectInputs = [
+    {
+        name: 'name',
+        type: 'text',
+        placeholder: 'Un título molón para tu proyecto',
+        label: 'Título',
+    },
+    {
+        name: 'description',
+        type: 'textarea',
+        placeholder: 'Escribe la esencia de tu proyecto aquí',
+        label: 'Descripción',
+    },
+    {
+        name: 'stack',
+        type: 'select',
+        placeholder: 'Frontend, Backend o ambos',
+        label: 'Stack',
+        options: options?.stacks || [],  // Use dynamic data
+    },
+    {
+        name: 'languages',
+        type: 'multiselect',
+        placeholder: '¿En qué idioma habla tu proyecto?',
+        label: 'Lenguajes y frameworks',
+        options: options?.languages || [],  // Use dynamic data
+    },
+    {
+        name: 'level',
+        type: 'select',
+        placeholder: 'Grado de maestría',
+        label: 'Nivel',
+        options: options?.levels || [],  // Use dynamic data
+    },
+    {
+        name: 'image',
+        type: 'file',
+        placeholder: 'Clicka y ponle rostro a tu proyecto',
+        label: 'Imagen del proyecto',
+        onChange: (event) => {
+            const file = event.target.files[0];
+            console.log("Selected image:", file);
+          }
+    },
+];
+ 
+return (
+  <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
+          {projectInputs.map((input, i) => (
+              <CustomDynamicInput
+                  key={i}
+                  form={form}
+                  placeholder={input.placeholder}
+                  label={input.label}
+                  name={input.name}
+                  type={input.type}
+                  options={input.options} // For select/multiselect
+                  accept={input.accept}  // For file inputs
+              />
+          ))}
+          <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
+            <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>
+              Ahora no
+            </Button>
+            <Button type="submit" className="w-[50%] self-center whitespace-normal break-words">
+                {loading ? 'Cargando...' : 'Crear Proyecto'}
+            </Button>
+          </div>
+      </form>
+  </Form>
+);
 };
 
 export default ProjectForm;

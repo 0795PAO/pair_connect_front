@@ -19,11 +19,6 @@ const ProjectDetails = () => {
   // Project image URL or default image if none is provided
   const projectImage = project.image_url || "/default_project_image.png";
 
-  // Log to ensure correct data is fetched
-  console.log("Project Stack:", project.stack);
-  console.log("Project Languages:", project.languages);
-  console.log("Project Level:", project.level);
-
   return (
     <div className="space-y-4">
       <h1 className="text-2xl font-bold">{project.name}</h1>
