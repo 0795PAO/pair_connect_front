@@ -7,10 +7,12 @@ import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
 import { useFutureSessions } from "@/hooks/useFutureSessions";
 import HeroButton from "@/components/landing/HeroButton";
-
+import { useAuth } from "@/hooks/useAuth";
 const SessionsDetailsPage = () => {
   const { sessionId } = useParams();
   const navigate = useNavigate();
+
+  const { isAuthenticated } = useAuth();
 
   const [showSignupPopup, setShowSignupPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -74,7 +76,6 @@ const SessionsDetailsPage = () => {
   return (
     <div className="pt-0 mt-0 p-6">
       <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 lg:pl-24 gap-8">
-        {/* Aquí hemos cambiado items-center a items-start para alinearlo a la izquierda */}
         <div className="flex flex-col items-start lg:items-start">
           <h1 className="text-6xl font-bold mb-6 text-left gradient2-text lg: text-left gradient2-text">
             {projectData.name}
@@ -91,29 +92,35 @@ const SessionsDetailsPage = () => {
           </h2>
           <p className="mb-6 text-left">{projectData.description}</p>
 
-          {projectOwnerId ? (
-            <div className="mt-4 mb-4 lg:mt-6 lg:mb-6 text-left">
-              <h2 className="text-xl font-bold mb-4">
-                Responsable del proyecto:
-              </h2>
-              <div className="flex items-center space-x-4">
-                {projectOwnerAvatar && (
-                  <img
-                    src={projectOwnerAvatar}
-                    alt="avatar"
-                    className="w-10 h-10 rounded-full"
-                  />
-                )}
-                <button
-                  className="hover:text-primary transition-colors duration-300"
-                  onClick={() => navigate(`/profile/${projectOwnerId}`)}
-                >
-                  {projectOwnerName || "Nombre no disponible"}
-                </button>
+          {isAuthenticated ? (
+            projectOwnerId ? (
+              <div className="mt-4 mb-4 lg:mt-6 lg:mb-6 text-left">
+                <h2 className="text-xl font-bold mb-4">
+                  Responsable del proyecto:
+                </h2>
+                <div className="flex items-center space-x-4">
+                  {projectOwnerAvatar && (
+                    <img
+                      src={projectOwnerAvatar}
+                      alt="avatar"
+                      className="w-10 h-10 rounded-full"
+                    />
+                  )}
+                  <button
+                    className="hover:text-primary transition-colors duration-300"
+                    onClick={() => navigate(`/profile/${projectOwnerId}`)}
+                  >
+                    {projectOwnerName || "Nombre no disponible"}
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <p className="mb-6">Información del dueño no disponible.</p>
+            )
           ) : (
-            <p className="mb-6">Información del dueño no disponible.</p>
+            <p className="mb-6">
+              Inicia sesión para ver la información del dueño del proyecto.
+            </p>
           )}
         </div>
 
