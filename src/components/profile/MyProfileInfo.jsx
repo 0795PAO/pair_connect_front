@@ -9,6 +9,7 @@ const MyProfileInfo = () => {
     const { data: user, isLoading } = useProfile();
     const [open, setOpen] = useState(false);
     const [formType, setType] = useState("");
+    console.log('estoy aqui')
 
     if (isLoading) {
         return <Loader />
