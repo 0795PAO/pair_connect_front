@@ -8,6 +8,7 @@ import { useCreateProject } from '@/hooks/useCreateProject';
 import Loader from '@/components/shared/Loader';
 import { useQueryClient } from '@tanstack/react-query';
 import { useMousePosition } from "@/hooks/useMousePosition";
+import { useProjectDetails } from '@/hooks/useProjectDetails';
 
 
 const ProjectFormPage = () => {
@@ -18,15 +19,15 @@ const ProjectFormPage = () => {
   const { data: stacks, isLoading: isStacksLoading } = useStacks();
   const { data: levels, isLoading: isLevelsLoading } = useLevels();
   const { data: languages, isLoading: isLanguagesLoading } = useLanguages();
-
-  const [showForm, setShowForm] = useState(false);
+  const [newProjectId, setNewProjectId] = useState(null);
+  const [showForm, setShowForm] = useState(false); //for logging purposes - delete after
 
   const createProjectMutation = useCreateProject();
 
   const handleFormSubmit = (formData) => {
     
+    //for logging purposes - delete after
     console.log('Form data submitted:', formData);
-
     if (formData.image && formData.image.length > 0) {
       console.log("Image file:", formData.image[0]);
     } else {
@@ -36,12 +37,10 @@ const ProjectFormPage = () => {
     createProjectMutation.mutate(formData, {
       onSuccess: (data) => {
         console.log("Project created:", data); // Log the response to check the data object
-        queryClient.invalidateQueries(['projects']);
+        
         if (data?.id) {
-          console.log("Navigating to project with ID:", data.id); // Log the ID before navigating
-          navigate(`/projects/${data.id}`); // Navigate to the newly created project detail page
-        } else {
-          console.error("No project ID found in the response.");
+          setNewProjectId(data.id); // Set the new project ID to track
+          queryClient.invalidateQueries(['projects']);
         }
       },
       onError: (error) => {
@@ -50,14 +49,30 @@ const ProjectFormPage = () => {
     });
   };
 
+  const handleCancel = () => {
+    navigate('/projects');
+  };
+
   useEffect(() => {
     if (!isStacksLoading && !isLevelsLoading && !isLanguagesLoading) {
       setShowForm(true);
     }
   }, [isStacksLoading, isLevelsLoading, isLanguagesLoading]);
 
+  // Fetch the new project details when the new project ID is set
+  const { isLoading: isProjectLoading, data: newProjectData } = useProjectDetails(newProjectId, {
+    enabled: !!newProjectId // Fetch only when newProjectId is set
+  });
+
+  useEffect(() => {
+    // When the project details are fetched, navigate to the project page
+    if (newProjectData && newProjectId) {
+      navigate(`/projects/${newProjectId}`);
+    }
+  }, [newProjectData, newProjectId, navigate]);
+
   // If any data is loading, show the loader
-  if (isStacksLoading || isLevelsLoading || isLanguagesLoading) {
+  if (isStacksLoading || isLevelsLoading || isLanguagesLoading || isProjectLoading) {
     return <Loader />;
   }
 
@@ -72,6 +87,7 @@ const ProjectFormPage = () => {
                             handleSubmit={handleFormSubmit}
                             loading={createProjectMutation.isLoading}
                             options={{ stacks, levels, languages }}
+                            onCancel={handleCancel}
                         />
                     </div>
                 </div>

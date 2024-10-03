@@ -4,37 +4,34 @@ import { useAuth } from "@/hooks/useAuth";
 import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
-
+import { Loader } from "lucide-react";
 
 const ProtectedLayout = () => {
-    const { isAuthenticated } = useAuth();
-    const [loading, setLoading] = useState(true);
+  const { isAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(true);
 
-
-    useEffect(() => {
-        if (isAuthenticated !== null) {
-            setLoading(false);
-        }
-    }, [isAuthenticated]);
-
-
-    if (loading) {
-        return <div>Loading...</div>;
+  useEffect(() => {
+    if (isAuthenticated !== null) {
+      setLoading(false);
     }
+  }, [isAuthenticated]);
 
-    return isAuthenticated ? (
-        <>
-            <Navbar />
-            <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center my-10">
-                <Outlet />
-            </main>
-            <Footer />
-            <Toaster />
+  if (loading) { 
+    return <Loader />;
+  }
 
-        </>
-    ) : (
-        <Navigate to="/login" />
-    );
+  return isAuthenticated ? (
+    <>
+      <Navbar />
+      <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center my-10">
+        <Outlet />
+      </main>
+      <Footer />
+      <Toaster />
+    </>
+  ) : (
+    <Navigate to="/login" />
+  );
 };
 
-export default ProtectedLayout
+export default ProtectedLayout;
