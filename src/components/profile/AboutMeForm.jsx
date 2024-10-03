@@ -19,13 +19,6 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
         defaultValues: defaultValues || '',
     });
 
-    // const handleFileChange = (event) => {
-    //     const file = event.target.files[0];
-    //     form.setValue('photo', file); 
-    //     console.log("Selected image:", file);
-    // };
-
-
     const inputs = [
         {
             name: "about_me",
@@ -38,14 +31,18 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
             type: "file",
             placeholder: "Avatar",
             label: "Avatar",
+            onChange: (event) => {
+                const file = event.target.files[0];
+                console.log("Selected image:", file);
+              }
         },
     ]
 
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append('about_me', data.about_me || '');
-        if (data.photo) {
-            formData.append('photo', data.photo);  
+        if (data.photo && data.photo[0]) {
+            formData.append('photo', data.photo[0]);  
         }
 
         console.log('FormData being sent:', formData.get('about_me'), formData.get('photo')); 
@@ -58,11 +55,13 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
                 {inputs.map((input) => (
                     <CustomDynamicInput 
                     key={input.name}
+                    form={form}
                     type={input.type}
 
                     label={input.label}
                     placeholder={input.placeholder}
                     name={input.name}
+                    accept={input.accept}  // For file inputs
                     />
                 ))}
                 <Button variant="secondary" type="submit" disabled={form.formState.isSubmitting}>Continuar</Button>
