@@ -9,6 +9,7 @@ const UserHomePage = () => {
   const { data: user, isLoading, error } = useProfile();
   const [open, setOpen] = useState(false);
 
+
   const [filters, setFilters] = useState({
     language: "",
     stack: "",
@@ -17,6 +18,7 @@ const UserHomePage = () => {
   });
 
   const { sessions, loading, setFilteredMode } = useSessions(filters);
+
 
   useEffect(() => {
     if (user && (!user.prog_language || !user.stack)) {
