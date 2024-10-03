@@ -5,13 +5,12 @@ import SimplePopUp from "@/components/shared/SimplePopUp";
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
+import { useFutureSessions } from "@/hooks/useFutureSessions";
 import HeroButton from "@/components/landing/HeroButton";
 
 const SessionsDetailsPage = () => {
   const { sessionId } = useParams();
   const navigate = useNavigate();
-
-  console.log("Session ID:", sessionId);
 
   const [showSignupPopup, setShowSignupPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
@@ -28,7 +27,10 @@ const SessionsDetailsPage = () => {
     isError: isProjectError,
   } = useProjectDetails(sessionData?.project_id);
 
-  console.log(projectData);
+  const { data: futureSessions } = useFutureSessions(
+    projectData?.id,
+    sessionData?.schedule_date_time
+  );
 
   useEffect(() => {
     if (!sessionId) {
@@ -71,9 +73,10 @@ const SessionsDetailsPage = () => {
 
   return (
     <div className="pt-0 mt-0 p-6">
-      <section className="grid grid-cols-1 lg:grid-cols-2  mb-8 lg:pl-24 gap-8">
-        <div className="flex flex-col items-center lg:items-start">
-          <h1 className="text-6xl font-bold mb-6 text-center gradient2-text lg: text-center gradient2-text">
+      <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 lg:pl-24 gap-8">
+        {/* Aquí hemos cambiado items-center a items-start para alinearlo a la izquierda */}
+        <div className="flex flex-col items-start lg:items-start">
+          <h1 className="text-6xl font-bold mb-6 text-left gradient2-text lg: text-left gradient2-text">
             {projectData.name}
           </h1>
 
@@ -83,11 +86,13 @@ const SessionsDetailsPage = () => {
             className="w-full lg:w-3/4 lg:mx-0 mx-auto mb-6 rounded-lg"
           />
 
-          <h2 className="text-xl font-bold mb-4">Sobre el proyecto:</h2>
-          <p className="mb-6">{projectData.description}</p>
+          <h2 className="text-xl font-bold mb-4 text-left">
+            Sobre el proyecto:
+          </h2>
+          <p className="mb-6 text-left">{projectData.description}</p>
 
           {projectOwnerId ? (
-            <div className="mt-4 mb-4 lg:mt-6 lg:mb-6">
+            <div className="mt-4 mb-4 lg:mt-6 lg:mb-6 text-left">
               <h2 className="text-xl font-bold mb-4">
                 Responsable del proyecto:
               </h2>
@@ -181,9 +186,29 @@ const SessionsDetailsPage = () => {
         </div>
       </section>
 
+      {futureSessions && futureSessions.length > 0 && (
+        <section className="mt-8">
+          <h2 className="text-2xl font-bold mb-4">Futuras Sesiones</h2>
+          <ul>
+            {futureSessions.map((futureSession) => (
+              <li key={futureSession.id}>
+                <button
+                  className="text-blue-500 underline"
+                  onClick={() => navigate(`/sessions/${futureSession.id}`)}
+                >
+                  {new Date(futureSession.schedule_date_time).toLocaleString()}{" "}
+                  - {futureSession.description}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <div className="flex justify-center mt-8">
         <HeroButton onClick={openSignupPopup} text="Apúntate" />
       </div>
+
       {showSignupPopup && (
         <PopupWithInput
           closePopup={closePopup}
