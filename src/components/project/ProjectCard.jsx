@@ -1,12 +1,13 @@
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Modal from "../shared/Modal";
+import ConfirmModal from "../shared/ModalConfirm";
 import { useState } from "react";
 
-const ProjectCard = ({ project, onProjectDelete }) => {
+const ProjectCard = ({ project, onProjectClick, onProjectDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
     setIsModalOpen(true); // Open modal when trash button is clicked
   };
 
@@ -37,7 +38,7 @@ const ProjectCard = ({ project, onProjectDelete }) => {
           <div className="flex flex-col w-full">
             <div className="flex justify-between items-start">
               {/* Project Name */}
-              <h3 className="text-base justify-left w-full md:text-lg font-bold leading-tight">
+              <h3 className="text-base justify-left w-full md:text-lg font-bold leading-tight" onClick={() => onProjectClick(project)}>
                 {project.name}
               </h3>
                 <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={handleDeleteClick}>
@@ -46,25 +47,21 @@ const ProjectCard = ({ project, onProjectDelete }) => {
             </div>
 
             {/* Project Description */}
-            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" onClick={() => onProjectClick(project)}>
               {project.description}
             </p>
         </div>
+
         {/* Modal for Confirming Project Deletion */}
-        <Modal
-          title="Confirm Deletion"
-          message={`Are you sure you want to delete the project "${project.name}"?`}
+        <ConfirmModal
+          title="Confirmación borrar proyecto"
+          message={`¿Estas seguro que quieres borrar el proyecto "${project.name}"?`}
           border_color="border-red-600"
           open={isModalOpen}
-          onOpenChange={handleModalClose} // Close modal if user cancels
+          onConfirm={handleConfirmDelete}
+          onCancel={handleModalClose}
+          confirmButtonText="Borrar"
         />
-        {isModalOpen && (
-          <div className="flex justify-end mt-4">
-            <Button variant="destructive" onClick={handleConfirmDelete}>
-              Confirmar Eliminación
-            </Button>
-          </div>
-        )}
       </div>
     );
   };
