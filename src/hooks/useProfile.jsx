@@ -5,7 +5,7 @@ export const useProfile = () => {
     return useQuery({
         queryKey: ['profile'],
         queryFn: getUser,
-        staleTime: 1000 * 60 * 15,
+        staleTime: 1000 * 60 * 15, 
     });
 };
 
