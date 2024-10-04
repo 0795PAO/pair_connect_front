@@ -8,8 +8,8 @@ import { useAllSessions } from "@/hooks/useAllSessions";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { handleRegister, loading } = useRegister();
-  const { data: sessions, loading: loadingSessions, error } = useAllSessions();
+  const { sessions, error, loading: loadingSessions } = useAllSessions();
+  const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
 
   const sessionListRef = useRef(null);
 
@@ -44,6 +44,9 @@ const HomePage = () => {
         onOpenChange={setIsOpen}
         handleSubmit={handleRegister}  
         loading={loading} 
+        showModal={showSuccessModal}
+        setShowModal={setShowSuccessModal}
+
       />
     </div>
   );
