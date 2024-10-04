@@ -8,7 +8,6 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "../ui/button"
-import { Link } from "react-router-dom"
 
 
 const Modal = ({ title, message, border_color, open, onOpenChange }) => {
@@ -23,7 +22,7 @@ const Modal = ({ title, message, border_color, open, onOpenChange }) => {
                 </DialogHeader>
                 <DialogFooter>
                     <Button type="button" variant="secondary" onClick={onOpenChange}>Cancelar</Button>
-                    <Link to="/"> <Button type="button" variant="outline">Continuar</Button></Link>
+                    <Button type="button" variant="outline" onClick={onOpenChange}>Continuar</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
