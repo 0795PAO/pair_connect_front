@@ -28,18 +28,24 @@ const MyProfilePage = () => {
 
     return (
         <>
-            <h1 className="p-5 text-5xl font-bold mt-4 text-transparent bg-clip-text gradient2-text text-center md:text-left">Mi perfil</h1>
-            <div className="grid grid-cols-1x w-full h-full lg:grid-cols-2" >
+            <div className="flex items-center justify-center gap-2 lg:justify-start">
+                <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
+                    Hola,
+                </h1>
+                <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl gradient2-text">
+                    {user?.username}
+                </h1>
+            </div>
+            <div className="grid w-full h-full grid-cols-1x lg:grid-cols-2" >
 
                 <div className="flex flex-col gap-8 justify-start items-center text-left w-[100%] p-5" >
-                    <div className="self-end text-right w-full font-light px-8">
-                        <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={handleEditClick}><Edit /></Button>
-                        <Button variant="ghost" size="icon" className="hover:text-primary font-light"><Trash /></Button>
+                    <div className="self-end w-full px-8 font-light text-right">
+                        <Button variant="ghost" size="icon" className="font-light hover:text-primary" onClick={handleEditClick}><Edit /></Button>
+                        <Button variant="ghost" size="icon" className="font-light hover:text-primary"><Trash /></Button>
                     </div>
-                    <div className="flex justify-center items-center w-full text-left gap-6">
-                        <img src={user?.photo} alt="Profile" className="w-24 h-24 md:w-30 md:h-30 rounded-full" />
+                    <div className="flex items-center justify-center w-full gap-6 text-left">
+                        <img src={user?.photo} alt="Profile" className="w-24 h-24 rounded-full md:w-30 md:h-30" />
                         <div className="flex flex-col gap-2">
-                            <h3 className="text-3xl font-semibold">{user?.username}</h3>
                             <p className="text-xl font-semibold">{user?.name}</p>
                             <p>  {
                                 user.about_me ?
