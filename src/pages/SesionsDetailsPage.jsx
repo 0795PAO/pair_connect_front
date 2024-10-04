@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
 import SimplePopUp from "@/components/shared/SimplePopUp";
+import ItemList from "@/components/shared/ItemList";
+
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
@@ -162,29 +164,10 @@ const SessionsDetailsPage = () => {
               <p className="mb-4 lg:mb-6">{projectData.stack_name}</p>
             </>
           )}
-
-          {Array.isArray(sessionData.language_names) &&
-          sessionData.language_names.length > 0 ? (
-            <>
-              <h2 className="text-xl font-bold mb-4 lg:mb-6">
-                Lenguajes requeridos:
-              </h2>
-              <ul className="mb-4 lg:mb-6 flex flex-wrap gap-2">
-                {sessionData.language_names.map((language, index) => (
-                  <li
-                    key={index}
-                    className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform"
-                  >
-                    {language}
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <p className="mb-4 lg:mb-6">
-              No se han especificado lenguajes para esta sesión.
-            </p>
-          )}
+          <ItemList
+            items={sessionData.language_names}
+            title="Lenguajes requeridos"
+          />
 
           <h2 className="text-xl font-bold mb-4 lg:mb-6">
             El perfil que se busca:
