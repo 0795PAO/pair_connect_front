@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 const ItemList = ({ items = [], title = "Items" }) => {
   if (!Array.isArray(items) || items.length === 0) {
     return (
