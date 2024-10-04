@@ -7,7 +7,7 @@ const AboutUsContent = ({ onClick }) => {
             <h1 className="mt-10 mb-16 font-bold text-center text-transparent cursor-pointer text-7xl bg-clip-text gradient3-text">
                 Sobre el equipo
             </h1>
-            <div className="max-w-4xl p-5 text-lg cursor-pointer neon-border bg-background">
+            <div className="max-w-4xl p-5 text-lg cursor-pointer neon-border2 bg-background">
                 <p className="mb-4 text-center text-foreground">
                     Somos seis chicas llenas de energía que, tras enfrentarnos al intenso bootcamp de Factoría F5 en el programa FemCoders Promoción5 (Barcelona y Norte), hemos unido nuestras fuerzas para crear este proyecto grupal pedagógico final.
                 </p>
