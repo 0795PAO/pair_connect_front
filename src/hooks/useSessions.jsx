@@ -4,7 +4,7 @@ import {
   getAllSessions,
 } from "../services/sessionService";
 
-const useSessions = (filters=null) => {
+const useSessions = (filters = null) => {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filteredMode, setFilteredMode] = useState(false);

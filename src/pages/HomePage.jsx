@@ -8,8 +8,8 @@ import { useAllSessions } from "@/hooks/useAllSessions";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { sessions, error, loading: loadingSessions } = useAllSessions();
-  const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
+  const { data: sessions, error, loading: loadingSessions } = useAllSessions();
+  const { handleRegister, loading, showSuccessModal, setShowSuccessModal} = useRegister();
 
   const sessionListRef = useRef(null);
 
@@ -19,7 +19,11 @@ const HomePage = () => {
     }
   };
 
- 
+  if (loadingSessions) {
+    return <div>Loading...</div>;
+  }
+
+
 
   return (
     <div data-testid="home-page">

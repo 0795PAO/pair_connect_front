@@ -11,18 +11,18 @@ import { useLanguages } from '@/hooks/useLanguages';
 import { Loader } from 'lucide-react';
 import { useStacks } from '@/hooks/useStacks';
 import Logo from '../shared/Logo';
-import { useUpdateProfile } from '@/hooks/useUpdateProfile';
+import { useUpdateProgLanguages } from '@/hooks/useUpdateProgLanguages';
 
 
 const CompleteProfileModal = ({ open, onOpenChange }) => {
     const { data: languages, isLoading: isLanguagesLoading } = useLanguages();
     const { data: stacks, isLoading: isStacksLoading } = useStacks();
-    const updateProfileMutation = useUpdateProfile()
+    const updateProfileLanguageMutation = useUpdateProgLanguages()
 
 
 
     const handleSubmit = (data) => {
-        updateProfileMutation.mutate(data, {
+        updateProfileLanguageMutation.mutate(data, {
             onSuccess: () => onOpenChange(false),
 
         });
