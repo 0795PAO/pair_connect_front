@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useState, useEffect } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
