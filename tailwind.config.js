@@ -13,6 +13,7 @@ export default {
       backgroundImage: {
         gradient: 'var(--gradient)',
         gradient2: 'var(--gradient2)',
+        gradient3: 'var(--gradient3)',
       },
       borderRadius: {
         lg: "var(--radius)",
