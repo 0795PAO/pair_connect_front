@@ -16,6 +16,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { useLevels } from '@/hooks/useLevels';
 import ContactForm from './ContactForm';
 import UpdateLanguageForm from './UpdateLanguageForm';
+import { useUpdateProgLanguages } from '@/hooks/useUpdateProgLanguages';
 
 
 const UpdateProfileModal = ({ open, onOpenChange, type }) => {
@@ -24,11 +25,16 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
     const { data: stacks, isLoading: isStacksLoading } = useStacks();
     const { data: levels, isLoading: isLevelsLoading } = useLevels();
     const updateProfileMutation = useUpdateProfile()
+    const updateProfileLanguageMutation = useUpdateProgLanguages()
 
+    const handleLanguageSubmit = (data) => {
+        updateProfileLanguageMutation.mutate(data, {
+            onSuccess: () => onOpenChange(false),
+        })
+    }
 
 
     const handleSubmit = (data) => {
-        console.log('Data being sent:', data);
         updateProfileMutation.mutate(data, {
             onSuccess: () => onOpenChange(false),
 
@@ -54,7 +60,7 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
                             <AboutMeForm  handleSubmit={handleSubmit} defaultValues={{ photo: user?.photo, about_me: user?.about_me}}/>
                         : type === 'contact' ?
                             <ContactForm  handleSubmit={handleSubmit} user={user}/>
-                        : <UpdateLanguageForm handleSubmit={handleSubmit} options={{ languages, stacks, levels }} user={user} />
+                        : <UpdateLanguageForm handleSubmit={handleLanguageSubmit} options={{ languages, stacks, levels }} user={user} />
                     }
                 </DialogHeader>
             </DialogContent>

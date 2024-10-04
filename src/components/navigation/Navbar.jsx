@@ -64,6 +64,7 @@ const Navbar = () => {
           >
             Pair Connect
           </span>
+          
         </div>
 
         <div className="hidden space-x-8 lg:flex">

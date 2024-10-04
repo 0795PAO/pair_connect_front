@@ -15,6 +15,7 @@ import PublicProfileId from "@/pages/PublicProfileId";
 import MyProfileInfo from "@/components/profile/MyProfileInfo";
 import MyProfileBadges from "@/components/profile/MyProfileBadges";
 import MyProfileSession from "@/components/profile/MyProfileSession";
+import PublicSessionDetailPage from "@/pages/PublicSessionDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,12 @@ const router = createBrowserRouter([
         path: "/activate/:uid/:token",
         element: <ActivationPage />,
       },
+
+      {
+        path: "/public-sessions/:sessionId",
+        element: <PublicSessionDetailPage />,
+      },
+
     ],
   },
   {
@@ -66,7 +73,7 @@ const router = createBrowserRouter([
           {
             path: "badges",
             element: <MyProfileBadges />
-          }, 
+          },
           {
             path: "sessions",
             element: <MyProfileSession />
