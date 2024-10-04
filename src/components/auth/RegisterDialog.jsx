@@ -11,7 +11,14 @@ import {
 import RegisterForm from './RegisterForm';
 import Modal from '../shared/Modal';
 
+
+
 const RegisterDialog = ({ open, onOpenChange, handleSubmit, loading, showModal, setShowModal }) => {
+
+    const handleCloseAfterSuccess = () => {
+        onOpenChange(false);
+        setShowModal(false);
+    }
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="gap-6 w-[90vw] md:w-full rounded-lg">
@@ -27,7 +34,7 @@ const RegisterDialog = ({ open, onOpenChange, handleSubmit, loading, showModal, 
                     <Link to="/login" className="font-bold text-secondary">Inicia sesión</Link>
                 </DialogFooter>
             </DialogContent>
-            <Modal title="Registro exitoso" message="Controla tu correo para activar tu cuenta" border_color="border-success" open={showModal} onOpenChange={() => setShowModal(false)}/>
+            <Modal title="Registro exitoso" message="Controla tu correo para activar tu cuenta" border_color="border-success" open={showModal} onOpenChange={handleCloseAfterSuccess}/>
         </Dialog>
     );
 };
