@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import SessionCardActions from "@/components/session/SessionCardActions";
 import { Link } from "react-router-dom";
 
@@ -76,4 +75,4 @@ const SessionCard = ({ session }) => {
   );
 };
 
-export default SessionCard
+export default SessionCard;
