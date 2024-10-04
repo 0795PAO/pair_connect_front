@@ -57,14 +57,14 @@ const Navbar = () => {
         <div className="flex items-center space-x-3">
           <Link href="/" onClick={handleLogoClick} className="h-10">
             <img src="/logo.svg" alt="logo" className="w-[35px]" />
-
-            <span
-              className="font-poppins font-bold text-[36px] leading-[120%] hidden md:block text-transparent bg-clip-text"
-              style={{ backgroundImage: "var(--gradient)" }}
-            >
-              Pair Connect
-            </span>
           </Link>
+          <span
+            className="font-poppins font-bold text-[36px] leading-[120%] hidden md:block text-transparent bg-clip-text"
+            style={{ backgroundImage: "var(--gradient)" }}
+          >
+            Pair Connect
+          </span>
+          
         </div>
 
         <div className="hidden space-x-8 lg:flex">
