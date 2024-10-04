@@ -22,12 +22,12 @@ const MyProfileInfo = () => {
 
 
     return (
-        <div className="py-5 grid grid-col gap-5 items-center justify-center text-center">
-            <div className="self-end text-right w-full font-light px-8">
-                <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={() => handleEditClick("languages")}><Edit /></Button>
+        <div className="grid items-center justify-center gap-5 py-5 text-center grid-col">
+            <div className="self-end w-full px-8 font-light text-right">
+                <Button variant="ghost" size="icon" className="font-light hover:text-primary" onClick={() => handleEditClick("languages")}><Edit /></Button>
             </div>
-            <div className="flex flex-col gap-8 p-5 w-full">
-                <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
+            <div className="flex flex-col w-full gap-8 p-5">
+                <h2 className="my-4 mb-5 text-3xl font-semibold text-left text-primary">
                     Lenguajes de programmación
                 </h2>
                 <ul className="text-center">
@@ -38,16 +38,16 @@ const MyProfileInfo = () => {
                     ))}
                 </ul>
             </div>
-            <div className=" flex flex-col gap-8 p-5 w-full">
-                <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
+            <div className="flex flex-col w-full gap-8 p-5 ">
+                <h2 className="my-4 mb-5 text-3xl font-semibold text-left text-primary">
                     Stack
                 </h2>
                 <p>
                     {user?.stack_name}
                 </p>
             </div>
-            <div className=" flex flex-col gap-8 p-5 w-full">
-                <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
+            <div className="flex flex-col w-full gap-8 p-5 ">
+                <h2 className="my-4 mb-5 text-3xl font-semibold text-left text-primary">
                     Nivel
                 </h2>
                 <p>
@@ -56,12 +56,12 @@ const MyProfileInfo = () => {
                     }
                 </p>
             </div>
-            <div className="py-5 grid grid-col gap-5 items-center justify-center text-center">
-                <div className="self-end text-right w-full font-light px-8">
-                    <Button variant="ghost" size="icon" className="hover:text-primary font-light" onClick={() => handleEditClick("contact")}><Edit /></Button>
+            <div className="grid items-center justify-center gap-5 py-5 text-center grid-col">
+                <div className="self-end w-full px-8 font-light text-right">
+                    <Button variant="ghost" size="icon" className="font-light hover:text-primary" onClick={() => handleEditClick("contact")}><Edit /></Button>
                 </div>
-                <div className="flex flex-col gap-8 p-5 w-full">
-                    <h2 className="text-3xl font-semibold my-4 text-primary text-left mb-5">
+                <div className="flex flex-col w-full gap-8 p-5">
+                    <h2 className="my-4 mb-5 text-3xl font-semibold text-left text-primary">
                         Contactos
                     </h2>
                     <ul className="text-center">
@@ -75,6 +75,7 @@ const MyProfileInfo = () => {
                 <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
             </div>
         </div>
+        
     )
 }
 export default MyProfileInfo

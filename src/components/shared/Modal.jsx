@@ -23,7 +23,7 @@ const Modal = ({ title, message, border_color, open, onOpenChange }) => {
                 </DialogHeader>
                 <DialogFooter>
                     <Button type="button" variant="secondary" onClick={onOpenChange}>Cancelar</Button>
-                    <Button type="button" variant="outline"> <Link to="/my-profile">Modifica mi perfil</Link></Button>
+                    <Link to="/"> <Button type="button" variant="outline">Continuar</Button></Link>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
