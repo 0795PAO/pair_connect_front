@@ -9,10 +9,10 @@ import TeamList from '@/components/about/TeamList';
 
 const AboutUsPage = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { handleRegister, loading } = useRegister();
+    const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
 
     const registerButtonRef = useRef(null);
-    const teamSectionRef = useRef(null); 
+    const teamSectionRef = useRef(null);
 
     const scrollToTeamSection = () => {
         if (teamSectionRef.current) {
@@ -22,33 +22,35 @@ const AboutUsPage = () => {
 
     return (
         <section className="relative min-h-screen">
-                <div className="relative z-0">
-                    <CosmicBackground />
-                    <AboutUsContent onClick={scrollToTeamSection} />
+            <div className="relative z-0">
+                <CosmicBackground />
+                <AboutUsContent onClick={scrollToTeamSection} />
 
-                    <div className="flex flex-col items-center gap-5 mt-20 mb-10 text-center">
-                        <div ref={teamSectionRef}>
-                            <TeamList />
-                        </div>
-                        <h3 className="mt-20 mb-2 text-xl font-bold">¡Únete a Pair Connect!</h3>
-                        <Button
-                            variant="doubleColorButton"
-                            onClick={() => setIsOpen(true)}
-                            size="lg"
-                            title="Regístrate y forma parte de nuestra comunidad"
-                            ref={registerButtonRef}
-                        >
-                            Regístrate
-                        </Button>
+                <div className="flex flex-col items-center gap-5 mt-20 mb-10 text-center">
+                    <div ref={teamSectionRef}>
+                        <TeamList />
                     </div>
-                    <RegisterDialog
-                        open={isOpen}
-                        onOpenChange={setIsOpen}
-                        handleSubmit={handleRegister}
-                        loading={loading}
-                    />
+                    <h3 className="mt-20 mb-2 text-xl font-bold">¡Únete a Pair Connect!</h3>
+                    <Button
+                        variant="doubleColorButton"
+                        onClick={() => setIsOpen(true)}
+                        size="lg"
+                        title="Regístrate y forma parte de nuestra comunidad"
+                        ref={registerButtonRef}
+                    >
+                        Regístrate
+                    </Button>
                 </div>
-            </section>
+                <RegisterDialog
+                    open={isOpen}
+                    onOpenChange={setIsOpen}
+                    handleSubmit={handleRegister}
+                    loading={loading}
+                    setModal={setShowSuccessModal}
+                    showModal={showSuccessModal}
+                />
+            </div>
+        </section>
     );
 };
 

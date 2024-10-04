@@ -6,18 +6,16 @@ import { useNavigate } from "react-router-dom";
 export const useRegister = () => {
     const [loading, setLoading] = useState(false);
     const { toast } = useToast();
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const navigate = useNavigate();
+    
 
     const handleRegister = async (data) => {
         setLoading(true);
         try {
             const response = await registerUser(data);
             if (response.status === 201) {
-                toast({
-                    title: "Registrado",
-                    description: "Se ha registrado correctamente, controle su correo para activar su cuenta",
-                    variant: "success",
-                });
+                setShowSuccessModal(true);
                 const timeoutId = setTimeout(() => {
                     navigate("/");
                 }, 5000);
@@ -52,5 +50,5 @@ export const useRegister = () => {
         }
     };
 
-    return { handleRegister, loading };
+    return { handleRegister, loading, showSuccessModal, setShowSuccessModal };
 };
