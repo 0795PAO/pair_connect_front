@@ -29,6 +29,7 @@ const ActivationPage = () => {
     return (
         <div>
             <h1 className="text-2xl font-bold">{activationStatus ? activationStatus : "Activando tu cuenta..."}</h1>
+            
         </div>
     );
 };
