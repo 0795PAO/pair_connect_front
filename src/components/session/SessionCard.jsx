@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import SessionCardActions from "@/components/session/SessionCardActions";
 
 const SessionCard = ({ session }) => {
@@ -74,4 +73,4 @@ const SessionCard = ({ session }) => {
   );
 };
 
-export default SessionCard
+export default SessionCard;
