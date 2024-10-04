@@ -49,9 +49,9 @@ const ProjectsPage = () => {
   return (
     <>
       {/* Greeting Section (Always visible) */}
-      <section className="w-full py-4 flex flex-col items-center text-center">
+      <section className="sticky w-full py-4 px-8 top-16 z-10">
         {!isProfileLoading && user && (
-          <h1 className="text-3xl font-bold">Hola, {user.username}</h1>
+          <h1 className="text-3xl font-bold text-left">Hola, {user.username}</h1>
         )}
       </section>
 
