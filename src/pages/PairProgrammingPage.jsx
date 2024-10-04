@@ -1,59 +1,13 @@
 import { useState } from "react";
-import { useToast } from "@/hooks/useToast";
 import { Button } from "@/components/ui/button";
 import RegisterDialog from "@/components/auth/RegisterDialog";
-import { registerUser } from "@/services/authService";
-import { useNavigate } from "react-router-dom";
+import { useRegister } from "@/hooks/useRegister";
 
 const PairProgrammingPage = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { toast } = useToast();
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+    const { handleRegister, showSuccessModal, setShowSuccessModal, loading } = useRegister();
 
-    const handleSubmit = async (data) => {
-        setLoading(true);
-        try {
-            const response = await registerUser(data);
-            if (response.status === 201) {
-                toast({
-                    title: "Registrado",
-                    description: "Se ha registrado correctamente, controle su correo para activar su cuenta",
-                    variant: "success",
-                });
-                const timeoutId = setTimeout(() => {
-                    navigate("/");
-                }, 5000);
-                return () => clearTimeout(timeoutId);
-            }
-        } catch (error) {
-            console.error("Error registering user", error);
 
-            let errorMessage = "Ocurrió un error al registrarse";
-
-            if (error.response) {
-                const errorData = error.response.data;
-
-                if (errorData.password) {
-                    errorMessage = errorData.password.join(" ");
-                } else if (errorData.email) {
-                    errorMessage = errorData.email.join(" ");
-                } else if (errorData.username) {
-                    errorMessage = errorData.username.join(" ");
-                } else if (errorData.non_field_errors) {
-                    errorMessage = errorData.non_field_errors.join(" ");
-                }
-            }
-
-            toast({
-                title: "Error",
-                description: errorMessage,
-                variant: "destructive",
-            });
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <div className="px-2 sm:px-4"> 
@@ -90,7 +44,14 @@ const PairProgrammingPage = () => {
                 </div>
                 <Button variant="specialShadow" onClick={() => setIsOpen(true)} size="lg" title={"Si quieres hacer match, te toca registrarte =D "}>Regístrate</Button>
             </section>
-            <RegisterDialog open={isOpen} onOpenChange={setIsOpen} handleSubmit={handleSubmit} loading={loading} />
+            <RegisterDialog 
+                open={isOpen} 
+                onOpenChange={setIsOpen} 
+                handleSubmit={handleRegister} 
+                loading={loading} 
+                showModal={showSuccessModal}
+                setShowModal={setShowSuccessModal}
+                />
         </div>
     );
 };

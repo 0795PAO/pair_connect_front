@@ -7,7 +7,7 @@ import { useRegister } from "@/hooks/useRegister";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { handleRegister, loading } = useRegister();
+  const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
 
   const sessionListRef = useRef(null);
 
@@ -41,6 +41,9 @@ const HomePage = () => {
         onOpenChange={setIsOpen}
         handleSubmit={handleRegister}  
         loading={loading} 
+        showModal={showSuccessModal}
+        setShowModal={setShowSuccessModal}
+
       />
     </div>
   );

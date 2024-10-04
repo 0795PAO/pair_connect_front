@@ -9,7 +9,7 @@ import TeamList from '@/components/team/TeamList';
 
 const AboutUsPage = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { handleRegister, loading } = useRegister();
+    const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
 
     const registerButtonRef = useRef(null);
     const teamSectionRef = useRef(null); 
@@ -45,6 +45,8 @@ const AboutUsPage = () => {
                 onOpenChange={setIsOpen}
                 handleSubmit={handleRegister}
                 loading={loading}
+                setModal={setShowSuccessModal}
+                showModal={showSuccessModal}
             />
         </section>
     );
