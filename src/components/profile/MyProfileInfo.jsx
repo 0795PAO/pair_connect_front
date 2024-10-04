@@ -28,7 +28,7 @@ const MyProfileInfo = () => {
             </div>
             <div className="flex flex-col w-full gap-8 p-5">
                 <h2 className="my-4 mb-5 text-3xl font-semibold text-left text-primary">
-                    Lenguajes de programmación
+                    Lenguajes de programación
                 </h2>
                 <ul className="text-center">
                     {user?.language_names && user.language_names.map((language, index) => (
