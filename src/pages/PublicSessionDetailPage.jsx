@@ -66,7 +66,7 @@ const PublicSessionDetailPage = () => {
         <div className="pt-0 mt-0 p-6">
             <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 lg:pl-24 gap-8">
                 <div className="flex flex-col items-start lg:items-start">
-                    <h1 className="text-6xl font-bold mb-6 text-left gradient2-text lg: text-left gradient2-text">
+                    <h1 className="text-6xl font-bold mb-6 text-left gradient2-text gradient2-text">
                         {projectData.name}
                     </h1>
 
