@@ -15,7 +15,7 @@ const ActivationPage = () => {
                 console.log(response);
                 setActivationStatus("¡Cuenta activado con éxito!"); setTimeout(() => {
                     navigate("/login"); 
-                }, 4000)
+                }, 4000);
 
             } catch (error) {
                 console.log(error);
