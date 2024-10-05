@@ -1,30 +1,52 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
+import { useStacks } from "@/hooks/useStacks";
+import { useLevels } from "@/hooks/useLevels";
+import { useLanguages } from "@/hooks/useLanguages";
 import Loader from "@/components/shared/Loader";
 import SessionList from "@/components/session/SessionList";
 import SessionForm from "../session/SessionForm";
 import { Edit, Trash, ArrowLeft } from "lucide-react";
 import ConfirmModal from "../shared/ModalConfirm";
-import { deleteProject } from "@/services/projectService"; 
+import { deleteProject, updateProjectImage, updateProject } from "@/services/projectService"; 
+import { useQueryClient } from '@tanstack/react-query';
+import UpdateProjectForm from '@/components/project/UpdateProjectForm';
 
 const ProjectDetails = () => {
+  const queryClient = useQueryClient();
   const { id } = useParams(); // Get project ID from the URL
+  const navigate = useNavigate();
   const { data: project, isLoading, isError } = useProjectDetails(id); // Fetch project details
+  const { data: stacks } = useStacks();
+  const { data: levels } = useLevels();
+  const { data: languages } = useLanguages();
+  const [projectImage, setProjectImage] = useState(project?.image_url || "/default_project_image.png");
+  const [isEditing, setIsEditing] = useState(false);
   const [isCreatingSession, setIsCreatingSession] = useState(false); // Control form visibility
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+  
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  useEffect(() => {
+    if (project && project.image_url) {
+      setProjectImage(project.image_url);
+    }
+  }, [project]);
 
-  if (isError || !project) {
-    return <p>Error loading project or project not found.</p>;
-  }
+/*   // Log the project data to check if it contains expected values
+  console.log("Project data:", project);
+  // Log the fetched stacks, levels, and languages
+  console.log("Stacks data:", stacks);
+  console.log("Levels data:", levels);
+  console.log("Languages data:", languages);
+   */
+
+  if (isLoading) return <Loader />;
+  if (isError || !project) return <p>Error loading project or project not found.</p>;
 
   const handleEditClick = () => {
-    navigate(`/projects/edit/${project.id}`); // Navigate to the project edit page
+    setIsEditing(true);
   };
 
   const handleDeleteClick = () => {
@@ -45,6 +67,27 @@ const ProjectDetails = () => {
     setIsModalOpen(false);
   };
 
+  const handleFormSubmit = async (updatedData) => {
+    try {
+      const updatedProject = await updateProject(id, updatedData);
+      console.log("Project updated successfully:", updatedProject);
+      setIsEditing(false); // Close the form after submitting
+      queryClient.invalidateQueries(['projects']); // Invalidate to refetch the updated project list
+    } catch (error) {
+      console.error("Error updating project:", error);
+    }
+  };
+
+  // Match stack, languages, and level with fetched data
+  const matchedStack = stacks?.find(s => s.label === project.stack_name)?.value || ""; 
+  const matchedLanguages = project.language_names
+    ? project.language_names.map(lang => languages?.find(l => l.label === lang)?.value || "")
+    : [];
+  const matchedLevel = levels?.find(l => l.label === project.level_name)?.value || "";
+  // Debugging: Log matched values
+  console.log("Matched stack:", matchedStack);
+  console.log("Matched languages:", matchedLanguages);
+  console.log("Matched level:", matchedLevel);
 
   const handleCreateSessionClick = () => {
     setIsCreatingSession(true);
@@ -56,11 +99,31 @@ const ProjectDetails = () => {
     // implement logic to refetch or update sessions here
   };
 
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const updatedProject = await updateProjectImage(id, formData); 
+        setProjectImage(updatedProject.image_url); // Update the image URL locally in state
+        
+        // Invalidate the 'projects' query to refetch the updated project list
+        queryClient.invalidateQueries(['projects']);  // Replace 'projects' with the key for fetching the project list
+      } catch (error) {
+        console.error("Error updating project image:", error);
+      }
+    }
+  };
+
+  // Trigger the file input dialog
+  const handleEditImageClick = () => {
+    fileInputRef.current.click();
+  };
+
   // Check if the project has sessions
   const hasSessions = project.sessions && project.sessions.length > 0;
-
-  // Project image URL or default image if none is provided
-  const projectImage = project.image_url || "/default_project_image.png";
 
   return (
     <div className="flex items-center justify-center min-h-screen">
@@ -77,11 +140,27 @@ const ProjectDetails = () => {
       <h1 className="text-4xl gradient2-text font-bold">Detalles del proyecto</h1>
       <div className="flex flex-col md:flex-row items-start p-8 border rounded-lg">
         {/* Left Section: Project Image */}
-        <img
-          src={projectImage}
-          alt="Project"
-          className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-lg md:mr-6"
-        />
+        <div className="relative">
+            <img
+              src={projectImage}
+              alt="Project"
+              className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-lg md:mr-6"
+            />
+            <button
+              className="absolute bottom-2 right-2 bg-muted text-white hover:text-primary p-2 rounded-full"
+              onClick={handleEditImageClick} // Trigger file input dialog
+            >
+              <Edit className="w-5 h-5" />
+            </button>
+            {/* Hidden file input for image selection */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </div>
 
         {/* Right Section: Title, Description, and Required Skills */}
         <div className="flex-grow flex flex-col justify-between md:text-left h-full">
@@ -90,28 +169,52 @@ const ProjectDetails = () => {
             <div className="flex space-x-4">
                 <button
                   onClick={handleEditClick}
-                  className="text-primary hover:text-muted"
+                  className="text-white hover:text-primary"
                 >
                   <Edit className="w-6 h-6" />
                 </button>
                 <button
                   onClick={handleDeleteClick}
-                  className="text-secondary hover:text-red-700"
+                  className="text-white hover:text-secondary"
                 >
                   <Trash className="w-6 h-6" />
                 </button>
               </div>
           </div>
-          <h3 className="text-2xl font-semibold">Sobre el proyecto:</h3>
-          <p className="text-lg mb-4">{project.description}</p>
-          
-          {/* Required Skills Section */}
-          <section className="mt-8">
-            <h2 className="text-2xl font-semibold">Competencias del proyecto:</h2>
-            <p>Stack: {project.stack_name}</p>
-            <p>Languages & Frameworks: {project.language_names.join(", ")}</p>
-            <p>Nivel: {project.level_name}</p>
-          </section>
+
+          {/* Conditionally render the UpdateProjectForm */}
+          {isEditing && stacks && languages && levels ? (
+          <UpdateProjectForm
+            handleSubmit={handleFormSubmit}
+            loading={false} 
+            options={{
+              stacks: stacks,
+              languages: languages,
+              levels: levels,
+            }}
+            defaultValues={{
+              name: project.name,
+              description: project.description,
+              stack: matchedStack, 
+              languages: matchedLanguages, 
+              level: matchedLevel,
+            }}
+              onCancel={() => setIsEditing(false)}  // Close the form on cancel
+            />
+          ) : (
+            <>
+              <h3 className="text-2xl font-semibold">Sobre el proyecto:</h3>
+              <p className="text-lg mb-4">{project.description}</p>
+            
+              {/* Required Skills Section */}
+              <section className="mt-8">
+                <h2 className="text-2xl font-semibold">Competencias del proyecto:</h2>
+                <p>Stack: {project.stack_name}</p>
+                <p>Languages & Frameworks: {project.language_names.join(", ")}</p>
+                <p>Nivel: {project.level_name}</p>
+              </section>
+            </>
+          )}
         </div>
       </div>
       
@@ -158,6 +261,7 @@ const ProjectDetails = () => {
           onCancel={handleModalClose}
           confirmButtonText="Borrar"
         />
+      
     </div>
     </div>
   );
