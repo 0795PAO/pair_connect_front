@@ -34,14 +34,6 @@ const ProjectDetails = () => {
     }
   }, [project]);
 
-/*   // Log the project data to check if it contains expected values
-  console.log("Project data:", project);
-  // Log the fetched stacks, levels, and languages
-  console.log("Stacks data:", stacks);
-  console.log("Levels data:", levels);
-  console.log("Languages data:", languages);
-   */
-
   if (isLoading) return <Loader />;
   if (isError || !project) return <p>Error loading project or project not found.</p>;
 
@@ -78,25 +70,23 @@ const ProjectDetails = () => {
     }
   };
 
-  // Match stack, languages, and level with fetched data
   const matchedStack = stacks?.find(s => s.label === project.stack_name)?.value || ""; 
   const matchedLanguages = project.language_names
     ? project.language_names.map(lang => languages?.find(l => l.label === lang)?.value || "")
     : [];
   const matchedLevel = levels?.find(l => l.label === project.level_name)?.value || "";
-  // Debugging: Log matched values
-  console.log("Matched stack:", matchedStack);
-  console.log("Matched languages:", matchedLanguages);
-  console.log("Matched level:", matchedLevel);
 
   const handleCreateSessionClick = () => {
     setIsCreatingSession(true);
   };
 
-  const handleSessionCreated = (newSessionData) => {
-    setIsCreatingSession(false); // Hide the form once the session is created
-    console.log("Session created:", newSessionData);
-    // implement logic to refetch or update sessions here
+  const handleCancelSessionCreation = () => {
+    setIsCreatingSession(false); // Hide form when "Ahora no" is clicked
+  };
+
+  const handleSessionCreated = (sessionData) => {
+    setIsCreatingSession(false);
+    console.log("Session created:", sessionData);
   };
 
   const handleImageChange = async (event) => {
@@ -244,11 +234,17 @@ const ProjectDetails = () => {
       </section>
 
       {/* Show the form if creating a new session */}
-      {isCreatingSession && (
+      {isCreatingSession && stacks && languages && (
         <section className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Programar nueva sesión</h2>
-          <SessionForm project={project} onSessionCreated={handleSessionCreated} />
-        </section>
+        <h2 className="text-xl font-semibold mb-4">Programar nueva sesión</h2>
+        <SessionForm 
+          options={{ stacks, languages }}  // Pass stack and languages options
+          projectStack={project.stack_name}  // Pass the stack name
+          projectLanguages={project.language_names}  // Pass the languages
+          onSessionCreated={handleSessionCreated} 
+          onCancel={handleCancelSessionCreation}
+        />
+      </section>
       )}
 
       {/* Confirmation Modal */}

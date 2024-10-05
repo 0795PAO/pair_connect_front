@@ -1,133 +1,110 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { Button } from "@/components/ui/button";
-import CustomInput from "@/components/shared/CustomInput";
-import { EventCalendar } from "../shared/EventCalendar";
+/* eslint-disable react/prop-types */
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Button } from '../ui/button';
+import CustomDynamicInput from '../shared/CustomDynamicInput';
+import { Form } from '../ui/form';
+import { SessionCalendar } from '../shared/SessionCalendar';
 
-const sessionSchema = yup.object().shape({
-  date: yup.string().required("Seleccione una fecha"),
-  time: yup.string().required("Seleccione una hora"),
+const schema = yup.object({
+  date: yup.string().required('Seleccione una fecha'),
+  time: yup.string().required('Seleccione una hora'),
   duration: yup
-    .number()
-    .positive("La duración debe ser positiva")
-    .required("Ingrese una duración"),
-  stack: yup.string().required("Seleccione el stack"),
-  language: yup.string().required("Seleccione un lenguaje"),
-  description: yup.string().nullable(),
+    .string()
+    .matches(/^([0-9]{1,2}):([0-5][0-9])$/, 'El formato debe ser hh:mm')
+    .required('Ingrese una duración en formato hh:mm'),
+  stack: yup.string().required('El stack es obligatorio'),
+  languages: yup.array().min(1, 'Seleccione al menos un lenguaje').of(yup.string().required('Selecciona lenguajes válidos')),
+  description: yup.string(),
 });
 
-const SessionForm = ({ project, onSessionCreated }) => {
-  console.log("Project data in SessionForm:", project);
-
-  const stack = project?.stack_name || "Full-stack";
-  const languages = project?.language_names || [];
-  console.log("Languages in SessionForm:", languages);
-
-  const [selectedStack, setSelectedStack] = useState(
-    stack === "Full-stack" ? "" : stack
-  );
-  const [selectedLanguage, setSelectedLanguage] = useState(
-    languages.length === 1 ? languages[0].id : ""
-  );
-
+const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages }) => {
+  // Form state with shared validation schema
   const form = useForm({
-    resolver: yupResolver(sessionSchema),
+    resolver: yupResolver(schema),
     defaultValues: {
-      date: "",
-      time: "",
-      duration: "",
-      stack: selectedStack,
-      language: selectedLanguage,
-      description: "",
+      date: '',
+      time: '',
+      duration: '02:00',
+      stack: projectStack || '',
+      languages: [],
+      description: '',
     },
   });
 
-  // Log form default values for debugging
-  useEffect(() => {
-    console.log("Form default values:", form.getValues());
-  }, [form]);
-
-  const handleSubmit = (data) => {
-    console.log("Session form submitted data:", data);
-    onSessionCreated(data);
+  const getStackOptions = () => {
+    if (projectStack === 'Fullstack') {
+      return [
+        { value: 'Frontend', label: 'Frontend' },
+        { value: 'Backend', label: 'Backend' },
+        { value: 'Fullstack', label: 'Fullstack' },
+      ];
+    } else {
+      return [{ value: projectStack, label: projectStack }];
+    }
   };
 
-  return (
-    <div className="session-form-wrapper">
-      {/* Render the EventCalendar component without changes */}
-      <EventCalendar />
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 mt-6">
-        {/* Stack Selection */}
-        {stack === "Full-stack" ? (
-          <CustomInput
-            name="stack"
-            label="Seleccione el stack"
-            type="select"
-            options={[
-              { value: "Frontend", label: "Frontend" },
-              { value: "Backend", label: "Backend" },
-            ]}
-            form={form}
-          />
-        ) : (
-          <CustomInput
-            name="stack"
-            label="Stack"
-            value={stack}
-            form={form}
-            disabled
-          />
-        )}
+  const getLanguageOptions = () => {
+    return projectLanguages.map(lang => ({ value: lang, label: lang }));  // Use projectLanguages array to populate
+  };
 
-        {/* Language Selection */}
-        {languages.length > 1 ? (
-          <CustomInput
-            name="language"
-            label="Seleccione el lenguaje"
-            type="select"
-            options={languages.map((lang) => ({
-              value: lang,
-              label: lang,
-            }))}
-            form={form}
-          />
-        ) : languages.length === 1 ? (
-          <CustomInput
-            name="language"
-            label="Lenguaje"
-            value={languages[0]}
-            form={form}
-            disabled
-          />
-        ) : (
-          <p>No hay lenguajes especificados para este proyecto.</p>
-        )}
-
-        {/* Duration Input */}
-        <CustomInput
-          name="duration"
-          label="Duración (horas)"
-          type="number"
-          form={form}
+  const projectInputs = [
+    {
+        name: 'description',
+        type: 'textarea',
+        placeholder: '¿En qué se va a trabajar esta sesión?',
+        label: 'Descripción de sesión',
+    },
+    {
+        name: 'stack',
+        type: 'select',
+        placeholder: 'Frontend, Backend o ambos',
+        label: 'Stack',
+        options: getStackOptions(),  // Use dynamic data
+    },
+    {
+        name: 'languages',
+        type: 'multiselect',
+        placeholder: 'Lenguaje de esta sesión',
+        label: 'Lenguajes y frameworks',
+        options: getLanguageOptions(),  // Use dynamic data
+    },    
+];
+ 
+return (
+  <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
+        <SessionCalendar
+          selectedDate={form.watch('date')}
+          onDateChange={(date) => form.setValue('date', date)}
+          form={form} // Pass form object to keep fields in sync
         />
-
-        {/* Description Textarea */}
-        <CustomInput
-          name="description"
-          label="Descripción de la sesión"
-          type="textarea"
-          form={form}
-        />
-
-        {/* Submit Button */}
-        <Button type="submit" className="mt-4">
-          Crear Sesión
-        </Button>
+          
+        {projectInputs.map((input, i) => (
+            <CustomDynamicInput
+                key={i}
+                form={form}
+                placeholder={input.placeholder}
+                label={input.label}
+                name={input.name}
+                type={input.type}
+                options={input.options} // For select/multiselect
+                accept={input.accept}  // For file inputs
+            />
+        ))}
+          
+        <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
+          <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>
+            Ahora no
+          </Button>
+          <Button type="submit" className="w-[50%] self-center whitespace-normal break-words">
+            {loading ? 'Cargando...' : 'Crear Sesion'}
+          </Button>
+        </div>
       </form>
-    </div>
-  );
+  </Form>
+);
 };
 
 export default SessionForm;
