@@ -8,6 +8,7 @@ const ActivationPage = () => {
     const [activationStatus, setActivationStatus] = useState(null);
     const navigate = useNavigate();
 
+
     useEffect(() => {
         const handleActivateAccount = async () => {
             try {
@@ -24,7 +25,7 @@ const ActivationPage = () => {
         };
 
         handleActivateAccount();
-    }, [uid, token, navigate]);
+    }, [uid, token, navigate]); 
 
     return (
         <div>
@@ -33,4 +34,4 @@ const ActivationPage = () => {
     );
 };
 
-export default ActivationPage
+export default ActivationPage;
