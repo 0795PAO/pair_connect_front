@@ -28,15 +28,15 @@ const MyProfilePage = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center gap-2 lg:justify-start">
-                <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl">
+            <div className="flex items-center justify-center gap-2 mt-8 lg:justify-start">
+                <h2 className="text-4xl font-bold sm:text-3xl md:text-4xl" style={{ fontFamily: "Source Code Pro, monospace" }}>
                     Hola,
-                </h1>
-                <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl gradient2-text">
+                </h2>
+                <h1 className="text-4xl font-bold font-poppins sm:text-5xl md:text-6xl gradient4-text">
                     {user?.username}
                 </h1>
             </div>
-            <div className="grid w-full h-full grid-cols-1x lg:grid-cols-2" >
+            <div className="grid w-full h-full grid-cols-1x " >
 
                 <div className="flex flex-col gap-8 justify-start items-center text-left w-[100%] p-5" >
                     <div className="self-end w-full px-8 font-light text-right">

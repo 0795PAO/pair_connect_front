@@ -45,6 +45,10 @@
     --gradient3: linear-gradient(to right,
         rgba(255, 93, 162, 1),
         rgba(147, 112, 219, 1));
+    --gradient4: linear-gradient(to right,
+        rgb(255, 85, 122),
+        rgba(255, 78, 205, 1),
+        rgba(93, 207, 255, 1));
 
     --mouse-effect-color: 184 72% 45%;
   }
@@ -90,6 +94,10 @@
     --gradient3: linear-gradient(to right,
         rgba(255, 255, 255, 1),
         rgba(147, 112, 219, 1));
+    --gradient4: linear-gradient(to right,
+        rgb(255, 85, 122),
+        rgba(255, 78, 205, 1),
+        rgba(93, 207, 255, 1));
 
     --mouse-effect-color: var(--primary);
   }
@@ -174,7 +182,7 @@
     transform: scale(1.5) rotate(20deg);
     opacity: 0.5;
   }
-
+  
   100% {
     transform: scale(0);
     opacity: 0;
@@ -186,7 +194,7 @@
     transform: scale(0);
     opacity: 0;
   }
-
+  
   100% {
     transform: scale(1);
     opacity: 1;
@@ -201,7 +209,24 @@
   animation: restoreEffect 0.5s ease forwards;
 }
 
-/* h1 */
+/* arrow */
+@keyframes customBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.slow-bounce {
+  animation: customBounce 1.7s infinite;
+}
+
+/* h1 with gradient */
 .gradient-text {
   background-image: var(--gradient);
   background-size: 100% auto;
@@ -233,22 +258,6 @@
   }
 }
 
-/* arrow */
-@keyframes customBounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.slow-bounce {
-  animation: customBounce 1.7s infinite;
-}
 
 /* h1 with gradient2 */
 .gradient2-text {
@@ -287,9 +296,35 @@
 }
 
 @keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* h1 with gradient4 */
+.gradient4-text {
+  background-image: var(--gradient4);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient4-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
 }
 
 /*neon from cian to pinkk */
@@ -325,12 +360,12 @@
   background-color: rgba(255, 255, 255, 0.05);
   background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(0, 255, 255, 1)) border-box;
   border: 2px solid transparent;
-  
+
   box-shadow:
     0 0 10px rgba(0, 229, 255, 0.7),
     0 0 20px rgba(193, 59, 177, 0.6),
     0 0 30px rgba(255, 78, 205, 0.5);
-  
+
   backdrop-filter: blur(10px);
   transition: box-shadow 1s ease-in-out;
 }
