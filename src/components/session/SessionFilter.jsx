@@ -68,7 +68,7 @@ const SessionFilter = forwardRef(
             />
 
             <h4 className="text-xl font-semibold my-5">Filtra por stack</h4>
-            <div className="mb-4 flex justify-evenly items-center">
+            <div className="mb-4 flex flex-wrap justify-evenly items-center gap-5">
               {stacks &&
                 stacks.length > 0 &&
                 stacks.map((stack, index) => (
@@ -82,7 +82,7 @@ const SessionFilter = forwardRef(
             </div>
 
             <h4 className="text-xl font-semibold my-5">Filtra por Nivel</h4>
-            <div className="mb-4 flex justify-evenly items-center">
+            <div className="mb-4 flex flex-wrap justify-evenly items-center gap-5">
               {levels &&
                 levels.length > 0 &&
                 levels.map((level, index) => (
