@@ -35,9 +35,10 @@ export const SESSION_URLS = {
   GET_PROYECT_SESSIONS: (proyectId) =>
     `${API_BASE_URL}projects/project-sessions/${proyectId}`,
   GET_SUGGESTED_SESSIONS: `${API_BASE_URL}projects/users/suggested-sessions/`,
- 
+
 }; 
 
 export const PARTICIPANT_URLS = {
   GET_INTERESTED_PARTICIPANTS: `${API_BASE_URL}projects/interested-participants/`,
+  SHOW_INTEREST_IN_SESSION: `${API_BASE_URL}projects/interested-participants/`,
 };

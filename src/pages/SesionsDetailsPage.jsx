@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
 import SimplePopUp from "@/components/shared/SimplePopUp";
 import ItemList from "@/components/shared/ItemList";
@@ -10,9 +9,11 @@ import { useProjectDetails } from "@/hooks/useProjectDetails";
 import { useFutureSessions } from "@/hooks/useFutureSessions";
 import HeroButton from "@/components/landing/HeroButton";
 import { useAuth } from "@/hooks/useAuth";
+// import { useShowInterestInSession } from "@/hooks/useShowInterestInSession";
 const SessionsDetailsPage = () => {
   const { sessionId } = useParams();
   const navigate = useNavigate();
+  // const showInterestInSession = useShowInterestInSession();
 
   const { isAuthenticated } = useAuth();
 
@@ -69,11 +70,11 @@ const SessionsDetailsPage = () => {
     setShowSuccessPopup(false);
   };
 
-  const saveMessage = (message) => {
-    console.log("Mensaje guardado:", message);
-    setShowSignupPopup(false);
-    setShowSuccessPopup(true);
-  };
+  // const saveMessage = (message) => {
+  //   console.log("Mensaje guardado:", message);
+  //   showInterestInSession( setShowSignupPopup, setShowSuccessPopup);
+
+  // };
 
   return (
     <div className="pt-0 mt-0 p-6">
