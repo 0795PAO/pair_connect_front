@@ -1,4 +1,4 @@
-import SessionCard from '@/components/session/SessionCard';
+import OwnerSessionCard from './OwnerSessionCard';
 import Loader from '../shared/Loader';
 import { formatDate } from '@/utils/formaDateAndTime';
 
@@ -16,7 +16,7 @@ const groupSessionsByDate = (sessions) => {
     }, {});
 };
 
-const OwnerSessionList = ({ sessions, loading, error, projectImageUrl }) => {
+const OwnerSessionList = ({ sessions, loading, error }) => {
     if (loading) {
         return <Loader />;
     }
@@ -31,20 +31,20 @@ const OwnerSessionList = ({ sessions, loading, error, projectImageUrl }) => {
         <>
             {sessions && sessions.length > 0 ? Object.keys(sessionsByDate).map((date) => (
                 <div key={date} >
-                    <h4 className="mb-4 text-lg font-semibold">{date}</h4>
+                    <h4 className="mt-3 mb-1 text-lg font-semibold">{date}</h4>
                     <ul className={`grid gap-6 items-stretch ${sessionsByDate[date].length === 1
                         ? "grid-cols-1 justify-center items-center w-full"
                         : "grid-cols-1 md:grid-cols-2"
                         }`}>
                         {sessionsByDate[date].map((session, index) => (
-                            <SessionCard session={session} key={index} projectImageUrl={projectImageUrl} />
+                            <OwnerSessionCard session={session} key={index} />
                         ))}
                     </ul>
                 </div>
             ))
                 :
                 <div className="my-10 flex flex-col items-center justify-center text-center">
-                    <p className="text-center font-semibold text-xl">No sessions found for this project. Start by creating a new session!</p>
+                    <p className="text-center font-semibold text-xl">No hay sesiones creadas. ¡Crea una nueva sesión!</p>
                 </div>
             }
         </>
