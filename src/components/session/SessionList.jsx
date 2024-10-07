@@ -17,34 +17,28 @@ const groupSessionsByDate = (sessions) => {
     }, {});
 };
 
-const getFourDayRange = (startDate) => {
-    const start = new Date(startDate);
-    const end = new Date(start);
-    end.setDate(start.getDate() + 4);
-    return { start, end };
-};
 
-const filterSessionsByFourDays = (sessions) => {
+const filterSessionsByFiveDays = (sessions, startDate) => {
     if (!sessions || sessions.length === 0) {
         return [];
     }
+
     const sortedSessions = sessions.sort((a, b) => new Date(a.schedule_date_time) - new Date(b.schedule_date_time));
 
-    const firstSessionDate = sortedSessions[0].schedule_date_time;
+    const start = new Date(startDate);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 4); 
 
-    const { start, end } = getFourDayRange(firstSessionDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     return sortedSessions.filter(session => {
-        const sessionDate = new Date(session.schedule_date_time);
-        return sessionDate >= start && sessionDate <= end;
+        const sessionDate = new Date(session.schedule_date_time); 
+        return sessionDate >= today && sessionDate >= start && sessionDate <= end;
     });
 };
 
-
-
-const SessionList = ({ sessions, loading, error }) => {
-
-
+const SessionList = ({ sessions, loading, error, startDate }) => {
     if (loading) {
         return <Loader />;
     }
@@ -52,26 +46,30 @@ const SessionList = ({ sessions, loading, error }) => {
     if (error) {
         return <p>Error al cargar las sesiones.</p>;
     }
-    console.log(sessions)
-    const filteredSessions = filterSessionsByFourDays(sessions);
+    const filteredSessions = filterSessionsByFiveDays(sessions, startDate);
     const sessionsByDate = groupSessionsByDate(filteredSessions);
+
     return (
-        <section className="max-w-6xl mx-auto my-10">
-            <h3 className="mb-4 text-4xl font-bold">Sesiones Programadas:</h3>
-                {sessions && sessions.length > 0 && Object.keys(sessionsByDate).map((date) => (
-                    <div key={date} >
-                        <h4 className="mb-4 text-lg font-semibold">{date}</h4>
-                        <ul className={`grid gap-6 items-stretch ${sessionsByDate[date].length === 1
-                                ? "grid-cols-1" 
-                                : "grid-cols-1 md:grid-cols-2" 
-                            }`}>
-                            {sessionsByDate[date].map((session, index) => (
-                                <SessionCard session={session} key={index} />
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-        </section>
+        <>
+            {sessions && sessions.length > 0 ? Object.keys(sessionsByDate).map((date) => (
+                <div key={date} >
+                    <h4 className="mb-4 text-lg font-semibold">{date}</h4>
+                    <ul className={`grid gap-6 items-stretch ${sessionsByDate[date].length === 1
+                        ? "grid-cols-1 justify-center items-center w-full"
+                        : "grid-cols-1 md:grid-cols-2"
+                        }`}>
+                        {sessionsByDate[date].map((session, index) => (
+                            <SessionCard session={session} key={index} />
+                        ))}
+                    </ul>
+                </div>
+            ))
+                :
+                <div className="my-10 flex flex-col items-center justify-center text-center">
+                    <p className="text-center font-semibold text-xl">Ups! Parece que no hemos encontrado sesiones con estos filtros. ¡Prueba ajustando tus opciones para encontrar tu próxima aventura de pair programming! 🚀👩🏻‍💻</p>
+                </div>
+            }
+        </>
     );
 };
 
