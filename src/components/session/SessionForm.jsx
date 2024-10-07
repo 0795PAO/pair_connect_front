@@ -20,7 +20,7 @@ const schema = yup.object({
   description: yup.string(),
 });
 
-const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages, projectId, projectLevelId, stacks, languages }) => {
+const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages, projectId, projectLevelId, stacks, languages, onSessionCreated }) => {
   // Form state with shared validation schema
   const form = useForm({
     resolver: yupResolver(schema),
@@ -54,7 +54,6 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
   const handleFormSubmit = async (formData) => {
     // Find the stack ID based on the selected stack name
     const stackId = stacks?.find(s => s.label === formData.stack)?.value;
-
     // Find the language IDs based on the selected languages
     const languageIds = formData.languages.map(langName => {
       const language = languages?.find(l => l.label === langName);
@@ -74,6 +73,12 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
     try {
       const response = await createSession(sessionData);
       console.log('Backend response:', response);
+      
+      // Call the onSessionCreated prop with the new session data
+      if (onSessionCreated) {
+        onSessionCreated(response.data);
+      }
+
       alert('Session created successfully!');
     } catch (error) {
       if (error.response) {

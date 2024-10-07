@@ -215,7 +215,7 @@ const ProjectDetails = () => {
           <>
             <SessionList sessions={project.sessions} />
             <button
-              className="mt-4 bg-primary text-white p-2 rounded-lg"
+              className="mt-4 bg-primary text-black p-2 rounded-lg"
               onClick={handleCreateSessionClick}
             >
               Crear nueva sesión
@@ -246,9 +246,9 @@ const ProjectDetails = () => {
           projectLevelId={matchedLevel}
           stacks={stacks}
           languages={languages}
-          onSessionCreated={handleSessionCreated} 
+          onSessionCreated={handleSessionCreated}
           onCancel={handleCancelSessionCreation}
-        />
+/>
       </section>
       )}
 
