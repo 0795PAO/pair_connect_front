@@ -182,7 +182,7 @@
     transform: scale(1.5) rotate(20deg);
     opacity: 0.5;
   }
-  
+
   100% {
     transform: scale(0);
     opacity: 0;
@@ -194,7 +194,7 @@
     transform: scale(0);
     opacity: 0;
   }
-  
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -371,7 +371,6 @@
 }
 
 .neon-border2:hover {
-  /* Sombra cambiante a lila y azul */
   box-shadow:
     0 0 25px rgba(255, 78, 205, 1),
     0 0 50px rgba(34, 214, 199, 0.9),

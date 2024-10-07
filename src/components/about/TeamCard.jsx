@@ -13,7 +13,7 @@ const TeamCard = ({ member }) => {
 
     return (
         <>
-            <div className="relative max-w-[300px] lg:max-w-[650px] p-5 rounded-lg border border-neutral-300 dark:border-neutral-800 bg-card dark:bg-gray-800 text-card-foreground dark:text-white transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-white">
+            <div className="relative max-w-[300px] lg:max-w-[600px] p-5 rounded-lg border border-neutral-300 dark:border-neutral-800 bg-card dark:bg-gray-800 text-card-foreground dark:text-white transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-white">
                 <div className="flex justify-end w-full gap-2">
                     <img
                         src="/github-logo.svg"

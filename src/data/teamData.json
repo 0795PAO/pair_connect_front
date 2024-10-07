@@ -1,12 +1,12 @@
 {
     "teamMembers": [
         {
-            "name": "Paola",
+            "name": "Paola Franco",
             "role": "Junior Full Stack Developer",
             "avatar": "/team/paola.webp",
             "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí ",
             "githubUrl": "https://github.com/0795PAO",
-            "linkedinUrl": "https://linkedin.com/"
+            "linkedinUrl": "https://www.linkedin.com/in/paola-franco-405ab12b9/"
         },
         {
             "name": "Jessica Arroyo",
@@ -22,7 +22,7 @@
             "avatar": "/team/helena.webp",
             "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí ",
             "githubUrl": "https://github.com/helopgom",
-            "linkedinUrl": "https://linkedin.com/"
+            "linkedinUrl": "https://www.linkedin.com/in/helena-lopgom/"
         },
         {
             "name": "Valentina Toni",
@@ -30,7 +30,7 @@
             "avatar": "/team/valentina.webp",
             "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
             "githubUrl": "https://github.com/ItalianCookieMonster",
-            "linkedinUrl": "https://linkedin.com/"
+            "linkedinUrl": "https://www.linkedin.com/in/valentinatoni/"
         },
         {
             "name": "Lynn Poh",
@@ -41,12 +41,12 @@
             "linkedinUrl": "https://www.linkedin.com/in/lynn-poh/"
         },
         {
-            "name": "Esther",
+            "name": "Esther Sarasua",
             "role": "Junior Full Stack Developer",
             "avatar": "/team/esther.webp",
             "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
             "githubUrl": "https://github.com/Fire-Fairy84",
-            "linkedinUrl": "https://linkedin.com/"
+            "linkedinUrl": "https://www.linkedin.com/in/esther-p-sarasua/"
         }
     ],
     "stakeholder": {
@@ -55,6 +55,6 @@
         "avatar": "/team/alejandro.webp",
         "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
         "githubUrl": "https://github.com/",
-        "linkedinUrl": "https://linkedin.com/"
+        "linkedinUrl": "https://www.linkedin.com/in/alejandro-arends/"
     }
 }

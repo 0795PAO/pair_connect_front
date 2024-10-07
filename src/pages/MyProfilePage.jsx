@@ -28,7 +28,7 @@ const MyProfilePage = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center gap-2 mt-8 lg:justify-start">
+            <div className="flex items-center justify-center gap-2 px-6 lg:justify-start">
                 <h2 className="text-4xl font-bold sm:text-3xl md:text-4xl" style={{ fontFamily: "Source Code Pro, monospace" }}>
                     Hola,
                 </h2>
@@ -36,17 +36,21 @@ const MyProfilePage = () => {
                     {user?.username}
                 </h1>
             </div>
-            <div className="grid w-full h-full grid-cols-1x " >
+            <div className="grid w-full grid-cols-1x" >
 
-                <div className="flex flex-col gap-8 justify-start items-center text-left w-[100%] p-5" >
-                    <div className="self-end w-full px-8 font-light text-right">
+                <div className="flex flex-col items-center w-full gap-8 px-6 text-left" >
+                    <div className="self-end w-full font-light text-right">
                         <Button variant="ghost" size="icon" className="font-light hover:text-primary" onClick={handleEditClick}><Edit /></Button>
                         <Button variant="ghost" size="icon" className="font-light hover:text-primary"><Trash /></Button>
                     </div>
-                    <div className="flex items-center justify-center w-full gap-6 text-left">
-                        <img src={user?.photo} alt="Profile" className="w-24 h-24 rounded-full md:w-30 md:h-30" />
+                    <div className="flex flex-col items-center justify-center w-full gap-6 mb-10 text-left">
+                        <img
+                            src={user?.photo}
+                            alt="Profile"
+                            className="mb-8 rounded-full w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-60 xl:h-60"
+                        />
                         <div className="flex flex-col gap-2">
-                            <p className="text-xl font-semibold">{user?.name}</p>
+                            <p className="text-3xl font-semibold">{user?.name}</p>
                             <p>  {
                                 user.about_me ?
                                     user.about_me
@@ -56,9 +60,9 @@ const MyProfilePage = () => {
                             </p>
                         </div>
                     </div>
+                </div >
                     <MyProfileNav />
                     <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
-                </div>
                 <div>
                     <Outlet />
                 </div>
