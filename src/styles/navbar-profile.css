@@ -1,0 +1,78 @@
+nav.relative {
+    position: relative;
+    backdrop-filter: blur(10px);
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+    max-width: 59.375rem;
+    padding: 1rem;
+    width: 90%;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.light nav.relative {
+    background: linear-gradient(to right,
+            rgba(240, 92, 186, 0.50),
+            rgba(24, 224, 234, 0.34),
+            rgba(239, 64, 181, 0.50));
+}
+
+.dark nav.relative {
+    background: linear-gradient(to right,
+            rgba(240, 92, 186, 0.50),
+            rgba(24, 224, 234, 0.3),
+            rgba(239, 64, 181, 0.50));
+}
+
+ul.flex {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1.5rem;
+}
+
+li {
+    flex: 1;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+li.active-glass a {
+    background: rgba(255, 204, 237, 0.153);
+    color: rgb(20, 145, 151);
+    box-shadow: 0 4px 15px rgba(250, 129, 181, 0.79);
+}
+
+.dark li.active-glass a {
+    background: rgba(250, 129, 181, 0.427);
+    color: rgb(100, 243, 229);
+    box-shadow: 0 4px 15px rgba(118, 226, 222, 0.79);
+}
+
+li a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dark li a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
