@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ConfirmModal from "../shared/ModalConfirm";
@@ -26,7 +27,7 @@ const ProjectCard = ({ project, onProjectClick, onProjectDelete }) => {
       >
           {/* Project Image or Placeholder */}
           <img
-            src={project.image_url || "/photo_default_project.svg"}
+            src={project.image_url || "/neon2.png"}
             alt="Imagen del proyecto"
             //className="object-cover flex-shrink-0 overflow-hidden rounded-lg"
             className="object-cover w-20 h-20 mr-4 rounded-lg flex-shrink-0"
