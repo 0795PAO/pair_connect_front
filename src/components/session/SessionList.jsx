@@ -29,9 +29,12 @@ const filterSessionsByFiveDays = (sessions, startDate) => {
     const end = new Date(start);
     end.setDate(start.getDate() + 4); 
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     return sortedSessions.filter(session => {
         const sessionDate = new Date(session.schedule_date_time); 
-        return sessionDate >= start && sessionDate <= end;
+        return sessionDate >= today && sessionDate >= start && sessionDate <= end;
     });
 };
 
