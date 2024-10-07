@@ -49,11 +49,11 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="gap-6 w-[90vw] md:w-full rounded-lg">
                 <DialogHeader>
-                    <DialogTitle className="text-center my-3 text-xl">
+                    <DialogTitle className="my-3 text-xl text-center">
                         <Logo /></DialogTitle>
-                    <p className="text-center font-bold text-xl"> ¡Aqui puedes editar tus datos!</p>
-                    <DialogDescription className="text-center text-foreground text-base">
-                        Rellena solo los campos que te interesa actualizar!.
+                    <p className="text-xl font-bold text-center"> ¡Aquí puedes editar tus datos!</p>
+                    <DialogDescription className="text-base text-center text-foreground">
+                        ¡Rellena solo los campos que te interesa actualizar!
                     </DialogDescription>
                     {
                         type === 'about_avatar' ?

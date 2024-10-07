@@ -38,7 +38,7 @@ const filterSessionsByFiveDays = (sessions, startDate) => {
     });
 };
 
-const SessionList = ({ sessions, loading, error, startDate }) => {
+const SessionList = ({ sessions, loading, error, startDate, projectImageUrl }) => {
     if (loading) {
         return <Loader />;
     }
@@ -59,7 +59,7 @@ const SessionList = ({ sessions, loading, error, startDate }) => {
                         : "grid-cols-1 md:grid-cols-2"
                         }`}>
                         {sessionsByDate[date].map((session, index) => (
-                            <SessionCard session={session} key={index} />
+                            <SessionCard session={session} key={index} projectImageUrl={projectImageUrl} />
                         ))}
                     </ul>
                 </div>

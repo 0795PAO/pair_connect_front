@@ -1,0 +1,60 @@
+{
+    "teamMembers": [
+        {
+            "name": "Paola Franco",
+            "role": "Junior Full Stack Developer",
+            "avatar": "/team/paola.webp",
+            "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí ",
+            "githubUrl": "https://github.com/0795PAO",
+            "linkedinUrl": "https://www.linkedin.com/in/paola-franco-405ab12b9/"
+        },
+        {
+            "name": "Jessica Arroyo",
+            "role": "Junior Full Stack Developer",
+            "avatar": "/team/jessica.webp",
+            "description": "Desde siempre he sido una mente curiosa y creativa: el diseño gráfico y las manualidades han sido mi rincón especial. Hoy, mi enfoque está en el desarrollo web, donde fusiono creatividad con código. Mi superpoder es la paciencia, algo que me impulsa a mantener el entusiasmo frente a los desafíos del desarrollo y este increíble (y a veces caótico) mundo tecnológico. ¡Siempre lista para crear y enfrentar lo que venga!",
+            "githubUrl": "https://github.com/jess-ar",
+            "linkedinUrl": "https://www.linkedin.com/in/jessica-arroyo-lebron/"
+        },
+        {
+            "name": "Helena López",
+            "role": "Junior Full Stack Developer",
+            "avatar": "/team/helena.webp",
+            "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí ",
+            "githubUrl": "https://github.com/helopgom",
+            "linkedinUrl": "https://www.linkedin.com/in/helena-lopgom/"
+        },
+        {
+            "name": "Valentina Toni",
+            "role": "Junior Full Stack Developer",
+            "avatar": "/team/valentina.webp",
+            "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
+            "githubUrl": "https://github.com/ItalianCookieMonster",
+            "linkedinUrl": "https://www.linkedin.com/in/valentinatoni/"
+        },
+        {
+            "name": "Lynn Poh",
+            "role": "Junior Full Stack Developer",
+            "avatar": "/team/lynn.webp",
+            "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí Aquí va un pequeño sobre mí ",
+            "githubUrl": "https://github.com/Dpoetess",
+            "linkedinUrl": "https://www.linkedin.com/in/lynn-poh/"
+        },
+        {
+            "name": "Esther Sarasua",
+            "role": "Junior Full Stack Developer",
+            "avatar": "/team/esther.webp",
+            "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
+            "githubUrl": "https://github.com/Fire-Fairy84",
+            "linkedinUrl": "https://www.linkedin.com/in/esther-p-sarasua/"
+        }
+    ],
+    "stakeholder": {
+        "name": "Alejandro Arends",
+        "role": "Stakeholder",
+        "avatar": "/team/alejandro.webp",
+        "description": "Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí, Aquí va un pequeño sobre mí",
+        "githubUrl": "https://github.com/",
+        "linkedinUrl": "https://www.linkedin.com/in/alejandro-arends/"
+    }
+}
