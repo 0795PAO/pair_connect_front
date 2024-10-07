@@ -6,9 +6,8 @@ export const useSuggestedSessions = () => {
     queryKey: ["suggestedSessions"],
     queryFn: async () => {
       const response = await getSuggestedSessions();
-
-      return response?.data || [];
+      console.log("Suggested Sessions from hook:", response);
+      return response;
     },
-    retry: 1,
   });
 };
