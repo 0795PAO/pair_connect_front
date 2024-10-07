@@ -6,6 +6,7 @@ import { Button } from '../ui/button';
 import CustomDynamicInput from '../shared/CustomDynamicInput';
 import { Form } from '../ui/form';
 import { SessionCalendar } from '../shared/SessionCalendar';
+import { createSession } from '@/services/sessionService';
 
 const schema = yup.object({
   date: yup.string().required('Seleccione una fecha'),
@@ -19,7 +20,7 @@ const schema = yup.object({
   description: yup.string(),
 });
 
-const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages }) => {
+const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages, projectId, projectLevelId, stacks, languages }) => {
   // Form state with shared validation schema
   const form = useForm({
     resolver: yupResolver(schema),
@@ -46,8 +47,43 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
   };
 
   const getLanguageOptions = () => {
+    console.log('Fetched languages:', languages);  // Log fetched languages for debugging
     return projectLanguages.map(lang => ({ value: lang, label: lang }));  // Use projectLanguages array to populate
   };
+
+  const handleFormSubmit = async (formData) => {
+    // Find the stack ID based on the selected stack name
+    const stackId = stacks?.find(s => s.label === formData.stack)?.value;
+
+    // Find the language IDs based on the selected languages
+    const languageIds = formData.languages.map(langName => {
+      const language = languages?.find(l => l.label === langName);
+      return language?.value;
+    });
+
+    // Prepare the session data
+    const scheduleDateTime = `${formData.date.split("/").reverse().join("-")}T${formData.time}`;
+    const sessionData = {
+      ...formData,
+      project: projectId,
+      stack_id: stackId,
+      language_ids: languageIds,
+      schedule_date_time: scheduleDateTime,
+    };
+
+    try {
+      const response = await createSession(sessionData);
+      console.log('Backend response:', response);
+      alert('Session created successfully!');
+    } catch (error) {
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+      } else {
+        console.error('Error creating session:', error.message);
+      }
+    }
+  };
+
 
   const projectInputs = [
     {
@@ -74,7 +110,7 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
  
 return (
   <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5">
+      <form onSubmit={form.handleSubmit(handleFormSubmit)} role="form" className="flex flex-col gap-5">
         <SessionCalendar
           selectedDate={form.watch('date')}
           onDateChange={(date) => form.setValue('date', date)}

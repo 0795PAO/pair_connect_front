@@ -238,9 +238,13 @@ const ProjectDetails = () => {
         <section className="mt-8">
         <h2 className="text-xl font-semibold mb-4">Programar nueva sesión</h2>
         <SessionForm 
-          options={{ stacks, languages }}  // Pass stack and languages options
-          projectStack={project.stack_name}  // Pass the stack name
-          projectLanguages={project.language_names}  // Pass the languages
+          options={{ stacks, languages }}
+          projectStack={project.stack_name}
+          projectLanguages={project.language_names}
+          projectId={project.id}
+          projectLevelId={matchedLevel}
+          stacks={stacks}
+          languages={languages}
           onSessionCreated={handleSessionCreated} 
           onCancel={handleCancelSessionCreation}
         />
