@@ -1,4 +1,4 @@
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
@@ -17,6 +17,7 @@ const UserHomePage = () => {
       setOpen(true);
     }
   }, [user]);
+  console.log("Sessions in UserHomePage:", sessions);
 
   return (
     <div
@@ -37,7 +38,6 @@ const UserHomePage = () => {
             Hola, {user?.username}
           </h2>
 
-          {/* Mostrar las sesiones sugeridas */}
           {isSessionsLoading ? (
             <Loader />
           ) : (
@@ -47,9 +47,9 @@ const UserHomePage = () => {
                   <li key={session.id}>
                     <h2>{session.title}</h2>
                     <p>{session.description}</p>
-                    <p>Stack: {session.stack}</p>
-                    <p>Level: {session.level}</p>
-                    <p>Date: {session.date}</p>
+                    <p>Stack: {session.stack_name}</p>
+                    <p>Level: {session.level_name}</p>
+                    <p>Date: {session.schedule_date_time}</p>
                   </li>
                 ))
               ) : (
