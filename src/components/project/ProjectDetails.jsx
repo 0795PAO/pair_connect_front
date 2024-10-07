@@ -87,6 +87,7 @@ const ProjectDetails = () => {
   const handleSessionCreated = (sessionData) => {
     setIsCreatingSession(false);
     console.log("Session created:", sessionData);
+    queryClient.invalidateQueries(['projectDetails', id]);
   };
 
   const handleImageChange = async (event) => {
