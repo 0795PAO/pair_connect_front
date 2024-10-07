@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import SessionCardActions from "@/components/session/SessionCardActions";
 import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 import { Link } from "react-router-dom";
 
-const SessionCard = ({ session }) => {
+const SessionCard = ({ session, to }) => {
   return (
     <li
       className="special-shadow relative w-full max-w-[280px] sm:max-w-[430px] md:max-w-[588px] p-4 sm:p-5 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 
@@ -10,7 +11,7 @@ const SessionCard = ({ session }) => {
     md:min-h-[220px] lg:min-h-[240px] flex flex-col justify-between"
       data-testid="session-card"
     >
-      <Link to={`/public-sessions/${session.id}`}>
+      <Link to={to}>
         {session.status && session.status !== "default" && (
           <>
             {session.status === "enrolled" && (

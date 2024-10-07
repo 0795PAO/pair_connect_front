@@ -14,7 +14,7 @@ const PopupWithInput = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-background p-6 rounded-lg shadow-lg max-w-lg w-full">
+      <div className="bg-card p-6 rounded-lg shadow-lg max-w-lg w-full">
         <h3 className="text-xl font-bold mb-4">{title}</h3>
         <p className="mb-4">{subtitle}</p>
         <textarea

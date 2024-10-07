@@ -41,4 +41,6 @@ export const SESSION_URLS = {
 export const PARTICIPANT_URLS = {
   GET_INTERESTED_PARTICIPANTS: `${API_BASE_URL}projects/interested-participants/`,
   SHOW_INTEREST_IN_SESSION: `${API_BASE_URL}projects/interested-participants/`,
+
+  GET_CHECK_IF_INTERESTED: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-interest/`,
 };
