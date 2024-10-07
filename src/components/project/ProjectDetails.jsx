@@ -5,7 +5,7 @@ import { useStacks } from "@/hooks/useStacks";
 import { useLevels } from "@/hooks/useLevels";
 import { useLanguages } from "@/hooks/useLanguages";
 import Loader from "@/components/shared/Loader";
-import SessionList from "@/components/session/SessionList";
+import OwnerSessionList from "../session/OwnerSessionList";
 import SessionForm from "../session/SessionForm";
 import { Edit, Trash, ArrowLeft } from "lucide-react";
 import ConfirmModal from "../shared/ModalConfirm";
@@ -213,7 +213,12 @@ const ProjectDetails = () => {
         <h2 className="text-xl font-semibold">Sesiones</h2>
         {hasSessions ? (
           <>
-            <SessionList sessions={project.sessions} />
+            <OwnerSessionList 
+              sessions={project.sessions} 
+              loading={isLoading} 
+              error={isError} 
+              projectImageUrl={project.image_url}  
+            />
             <button
               className="mt-4 bg-primary text-black p-2 rounded-lg"
               onClick={handleCreateSessionClick}
