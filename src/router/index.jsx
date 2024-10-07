@@ -47,6 +47,7 @@ const router = createBrowserRouter([
         element: <PublicSessionDetailPage />,
       },
 
+
     ],
   },
   {
