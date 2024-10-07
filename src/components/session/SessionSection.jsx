@@ -4,10 +4,12 @@ import SessionList from "./SessionList";
 import { Button } from "../ui/button";
 import { getTotalPages } from "@/utils/sessionPagination";
 import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
+import { useProjects } from "@/hooks/useProjects";
 
 // Actualización: usar forwardRef
 const SessionSection = forwardRef(
   ({ sessions, loadingSessions, error }, sessionListRef) => {
+    const { data: projects, isLoading: loadingProjects, error: projectsError } = useProjects();
     const [startDate, setStartDate] = useState(
       sessions.length > 0 ? sessions[0].schedule_date_time : new Date()
     );
@@ -35,6 +37,26 @@ const SessionSection = forwardRef(
     const disablePreviousButton = currentPage === 1;
     const disableNextButton = currentPage === totalPages;
 
+    if (loadingSessions || loadingProjects) {
+      return <div>Loading...</div>;
+    }
+
+    if (error || projectsError) {
+      return <p>Error loading sessions or projects.</p>;
+    }
+
+    // Create a project map for quick lookup
+    const projectMap = projects.reduce((acc, project) => {
+      acc[project.id] = project.image_url;
+      return acc;
+    }, {});
+
+    // Enrich sessions with their respective project image URLs
+    const enrichedSessions = sessions.map((session) => ({
+      ...session,
+      projectImageUrl: projectMap[session.project_id] || "/neon2.png",
+    }));
+
     return (
       <div ref={sessionListRef}>
         <section className="max-w-6xl mx-auto mt-5 lg:mt-0">
@@ -56,9 +78,9 @@ const SessionSection = forwardRef(
             </Button>
           </div>
           <SessionList
-            sessions={sessions}
-            loading={loadingSessions}
-            error={error}
+            sessions={enrichedSessions}
+            loading={false}
+            error={false}
             startDate={startDate}
           />
         </section>

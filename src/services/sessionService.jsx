@@ -46,5 +46,13 @@ export const getAllSessions = async () => {
   }
 };
 
-
+export const createSession = async (sessionData) => {
+  try {
+    const response = await api.post(SESSION_URLS.CREATE_SESSION, sessionData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating session:", error);
+    throw error;
+  }
+};
 

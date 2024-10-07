@@ -4,6 +4,8 @@ import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 import { Link } from "react-router-dom";
 
 const SessionCard = ({ session, to }) => {
+  const imageUrl = session.projectImageUrl || "/neon2.png";
+
   return (
     <li
       className="special-shadow relative w-full max-w-[280px] sm:max-w-[430px] md:max-w-[588px] p-4 sm:p-5 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 
@@ -75,7 +77,7 @@ const SessionCard = ({ session, to }) => {
           </p>
         </div>
         <img
-          src={session.image_url ? session.image_url : "/neon2.png"}
+          src={imageUrl}
           alt="Imagen del proyecto"
           className="absolute object-cover w-10 h-10 rounded-full bottom-2 right-2 sm:w-14 sm:h-14 md:w-24 md:h-24"
         />
