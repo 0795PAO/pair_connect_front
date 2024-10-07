@@ -68,11 +68,11 @@ export const EventCalendar = () => {
   };
 
   return (
-    <div className="container mx-auto space-y-8 p-4">
+    <div className="container mx-auto space-y-8 p-4 flex flex-col items-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="space-y-4 w-[250px]"
+          className="space-y-4 w-[250px] mx-auto"
         >
           <CustomInput
             name="date"
@@ -89,7 +89,10 @@ export const EventCalendar = () => {
             form={form}
           />
 
-          <Button type="submit">Guardar Fecha y Hora</Button>
+          {/* Solo centramos el botón */}
+          <div className="flex justify-center w-full">
+            <Button type="submit">Guardar Fecha y Hora</Button>
+          </div>
         </form>
       </Form>
 
@@ -102,7 +105,7 @@ export const EventCalendar = () => {
           setCurrentMonth(date);
         }}
         month={currentMonth}
-        className="rounded-md border w-[250px]"
+        className="rounded-md border w-[250px] mx-auto"
       />
     </div>
   );
