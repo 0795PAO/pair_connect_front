@@ -6,8 +6,8 @@ export const useSuggestedSessions = () => {
     queryKey: ["suggestedSessions"],
     queryFn: async () => {
       const response = await getSuggestedSessions();
-      console.log("Suggested Sessions from hook:", response); // Verificar que los datos llegan aquí
-      return response; // Asegúrate de devolver los datos aquí directamente
+      console.log("Suggested Sessions from hook:", response);
+      return response;
     },
   });
 };

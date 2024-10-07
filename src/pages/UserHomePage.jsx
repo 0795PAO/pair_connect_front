@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
-import { useSuggestedSessions } from "@/hooks/useSuggestedSessions"; // Actualiza el hook
+import { useSuggestedSessions } from "@/hooks/useSuggestedSessions";
 import CompleteProfileModal from "@/components/profile/CompleteProfileModal";
+import SessionCard from "@/components/session/SessionCard";
 
 const UserHomePage = () => {
   const { data: user, isLoading: isProfileLoading, error } = useProfile();
   const [open, setOpen] = useState(false);
 
   const { data: sessions = [], isLoading: isSessionsLoading } =
-    useSuggestedSessions(); // Inicializa sessions como array vacío
+    useSuggestedSessions();
 
   useEffect(() => {
     if (user && (!user.prog_language || !user.stack)) {
@@ -40,23 +41,16 @@ const UserHomePage = () => {
 
           {isSessionsLoading ? (
             <Loader />
-          ) : (
-            <ul className="sessions-list">
-              {sessions.length > 0 ? (
-                sessions.map((session) => (
-                  <li key={session.id}>
-                    <h2>{session.title}</h2>
-                    <p>{session.description}</p>
-                    <p>Stack: {session.stack_name}</p>
-                    <p>Level: {session.level_name}</p>
-                    <p>Date: {session.schedule_date_time}</p>
-                  </li>
-                ))
-              ) : (
-                <p>No hay sesiones sugeridas disponibles.</p>
-              )}
+          ) : sessions.length > 0 ? (
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {sessions.map((session) => (
+                <SessionCard key={session.id} session={session} />
+              ))}
             </ul>
+          ) : (
+            <p>No hay sesiones sugeridas disponibles.</p>
           )}
+
           <EventCalendar />
           <CompleteProfileModal open={open} onOpenChange={setOpen} />
         </>
