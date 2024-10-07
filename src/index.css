@@ -11,6 +11,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary: 184 72% 65%;
+    --primary-hover: 184, 72%, 45%;
     --primary-foreground: 222.2 84% 4.9%;
     --secondary: 334 100% 66%;
     --secondary-foreground: 222.2 84% 4.9%;
@@ -58,6 +59,7 @@
     --popover-foreground: 96 5% 95%;
     --primary: 184 72% 65%;
     --primary-foreground: 207 17% 8%;
+    --primary-hover: 184, 72%, 45%;
     --secondary: 334 100% 66%;
     --secondary-foreground: 222.2 84% 4.9%;
     --muted: 214 15% 30%;
@@ -316,8 +318,8 @@
   box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9), 0 0 60px rgba(255, 93, 162, 0.8);
 }
 
-/* Neon Border - Fixed Purple and Hover Blue */
-.neon-border {
+/* neon from Fixed Purple and Hover Blue */
+.neon-border2 {
   position: relative;
   z-index: 10;
   padding: 2rem;
@@ -326,20 +328,19 @@
   background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(0, 255, 255, 1)) border-box;
   border: 2px solid transparent;
   
-  /* Sombra fija en azul y lila */
   box-shadow:
-    0 0 10px rgba(0, 229, 255, 0.7), /* Azul */
-    0 0 20px rgba(193, 59, 177, 0.6), /* Azul */
-    0 0 30px rgba(255, 78, 205, 0.5); /* Lila */
+    0 0 10px rgba(0, 229, 255, 0.7),
+    0 0 20px rgba(193, 59, 177, 0.6),
+    0 0 30px rgba(255, 78, 205, 0.5);
   
   backdrop-filter: blur(10px);
   transition: box-shadow 1s ease-in-out;
 }
 
-.neon-border:hover {
+.neon-border2:hover {
   /* Sombra cambiante a lila y azul */
   box-shadow:
-    0 0 25px rgba(255, 78, 205, 1), /* Lila */
-    0 0 50px rgba(34, 214, 199, 0.9), /* Lila */
-    0 0 60px rgba(0, 229, 255, 0.8); /* Azul */
+    0 0 25px rgba(255, 78, 205, 1),
+    0 0 50px rgba(34, 214, 199, 0.9),
+    0 0 60px rgba(0, 229, 255, 0.8);
 }
