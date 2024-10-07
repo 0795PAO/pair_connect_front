@@ -74,7 +74,8 @@ const UserHomePage = () => {
               ¡Busca otras sesiones de tu interés!
             </h3>
           </div>
-          <div className="flex flex-col md:flex-row w-full gap-4">
+
+          <div className="flex flex-col md:flex-row w-full gap-4 items-center">
             <SessionFilter
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
@@ -83,10 +84,12 @@ const UserHomePage = () => {
               selectedLevel={selectedLevel}
               setSelectedLevel={setSelectedLevel}
             />
-            <EventCalendar
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-            />
+            <div className="w-full md:w-1/2 flex justify-center mt-4 md:mt-0">
+              <EventCalendar
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+              />
+            </div>
           </div>
 
           <Button variant="specialShadow" onClick={handleSearchSessions}>
