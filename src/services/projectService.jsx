@@ -48,6 +48,45 @@ export const getProjects = async () => {
   }
 };
 
+// Update Project
+export const updateProject = async (projectId, projectData) => {
+  const formData = new FormData();
+
+  formData.append("name", projectData.name);
+  formData.append("description", projectData.description);
+  formData.append("stack", projectData.stack);
+  formData.append("level", projectData.level);
+
+  projectData.languages.forEach(lang => formData.append("languages", Number(lang)));
+
+  try {
+    const response = await api.patch(PROJECT_URLS.GET_PROJECT_BY_ID(projectId), formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating project:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Update Project Image
+export const updateProjectImage = async (projectId, formData) => {
+  try {
+    const response = await api.patch(PROJECT_URLS.GET_PROJECT_BY_ID(projectId), formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating project image:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
 // Delete Project
 export const deleteProject = async (projectId) => {
   try {
