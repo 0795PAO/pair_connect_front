@@ -42,7 +42,6 @@ const router = createBrowserRouter([
         path: "/activate/:uid/:token",
         element: <ActivationPage />,
       },
-
       {
         path: "/public-sessions/:sessionId",
         element: <PublicSessionDetailPage />,
