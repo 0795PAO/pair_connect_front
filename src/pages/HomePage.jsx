@@ -11,7 +11,6 @@ import SessionSection from "@/components/session/SessionSection";
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: sessions, error, loading: loadingSessions } = useAllSessions();
-  console.log("Sessions:", sessions);
   const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
   const sessionListRef = useRef(null);
 
@@ -52,27 +51,30 @@ const HomePage = () => {
         />
 
         <SessionSection sessions={filteredSessions} loading={loadingSessions} error={error} ref={sessionListRef} />
-        <section className="flex flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
-          <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
-          <Button
-            variant="specialShadow"
-            onClick={() => setIsOpen(true)}
-            size="lg"
-            title={"Si quieres hacer match, te toca registrarte =D "}
-          >
-            Regístrate
-          </Button>
-        </section>
 
-        <RegisterDialog
-          open={isOpen}
-          onOpenChange={setIsOpen}
-          handleSubmit={handleRegister}
-          loading={loading}
-          showModal={showSuccessModal}
-          setShowModal={setShowSuccessModal}
-        />
+
+
       </div>
+      <section className="flex w-full flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
+        <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
+        <Button
+          variant="specialShadow"
+          onClick={() => setIsOpen(true)}
+          size="lg"
+          title={"Si quieres hacer match, te toca registrarte =D "}
+        >
+          Regístrate
+        </Button>
+      </section>
+
+      <RegisterDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        handleSubmit={handleRegister}
+        loading={loading}
+        showModal={showSuccessModal}
+        setShowModal={setShowSuccessModal}
+      />
 
     </div>
   );
