@@ -59,7 +59,7 @@ const SessionList = ({ sessions, loading, error, startDate, projectImageUrl }) =
                         : "grid-cols-1 md:grid-cols-2"
                         }`}>
                         {sessionsByDate[date].map((session, index) => (
-                            <SessionCard session={session} key={index} projectImageUrl={projectImageUrl} />
+                            <SessionCard session={session} key={index} to={`/public-sessions/${session.id}`}  projectImageUrl={projectImageUrl}/>
                         ))}
                     </ul>
                 </div>
