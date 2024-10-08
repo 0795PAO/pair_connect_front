@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import SessionCardActions from "@/components/session/SessionCardActions";
 import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 import { Link } from "react-router-dom";
 
-const SessionCard = ({ session }) => {
+const SessionCard = ({ session, to }) => {
   const imageUrl = session.projectImageUrl || "/neon2.png";
 
   return (
@@ -12,7 +13,7 @@ const SessionCard = ({ session }) => {
     md:min-h-[220px] lg:min-h-[240px] flex flex-col justify-between"
       data-testid="session-card"
     >
-      <Link to={`/public-sessions/${session.id}`}>
+      <Link to={to}>
         {session.status && session.status !== "default" && (
           <>
             {session.status === "enrolled" && (

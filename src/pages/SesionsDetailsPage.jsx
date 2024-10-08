@@ -1,23 +1,28 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { useParams, useNavigate } from "react-router-dom";
 import SimplePopUp from "@/components/shared/SimplePopUp";
 import ItemList from "@/components/shared/ItemList";
-
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
 import { useFutureSessions } from "@/hooks/useFutureSessions";
 import HeroButton from "@/components/landing/HeroButton";
-import { useAuth } from "@/hooks/useAuth";
+import FutureSessionList from "@/components/session/FutureSessionList";
+import useShowInterestInSession from "@/hooks/useShowInterestInSession";
+import { useCheckIfInterested } from "@/hooks/useCheckIfInterested";
 const SessionsDetailsPage = () => {
   const { sessionId } = useParams();
+  const { data: isInterested, isLoading: isInterestedLoading } = useCheckIfInterested(sessionId);
+  console.log("isInterested:", isInterested);
+  const {
+    showPopup,
+    showSignupPopup,
+    message,
+    setShowSignupPopup,
+    closePopup,
+    mutation,
+  } = useShowInterestInSession();
+
   const navigate = useNavigate();
-
-  const { isAuthenticated } = useAuth();
-
-  const [showSignupPopup, setShowSignupPopup] = useState(false);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const {
     data: sessionData,
@@ -31,18 +36,13 @@ const SessionsDetailsPage = () => {
     isError: isProjectError,
   } = useProjectDetails(sessionData?.project_id);
 
+
   const { data: futureSessions } = useFutureSessions(
     projectData?.id,
     sessionData?.schedule_date_time
   );
 
-  useEffect(() => {
-    if (!sessionId) {
-      console.error("Session ID no está disponible");
-    }
-  }, [sessionId]);
-
-  if (isSessionLoading || isProjectLoading) {
+  if (isSessionLoading || isProjectLoading || isInterestedLoading) {
     return <p>Cargando los detalles de la sesión y del proyecto...</p>;
   }
 
@@ -60,26 +60,15 @@ const SessionsDetailsPage = () => {
   const projectOwnerName = projectData.owner_name;
   const projectOwnerAvatar = projectData.owner_avatar_url;
 
-  const openSignupPopup = () => {
-    setShowSignupPopup(true);
-  };
-
-  const closePopup = () => {
-    setShowSignupPopup(false);
-    setShowSuccessPopup(false);
-  };
-
-  const saveMessage = (message) => {
-    console.log("Mensaje guardado:", message);
-    setShowSignupPopup(false);
-    setShowSuccessPopup(true);
+  const saveMessage = (sessionId) => {
+    mutation.mutate({ session: sessionId });
   };
 
   return (
     <div className="pt-0 mt-0 p-6">
       <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 lg:pl-24 gap-8">
         <div className="flex flex-col items-start lg:items-start">
-          <h1 className="text-6xl font-bold mb-6 text-left gradient2-text lg: text-left gradient2-text">
+          <h1 className="text-6xl font-bold mb-6 text-left gradient2-text">
             {projectData.name}
           </h1>
 
@@ -94,39 +83,30 @@ const SessionsDetailsPage = () => {
           </h2>
           <p className="mb-6 text-left">{projectData.description}</p>
 
-          {isAuthenticated ? (
-            projectOwnerId ? (
-              <div className="mt-4 mb-4 lg:mt-6 lg:mb-6 text-left">
-                <h2 className="text-xl font-bold mb-4">
-                  Responsable del proyecto:
-                </h2>
-                <div className="flex items-center space-x-4">
-                  {projectOwnerAvatar && (
-                    <img
-                      src={projectOwnerAvatar}
-                      alt="avatar"
-                      className="w-10 h-10 rounded-full"
-                    />
-                  )}
-                  <button
-                    className="hover:text-primary transition-colors duration-300"
-                    onClick={() => navigate(`/profile/${projectOwnerId}`)}
-                  >
-                    {projectOwnerName || "Nombre no disponible"}
-                  </button>
-                </div>
+          {projectOwnerId ? (
+            <div className="mt-4 mb-4 lg:mt-6 lg:mb-6 text-left">
+              <h2 className="text-xl font-bold mb-4">
+                Responsable del proyecto:
+              </h2>
+              <div className="flex items-center space-x-4">
+                {projectOwnerAvatar && (
+                  <img
+                    src={projectOwnerAvatar}
+                    alt="avatar"
+                    className="w-10 h-10 rounded-full"
+                  />
+                )}
+                <button
+                  className="hover:text-primary transition-colors duration-300"
+                  onClick={() => navigate(`/profile/${projectOwnerId}`)}
+                >
+                  {projectOwnerName || "Nombre no disponible"}
+                </button>
               </div>
-            ) : (
-              <p className="mb-6">Información del dueño no disponible.</p>
-            )
+            </div>
           ) : (
-            <p className="mb-6">
-              Inicia sesión para ver la información del dueño del proyecto.
-            </p>
+            <p className="mb-6">Información del dueño no disponible.</p>
           )}
-        </div>
-
-        <div>
           {sessionData.description && (
             <>
               <h2 className="text-xl font-bold mb-4 lg:mb-6">
@@ -179,30 +159,20 @@ const SessionsDetailsPage = () => {
       {futureSessions && futureSessions.length > 0 && (
         <section className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Futuras Sesiones</h2>
-          <ul>
-            {futureSessions.map((futureSession) => (
-              <li key={futureSession.id}>
-                <button
-                  className="text-blue-500 underline"
-                  onClick={() => navigate(`/sessions/${futureSession.id}`)}
-                >
-                  {new Date(futureSession.schedule_date_time).toLocaleString()}{" "}
-                  - {futureSession.description}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <FutureSessionList futureSessions={futureSessions} />
         </section>
       )}
 
       <div className="flex justify-center mt-8">
-        <HeroButton onClick={openSignupPopup} text="Apúntate" />
+        {isInterested.is_interested ? (<p>Ya estas apuntado a esta sesión!</p>)
+          :
+          <HeroButton onClick={() => setShowSignupPopup(true)} text="Apúntate" />}
       </div>
 
       {showSignupPopup && (
         <PopupWithInput
           closePopup={closePopup}
-          saveMessage={saveMessage}
+          saveMessage={() => saveMessage(sessionId)}
           projectName={projectData.name}
           title={`¡Nos alegra ver que quieras apuntarte a la sesión del ${projectData.name}!`}
           subtitle="¿Quieres dejar un mensaje?"
@@ -212,10 +182,10 @@ const SessionsDetailsPage = () => {
         />
       )}
 
-      {showSuccessPopup && (
+      {showPopup && (
         <SimplePopUp
           closePopup={closePopup}
-          message="¡Tu mensaje ha sido enviado correctamente!"
+          message={message}
           closeText="Cerrar"
         />
       )}
