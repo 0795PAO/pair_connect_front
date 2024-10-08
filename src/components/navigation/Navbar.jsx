@@ -13,6 +13,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const menuRef = useRef(null);
   const { handleLogout } = useLogout();
+  const [isBreaking, setIsBreaking] = useState(false);
+  const [isRestoring, setIsRestoring] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,18 +31,26 @@ const Navbar = () => {
   }, [menuRef]);
 
   const handleLogoClick = (e) => {
-    e.preventDefault();
-    setIsBreaking(true);
+    setIsBreaking(false);
+    setIsRestoring(false);
     setTimeout(() => {
-      setIsBreaking(false);
-      setIsRestoring(true);
-      navigate("/");
-    }, 500);
+      setIsBreaking(true);
+      setTimeout(() => {
+        setIsBreaking(false);
+        setIsRestoring(true);
+        navigate("/");
+      }, 400);
+    }, 10);
   };
   const handleAnimationEnd = () => {
     if (isRestoring) {
       setIsRestoring(false);
     }
+  };
+  const handleNavLinkClick = () => {
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 1300);
   };
 
   const navlinks = [
@@ -56,7 +66,13 @@ const Navbar = () => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <Link href="/" onClick={handleLogoClick} className="h-10">
-            <img src="/logo.svg" alt="logo" className="w-[35px]" />
+            <img
+              src="/logo.svg"
+              alt="logo"
+              className={`w-[35px] ${isBreaking ? "break" : ""} ${
+                isRestoring ? "restore" : ""
+              }`}
+            />
           </Link>
           <span
             className="font-poppins font-bold text-[36px] leading-[120%] hidden md:block text-transparent bg-clip-text"
@@ -64,7 +80,6 @@ const Navbar = () => {
           >
             Pair Connect
           </span>
-          
         </div>
 
         <div className="hidden space-x-8 lg:flex">
@@ -75,8 +90,12 @@ const Navbar = () => {
           ))}
           {isAuthenticated && (
             <>
-              <NavLink to="/my-profile">Mi perfil</NavLink>
-              <NavLink to="/projects">Mis proyectos</NavLink>
+              <NavLink to="/my-profile" onClick={handleNavLinkClick}>
+                Mi perfil
+              </NavLink>
+              <NavLink to="/projects" onClick={handleNavLinkClick}>
+                Mis proyectos
+              </NavLink>
             </>
           )}
         </div>
@@ -111,14 +130,19 @@ const Navbar = () => {
               key={item.name}
               to={item.to}
               className="hover:text-primary"
+              onClick={handleNavLinkClick}
             >
               {item.name}
             </NavLink>
           ))}
           {isAuthenticated && (
             <>
-              <NavLink to="/my-profile">Mi perfil</NavLink>
-              <NavLink to="/projects">Mis proyectos</NavLink>
+              <NavLink to="/my-profile" onClick={handleNavLinkClick}>
+                Mi perfil
+              </NavLink>
+              <NavLink to="/projects" onClick={handleNavLinkClick}>
+                Mis proyectos
+              </NavLink>
             </>
           )}
         </div>
