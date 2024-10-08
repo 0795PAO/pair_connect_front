@@ -14,6 +14,8 @@ const HomePage = () => {
   const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
   const sessionListRef = useRef(null);
 
+  console.log('Session in hompage :', sessions);
+
   const {
     filteredSessions,
     searchTerm,
