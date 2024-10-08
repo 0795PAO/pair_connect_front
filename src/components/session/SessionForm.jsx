@@ -62,8 +62,13 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
 
     // Prepare the session data
     const scheduleDateTime = `${formData.date.split("/").reverse().join("-")}T${formData.time}`;
+    // Convert duration to "hh:mm:ss" format
+    const [hours, minutes] = formData.duration.split(":");
+    const duration = `${hours}:${minutes}:00`; // Ensures it's in "hh:mm:ss" format
+
     const sessionData = {
       ...formData,
+      duration,
       project: projectId,
       stack_id: stackId,
       language_ids: languageIds,
