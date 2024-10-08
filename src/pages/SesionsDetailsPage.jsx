@@ -9,10 +9,13 @@ import HeroButton from "@/components/landing/HeroButton";
 import FutureSessionList from "@/components/session/FutureSessionList";
 import useShowInterestInSession from "@/hooks/useShowInterestInSession";
 import { useCheckIfInterested } from "@/hooks/useCheckIfInterested";
+import { useGetInterestedUsers } from "@/hooks/useGetInterestedUsers";
 const SessionsDetailsPage = () => {
   const { sessionId } = useParams();
   const { data: isInterested, isLoading: isInterestedLoading } = useCheckIfInterested(sessionId);
+  const { data: intersetedParitcipants, isLoading: isInterestedParticipantsLoading } = useGetInterestedUsers(sessionId);
   console.log("isInterested:", isInterested);
+  console.log("InterestedParticipants:", intersetedParitcipants);
   const {
     showPopup,
     showSignupPopup,
@@ -42,7 +45,7 @@ const SessionsDetailsPage = () => {
     sessionData?.schedule_date_time
   );
 
-  if (isSessionLoading || isProjectLoading || isInterestedLoading) {
+  if (isSessionLoading || isProjectLoading || isInterestedLoading || isInterestedParticipantsLoading) {
     return <p>Cargando los detalles de la sesión y del proyecto...</p>;
   }
 
