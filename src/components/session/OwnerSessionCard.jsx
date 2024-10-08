@@ -21,12 +21,12 @@ const OwnerSessionCard = ({ session }) => {
 
   return (
     <li
-      className="special-shadow relative w-full max-w-[280px] sm:max-w-[420px] md:max-w-[520px] px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-800 
+      className="special-shadow relative w-full max-w-[280px] sm:max-w-[420px] md:max-w-[500px] px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-800 
     bg-card text-card-foreground my-0 mx-0 transition-transform duration-300 ease-in-out transform hover:scale-105 cursor-pointer 
-    md:min-h-[100px] lg:h-[120px] flex flex-col justify-between"
+    md:min-h-[100px] lg:min-h-[120px] flex flex-col justify-between"
       data-testid="owner-session-card"
     >
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col items-start justify-between">
         {/* Date and Time */}
         <p className="text-xs sm:text-sm md:text-lg text-muted-foreground dark:text-muted-foreground-dark">
         {formatCustomDate(session.schedule_date_time)}: {formatTime(session.schedule_date_time)}-{formatTime(endTime)}  
