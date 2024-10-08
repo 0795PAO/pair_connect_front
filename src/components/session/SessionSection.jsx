@@ -89,4 +89,6 @@ const SessionSection = forwardRef(
   }
 );
 
+SessionSection.displayName = 'SessionSection';
+
 export default SessionSection;
