@@ -28,7 +28,7 @@ export const SKILLS_URLS = {
 
 export const SESSION_URLS = {
   GET_ALL_SESSIONS: `${API_BASE_URL}projects/sessions/`,
-  GET_SESSIONS: `${API_BASE_URL}projects/`,
+  // GET_SESSIONS: `${API_BASE_URL}projects/`,
   GET_SESSION_BY_ID: (sessionId) =>
     `${API_BASE_URL}projects/sessions/${sessionId}/`,
   CREATE_SESSION: `${API_BASE_URL}projects/sessions/`,
@@ -42,4 +42,5 @@ export const PARTICIPANT_URLS = {
   SHOW_INTEREST_IN_SESSION: `${API_BASE_URL}projects/interested-participants/`,
   GET_INTERESTED_PARTICIPANTS_PER_SESSION: (sessionId) => `${API_BASE_URL}projects/interested-participants/${sessionId}/interested-users/`,
   GET_CHECK_IF_INTERESTED: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-interest/`,
+  CONFIRM_PARTICIPANT: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/confirm-participant/`,
 };

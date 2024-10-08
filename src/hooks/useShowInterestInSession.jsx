@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { showInterestInSession } from '../services/participantsService';
 
 const useShowInterestInSession = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [showSignupPopup, setShowSignupPopup] = useState(false);
     const [message, setMessage] = useState('');
+    const queryClient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: (session) => showInterestInSession(session),
 
-        onSuccess: () => {
+        onSuccess: (data, variables) => {
             setShowSignupPopup(false);
             setShowPopup(true);
             setMessage("Te has apuntado a la sesión!");
+
+            queryClient.invalidateQueries(["interestedUsersPerSession", variables]);
         },
 
         onError: (error) => {
