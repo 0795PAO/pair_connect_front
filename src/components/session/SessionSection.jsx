@@ -6,10 +6,13 @@ import { getTotalPages } from "@/utils/sessionPagination";
 import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 import { useProjects } from "@/hooks/useProjects";
 
-// Actualización: usar forwardRef
 const SessionSection = forwardRef(
   ({ sessions, loadingSessions, error }, sessionListRef) => {
-    const { data: projects, isLoading: loadingProjects, error: projectsError } = useProjects();
+    const {
+      data: projects,
+      isLoading: loadingProjects,
+      error: projectsError,
+    } = useProjects();
     const [startDate, setStartDate] = useState(
       sessions.length > 0 ? sessions[0].schedule_date_time : new Date()
     );
@@ -89,6 +92,6 @@ const SessionSection = forwardRef(
   }
 );
 
-SessionSection.displayName = 'SessionSection';
+SessionSection.displayName = "SessionSection";
 
 export default SessionSection;
