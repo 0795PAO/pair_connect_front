@@ -25,7 +25,13 @@ const OwnerSessionList = ({ sessions, loading, error }) => {
         return <p>Error al cargar las sesiones.</p>;
     }
 
-    const sessionsByDate = groupSessionsByDate(sessions);
+    // Sort sessions by schedule_date_time in ascending order
+    const sortedSessions = [...sessions].sort((a, b) => 
+        new Date(a.schedule_date_time) - new Date(b.schedule_date_time)
+    );
+
+    const sessionsByDate = groupSessionsByDate(sortedSessions);
+
 
     return (
         <>

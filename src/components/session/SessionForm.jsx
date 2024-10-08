@@ -18,6 +18,9 @@ const schema = yup.object({
   stack: yup.string().required('El stack es obligatorio'),
   languages: yup.array().min(1, 'Seleccione al menos un lenguaje').of(yup.string().required('Selecciona lenguajes válidos')),
   description: yup.string(),
+  participant_limit: yup.number().min(0, 'El límite de participantes debe ser un número positivo').nullable(),
+  session_link: yup.string().url('Debe ser un enlace válido').nullable(),
+  is_private: yup.boolean().nullable(),
 });
 
 const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages, projectId, projectLevelId, stacks, languages, onSessionCreated }) => {
@@ -31,6 +34,9 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
       stack: projectStack || '',
       languages: [],
       description: '',
+      participant_limit: null,
+      session_link: '',
+      is_private: false,
     },
   });
 
@@ -116,6 +122,23 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
         label: 'Lenguajes y frameworks',
         options: getLanguageOptions(),  // Use dynamic data
     },    
+    {
+      name: 'participant_limit',
+      type: 'number',
+      placeholder: 'Ilimitado por defecto',
+      label: 'Límite de participantes',
+    },
+    {
+      name: 'session_link',
+      type: 'text',
+      placeholder: 'Enlace a la sesión',
+      label: 'Enlace a la sesión',
+    },
+    {
+      name: 'is_private',
+      type: 'checkbox',
+      label: 'Sesión privada',
+    },
 ];
  
 return (
