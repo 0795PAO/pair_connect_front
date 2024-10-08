@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { EventCalendar } from "@/components/shared/EventCalendar";
 import Loader from "@/components/shared/Loader";
 import { useProfile } from "@/hooks/useProfile";
@@ -14,7 +14,6 @@ const UserHomePage = () => {
   const [open, setOpen] = useState(false);
   const { data: sessions = [], isLoading: isSessionsLoading } =
     useSuggestedSessions();
-  const sessionListRef = useRef(null); // Ref para sesiones filtradas
 
   const {
     filteredSessions,
@@ -39,7 +38,7 @@ const UserHomePage = () => {
     applyFilters();
   };
 
-  const disableNextButton = filteredSessions.length === 0;
+  // const disableNextButton = filteredSessions.length === 0;
 
   return (
     <div className="user-home-page flex flex-col items-center w-full gap-5">
@@ -58,7 +57,7 @@ const UserHomePage = () => {
           </h2>
           <h3 className="self-start text-xl ">Sesiones sugeridas para ti:</h3>
 
-          <div ref={sessionListRef} className="mt-5">
+          <div className="mt-5">
             {isSessionsLoading ? (
               <Loader />
             ) : filteredSessions.length > 0 ? (

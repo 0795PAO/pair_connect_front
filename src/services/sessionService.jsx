@@ -28,7 +28,6 @@ export const getProjectForSession = async (projectId) => {
 export const getSuggestedSessions = async () => {
   try {
     const response = await api.get(SESSION_URLS.GET_SUGGESTED_SESSIONS);
-    console.log("Suggested sessions:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching suggested sessions:", error);
