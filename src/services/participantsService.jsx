@@ -23,3 +23,15 @@ export const checkIfInterested = async (session) => {
         throw err;
     }
 }
+
+
+export const getInterestedParticipantsPerSession = async (session) => {
+    try {
+        const response = await api.get(`${PARTICIPANT_URLS.GET_INTERESTED_PARTICIPANTS_PER_SESSION(session)}`);
+        console.log("Participants:", response)
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useStacks } from "@/hooks/useStacks";
 import { useLevels } from "@/hooks/useLevels";
 import { Loader } from "lucide-react";
@@ -5,10 +6,8 @@ import { Input } from "../ui/input";
 import CheckboxChip from "../shared/CheckBoxChip";
 import { useMousePosition } from "@/hooks/useMousePosition";
 import { Button } from "../ui/button";
-import React, { forwardRef } from "react";
 
-const SessionFilter = forwardRef(
-  (
+const SessionFilter = (
     {
       searchTerm,
       setSearchTerm,
@@ -17,7 +16,6 @@ const SessionFilter = forwardRef(
       selectedLevel,
       setSelectedLevel,
     },
-    ref
   ) => {
     const { data: stacks, isLoading: isStacksLoading } = useStacks();
     const { data: levels, isLoading: isLevelsLoading } = useLevels();
@@ -52,7 +50,7 @@ const SessionFilter = forwardRef(
     return (
       <div
         className="border rounded-lg mouse-light-effect h-fit"
-        ref={ref || elementRef}
+        ref={elementRef}
       >
         <div className="p-5 card-with-light-effect">
           <section className="w-full p-3">
@@ -102,7 +100,9 @@ const SessionFilter = forwardRef(
         </div>
       </div>
     );
-  }
-);
+}
+
+
+
 
 export default SessionFilter;
