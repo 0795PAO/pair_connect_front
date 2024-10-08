@@ -19,18 +19,20 @@ const SessionSection = forwardRef(
     const handlePrevious = () => {
       if (currentPage > 1) {
         setCurrentPage(currentPage - 1);
-        const prevDate = new Date(startDate);
-        prevDate.setDate(prevDate.getDate() - 5);
-        setStartDate(prevDate);
+        const sessionIndex = (currentPage - 2) * 5;
+        if (sessionIndex >= 0) {
+          setStartDate(sessions[sessionIndex].schedule_date_time);
+        }
       }
     };
-
+    
     const handleNext = () => {
       if (currentPage < totalPages) {
         setCurrentPage(currentPage + 1);
-        const nextDate = new Date(startDate);
-        nextDate.setDate(nextDate.getDate() + 5);
-        setStartDate(nextDate);
+        const sessionIndex = currentPage * 5;
+        if (sessionIndex < sessions.length) {
+          setStartDate(sessions[sessionIndex].schedule_date_time);
+        }
       }
     };
 
@@ -82,11 +84,14 @@ const SessionSection = forwardRef(
             loading={false}
             error={false}
             startDate={startDate}
+            currentPage={currentPage}
           />
         </section>
       </div>
     );
   }
 );
+
+SessionSection.displayName = 'SessionSection';
 
 export default SessionSection;
