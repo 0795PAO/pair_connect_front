@@ -19,7 +19,13 @@ const schema = yup.object({
   languages: yup.array().min(1, 'Seleccione al menos un lenguaje').of(yup.string().required('Selecciona lenguajes válidos')),
   description: yup.string(),
   participant_limit: yup.number().min(0, 'El límite de participantes debe ser un número positivo').nullable(),
-  session_link: yup.string().url('Debe ser un enlace válido').nullable(),
+  session_link: yup
+    .string()
+    .test('is-valid-url', 'Debe ser un enlace válido', (value) => {
+      if (!value) return true;
+      return /^(http(s)?:\/\/)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+.*$/.test(value);
+    })
+    .nullable(),
   is_private: yup.boolean().nullable(),
 });
 
@@ -72,6 +78,10 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
     const [hours, minutes] = formData.duration.split(":");
     const duration = `${hours}:${minutes}:00`; // Ensures it's in "hh:mm:ss" format
 
+    if (formData.session_link && !formData.session_link.startsWith('http')) {
+      formData.session_link = `http://${formData.session_link}`;
+    }
+
     const sessionData = {
       ...formData,
       duration,
@@ -101,7 +111,7 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
   };
 
 
-  const projectInputs = [
+ /*  const projectInputs = [
     {
         name: 'description',
         type: 'textarea',
@@ -139,18 +149,76 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
       type: 'checkbox',
       label: 'Sesión privada',
     },
-];
+]; */
  
 return (
   <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleFormSubmit)} role="form" className="flex flex-col gap-5">
+      <form onSubmit={form.handleSubmit(handleFormSubmit)} role="form" className="flex flex-col gap-5 w-full">
         <SessionCalendar
           selectedDate={form.watch('date')}
           onDateChange={(date) => form.setValue('date', date)}
           form={form} // Pass form object to keep fields in sync
         />
-          
-        {projectInputs.map((input, i) => (
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+
+            <CustomDynamicInput
+              form={form}
+              placeholder="Frontend, Backend o ambos"
+              label="Stack"
+              name="stack"
+              type="select"
+              options={getStackOptions()}
+            />
+            <CustomDynamicInput
+              form={form}
+              placeholder="Lenguaje de esta sesión"
+              label="Lenguajes y frameworks"
+              name="languages"
+              type="multiselect"
+              options={getLanguageOptions()}
+            />
+
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+          <CustomDynamicInput
+              form={form}
+              placeholder="Ilimitado por defecto"
+              label="Límite de participantes"
+              name="participant_limit"
+              type="number"
+              className="appearance-none background-none" // Removes background styling for arrows
+          />
+          <div className="flex items-start space-x-2 pt-1">
+              <label className="block text-md font-medium text-white mr-2">
+                  Sesión privada
+              </label>
+              <CustomDynamicInput
+                  form={form}
+                  name="is_private"
+                  type="checkbox"
+                  className="w-4 h-4 mt-0" // Ensures checkbox is in line with the label
+              />
+          </div>
+        </div>
+        <CustomDynamicInput
+          form={form}
+          placeholder="Enlace a la sesión"
+          label="Enlace a la sesión"
+          name="session_link"
+          type="text"
+          className="w-full"
+        />
+        <CustomDynamicInput
+          form={form}
+          placeholder="¿En qué se va a trabajar esta sesión?"
+          label="Descripción de sesión"
+          name="description"
+          type="textarea"
+          className="w-full"
+        />
+
+        {/* {projectInputs.map((input, i) => (
             <CustomDynamicInput
                 key={i}
                 form={form}
@@ -161,7 +229,7 @@ return (
                 options={input.options} // For select/multiselect
                 accept={input.accept}  // For file inputs
             />
-        ))}
+        ))} */}
           
         <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
           <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>

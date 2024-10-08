@@ -38,12 +38,9 @@ const OwnerSessionList = ({ sessions, loading, error }) => {
             {sessions && sessions.length > 0 ? Object.keys(sessionsByDate).map((date) => (
                 <div key={date} >
                     <h4 className="mt-3 mb-1 text-lg font-semibold">{date}</h4>
-                    <ul className={`grid gap-6 items-stretch ${sessionsByDate[date].length === 1
-                        ? "grid-cols-1 justify-center items-center w-full"
-                        : "grid-cols-1 md:grid-cols-2"
-                        }`}>
+                    <ul className="grid grid-cols-1 gap-6 w-full">
                         {sessionsByDate[date].map((session, index) => (
-                            <OwnerSessionCard session={session} key={index} />
+                        <OwnerSessionCard session={session} key={index} />
                         ))}
                     </ul>
                 </div>
