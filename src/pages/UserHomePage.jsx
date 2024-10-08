@@ -88,6 +88,21 @@ const UserHomePage = () => {
     setSearched(true);
   };
 
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedStack([]);
+    setSelectedLevel([]);
+    setSelectedDate(null);
+
+    const today = normalizeDate(new Date());
+    const futureSessions = allSessions.filter((session) => {
+      const sessionDate = normalizeDate(new Date(session.schedule_date_time));
+      return sessionDate >= today;
+    });
+    setFilteredSessions(futureSessions);
+    setSearched(false);
+  };
+
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -162,9 +177,14 @@ const UserHomePage = () => {
             </div>
           </div>
 
-          <Button variant={"specialShadow"} onClick={handleSearchSessions}>
-            Buscar sesiones
-          </Button>
+          <div className="flex gap-4 mt-4">
+            <Button variant={"specialShadow"} onClick={handleSearchSessions}>
+              Buscar sesiones
+            </Button>
+            <Button variant={"outline"} onClick={handleClearFilters}>
+              Limpiar filtros
+            </Button>
+          </div>
 
           <div className="mt-5 w-full">
             <h3 className="self-start text-xl mt-8">Sesiones:</h3>
