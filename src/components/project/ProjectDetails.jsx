@@ -81,7 +81,7 @@ const ProjectDetails = () => {
   };
 
   const handleCancelSessionCreation = () => {
-    setIsCreatingSession(false); // Hide form when "Ahora no" is clicked
+    setIsCreatingSession(false);
   };
 
   const handleSessionCreated = (sessionData) => {

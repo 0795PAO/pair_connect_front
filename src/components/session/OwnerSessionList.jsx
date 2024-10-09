@@ -1,6 +1,9 @@
 import OwnerSessionCard from './OwnerSessionCard';
 import Loader from '../shared/Loader';
 import { formatDate } from '@/utils/formaDateAndTime';
+import { useNavigate } from 'react-router-dom';
+import { deleteSession } from '@/services/sessionService';
+import { useQueryClient } from '@tanstack/react-query';
 
 const groupSessionsByDate = (sessions) => {
     if (!sessions || sessions.length === 0) {
@@ -16,7 +19,10 @@ const groupSessionsByDate = (sessions) => {
     }, {});
 };
 
-const OwnerSessionList = ({ sessions, loading, error }) => {
+const OwnerSessionList = ({ sessions, loading, error, projectId, onSessionDelete }) => {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
     if (loading) {
         return <Loader />;
     }
@@ -32,6 +38,19 @@ const OwnerSessionList = ({ sessions, loading, error }) => {
 
     const sessionsByDate = groupSessionsByDate(sortedSessions);
 
+    const handleSessionClick = (sessionId) => {
+        navigate(`/projects/${projectId}/sessions/${sessionId}`);
+    };
+
+    const handleSessionDelete = async (sessionId) => {
+        try {
+            await deleteSession(sessionId);
+            queryClient.invalidateQueries(['projectSessions', projectId]);
+            console.log(`Session ${sessionId} deleted successfully.`);
+        } catch (error) {
+            console.error("Error deleting session:", error);
+        }
+    };
 
     return (
         <>
@@ -40,7 +59,12 @@ const OwnerSessionList = ({ sessions, loading, error }) => {
                     <h4 className="mt-3 mb-1 text-lg font-semibold">{date}</h4>
                     <ul className="grid grid-cols-1 gap-6 w-full">
                         {sessionsByDate[date].map((session, index) => (
-                        <OwnerSessionCard session={session} key={index} />
+                        <OwnerSessionCard 
+                            session={session} 
+                            key={index} 
+                            onClick={() => handleSessionClick(session.id)}
+                            onSessionDelete={handleSessionDelete} 
+                        />
                         ))}
                     </ul>
                 </div>

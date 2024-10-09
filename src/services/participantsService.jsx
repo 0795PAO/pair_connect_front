@@ -47,3 +47,14 @@ export const confirmParticipant = async (session, username) => {
         throw err;
     }
 }
+
+/* export const getRecommendedUsers = async (sessionId) => {
+    try {
+        const response = await api.get(`${PARTICIPANT_URLS.GET_RECOMMENDED_USERS(sessionId)}`);
+        console.log("Recommended users:", response);
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}; */
