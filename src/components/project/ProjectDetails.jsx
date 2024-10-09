@@ -101,7 +101,7 @@ const ProjectDetails = () => {
         setProjectImage(updatedProject.image_url); // Update the image URL locally in state
         
         // Invalidate the 'projects' query to refetch the updated project list
-        queryClient.invalidateQueries(['projects']);  // Replace 'projects' with the key for fetching the project list
+        queryClient.invalidateQueries(['projects']);
       } catch (error) {
         console.error("Error updating project image:", error);
       }
@@ -209,53 +209,54 @@ const ProjectDetails = () => {
         </div>
       </div>
       
-      <section className="mt-8">
-        <h2 className="text-xl font-semibold">Sesiones</h2>
-        {hasSessions ? (
-          <>
-            <OwnerSessionList 
-              sessions={project.sessions} 
-              loading={isLoading} 
-              error={isError} 
-              projectImageUrl={project.image_url}  
-            />
-            <button
-              className="mt-4 bg-primary text-black p-2 rounded-lg"
-              onClick={handleCreateSessionClick}
-            >
-              Crear nueva sesión
-            </button>
-          </>
-        ) : (
-          <>
-            <p className="text-lg mb-4">Crea tu primera sesión</p>
-            <button
-              className="bg-primary text-black p-2 rounded-lg"
-              onClick={handleCreateSessionClick}
-            >
-              Crear sesión
-            </button>
-          </>
-        )}
-      </section>
 
-      {/* Show the form if creating a new session */}
-      {isCreatingSession && stacks && languages && (
-        <section className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Programar nueva sesión</h2>
-        <SessionForm 
-          options={{ stacks, languages }}
-          projectStack={project.stack_name}
-          projectLanguages={project.language_names}
-          projectId={project.id}
-          projectLevelId={matchedLevel}
-          stacks={stacks}
-          languages={languages}
-          onSessionCreated={handleSessionCreated}
-          onCancel={handleCancelSessionCreation}
-/>
+      {/* Sessions section */}
+      <section className="mt-8 ">
+        <h2 className="text-4xl font-semibold gradient3-text">Sesiones</h2>
+        <div className="flex flex-col lg:flex-row gap-8 mt-4 p-4">
+          {/* Left column: Session List */}
+          <div className="flex-1">
+              {!isCreatingSession && (
+                <button
+                  className="bg-primary text-black p-2 rounded-lg mb-4"
+                  onClick={handleCreateSessionClick}
+                >
+                  Crear nueva sesión
+                </button>
+              )}
+              {project.sessions && project.sessions.length > 0 ? (
+                <OwnerSessionList
+                  sessions={project.sessions}
+                  loading={isLoading}
+                  error={isError}
+                  projectImageUrl={project.image_url}
+                />
+              ) : (
+                <p className="text-lg mb-4">Crea tu primera sesión</p>
+              )}
+            </div>
+          
+          {/* Right column */}
+          <div className="flex-1">
+            {isCreatingSession && stacks && languages && (
+              <section className="mt-8">
+                <h2 className="text-xl font-semibold mb-4">Programar nueva sesión</h2>
+                <SessionForm
+                  options={{ stacks, languages }}
+                  projectStack={project.stack_name}
+                  projectLanguages={project.language_names}
+                  projectId={project.id}
+                  projectLevelId={matchedLevel}
+                  stacks={stacks}
+                  languages={languages}
+                  onSessionCreated={handleSessionCreated}
+                  onCancel={handleCancelSessionCreation}
+                />
+              </section>
+            )}
+          </div>
+        </div>
       </section>
-      )}
 
       {/* Confirmation Modal */}
       <ConfirmModal
