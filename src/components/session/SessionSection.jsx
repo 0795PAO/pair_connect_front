@@ -17,7 +17,6 @@ const filterOutPastSessions = (sessions) => {
     return sessionDate >= today;
   });
 
-  console.log("FILTERED SESSIONS", result)
   return result;
 };
 
