@@ -15,7 +15,6 @@ const HomePage = () => {
     useRegister();
   const sessionListRef = useRef(null);
 
-  console.log("Session in hompage :", sessions);
 
   const {
     filteredSessions,
