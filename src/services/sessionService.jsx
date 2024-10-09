@@ -4,7 +4,6 @@ import { SESSION_URLS } from "@/config/apiUrls";
 export const getSessionDetails = async (sessionId) => {
   try {
     const response = await api.get(SESSION_URLS.GET_SESSION_BY_ID(sessionId));
-    console.log("Session details:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching session details:", error);
@@ -17,7 +16,6 @@ export const getProjectForSession = async (projectId) => {
     const response = await api.get(
       `${SESSION_URLS.GET_PROJECT_BY_ID(projectId)}`
     );
-    console.log("Project details:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching project details:", error);
@@ -58,7 +56,6 @@ export const createSession = async (sessionData) => {
 export const deleteSession = async (sessionId) => {
   try {
     const response = await api.delete(SESSION_URLS.GET_SESSION_BY_ID(sessionId));
-    console.log("Session deleted:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error deleting session:", error);
