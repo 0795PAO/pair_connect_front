@@ -1,0 +1,13 @@
+.box-profile {
+    background: linear-gradient(to right, rgba(8, 75, 79, 0.159), rgba(36, 196, 228, 0.203));
+    padding: 2rem;
+    border-radius: 0.625rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    color: black;
+}
+
+.dark .box-profile {
+    background: linear-gradient(to right, rgba(24, 224, 234, 0.181), rgba(239, 64, 181, 0.153));
+    color: white;
+}
