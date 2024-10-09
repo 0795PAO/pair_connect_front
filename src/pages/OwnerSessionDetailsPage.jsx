@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link  } from "react-router-dom";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
 import { useGetInterestedUsers } from "@/hooks/useGetInterestedUsers";
@@ -129,10 +129,10 @@ const OwnerSessionDetailsPage = () => {
                     {/* {sessionData.participants.length > 0 ? (
                         <div className="flex flex-wrap gap-4">
                             {sessionData.participants.map((user) => (
-                                <div key={user.id} className="flex items-center gap-2">
+                                <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
                                     <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
                                     <p>{user.username}</p>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     ) : ( */}
@@ -142,14 +142,15 @@ const OwnerSessionDetailsPage = () => {
 
                 {/* Interested Participants Section */}
                 <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-4">Participantes interesados</h2>
+                    <h2 className="text-2xl font-bold mb-1">Coders interesados</h2>
+                    <p className="mb-2">Alguns coders estan interesados en participar en tu sesión.</p>
                     {interestedParticipants && interestedParticipants.length > 0 ? (
                         <div className="flex flex-wrap gap-4">
                             {interestedParticipants.map((user) => (
-                                <div key={user.id} className="flex items-center gap-2">
+                                <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
                                     <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
                                     <p>{user.username}</p>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     ) : (
@@ -159,14 +160,15 @@ const OwnerSessionDetailsPage = () => {
 
                 {/* Recommended Users Section */}
                 <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-4">Recomendaciones</h2>
+                    <h2 className="text-2xl font-bold mb-1">Recomendaciones</h2>
+                    <p className="mb-2">Te podria interesar estos otros coders para tu proyecto.</p>
                     {recommendedUsers && recommendedUsers.length > 0 ? (
                         <div className="flex flex-wrap gap-4">
                             {recommendedUsers.map((user) => (
-                                <div key={user.id} className="flex items-center gap-2">
+                                <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
                                     <img src={user.photo || '/path/to/default-avatar.png'} alt={user.username} className="w-10 h-10 rounded-full" />
                                     <p>{user.username}</p>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     ) : (
