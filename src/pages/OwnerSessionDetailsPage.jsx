@@ -147,7 +147,7 @@ const OwnerSessionDetailsPage = () => {
                         <div className="flex flex-wrap gap-4">
                             {interestedParticipants.map((user) => (
                                 <div key={user.id} className="flex items-center gap-2">
-                                    <img src={user.avatar_url} alt={user.username} className="w-10 h-10 rounded-full" />
+                                    <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
                                     <p>{user.username}</p>
                                 </div>
                             ))}
