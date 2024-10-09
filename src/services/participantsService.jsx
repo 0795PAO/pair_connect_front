@@ -35,3 +35,15 @@ export const getInterestedParticipantsPerSession = async (session) => {
         throw err;
     }
 }
+
+
+export const confirmParticipant = async (session, username) => {
+    try {
+        const response = await api.post(`${PARTICIPANT_URLS.CONFIRM_PARTICIPANT(session)}`, { username });
+        console.log("Response confirm participant:", response)
+        return response;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}

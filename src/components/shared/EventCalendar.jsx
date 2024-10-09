@@ -35,18 +35,26 @@ const schema = yup.object({
     .required("Seleccione un horario"),
 });
 
-export const EventCalendar = () => {
+export const EventCalendar = ({ selectedDate, setSelectedDate }) => {
   const defaultDate = format(new Date(), "dd/MM/yyyy");
-  const [selectedDate, setSelectedDate] = useState(defaultDate);
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const form = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      date: defaultDate,
+      date: selectedDate || defaultDate,
       time: "00:00",
     },
   });
+
+  const handleDateSelect = (date) => {
+    if (date) {
+      const formattedDate = format(date, "dd/MM/yyyy");
+      form.setValue("date", formattedDate);
+      setSelectedDate(formattedDate);
+      setCurrentMonth(date);
+    }
+  };
 
   const handleSubmit = (data) => {
     const parsedDate = parse(data.date, "dd/MM/yyyy", new Date());
@@ -79,6 +87,13 @@ export const EventCalendar = () => {
             label="Seleccione la fecha"
             placeholder="dd/mm/yyyy"
             form={form}
+            onChange={(e) => {
+              const selectedDate = e.target.value;
+              if (isValid(parse(selectedDate, "dd/MM/yyyy", new Date()))) {
+                setSelectedDate(selectedDate);
+                setCurrentMonth(parse(selectedDate, "dd/MM/yyyy", new Date()));
+              }
+            }}
           />
 
           <CustomInput
@@ -89,7 +104,6 @@ export const EventCalendar = () => {
             form={form}
           />
 
-          {/* Solo centramos el botón */}
           <div className="flex justify-center w-full">
             <Button type="submit">Guardar Fecha y Hora</Button>
           </div>
@@ -98,12 +112,8 @@ export const EventCalendar = () => {
 
       <CalendarComponent
         mode="single"
-        selected={parse(selectedDate, "dd/MM/yyyy", new Date())}
-        onSelect={(date) => {
-          const formattedDate = format(date, "dd/MM/yyyy");
-          setSelectedDate(formattedDate);
-          setCurrentMonth(date);
-        }}
+        selected={parse(selectedDate || defaultDate, "dd/MM/yyyy", new Date())}
+        onSelect={handleDateSelect}
         month={currentMonth}
         className="rounded-md border w-[250px] mx-auto"
       />
