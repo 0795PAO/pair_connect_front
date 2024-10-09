@@ -10,6 +10,7 @@ import { Outlet } from "react-router-dom";
 
 const MyProfilePage = () => {
     const { data: user, isLoading, error } = useProfile();
+    console.log("User:", user)
     const [open, setOpen] = useState(false);
     const [formType, setFormType] = useState("");
     if (isLoading) {
