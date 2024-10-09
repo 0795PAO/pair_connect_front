@@ -11,6 +11,7 @@ import { normalizeDate } from "@/utils/formaDateAndTime";
 import { useAllSessions } from "@/hooks/useAllSessions";
 import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 import { getTotalPages } from "@/utils/sessionPagination";
+import SessionSection from "@/components/session/SessionSection";
 
 const UserHomePage = () => {
   const { data: user, isLoading: isProfileLoading, error } = useProfile();
@@ -29,7 +30,6 @@ const UserHomePage = () => {
   const [selectedLevel, setSelectedLevel] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [searched, setSearched] = useState(false);
-  const [isButtonSpecial, setIsButtonSpecial] = useState(false);
   const sessionListRef = useRef(null);
   const [open, setOpen] = useState(false);
 
@@ -103,29 +103,6 @@ const UserHomePage = () => {
     setSearched(false);
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNext = () => {
-    const totalPages = getTotalPages(filteredSessions, sessionsPerPage);
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const startIndex = (currentPage - 1) * sessionsPerPage;
-  const paginatedSessions = filteredSessions.slice(
-    startIndex,
-    startIndex + sessionsPerPage
-  );
-
-  const disablePreviousButton = currentPage === 1;
-  const totalPages = getTotalPages(filteredSessions, sessionsPerPage);
-  const disableNextButton = currentPage === totalPages;
-
   return (
     <div className="user-home-page flex flex-col items-center w-full gap-5">
       {isProfileLoading && <Loader />}
@@ -160,58 +137,44 @@ const UserHomePage = () => {
           <h3 className="self-start text-xl mt-16">
             ¡Busca otras sesiones de tu interés!
           </h3>
-          <div className="flex flex-col md:flex-row w-full gap-4 items-center">
-            <SessionFilter
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              selectedStack={selectedStack}
-              setSelectedStack={setSelectedStack}
-              selectedLevel={selectedLevel}
-              setSelectedLevel={setSelectedLevel}
-            />
-            <div className="w-full md:w-1/2 flex justify-center mt-4 md:mt-0">
-              <EventCalendar
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
+
+          <div className="w-full flex flex-col lg:flex-row gap-8">
+            <div className="w-full lg:w-1/2">
+              <SessionFilter
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                selectedStack={selectedStack}
+                setSelectedStack={setSelectedStack}
+                selectedLevel={selectedLevel}
+                setSelectedLevel={setSelectedLevel}
+              />
+              <div className="w-full flex justify-center my-4">
+                <EventCalendar
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                />
+              </div>
+              <div className="flex gap-4 mt-4 justify-center">
+                <Button
+                  variant={"specialShadow"}
+                  onClick={handleSearchSessions}
+                >
+                  Buscar sesiones
+                </Button>
+                <Button variant={"outline"} onClick={handleClearFilters}>
+                  Limpiar filtros
+                </Button>
+              </div>
+            </div>
+
+            <div className="w-full lg:w-1/2">
+              <SessionSection
+                sessions={filteredSessions}
+                loading={isAllSessionsLoading}
+                error={allSessionsError}
+                to={`/sessions/`}
               />
             </div>
-          </div>
-
-          <div className="flex gap-4 mt-4">
-            <Button variant={"specialShadow"} onClick={handleSearchSessions}>
-              Buscar sesiones
-            </Button>
-            <Button variant={"outline"} onClick={handleClearFilters}>
-              Limpiar filtros
-            </Button>
-          </div>
-
-          <div className="mt-5 w-full">
-            <h3 className="self-start text-xl mt-8">Sesiones:</h3>
-            <div className="flex justify-end my-4">
-              <Button
-                variant="outline"
-                onClick={handlePrevious}
-                disabled={disablePreviousButton}
-              >
-                <CircleChevronLeft />
-              </Button>
-              <Button
-                variant="outline"
-                onClick={handleNext}
-                disabled={disableNextButton}
-              >
-                <CircleChevronRight />
-              </Button>
-            </div>
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {paginatedSessions.map((session) => (
-                <SessionCard key={session.id} session={session} />
-              ))}
-            </ul>
-            {filteredSessions.length === 0 && (
-              <p>No hay sesiones disponibles.</p>
-            )}
           </div>
 
           <CompleteProfileModal open={open} onOpenChange={setOpen} />
