@@ -55,3 +55,13 @@ export const createSession = async (sessionData) => {
   }
 };
 
+export const deleteSession = async (sessionId) => {
+  try {
+    const response = await api.delete(SESSION_URLS.GET_SESSION_BY_ID(sessionId));
+    console.log("Session deleted:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting session:", error);
+    throw error;
+  }
+};
