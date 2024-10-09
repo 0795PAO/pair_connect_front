@@ -1,4 +1,4 @@
-import { Trash } from "lucide-react";
+import { Trash, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ModalConfirm from "../shared/ModalConfirm";
 import { useState } from "react";
@@ -23,6 +23,8 @@ const calculateEndTime = (startTime, duration) => {
 const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const endTime = calculateEndTime(session.schedule_date_time, session.duration);
+
+  console.log('Interested Users:', session.interested_users);
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
@@ -56,6 +58,11 @@ const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
         >
           <Trash />
         </Button>
+
+        {/* Interested participants icon */}
+        {session.interested_users?.length > 0 && (
+          <Users className="absolute bottom-2 right-2 text-primary w-5 h-5" />
+        )}
 
         {/* Date and Time */}
         <p className="text-xs sm:text-sm md:text-lg text-muted-foreground dark:text-muted-foreground-dark">
