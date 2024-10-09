@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
 const ProjectInfoSession = ({ projectData, navigate }) => {
+    console.log(projectData)
     return (
         <div className="flex flex-col items-start lg:items-start">
             <h1 className="text-6xl font-bold mb-6 text-left gradient2-text">
