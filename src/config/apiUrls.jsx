@@ -9,8 +9,10 @@ export const AUTH_URLS = {
 };
 
 export const PROFILE_URLS = {
-  GET: `${API_BASE_URL}auth/users/me`,
+  GET_MY_PROFILE: `${API_BASE_URL}auth/users/me`,
   UPDATE: `${API_BASE_URL}auth/users/me/`,
+  GET_DEVELOPER_PROFILE: (userId) => `${API_BASE_URL}users/${userId}/profile/`,
+  GET_DEVELOPER_PROFILE_WITH_SESSION_ID: (userId, sessionId) => `${API_BASE_URL}users/${userId}/profile/${sessionId}/`,
 };
 
 export const PROJECT_URLS = {
