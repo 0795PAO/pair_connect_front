@@ -45,4 +45,5 @@ export const PARTICIPANT_URLS = {
   GET_INTERESTED_PARTICIPANTS_PER_SESSION: (sessionId) => `${API_BASE_URL}projects/interested-participants/${sessionId}/interested-users/`,
   GET_CHECK_IF_INTERESTED: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-interest/`,
   CONFIRM_PARTICIPANT: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/confirm-participant/`,
+  CHECK_IF_PARTICIPANT: (sessionId, userId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-participant/${userId}`,
 };

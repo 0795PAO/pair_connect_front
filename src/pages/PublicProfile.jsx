@@ -1,7 +1,11 @@
+import ContactsModal from "@/components/profile/ContacsModal";
+import ItemList from "@/components/shared/ItemList";
 import Loader from "@/components/shared/Loader";
+import Modal from "@/components/shared/Modal";
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import SimplePopUp from "@/components/shared/SimplePopUp";
 import { Button } from "@/components/ui/button";
+import { useConfirmParticipant } from "@/hooks/useConfirmParticipant";
 import { useDeveloperProfile } from "@/hooks/useDeveloperProfile";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -11,9 +15,12 @@ const PublicProfile = () => {
   console.log(sessionId);
   const [showPopup, setShowPopup] = useState(false);
   const [showSimplePopUp, setShowSimplePopUp] = useState(false);
+  const [openContacts, setOpenContacts] = useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const { data: developerData, isLoading: isDeveloperLoading, isError: isDeveloperError } = useDeveloperProfile(id, sessionId);
+  const confirmParticipant = useConfirmParticipant();
 
-  console.log(developerData)
+
   if (isDeveloperLoading) {
     return <Loader />;
   }
@@ -27,6 +34,16 @@ const PublicProfile = () => {
   const hasPermission = developerData?.has_permission;
   console.log(hasPermission)
 
+
+
+  const handleConfirmDeveloper = () => {
+    confirmParticipant.mutate({ sessionId, username: developer?.username });
+    setOpenConfirm(false);
+  }
+
+  // const isConfirmedParticipant = isConfirmed.mutate({ sessionId, })
+
+
   return (
     <div className="px-8 lg:h-[80vh]">
       <h1 className="text-4xl md:text-6xl mb-10 text-primaryText justify-self-start">
@@ -34,7 +51,6 @@ const PublicProfile = () => {
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10 items-stretch">
-        {/* Parte sinistra con scroll */}
         <section className="flex flex-col items-center justify-between bg-card p-10 rounded-lg overflow-y-auto">
           <div className="flex flex-col items-center">
             <img
@@ -65,13 +81,9 @@ const PublicProfile = () => {
             <h2 className="text-2xl font-semibold text-textPrimary  hover:text-secondary transition duration-300">
               Lenguajes de Programación
             </h2>
-            <ul className="flex flex-wrap gap-4 mt-6">
-              {developer?.language_names?.length > 0 && developer.language_names.map((item, index) => (
-                <li key={index} className=" text-black py-2 px-4 rounded-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] font-semibold shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-105">
-                  {item}
-                </li>
-              ))}
-            </ul>
+            {
+              developer?.language_names?.length > <ItemList items={developer?.language_names}/>
+            }
           </section>
           <div className="grid grid-cols-2 items-center w-full gap-4">
             <section className="bg-card p-4 rounded-lg mt-8">
@@ -107,19 +119,24 @@ const PublicProfile = () => {
               <Button
                 variant="outline"
                 className=""
-                onClick={() => setShowPopup(true)}
+                onClick={() => setOpenContacts(true)}
               >
                 Ver contactos
               </Button>
+
               <Button
+                variant="specialShadow"
                 className=""
-                onClick={() => { }}>
-                Confirmar Desarrollador
+                onClick={handleConfirmDeveloper}
+              >
+                Confirmar participación
               </Button>
+              :
+              <p>Has confirmado este desarrollador</p>
             </div>
           ) :
           <div className="flex items-center justify-center mt-10">
-            <Button 
+            <Button
               className="mt-5 w-full  md:w-[30vw]"
               onClick={() => setShowPopup(true)}
             >
@@ -130,16 +147,16 @@ const PublicProfile = () => {
 
 
 
-      { showPopup &&
+      {showPopup &&
         <PopupWithInput
-        closePopup={() => setShowPopup(false)}
-        saveMessage={() => setShowSimplePopUp(true)}
-        title="Contactar Desarrollador"
-        subtitle="¿Deseas contactar con este desarrollador?"
-        placeholder="Escribe tu mensaje si quieres"
-        closeButtonText="Cancelar"
-        saveButtonText="Contactar"
-      />
+          closePopup={() => setShowPopup(false)}
+          saveMessage={() => setShowSimplePopUp(true)}
+          title="Contactar Desarrollador"
+          subtitle="¿Deseas contactar con este desarrollador?"
+          placeholder="Escribe tu mensaje si quieres"
+          closeButtonText="Cancelar"
+          saveButtonText="Contactar"
+        />
       }
       {
         showSimplePopUp &&
@@ -150,6 +167,21 @@ const PublicProfile = () => {
           closeButtonText="Volver al Perfil"
         />
       }
+
+      <ContactsModal
+        open={openContacts}
+        onCancel={() => setOpenContacts(false)}
+        email={developer?.email}
+        discord_link={developer?.discord_link}
+        github_link={developer?.github_link}
+        linkedin_link={developer?.linkedin_link}
+      />
+
+      <Modal
+        open={openConfirm}
+        message="Estas seguro que deseas confirmar este desarrollador?"
+        onOpenChange={() => handleConfirmDeveloper()}
+      />
 
     </div>
   );

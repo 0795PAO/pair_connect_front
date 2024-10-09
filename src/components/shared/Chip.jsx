@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-const Chip = ({item}) => {
+const Chip = ({ item }) => {
     return (
-        <li className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform">
+        <li className=" text-black py-2 px-4 rounded-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] font-semibold shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-105">
             {item}
         </li>
     )

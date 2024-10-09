@@ -35,15 +35,35 @@ export const getInterestedParticipantsPerSession = async (session) => {
 }
 
 
-export const confirmParticipant = async (session, username) => {
+export const confirmParticipant = async ({ sessionId, username }) => {
     try {
-        const response = await api.post(`${PARTICIPANT_URLS.CONFIRM_PARTICIPANT(session)}`, { username });
-        return response;
+        console.log("Confirming participant:", sessionId, username);
+        const response = await api.post(`${PARTICIPANT_URLS.CONFIRM_PARTICIPANT(sessionId)}`, {
+            username: username,
+        });
+
+        return response.data;
+    } catch (err) {
+        console.error("Error in confirmParticipant:", err);
+        throw err;
+    }
+};
+
+
+export const checkUserParticipation = async (sessionId, userId) => {
+    try {
+        const response = await api.get(`${PARTICIPANT_URLS.CHECK_USER_PARTICIPATION(sessionId, userId)}`,);
+        return response.data;
     } catch (err) {
         console.error(err);
         throw err;
     }
-}
+
+};
+
+
+
+
 
 /* export const getRecommendedUsers = async (sessionId) => {
     try {
