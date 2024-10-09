@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 
-const ConfirmModal = ({
+const ModalConfirm = ({
     title, 
     message, 
     open, 
@@ -35,4 +35,4 @@ const ConfirmModal = ({
     );
 };
 
-export default ConfirmModal;
+export default ModalConfirm;

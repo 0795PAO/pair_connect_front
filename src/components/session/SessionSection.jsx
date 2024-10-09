@@ -6,8 +6,25 @@ import { getTotalPages } from "@/utils/sessionPagination";
 import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 import { useProjects } from "@/hooks/useProjects";
 
+
+
+const filterOutPastSessions = (sessions) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); 
+
+  const result = sessions.filter((session) => {
+    const sessionDate = new Date(session.schedule_date_time);
+    return sessionDate >= today;
+  });
+
+  return result;
+};
+
+
+
+
 const SessionSection = forwardRef(
-  ({ sessions, loadingSessions, error }, sessionListRef) => {
+  ({ sessions, loadingSessions, error, to }, sessionListRef) => {
     const {
       data: projects,
       isLoading: loadingProjects,
@@ -17,7 +34,12 @@ const SessionSection = forwardRef(
       sessions.length > 0 ? sessions[0].schedule_date_time : new Date()
     );
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = getTotalPages(sessions);
+
+
+    const filteredSessions = filterOutPastSessions(sessions);
+
+    const totalPages = getTotalPages(filteredSessions);
+
 
     const handlePrevious = () => {
       if (currentPage > 1) {
@@ -28,7 +50,7 @@ const SessionSection = forwardRef(
         }
       }
     };
-    
+
     const handleNext = () => {
       if (currentPage < totalPages) {
         setCurrentPage(currentPage + 1);
@@ -50,14 +72,12 @@ const SessionSection = forwardRef(
       return <p>Error loading sessions or projects.</p>;
     }
 
-    // Create a project map for quick lookup
     const projectMap = projects.reduce((acc, project) => {
       acc[project.id] = project.image_url;
       return acc;
     }, {});
 
-    // Enrich sessions with their respective project image URLs
-    const enrichedSessions = sessions.map((session) => ({
+    const enrichedSessions = filteredSessions.map((session) => ({
       ...session,
       projectImageUrl: projectMap[session.project_id] || "/neon2.png",
     }));
@@ -66,7 +86,7 @@ const SessionSection = forwardRef(
       <div ref={sessionListRef}>
         <section className="max-w-6xl mx-auto mt-5 lg:mt-0">
           <h3 className="mb-4 text-4xl font-bold">Sesiones Programadas:</h3>
-          <div className="my-4">
+          <div className="my-4 flex justify-end">
             <Button
               variant="outline"
               onClick={handlePrevious}
@@ -88,6 +108,7 @@ const SessionSection = forwardRef(
             error={false}
             startDate={startDate}
             currentPage={currentPage}
+            to={to}
           />
         </section>
       </div>

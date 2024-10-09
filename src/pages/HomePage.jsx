@@ -11,10 +11,10 @@ import SessionSection from "@/components/session/SessionSection";
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: sessions, error, loading: loadingSessions } = useAllSessions();
-  const { handleRegister, loading, showSuccessModal, setShowSuccessModal } = useRegister();
+  const { handleRegister, loading, showSuccessModal, setShowSuccessModal } =
+    useRegister();
   const sessionListRef = useRef(null);
 
-  console.log('Session in hompage :', sessions);
 
   const {
     filteredSessions,
@@ -28,7 +28,7 @@ const HomePage = () => {
 
   const scrollToSessions = () => {
     if (sessionListRef.current) {
-      sessionListRef.current.scrollIntoView({ behavior: 'smooth' });
+      sessionListRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -36,11 +36,12 @@ const HomePage = () => {
     return <div>Loading...</div>;
   }
 
-
-
   return (
     <div data-testid="home-page">
-      <HeroSection handleRegisterClick={setIsOpen} onArrowClick={scrollToSessions} />
+      <HeroSection
+        handleRegisterClick={setIsOpen}
+        onArrowClick={scrollToSessions}
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] md:gap-5">
         <SessionFilter
@@ -52,10 +53,13 @@ const HomePage = () => {
           setSelectedLevel={setSelectedLevel}
         />
 
-        <SessionSection sessions={filteredSessions} loading={loadingSessions} error={error} ref={sessionListRef} />
-
-
-
+        <SessionSection
+          sessions={filteredSessions}
+          loading={loadingSessions}
+          error={error}
+          ref={sessionListRef}
+          to={`/public-sessions/`}
+        />
       </div>
       <section className="flex w-full flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
         <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
@@ -77,7 +81,6 @@ const HomePage = () => {
         showModal={showSuccessModal}
         setShowModal={setShowSuccessModal}
       />
-
     </div>
   );
 };
