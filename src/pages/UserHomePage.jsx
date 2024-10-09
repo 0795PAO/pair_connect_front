@@ -9,8 +9,6 @@ import SessionCard from "@/components/session/SessionCard";
 import { Button } from "@/components/ui/button";
 import { normalizeDate } from "@/utils/formaDateAndTime";
 import { useAllSessions } from "@/hooks/useAllSessions";
-import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
-import { getTotalPages } from "@/utils/sessionPagination";
 import SessionSection from "@/components/session/SessionSection";
 
 const UserHomePage = () => {
@@ -126,7 +124,7 @@ const UserHomePage = () => {
             ) : suggestedSessions.length > 0 ? (
               <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {suggestedSessions.map((session) => (
-                  <SessionCard key={session.id} session={session} />
+                  <SessionCard key={session.id} session={session} to={`sessions/${session.id}`} />
                 ))}
               </ul>
             ) : (
