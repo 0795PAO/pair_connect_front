@@ -40,7 +40,7 @@ const MyProfilePage = () => {
             <div className="grid w-full grid-cols-1x" >
 
                 <div className="flex flex-col items-center w-full gap-8 px-6 text-left" >
-                    <div className="self-end w-full font-light text-right">
+                    <div className="self-end w-full mr-48 font-light text-right">
                         <Button variant="ghost" size="icon" className="font-light hover:text-primary" onClick={handleEditClick}><Edit /></Button>
                         <Button variant="ghost" size="icon" className="font-light hover:text-primary"><Trash /></Button>
                     </div>
@@ -61,9 +61,9 @@ const MyProfilePage = () => {
                             </p>
                         </div>
                     </div>
-                </div>
-                    <MyProfileNav />
-                    <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
+                </div >
+                <MyProfileNav />
+                <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
                 <div>
                     <Outlet />
                 </div>

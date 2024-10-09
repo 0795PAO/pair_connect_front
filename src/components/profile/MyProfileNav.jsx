@@ -5,20 +5,20 @@ const MyProfileNav = () => {
     const location = useLocation();
 
     return (
-        <nav className="relative p-1 ">
-            <ul className="flex items-center list-none">
-                <li className={`${location.pathname === "/my-profile" ? "active-glass" : ""} flex-1 text-center`}>
-                    <Link to="/my-profile" className="px-4 py-3 text-sm font-bold lg:text-lg ">
+        <nav className="relative p-1 profile-nav">
+            <ul className="flex-nav">
+                <li className={`${location.pathname === "/my-profile" ? "active-glass" : ""}`}>
+                    <Link to="/my-profile" className="px-4 py-3 text-sm font-bold nav-link lg:text-lg">
                         Info
                     </Link>
                 </li>
-                <li className={`${location.pathname === "/my-profile/sessions" ? "active-glass" : ""} flex-1 text-center`}>
-                    <Link to="/my-profile/sessions" className="px-4 py-3 text-sm font-bold lg:text-lg whitespace-nowrap">
+                <li className={`${location.pathname === "/my-profile/sessions" ? "active-glass" : ""} `}>
+                    <Link to="/my-profile/sessions" className="px-4 py-3 text-sm font-bold nav-link lg:text-lg whitespace-nowrap">
                         Mis Sesiones
                     </Link>
                 </li>
-                <li className={`${location.pathname === "/my-profile/badges" ? "active-glass" : ""} flex-1 text-center`}>
-                    <Link to="/my-profile/badges" className="px-4 py-3 text-sm font-bold lg:text-lg ">
+                <li className={`${location.pathname === "/my-profile/badges" ? "active-glass" : ""}`}>
+                    <Link to="/my-profile/badges" className="px-4 py-3 text-sm font-bold nav-link lg:text-lg">
                         Badges
                     </Link>
                 </li>
