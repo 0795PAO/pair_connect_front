@@ -4,7 +4,8 @@ import { PROFILE_URLS } from '@/config/apiUrls';
 
 export const getUser = async () => {
     try {
-        const response = await api.get(PROFILE_URLS.GET);
+        const response = await api.get(PROFILE_URLS.GET_MY_PROFILE);
+        console.log("User profile:", response);
         return response.data;
     } catch (error) {
         console.error('Error fetching user profile', error.response?.data || error.message);
@@ -38,3 +39,26 @@ export const updateProgLanguages = async (data) => {
         throw error;
     }
 }
+
+
+
+export const getDeveloperProfile = async (developerId) => {
+    try {
+        const response = await api.get(PROFILE_URLS.GET_DEVELOPER_PROFILE(developerId));
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching developer profile', error.response?.data || error.message);
+        throw error;
+    }
+};
+
+
+export const getDeveloperProfileWithSession = async (developerId, sessionId) => {
+    try {
+        const response = await api.get(PROFILE_URLS.GET_DEVELOPER_PROFILE_WITH_SESSION_ID(developerId, sessionId));
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching developer profile', error.response?.data || error.message);
+        throw error;
+    }
+};

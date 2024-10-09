@@ -9,8 +9,10 @@ export const AUTH_URLS = {
 };
 
 export const PROFILE_URLS = {
-  GET: `${API_BASE_URL}auth/users/me`,
+  GET_MY_PROFILE: `${API_BASE_URL}auth/users/me`,
   UPDATE: `${API_BASE_URL}auth/users/me/`,
+  GET_DEVELOPER_PROFILE: (userId) => `${API_BASE_URL}users/${userId}/profile/`,
+  GET_DEVELOPER_PROFILE_WITH_SESSION_ID: (userId, sessionId) => `${API_BASE_URL}users/${userId}/profile/${sessionId}/`,
 };
 
 export const PROJECT_URLS = {
@@ -42,4 +44,5 @@ export const PARTICIPANT_URLS = {
   SHOW_INTEREST_IN_SESSION: `${API_BASE_URL}projects/interested-participants/`,
   GET_INTERESTED_PARTICIPANTS_PER_SESSION: (sessionId) => `${API_BASE_URL}projects/interested-participants/${sessionId}/interested-users/`,
   GET_CHECK_IF_INTERESTED: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-interest/`,
+  CONFIRM_PARTICIPANT: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/confirm-participant/`,
 };

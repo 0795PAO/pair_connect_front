@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import ModeToggle from "./ModeToggle";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { Link } from "react-router-dom";
 import useLogout from "@/hooks/useLogout";
 
 const Navbar = () => {
@@ -30,7 +29,7 @@ const Navbar = () => {
     };
   }, [menuRef]);
 
-  const handleLogoClick = (e) => {
+  const handleLogoClick = () => {
     setIsBreaking(false);
     setIsRestoring(false);
     setTimeout(() => {
@@ -42,11 +41,11 @@ const Navbar = () => {
       }, 400);
     }, 10);
   };
-  const handleAnimationEnd = () => {
-    if (isRestoring) {
-      setIsRestoring(false);
-    }
-  };
+  // const handleAnimationEnd = () => {
+  //   if (isRestoring) {
+  //     setIsRestoring(false);
+  //   }
+  // };
   const handleNavLinkClick = () => {
     setTimeout(() => {
       setIsOpen(false);
