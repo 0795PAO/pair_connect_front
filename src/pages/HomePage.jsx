@@ -15,7 +15,7 @@ const HomePage = () => {
     useRegister();
   const sessionListRef = useRef(null);
 
-
+  console.log(sessions)
   const {
     filteredSessions,
     searchTerm,

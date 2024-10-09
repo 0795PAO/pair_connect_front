@@ -4,6 +4,7 @@ import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 import { Link } from "react-router-dom";
 
 const SessionCard = ({ session, to }) => {
+  console.log('session, ' + session)
   const imageUrl = session.projectImageUrl || "/neon2.png";
 
   return (
@@ -56,8 +57,8 @@ const SessionCard = ({ session, to }) => {
           <div className="flex items-center gap-2 sm:gap-2">
             <img
               src={`${
-                session.host_avatar_url
-                  ? session.host_avatar_url
+                session.owner_avatar_url
+                  ? session.owner_avatar_url
                   : "/avatar_no_bg.png"
               }`}
               alt={`${session.owner_name}'s avatar`}

@@ -19,5 +19,6 @@ export const useLevels = () => {
     refetchOnWindowFocus: false,
     refetchOnMount: false,  
     refetchOnReconnect: false,
+    retry: 0,
   });
 };
