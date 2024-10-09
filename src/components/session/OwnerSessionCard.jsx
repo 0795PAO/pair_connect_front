@@ -1,3 +1,7 @@
+import { Trash } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import ModalConfirm from "../shared/ModalConfirm";
+import { useState } from "react";
 import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 
 const formatCustomDate = (dateString) => {
@@ -16,8 +20,23 @@ const calculateEndTime = (startTime, duration) => {
   return startDateTime;
 };
 
-const OwnerSessionCard = ({ session }) => {
+const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const endTime = calculateEndTime(session.schedule_date_time, session.duration);
+
+  const handleDeleteClick = (e) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    onSessionDelete(session.id);
+    setIsModalOpen(false);
+  };
 
   return (
     <li
@@ -25,8 +44,19 @@ const OwnerSessionCard = ({ session }) => {
     bg-card text-card-foreground my-0 mx-0 transition-transform duration-300 ease-in-out transform hover:scale-105 cursor-pointer 
     md:min-h-[100px] lg:min-h-[120px] flex flex-col justify-between"
       data-testid="owner-session-card"
+      onClick={isModalOpen ? null : onClick}
     >
       <div className="flex flex-col items-start justify-between">
+        {/* Trash button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute top-2 right-2 hover:text-primary font-light"
+          onClick={handleDeleteClick}
+        >
+          <Trash />
+        </Button>
+
         {/* Date and Time */}
         <p className="text-xs sm:text-sm md:text-lg text-muted-foreground dark:text-muted-foreground-dark">
         {formatCustomDate(session.schedule_date_time)}: {formatTime(session.schedule_date_time)}-{formatTime(endTime)}  
@@ -53,6 +83,16 @@ const OwnerSessionCard = ({ session }) => {
             : "No languages specified"}
         </p>
       </div>
+      {/* Confirmation Modal for Deleting the Session */}
+      <ModalConfirm
+        title="Confirmación borrar sesión"
+        message={`¿Estas seguro que quieres borrar la sesión "${session.description}"?`}
+        border_color="border-red-600"
+        open={isModalOpen}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleModalClose}
+        confirmButtonText="Borrar"
+      />
     </li>
   );
 };

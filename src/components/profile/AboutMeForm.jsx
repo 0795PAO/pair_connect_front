@@ -13,10 +13,9 @@ const schema = yup.object({
 
 });
 
-const AboutMeForm = ({ handleSubmit, defaultValues }) => {
+const AboutMeForm = ({ handleSubmit }) => {
     const form = useForm({
         resolver: yupResolver(schema),
-        defaultValues: defaultValues || '',
     });
 
     const inputs = [
@@ -61,7 +60,7 @@ const AboutMeForm = ({ handleSubmit, defaultValues }) => {
                     label={input.label}
                     placeholder={input.placeholder}
                     name={input.name}
-                    accept={input.accept}  // For file inputs
+                    accept={input.accept}  
                     />
                 ))}
                 <Button variant="secondary" type="submit" disabled={form.formState.isSubmitting}>Continuar</Button>

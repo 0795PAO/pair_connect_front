@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ConfirmModal from "../shared/ModalConfirm";
+import ModalConfirm from "../shared/ModalConfirm";
 import { useState } from "react";
 
 const ProjectCard = ({ project, onProjectClick, onProjectDelete }) => {
@@ -9,16 +9,16 @@ const ProjectCard = ({ project, onProjectClick, onProjectDelete }) => {
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
-    setIsModalOpen(true); // Open modal when trash button is clicked
+    setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
-    setIsModalOpen(false); // Close modal when the user cancels or confirms
+    setIsModalOpen(false);
   };
 
   const handleConfirmDelete = () => {
-    onProjectDelete(project.id); // Call the delete function passed as a prop
-    setIsModalOpen(false); // Close modal after deletion
+    onProjectDelete(project.id);
+    setIsModalOpen(false);
   };
 
     return (
@@ -54,7 +54,7 @@ const ProjectCard = ({ project, onProjectClick, onProjectDelete }) => {
         </div>
 
         {/* Modal for Confirming Project Deletion */}
-        <ConfirmModal
+        <ModalConfirm
           title="Confirmación borrar proyecto"
           message={`¿Estas seguro que quieres borrar el proyecto "${project.name}"?`}
           border_color="border-red-600"
