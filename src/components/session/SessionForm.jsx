@@ -95,9 +95,11 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
       const response = await createSession(sessionData);
       console.log('Backend response:', response);
       
-      // Call the onSessionCreated prop with the new session data
+      const createdSession = response; // or response.data if your API returns a data object
+      console.log('Session successfully created:', createdSession);
+
       if (onSessionCreated) {
-        onSessionCreated(response.data);
+        onSessionCreated(createdSession);
       }
 
       alert('Session created successfully!');
@@ -109,47 +111,6 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
       }
     }
   };
-
-
- /*  const projectInputs = [
-    {
-        name: 'description',
-        type: 'textarea',
-        placeholder: '¿En qué se va a trabajar esta sesión?',
-        label: 'Descripción de sesión',
-    },
-    {
-        name: 'stack',
-        type: 'select',
-        placeholder: 'Frontend, Backend o ambos',
-        label: 'Stack',
-        options: getStackOptions(),  // Use dynamic data
-    },
-    {
-        name: 'languages',
-        type: 'multiselect',
-        placeholder: 'Lenguaje de esta sesión',
-        label: 'Lenguajes y frameworks',
-        options: getLanguageOptions(),  // Use dynamic data
-    },    
-    {
-      name: 'participant_limit',
-      type: 'number',
-      placeholder: 'Ilimitado por defecto',
-      label: 'Límite de participantes',
-    },
-    {
-      name: 'session_link',
-      type: 'text',
-      placeholder: 'Enlace a la sesión',
-      label: 'Enlace a la sesión',
-    },
-    {
-      name: 'is_private',
-      type: 'checkbox',
-      label: 'Sesión privada',
-    },
-]; */
  
 return (
   <Form {...form}>
@@ -157,7 +118,7 @@ return (
         <SessionCalendar
           selectedDate={form.watch('date')}
           onDateChange={(date) => form.setValue('date', date)}
-          form={form} // Pass form object to keep fields in sync
+          form={form}
         />
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
@@ -217,19 +178,6 @@ return (
           type="textarea"
           className="w-full"
         />
-
-        {/* {projectInputs.map((input, i) => (
-            <CustomDynamicInput
-                key={i}
-                form={form}
-                placeholder={input.placeholder}
-                label={input.label}
-                name={input.name}
-                type={input.type}
-                options={input.options} // For select/multiselect
-                accept={input.accept}  // For file inputs
-            />
-        ))} */}
           
         <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
           <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>

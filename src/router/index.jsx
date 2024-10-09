@@ -16,6 +16,7 @@ import MyProfileInfo from "@/components/profile/MyProfileInfo";
 import MyProfileBadges from "@/components/profile/MyProfileBadges";
 import MyProfileSession from "@/components/profile/MyProfileSession";
 import PublicSessionDetailPage from "@/pages/PublicSessionDetailPage";
+import OwnerSessionDetailsPage from "@/pages/OwnerSessionDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
       {
         path: "/sessions/:sessionId",
         element: <SesionsDetailsPage />,
+      },
+      {
+        path: "/projects/:id/sessions/:sessionId",
+        element: <OwnerSessionDetailsPage />,
       },
       {
         path: "/profile/:id",
