@@ -62,3 +62,14 @@ export const deleteSession = async (sessionId) => {
     throw error;
   }
 };
+
+export const getRecommendedUsers = async (sessionId) => {
+    try {
+        const response = await api.get(SESSION_URLS.GET_RECOMMENDED_USERS_FOR_SESSION(sessionId));
+        console.log("Recommended users:", response);
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
