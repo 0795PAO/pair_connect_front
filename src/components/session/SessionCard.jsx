@@ -50,7 +50,7 @@ const SessionCard = ({ session, to }) => {
             }}
           >
             <h3 className="text-sm font-bold leading-tight sm:text-base md:text-xl line-clamp-2">
-              {session.title ? session.title : "Sin título"}
+              {session.project_name ? session.project_name : "Sin título"}
             </h3>
           </div>
           <div className="flex items-center gap-2 sm:gap-2">

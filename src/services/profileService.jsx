@@ -5,7 +5,6 @@ import { PROFILE_URLS } from '@/config/apiUrls';
 export const getUser = async () => {
     try {
         const response = await api.get(PROFILE_URLS.GET_MY_PROFILE);
-        console.log("User profile:", response);
         return response.data;
     } catch (error) {
         console.error('Error fetching user profile', error.response?.data || error.message);

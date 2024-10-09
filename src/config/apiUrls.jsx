@@ -37,7 +37,7 @@ export const SESSION_URLS = {
   GET_PROYECT_SESSIONS: (proyectId) =>
     `${API_BASE_URL}projects/project-sessions/${proyectId}`,
   GET_SUGGESTED_SESSIONS: `${API_BASE_URL}projects/users/suggested-sessions/`,
-
+  GET_RECOMMENDED_USERS_FOR_SESSION: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/suggested-developers/`,
 }; 
 
 export const PARTICIPANT_URLS = {

@@ -6,6 +6,23 @@ import { getTotalPages } from "@/utils/sessionPagination";
 import { CircleChevronLeft, CircleChevronRight } from "lucide-react";
 import { useProjects } from "@/hooks/useProjects";
 
+
+
+const filterOutPastSessions = (sessions) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); 
+
+  const result = sessions.filter((session) => {
+    const sessionDate = new Date(session.schedule_date_time);
+    return sessionDate >= today;
+  });
+
+  return result;
+};
+
+
+
+
 const SessionSection = forwardRef(
   ({ sessions, loadingSessions, error, to }, sessionListRef) => {
     const {
@@ -17,7 +34,12 @@ const SessionSection = forwardRef(
       sessions.length > 0 ? sessions[0].schedule_date_time : new Date()
     );
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = getTotalPages(sessions);
+
+
+    const filteredSessions = filterOutPastSessions(sessions);
+
+    const totalPages = getTotalPages(filteredSessions);
+
 
     const handlePrevious = () => {
       if (currentPage > 1) {
@@ -55,7 +77,7 @@ const SessionSection = forwardRef(
       return acc;
     }, {});
 
-    const enrichedSessions = sessions.map((session) => ({
+    const enrichedSessions = filteredSessions.map((session) => ({
       ...session,
       projectImageUrl: projectMap[session.project_id] || "/neon2.png",
     }));
