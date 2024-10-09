@@ -143,7 +143,7 @@ const OwnerSessionDetailsPage = () => {
                 {/* Interested Participants Section */}
                 <div className="mt-8">
                     <h2 className="text-2xl font-bold mb-4">Participantes interesados</h2>
-                    {interestedParticipants.length > 0 ? (
+                    {interestedParticipants && interestedParticipants.length > 0 ? (
                         <div className="flex flex-wrap gap-4">
                             {interestedParticipants.map((user) => (
                                 <div key={user.id} className="flex items-center gap-2">
