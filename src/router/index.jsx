@@ -11,11 +11,11 @@ import MyProfilePage from "@/pages/MyProfilePage";
 import SesionsDetailsPage from "@/pages/SesionsDetailsPage";
 import ProjectDetails from "@/components/project/ProjectDetails";
 import ProjectFormPage from "@/pages/ProjectFormPage";
-import PublicProfileId from "@/pages/PublicProfileId";
 import MyProfileInfo from "@/components/profile/MyProfileInfo";
 import MyProfileBadges from "@/components/profile/MyProfileBadges";
 import MyProfileSession from "@/components/profile/MyProfileSession";
 import PublicSessionDetailPage from "@/pages/PublicSessionDetailPage";
+import PublicProfile from "@/pages/PublicProfile";
 import OwnerSessionDetailsPage from "@/pages/OwnerSessionDetailsPage";
 
 const router = createBrowserRouter([
@@ -99,7 +99,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile/:id",
-        element: <PublicProfileId />,
+        element: <PublicProfile />,
       },
     ],
   },

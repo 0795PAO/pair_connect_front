@@ -10,8 +10,9 @@ import { Outlet } from "react-router-dom";
 
 const MyProfilePage = () => {
     const { data: user, isLoading, error } = useProfile();
+    console.log("User:", user)
     const [open, setOpen] = useState(false);
-    const [formType, setType] = useState("");
+    const [formType, setFormType] = useState("");
     if (isLoading) {
         return <Loader />;
     }
@@ -23,15 +24,15 @@ const MyProfilePage = () => {
 
     const handleEditClick = () => {
         setOpen(true);
-        setType("about_avatar")
+        setFormType("about_avatar")
     }
 
     return (
         <>
             <div className="flex items-center justify-center gap-2 px-6 lg:justify-start">
-                <h2 className="text-4xl font-bold sm:text-3xl md:text-4xl" style={{ fontFamily: "Source Code Pro, monospace" }}>
+                <p className="text-4xl font-bold sm:text-3xl md:text-4xl" style={{ fontFamily: "Source Code Pro, monospace" }}>
                     Hola,
-                </h2>
+                </p>
                 <h1 className="text-4xl font-bold font-poppins sm:text-5xl md:text-6xl gradient4-text">
                     {user?.username}
                 </h1>
@@ -60,7 +61,7 @@ const MyProfilePage = () => {
                             </p>
                         </div>
                     </div>
-                </div >
+                </div>
                     <MyProfileNav />
                     <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
                 <div>
