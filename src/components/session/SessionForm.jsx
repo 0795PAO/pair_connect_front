@@ -9,6 +9,7 @@ import { SessionCalendar } from '../shared/SessionCalendar';
 import { createSession } from '@/services/sessionService';
 
 const schema = yup.object({
+  name: yup.string().required('El nombre de la sesión es obligatorio'),
   date: yup.string().required('Seleccione una fecha'),
   time: yup.string().required('Seleccione una hora'),
   duration: yup
@@ -34,6 +35,7 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
   const form = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
+      name: '',
       date: '',
       time: '',
       duration: '02:00',
@@ -94,10 +96,12 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
     try {
       const response = await createSession(sessionData);
       console.log('Backend response:', response);
-      
-      // Call the onSessionCreated prop with the new session data
+
+      const createdSession = response; // or response.data if your API returns a data object
+      console.log('Session successfully created:', createdSession);
+
       if (onSessionCreated) {
-        onSessionCreated(response.data);
+        onSessionCreated(createdSession);
       }
 
       alert('Session created successfully!');
@@ -110,95 +114,61 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
     }
   };
 
-
- /*  const projectInputs = [
-    {
-        name: 'description',
-        type: 'textarea',
-        placeholder: '¿En qué se va a trabajar esta sesión?',
-        label: 'Descripción de sesión',
-    },
-    {
-        name: 'stack',
-        type: 'select',
-        placeholder: 'Frontend, Backend o ambos',
-        label: 'Stack',
-        options: getStackOptions(),  // Use dynamic data
-    },
-    {
-        name: 'languages',
-        type: 'multiselect',
-        placeholder: 'Lenguaje de esta sesión',
-        label: 'Lenguajes y frameworks',
-        options: getLanguageOptions(),  // Use dynamic data
-    },    
-    {
-      name: 'participant_limit',
-      type: 'number',
-      placeholder: 'Ilimitado por defecto',
-      label: 'Límite de participantes',
-    },
-    {
-      name: 'session_link',
-      type: 'text',
-      placeholder: 'Enlace a la sesión',
-      label: 'Enlace a la sesión',
-    },
-    {
-      name: 'is_private',
-      type: 'checkbox',
-      label: 'Sesión privada',
-    },
-]; */
- 
-return (
-  <Form {...form}>
+  return (
+    <Form {...form}>
       <form onSubmit={form.handleSubmit(handleFormSubmit)} role="form" className="flex flex-col gap-5 w-full">
         <SessionCalendar
           selectedDate={form.watch('date')}
           onDateChange={(date) => form.setValue('date', date)}
-          form={form} // Pass form object to keep fields in sync
+          form={form}
         />
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
 
-            <CustomDynamicInput
-              form={form}
-              placeholder="Frontend, Backend o ambos"
-              label="Stack"
-              name="stack"
-              type="select"
-              options={getStackOptions()}
-            />
-            <CustomDynamicInput
-              form={form}
-              placeholder="Lenguaje de esta sesión"
-              label="Lenguajes y frameworks"
-              name="languages"
-              type="multiselect"
-              options={getLanguageOptions()}
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+          <CustomDynamicInput
+            form={form}
+            placeholder="Titulo de la sesión"
+            label="Nombre"
+            name="name"
+            type="text"
+          />
+
+          <CustomDynamicInput
+            form={form}
+            placeholder="Frontend, Backend o ambos"
+            label="Stack"
+            name="stack"
+            type="select"
+            options={getStackOptions()}
+          />
+          <CustomDynamicInput
+            form={form}
+            placeholder="Lenguaje de esta sesión"
+            label="Lenguajes y frameworks"
+            name="languages"
+            type="multiselect"
+            options={getLanguageOptions()}
+          />
 
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
           <CustomDynamicInput
-              form={form}
-              placeholder="Ilimitado por defecto"
-              label="Límite de participantes"
-              name="participant_limit"
-              type="number"
-              className="appearance-none background-none" // Removes background styling for arrows
+            form={form}
+            placeholder="Ilimitado por defecto"
+            label="Límite de participantes"
+            name="participant_limit"
+            type="number"
+            className="appearance-none background-none" // Removes background styling for arrows
           />
           <div className="flex items-start space-x-2 pt-1">
-              <label className="block text-md font-medium text-white mr-2">
-                  Sesión privada
-              </label>
-              <CustomDynamicInput
-                  form={form}
-                  name="is_private"
-                  type="checkbox"
-                  className="w-4 h-4 mt-0" // Ensures checkbox is in line with the label
-              />
+            <label className="block text-md font-medium text-white mr-2">
+              Sesión privada
+            </label>
+            <CustomDynamicInput
+              form={form}
+              name="is_private"
+              type="checkbox"
+              className="w-4 h-4 mt-0" // Ensures checkbox is in line with the label
+            />
           </div>
         </div>
         <CustomDynamicInput
@@ -218,19 +188,6 @@ return (
           className="w-full"
         />
 
-        {/* {projectInputs.map((input, i) => (
-            <CustomDynamicInput
-                key={i}
-                form={form}
-                placeholder={input.placeholder}
-                label={input.label}
-                name={input.name}
-                type={input.type}
-                options={input.options} // For select/multiselect
-                accept={input.accept}  // For file inputs
-            />
-        ))} */}
-          
         <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
           <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>
             Ahora no
@@ -240,8 +197,8 @@ return (
           </Button>
         </div>
       </form>
-  </Form>
-);
+    </Form>
+  );
 };
 
 export default SessionForm;

@@ -10,6 +10,7 @@ import SessionForm from "../session/SessionForm";
 import { Edit, Trash, ArrowLeft } from "lucide-react";
 import ConfirmModal from "../shared/ModalConfirm";
 import { deleteProject, updateProjectImage, updateProject } from "@/services/projectService"; 
+import { getInterestedParticipantsPerSession } from "@/services/participantsService";
 import { useQueryClient } from '@tanstack/react-query';
 import UpdateProjectForm from '@/components/project/UpdateProjectForm';
 
@@ -17,20 +18,51 @@ const ProjectDetails = () => {
   const queryClient = useQueryClient();
   const { id } = useParams(); // Get project ID from the URL
   const navigate = useNavigate();
-  const { data: project, isLoading, isError } = useProjectDetails(id); // Fetch project details
+  const { data: project, isLoading, isError } = useProjectDetails(id);
   const { data: stacks } = useStacks();
   const { data: levels } = useLevels();
   const { data: languages } = useLanguages();
   const [projectImage, setProjectImage] = useState(project?.image_url || "/default_project_image.png");
   const [isEditing, setIsEditing] = useState(false);
-  const [isCreatingSession, setIsCreatingSession] = useState(false); // Control form visibility
+  const [isCreatingSession, setIsCreatingSession] = useState(false);
+  const [sessions, setSessions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (project && project.image_url) {
       setProjectImage(project.image_url);
+    }
+  }, [project]); */
+
+  useEffect(() => {
+    if (project) {
+      if (project.image_url) {
+        setProjectImage(project.image_url);
+      }
+      
+      if (project.sessions) {
+        console.log("Project Sessions Data:", project.sessions);
+        
+        const fetchInterestedUsers = async () => {
+          const sessionsWithInterestedUsers = await Promise.all(
+            project.sessions.map(async (session) => {
+              try {
+                const interestedUsers = await getInterestedParticipantsPerSession(session.id);
+                return { ...session, interested_users: interestedUsers };
+              } catch (error) {
+                console.error("Error fetching interested participants for session:", session.id, error);
+                return { ...session, interested_users: [] };
+              }
+            })
+          );
+          
+          setSessions(sessionsWithInterestedUsers);
+        };
+  
+        fetchInterestedUsers();
+      }
     }
   }, [project]);
 
@@ -81,7 +113,7 @@ const ProjectDetails = () => {
   };
 
   const handleCancelSessionCreation = () => {
-    setIsCreatingSession(false); // Hide form when "Ahora no" is clicked
+    setIsCreatingSession(false);
   };
 
   const handleSessionCreated = (sessionData) => {
@@ -226,7 +258,7 @@ const ProjectDetails = () => {
               )}
               {project.sessions && project.sessions.length > 0 ? (
                 <OwnerSessionList
-                  sessions={project.sessions}
+                  sessions={sessions}
                   loading={isLoading}
                   error={isError}
                   projectImageUrl={project.image_url}
