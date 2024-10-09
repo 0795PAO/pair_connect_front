@@ -29,47 +29,57 @@ const MyProfilePage = () => {
 
     return (
         <>
-            <div className="flex items-center justify-center gap-2 px-6 lg:justify-start">
+            <section className="flex items-center justify-center gap-2 px-6 lg:justify-start">
                 <p className="text-4xl font-bold sm:text-3xl md:text-4xl" style={{ fontFamily: "Source Code Pro, monospace" }}>
                     Hola,
                 </p>
                 <h1 className="text-4xl font-bold font-poppins sm:text-5xl md:text-6xl gradient4-text">
                     {user?.username}
                 </h1>
-            </div>
-            <div className="grid w-full grid-cols-1x" >
+            </section>
 
-                <div className="flex flex-col items-center w-full gap-8 px-6 text-left" >
-                    <div className="self-end w-full mr-48 font-light text-right">
-                        <Button variant="ghost" size="icon" className="font-light hover:text-primary" onClick={handleEditClick}><Edit /></Button>
-                        <Button variant="ghost" size="icon" className="font-light hover:text-primary"><Trash /></Button>
+            <section className="grid justify-center w-full grid-cols-1x">
+                <div className="relative w-full max-w-[90rem] min-h-[20rem] flex flex-col items-center justify-center gap-6 mb-20 text-left rounded-lg shadow-lg mt-15">
+                    <div className="absolute flex gap-1 top-4 right-4">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="hover:text-primary text-foreground"
+                            onClick={handleEditClick}
+                        >
+                            <Edit />
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="font-light hover:text-primary"
+                        >
+                            <Trash />
+                        </Button>
                     </div>
-                    <div className="flex flex-col items-center justify-center w-full gap-6 mb-10 text-left">
-                        <img
-                            src={user?.photo}
-                            alt="Profile"
-                            className="mb-8 rounded-full w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-60 xl:h-60"
-                        />
-                        <div className="flex flex-col gap-2">
-                            <p className="text-3xl font-semibold">{user?.name}</p>
-                            <p>  {
-                                user.about_me ?
-                                    user.about_me
-                                    :
-                                    "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"
-                            }
-                            </p>
-                        </div>
+
+                    <img
+                        src={user?.photo}
+                        alt="Profile"
+                        className="object-cover mb-8 rounded-full w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-60 xl:h-60"
+                    />
+                    <div className="flex flex-col gap-2">
+                        <p className="text-3xl font-semibold">{user?.name}</p>
+                        <p>
+                            {user?.about_me ? user.about_me : "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"}
+                        </p>
                     </div>
-                </div >
+                </div>
+                
+
                 <MyProfileNav />
                 <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
                 <div>
                     <Outlet />
                 </div>
-            </div>
+            </section>
         </>
-    )
-}
+    );
+};
 
 export default MyProfilePage

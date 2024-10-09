@@ -1,10 +1,9 @@
 import { useProfile } from "@/hooks/useProfile";
-import Loader from "../shared/Loader";
-import { Button } from "../ui/button";
+import Loader from "@/components/shared/Loader";
+import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
 import { useState } from "react";
-import UpdateProfileModal from "./UpdateProfileModal";
-import "@/styles/box-profile.css"
+import UpdateProfileModal from "@/components/profile/UpdateProfileModal";
 
 const MyProfileInfo = () => {
     const { data: user, isLoading } = useProfile();
@@ -23,83 +22,80 @@ const MyProfileInfo = () => {
 
 
     return (
-        <div className="container mx-auto p-6 max-w-[59.375rem] ">
-            <div className="grid gap-10 py-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
-                <div className="relative text-left box-profile">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute text-gray-600 top-4 right-4 dark:text-gray-300 hover:text-primary"
-                        onClick={() => handleEditClick("languages")}
-                    >
-                        <Edit className="" />
-                    </Button>
-                    <h2 className="mb-5 text-2xl font-semibold text-left">
+        <div className="container mx-auto p-6 max-w-[100rem]">
+
+            <div className="flex justify-end mb-4">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    className="hover:text-primary text-foreground"
+                    onClick={() => handleEditClick("general")}
+                >
+                    <Edit />
+                </Button>
+            </div>
+            <section className="relative mt-6 rounded-lg bg-card">
+            <div className="p-6 mt-6 shadow-lg lg:col-span-2">
+                    <h2 className="mb-5 text-2xl font-semibold transition duration-300 text-primary hover:text-secondary">
                         Lenguajes de programación
                     </h2>
-                    <ul className="space-y-2 ">
-                        {user?.language_names && user.language_names.map((language, index) => (
-                            <li key={index} className="text-lg font-medium text-left">
+                    <ul className="flex flex-wrap gap-4 mt-6">
+                        {user?.language_names?.length > 0 && user.language_names.map((language, index) => (
+                            <li
+                                key={index}
+                                className="py-2 px-4 rounded-full text-black bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] font-semibold shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-105"
+                            >
                                 {language}
                             </li>
                         ))}
                     </ul>
                 </div>
+            </section>
 
-                <div className="relative box-profile">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute text-gray-600 top-4 right-4 dark:text-gray-300 hover:text-primary"
-                        onClick={() => handleEditClick("stack")}
-                    >
-                        <Edit className="text-dark" />
-                    </Button>
-                    <h2 className="mb-5 text-2xl font-semibold ">
-                        Stack
-                    </h2>
-                    <p className="text-lg font-medium ">
-                        {user?.stack_name || "Aún no has seleccionado un stack"}
-                    </p>
+            <section className="relative">
+                <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 lg:grid-cols-2 ">
+                    <div className="p-6 rounded-lg shadow-lg lg:col-span-1 bg-card" >
+                        <h2 className="mt-4 mb-5 text-2xl font-semibold transition duration-300 text-textPrimary hover:text-secondary text-primary">
+                            Stack
+                        </h2>
+                        <p className="text-lg font-medium">
+                            {user?.stack_name || "Aún no has seleccionado un stack"}
+                        </p>
+                    </div>
+                    <div className="p-6 rounded-lg shadow-lg lg:col-span-1 bg-card ">
+                        <h2 className="mb-5 text-2xl font-semibold transition duration-300 text-textPrimary hover:text-secondary text-primary">
+                            Nivel
+                        </h2>
+                        <p className="text-lg font-medium">
+                            {user?.level_name || "Aún no has seleccionado tu nivel"}
+                        </p>
+                    </div>
                 </div>
+            </section>
 
-                <div className="relative text-left box-profile">
+            <section className="relative mt-5">
+                <div className="flex justify-end mt-4 mb-4">
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute text-gray-600 top-4 right-4 dark:text-gray-300 hover:text-primary"
-                        onClick={() => handleEditClick("level")}
+                        className="hover:text-primary text-foreground"
+                        onClick={() => handleEditClick("languages")}
                     >
-                        <Edit className="text-dark" />
+                        <Edit />
                     </Button>
-                    <h2 className="mb-5 text-2xl font-semibold ">
-                        Nivel
-                    </h2>
-                    <p className="text-lg font-medium text-dark">
-                        {user?.level_name || "Aún no has seleccionado tu nivel"}
-                    </p>
                 </div>
-
-                <div className="relative box-profile">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute text-gray-600 top-4 right-4 dark:text-gray-300 hover:text-primary"
-                        onClick={() => handleEditClick("contact")}
-                    >
-                        <Edit className="text-dark" />
-                    </Button>
-                    <h2 className="mb-5 text-2xl font-semibold ">
+                <div className="p-6 rounded-lg shadow-lg lg:col-span-2" style={{ backgroundColor: 'hsl(var(--card))', color: 'hsl(var(--card-foreground))' }}>
+                    <h2 className="mb-5 text-2xl font-semibold transition duration-300 text-textPrimary hover:text-secondary text-primary">
                         Contactos
                     </h2>
-                    <ul className="space-y-2 text-lg font-medium text-left ">
-                        {user?.email && <li><span className="font-bold text-left">Email:</span> {user.email}</li>}
-                        {user?.github_link && <li><span className="font-bold text-left">Github:</span> {user.github_link}</li>}
-                        {user?.linkedin_link && <li><span className="font-bold text-left">LinkedIn:</span> {user.linkedin_link}</li>}
-                        {user?.discord_link && <li><span className="font-bold text-left">Discord:</span> {user.discord_link}</li>}
+                    <ul className="space-y-2 text-lg font-medium">
+                        {user?.email && <li><span className="font-bold">Email:</span> {user.email}</li>}
+                        {user?.github_link && <li><span className="font-bold">Github:</span> {user.github_link}</li>}
+                        {user?.linkedin_link && <li><span className="font-bold">LinkedIn:</span> {user.linkedin_link}</li>}
+                        {user?.discord_link && <li><span className="font-bold">Discord:</span> {user.discord_link}</li>}
                     </ul>
                 </div>
-            </div>
+            </section>
 
             <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
         </div>

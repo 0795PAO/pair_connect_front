@@ -5,7 +5,7 @@ const MyProfileNav = () => {
     const location = useLocation();
 
     return (
-        <nav className="relative p-1 profile-nav">
+        <nav className="relative p-1 profile-nav ">
             <ul className="flex-nav">
                 <li className={`${location.pathname === "/my-profile" ? "active-glass" : ""}`}>
                     <Link to="/my-profile" className="px-4 py-3 text-sm font-bold nav-link lg:text-lg">
