@@ -76,10 +76,10 @@ const OwnerSessionDetailsPage = () => {
   }
 
   return (
-    <div className="p-6 lg:h-[80vh]">
+    <div className="p-6">
         <button
             onClick={() => navigate(`/projects/${projectData.id}`)}
-            className="text-white hover:text-primary flex items-center"
+            className="text-white hover:text-primary flex items-center mt-0 mb-4"
         >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Volver a mi proyecto
@@ -141,7 +141,7 @@ const OwnerSessionDetailsPage = () => {
                             sessionData.participants.length > 0 ? (
                                 <div className="flex flex-wrap gap-4">
                                     {sessionData.participants.map((user) => (
-                                        <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
+                                        <Link key={user.id} to={`/profile/${user.id}/session/${sessionData.id}`} className="flex items-center gap-2">
                                             <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
                                             <p>{user.username}</p>
                                         </Link>
@@ -161,7 +161,7 @@ const OwnerSessionDetailsPage = () => {
                                 {interestedParticipants && interestedParticipants.length > 0 ? (
                                     <div className="flex flex-wrap gap-4">
                                         {interestedParticipants.map((user) => (
-                                            <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
+                                            <Link key={user.id} to={`/profile/${user.id}/session/${sessionData.id}`} className="flex items-center gap-2">
                                                 <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
                                                 <p>{user.username}</p>
                                             </Link>
@@ -182,7 +182,7 @@ const OwnerSessionDetailsPage = () => {
                                 {recommendedUsers && recommendedUsers.length > 0 ? (
                                     <div className="flex flex-wrap gap-4">
                                         {recommendedUsers.map((user) => (
-                                            <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
+                                            <Link key={user.id} to={`/profile/${user.id}/session/${sessionData.id}`} className="flex items-center gap-2">
                                                 <img src={user.photo || '/path/to/default-avatar.png'} alt={user.username} className="w-10 h-10 rounded-full" />
                                                 <p>{user.username}</p>
                                             </Link>

@@ -32,11 +32,6 @@ const PublicProfile = () => {
     }));
   };
 
-  const isLoading = true
-  if (isLoading) {
-    return <Loader />;
-  }
-
   if (isDeveloperError) {
     console.error(isDeveloperError);
     return <p>Error: {isDeveloperError.message}</p>;
