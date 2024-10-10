@@ -52,8 +52,8 @@ const SessionList = ({
                 Object.keys(sessionsByDate).map((date) => {
                     return (
                         <div key={date}>
-                            <h4 className="mb-4 text-lg font-semibold px-5 lg:[w-70%] ">{date}</h4>
-                            <ul className="grid grid-cols-1 gap-4 w-full items-center justify-items-center">
+                            <h4 className="mb-4 text-lg font-semibold px-5 lg:[w-70%]">{date}</h4>
+                            <ul className="grid gap-4 w-full items-center justify-items-center">
                                 {sessionsByDate[date].map((session, index) => {
                                     return (
                                         <SessionCard
