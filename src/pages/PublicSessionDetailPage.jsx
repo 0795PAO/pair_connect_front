@@ -97,7 +97,7 @@ const PublicSessionDetailPage = () => {
                                     )}
                                     <button
                                         className="hover:text-primary transition-colors duration-300"
-                                        onClick={() => navigate(`/profile/${projectOwnerId}`)}
+                                        onClick={() => navigate(`/profile/${projectOwnerId}/session/${sessionId}`)}
                                     >
                                         {projectOwnerName || "Nombre no disponible"}
                                     </button>

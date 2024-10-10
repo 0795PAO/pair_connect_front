@@ -10,10 +10,10 @@ import { useConfirmParticipant } from "@/hooks/useConfirmParticipant";
 import { useDeveloperProfile } from "@/hooks/useDeveloperProfile";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import GoBackButton from "@/components/shared/GoBackButton";
 
 const PublicProfile = () => {
   const { id, sessionId } = useParams();
-  console.log(sessionId);
   const { data: developerData, isLoading: isDeveloperLoading, isError: isDeveloperError } = useDeveloperProfile(id, sessionId);
   const confirmParticipant = useConfirmParticipant();
 
@@ -26,14 +26,16 @@ const PublicProfile = () => {
   });
 
   const toggleModal = (modalName, state) => {
+    console.log(modalName);
     setModalState((prevState) => ({
       ...prevState,
       [modalName]: state,
     }));
+
+    console.log(modalState);
   };
 
-  const isLoading = true
-  if (isLoading) {
+  if (isDeveloperLoading) {
     return <Loader />;
   }
 
@@ -58,6 +60,7 @@ const PublicProfile = () => {
 
   return (
     <div className="px-8">
+      <GoBackButton text="Volver à la sesión" sessionId={sessionId} />
       <h1 className="text-4xl md:text-6xl mb-10 text-primaryText justify-self-start">
         Perfil de <span className="font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">{developer?.username}</span>
       </h1>
@@ -74,7 +77,7 @@ const PublicProfile = () => {
               {developer?.name}
             </p>
             <p className="text-xl font-medium mt-4 text-textPrimary">
-              {developer?.stack  && developer.stack. length > 0 ? `Desarrollador ${developer.stack_name}` : `Desarrollador Fullstack`}
+              {developer?.stack && developer.stack.length > 0 ? `Desarrollador ${developer.stack_name}` : `Desarrollador Fullstack`}
             </p>
           </div>
 
@@ -144,7 +147,7 @@ const PublicProfile = () => {
       }
 
       <ContactsModal
-        open={modalState.open}
+        open={modalState.openContacts}
         onCancel={() => toggleModal("openContacts", false)}
         email={developer?.email}
         discord_link={developer?.discord_link}
@@ -153,9 +156,12 @@ const PublicProfile = () => {
       />
 
       <Modal
-        open={modalState.opendalState}
+        open={modalState.openConfirm}
+        onCancel={() => toggleModal("openConfirm", false)}
         message="Estas seguro que deseas confirmar este desarrollador?"
-        onOpenChange={() => handleConfirmDeveloper()}
+        onOpenChange={() => toggleModal("openConfirm", false)}
+        onClick={() => handleConfirmDeveloper()}
+
       />
 
     </div>
