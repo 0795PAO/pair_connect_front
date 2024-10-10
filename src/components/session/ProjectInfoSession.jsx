@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
-const ProjectInfoSession = ({ projectData, navigate }) => {
-    console.log(projectData)
+const ProjectInfoSession = ({ projectData, navigate, sessionId }) => {
     return (
         <div className="flex flex-col items-start lg:items-start">
             <h1 className="text-6xl font-bold mb-6 text-left gradient2-text">
@@ -29,7 +28,7 @@ const ProjectInfoSession = ({ projectData, navigate }) => {
                         )}
                         <Link
                             className="hover:text-primary transition-colors duration-300"
-                            onClick={() => navigate(`/profile/${projectData.owner_id}`)}
+                            onClick={() => navigate(`/profile/${projectData.owner_id}/session/${sessionId}`)}
                         >
                             {projectData.owner_name || "Nombre no disponible"}
                         </Link>
