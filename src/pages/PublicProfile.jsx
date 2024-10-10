@@ -4,6 +4,7 @@ import Loader from "@/components/shared/Loader";
 import Modal from "@/components/shared/Modal";
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import SimplePopUp from "@/components/shared/SimplePopUp";
+import SectionCard from "@/components/profile/SectionCard";
 import { Button } from "@/components/ui/button";
 import { useConfirmParticipant } from "@/hooks/useConfirmParticipant";
 import { useDeveloperProfile } from "@/hooks/useDeveloperProfile";
@@ -13,12 +14,23 @@ import { useParams } from "react-router-dom";
 const PublicProfile = () => {
   const { id, sessionId } = useParams();
   console.log(sessionId);
-  const [showPopup, setShowPopup] = useState(false);
-  const [showSimplePopUp, setShowSimplePopUp] = useState(false);
-  const [openContacts, setOpenContacts] = useState(false);
-  const [openConfirm, setOpenConfirm] = useState(false);
   const { data: developerData, isLoading: isDeveloperLoading, isError: isDeveloperError } = useDeveloperProfile(id, sessionId);
   const confirmParticipant = useConfirmParticipant();
+
+
+  const [modalState, setModalState] = useState({
+    showPopup: false,
+    showSimplePopUp: false,
+    openContacts: false,
+    openConfirm: false,
+  });
+
+  const toggleModal = (modalName, state) => {
+    setModalState((prevState) => ({
+      ...prevState,
+      [modalName]: state,
+    }));
+  };
 
 
   if (isDeveloperLoading) {
@@ -38,7 +50,7 @@ const PublicProfile = () => {
 
   const handleConfirmDeveloper = () => {
     confirmParticipant.mutate({ sessionId, username: developer?.username });
-    setOpenConfirm(false);
+    toggleModal("openConfirm", false);
   }
 
   // const isConfirmedParticipant = isConfirmed.mutate({ sessionId, })
@@ -65,92 +77,55 @@ const PublicProfile = () => {
               {developer?.stack ? `Desarrollador ${developer.stack_name}` : `Desarrollador Fullstack`}
             </p>
           </div>
+
+          {
+            hasPermission ?
+              (
+                <div className="flex flex-col gap-4 mt-5">
+                  <Button
+                    variant="outline"
+                    className=""
+                    onClick={() => toggleModal("openContacts", true)}
+                  >
+                    Ver contactos
+                  </Button>
+
+                  <Button
+                    className=""
+                    onClick={() => toggleModal("openConfirm", true)}
+                  >
+                    Confirmar participación
+                  </Button>
+
+                  {/* <p>Has confirmado este desarrollador</p> */}
+                </div>
+              ) :
+              <div className="flex items-center justify-center mt-10">
+                <Button
+                  className="mt-5"
+                  onClick={() => toggleModal("showPopup", true)}
+                >
+                  Contactar Desrollador
+                </Button>
+              </div>
+          }
         </section>
 
-        <div>
-          <section className="bg-card p-4 rounded-lg">
-            <h2 className="text-2xl font-semibold text-textPrimary hover:text-secondary transition duration-300">
-              Sobre el desarrollador
-            </h2>
-            <p className="mt-4 text-base">
-              {developer.about_me ? developer.about_me : "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"}
-            </p>
-          </section>
+        <div className="flex flex-col justify-between gap-8">
+          <SectionCard title="Sobre el desarrollador" content={developer?.about_me || "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"} />
 
-          <section className="bg-card p-4 rounded-lg mt-8">
-            <h2 className="text-2xl font-semibold text-textPrimary  hover:text-secondary transition duration-300">
-              Lenguajes de Programación
-            </h2>
-            {
-              developer?.language_names?.length > <ItemList items={developer?.language_names}/>
-            }
-          </section>
+          <SectionCard title="Idiomas" content={developer?.language_names?.length > 0 && <ItemList items={developer?.language_names} />} />
           <div className="grid grid-cols-2 items-center w-full gap-4">
-            <section className="bg-card p-4 rounded-lg mt-8">
-              <h2 className="text-2xl font-semibold text-textPrimary  hover:text-secondary transition duration-300">
-                Stack
-              </h2>
-              <p className="mt-4 text-base">
-                {developer.stack_name ? developer.stack_name : "Fullstack"}
-              </p>
-            </section>
-
-            <section className="bg-card p-4 rounded-lg mt-8">
-              <h2 className="text-2xl font-semibold text-textPrimary hover:text-secondary transition duration-300">
-                Nivel
-              </h2>
-              <p className="mt-4 text-base">
-                {developer.level_name ? developer.level_name : "Junior"}
-              </p>
-            </section>
+            <SectionCard title="Stack" content={developer.stack_name || "Fullstack"} />
+            <SectionCard title="Nivel" content={developer.level_name || "Junior"} />
           </div>
-
-
-
         </div>
-
       </div>
 
-
-      {
-        hasPermission ?
-          (
-            <div className="flex gap-4 mt-5">
-              <Button
-                variant="outline"
-                className=""
-                onClick={() => setOpenContacts(true)}
-              >
-                Ver contactos
-              </Button>
-
-              <Button
-                variant="specialShadow"
-                className=""
-                onClick={handleConfirmDeveloper}
-              >
-                Confirmar participación
-              </Button>
-              :
-              <p>Has confirmado este desarrollador</p>
-            </div>
-          ) :
-          <div className="flex items-center justify-center mt-10">
-            <Button
-              className="mt-5 w-full  md:w-[30vw]"
-              onClick={() => setShowPopup(true)}
-            >
-              Contactar Desrollador
-            </Button>
-          </div>
-      }
-
-
-
-      {showPopup &&
+      {modalState.showPopup &&
         <PopupWithInput
-          closePopup={() => setShowPopup(false)}
-          saveMessage={() => setShowSimplePopUp(true)}
+          closePopup={() => toggleModal("showPopup", false)}
+          saveMessage={() => toggleModal("showPopup", false)}
           title="Contactar Desarrollador"
           subtitle="¿Deseas contactar con este desarrollador?"
           placeholder="Escribe tu mensaje si quieres"
@@ -159,9 +134,9 @@ const PublicProfile = () => {
         />
       }
       {
-        showSimplePopUp &&
+        modalState.showSimplePopUp &&
         <SimplePopUp
-          closePopup={() => setShowSimplePopUp(false)}
+          closePopup={() => toggleModal("showSimplePopUp", false)}
           title="��Has contactado con el desarrollador!"
           subtitle="Pronto recibirás una respuesta"
           closeButtonText="Volver al Perfil"
@@ -169,8 +144,8 @@ const PublicProfile = () => {
       }
 
       <ContactsModal
-        open={openContacts}
-        onCancel={() => setOpenContacts(false)}
+        open={modalState.open}
+        onCancel={() => toggleModal("openContacts", false)}
         email={developer?.email}
         discord_link={developer?.discord_link}
         github_link={developer?.github_link}
@@ -178,7 +153,7 @@ const PublicProfile = () => {
       />
 
       <Modal
-        open={openConfirm}
+        open={modalState.opendalState}
         message="Estas seguro que deseas confirmar este desarrollador?"
         onOpenChange={() => handleConfirmDeveloper()}
       />

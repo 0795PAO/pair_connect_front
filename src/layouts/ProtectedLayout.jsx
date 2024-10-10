@@ -23,7 +23,7 @@ const ProtectedLayout = () => {
   return isAuthenticated ? (
     <>
       <Navbar />
-      <main className="min-h-[80vh] flex flex-col gap-10 items-center my-10">
+      <main className="min-h-[80vh] flex flex-col gap-10 items-center justify-center mt-36">
         <Outlet />
       </main>
       <Footer />

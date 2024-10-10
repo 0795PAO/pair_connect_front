@@ -4,11 +4,12 @@ import { useToast } from "./useToast";
 
 
 export const useConfirmParticipant = () => {
-    const toast = useToast();
+    const { toast } = useToast();
+    
     return useMutation({
         mutationFn: confirmParticipant, 
         onSuccess: (data) => {
-            console.log("Participant confirmed successfully:", data);
+            console.log("Participant confirmed:", data);
             toast({
                 title: "Confirmación exitosa",
                 description: "El participante ha sido confirmado correctamente.",
