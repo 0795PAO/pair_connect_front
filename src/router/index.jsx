@@ -101,6 +101,10 @@ const router = createBrowserRouter([
         path: "/profile/:id",
         element: <PublicProfile />,
       },
+      {
+        path: "/profile/:id/session/:sessionId", 
+        element: <PublicProfile />,
+      },
     ],
   },
 ]);
