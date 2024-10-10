@@ -7,14 +7,12 @@ import { useAllSessions } from "@/hooks/useAllSessions";
 import SessionSection from "@/components/session/SessionSection";
 import Loader from "@/components/shared/Loader";
 
-
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: sessions, error, loading: loadingSessions } = useAllSessions();
   const { handleRegister, loading, showSuccessModal, setShowSuccessModal } =
     useRegister();
   const sessionListRef = useRef(null);
-
 
 
   const scrollToSessions = () => {
