@@ -8,7 +8,7 @@ const PublicLayout = () => {
     return (
         <>
             <Navbar />
-            <main className="min-h-[90vh] flex flex-col justify-center gap-10 items-center p-6 sm:p-6">
+            <main className="min-h-[90vh] mt-28 flex flex-col justify-center gap-10 items-center p-6 sm:p-6">
                 <Outlet />
             </main>
             <Footer />

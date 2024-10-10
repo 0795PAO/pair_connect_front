@@ -61,7 +61,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="px-6 py-4" style={{ boxShadow: "var(--shadow-custom)" }}>
+    <nav className="px-6 py-4 fixed top-0 left-0 right-0 z-50 bg-background" style={{ boxShadow: "var(--shadow-custom)" }}>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <Link href="/" onClick={handleLogoClick} className="h-10">
