@@ -7,6 +7,7 @@ import HeroButton from "@/components/landing/HeroButton";
 import { useAuth } from "@/hooks/useAuth";
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import { useRegister } from "@/hooks/useRegister";
+
 const PublicSessionDetailPage = () => {
     const { sessionId } = useParams();
     const navigate = useNavigate();
@@ -26,8 +27,6 @@ const PublicSessionDetailPage = () => {
         isLoading: isProjectLoading,
         isError: isProjectError,
     } = useProjectDetails(sessionData?.project_id);
-
-    console.log("Project data:", projectData);
 
     const { data: futureSessions } = useFutureSessions(
         projectData?.id,
@@ -58,41 +57,40 @@ const PublicSessionDetailPage = () => {
     const projectOwnerName = projectData.owner_name;
     const projectOwnerAvatar = projectData.owner_avatar_url;
 
-
-
-
-
     return (
-        <div className="pt-0 mt-0 p-6">
-            <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 lg:pl-24 gap-8">
-                <div className="flex flex-col items-start lg:items-start">
-                    <h1 className="text-6xl font-bold mb-6 text-left gradient2-text gradient2-text">
-                        {projectData.name}
-                    </h1>
+        <div className="pt-2 mt-0 p-4 sm:p-6 mx-auto mb-6 max-w-[100%] md:max-w-[100%] lg:max-w-[70%] xl:max-w-[90%] rounded-lg border border-gray-300">
+            <div>
+                <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-8xl font-bold mb-4 text-center gradient2-text">
+                    {projectData.name}
+                </h1>
+            </div>
 
+            <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                <div className="flex flex-col items-start p-3 sm:p-5 text-base sm:text-lg">
                     <img
                         src={projectData.image_url ? projectData.image_url : "/neon2.png"}
                         alt="proyecto"
-                        className="w-full lg:w-[500px] lg:mx-0 mx-auto mb-6 rounded-lg"
+                        className="w-full lg:w-[500px] mb-4 rounded-lg"
                     />
-
-                    <h2 className="text-xl font-bold mb-4 text-left">
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                         Sobre el proyecto:
                     </h2>
-                    <p className="mb-6 text-left">{projectData.description}</p>
+                    <p className="mb-4 sm:mb-6 text-left sm:text-lg md:text-xl">
+                        {projectData.description}
+                    </p>
 
                     {isAuthenticated ? (
                         projectOwnerId ? (
-                            <div className="mt-4 mb-4 lg:mt-6 lg:mb-6 text-left">
-                                <h2 className="text-xl font-bold mb-4">
+                            <div className="mt-4 mb-4 text-left">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                                     Responsable del proyecto:
                                 </h2>
-                                <div className="flex items-center space-x-4">
+                                <div className="flex items-center space-x-2">
                                     {projectOwnerAvatar && (
                                         <img
                                             src={projectOwnerAvatar}
                                             alt="avatar"
-                                            className="w-10 h-10 rounded-full"
+                                            className="w-8 h-8 rounded-full"
                                         />
                                     )}
                                     <button
@@ -104,61 +102,63 @@ const PublicSessionDetailPage = () => {
                                 </div>
                             </div>
                         ) : (
-                            <p className="mb-6">Información del dueño no disponible.</p>
+                            <p className="mb-4 sm:mb-6">
+                                Información del dueño no disponible.
+                            </p>
                         )
                     ) : (
-                        <p className="mb-6">
+                        <p className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">
                             Inicia sesión para ver la información del dueño del proyecto.
                         </p>
                     )}
                 </div>
 
-                <div>
+                <div className="flex flex-col items-start p-3 sm:p-5 text-base sm:text-lg">
                     {sessionData.description && (
                         <>
-                            <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                                 Descripción de la sesión:
                             </h2>
-                            <p className="mb-4 lg:mb-6">{sessionData.description}</p>
+                            <p className="mb-4 sm:mb-6">{sessionData.description}</p>
                         </>
                     )}
-
                     {sessionData.schedule_date_time && (
                         <>
-                            <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                                 Fecha de la sesión:
                             </h2>
-                            <p className="mb-4 lg:mb-6">
+                            <p className="mb-4 sm:mb-6">
                                 {new Date(sessionData.schedule_date_time).toLocaleString()}
                             </p>
                         </>
                     )}
 
+                    <hr className="border-t-2 my-1" />
                     {sessionData.duration && (
                         <>
-                            <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                                 Duración de la sesión:
                             </h2>
-                            <p className="mb-4 lg:mb-6">{sessionData.duration}</p>
+                            <p className="mb-4 sm:mb-6">{sessionData.duration}</p>
                         </>
                     )}
-
+                    <hr className="border-t-2 my-1" />
                     {projectData.stack_name && (
                         <>
-                            <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                                 Stack de la sesión:
                             </h2>
-                            <p className="mb-4 lg:mb-6">{projectData.stack_name}</p>
+                            <p className="mb-4 sm:mb-6">{projectData.stack_name}</p>
                         </>
                     )}
-
+                    <hr className="border-t-2 my-1" />
                     {Array.isArray(sessionData.language_names) &&
                         sessionData.language_names.length > 0 ? (
                         <>
-                            <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                                 Lenguajes requeridos:
                             </h2>
-                            <ul className="mb-4 lg:mb-6 flex flex-wrap gap-2">
+                            <ul className="mb-4 sm:mb-6 flex flex-wrap gap-2">
                                 {sessionData.language_names.map((language, index) => (
                                     <li
                                         key={index}
@@ -170,21 +170,23 @@ const PublicSessionDetailPage = () => {
                             </ul>
                         </>
                     ) : (
-                        <p className="mb-4 lg:mb-6">
+                        <p className="mb-4 sm:mb-6">
                             No se han especificado lenguajes para esta sesión.
                         </p>
                     )}
-
-                    <h2 className="text-xl font-bold mb-4 lg:mb-6">
+                    <hr className="border-t-2 my-1" />
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
                         El perfil que se busca:
                     </h2>
-                    <p className="mb-4 lg:mb-6">{sessionData.level_name}</p>
+                    <p className="mb-4 sm:mb-6">{sessionData.level_name}</p>
                 </div>
             </section>
 
             {futureSessions && futureSessions.length > 0 && (
                 <section className="mt-8">
-                    <h2 className="text-2xl font-bold mb-4">Futuras Sesiones</h2>
+                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4">
+                        Futuras Sesiones
+                    </h2>
                     <ul>
                         {futureSessions.map((futureSession) => (
                             <li key={futureSession.id}>
@@ -210,3 +212,4 @@ const PublicSessionDetailPage = () => {
 };
 
 export default PublicSessionDetailPage;
+9
