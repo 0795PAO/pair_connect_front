@@ -26,9 +26,9 @@ const ContactsModal = ({
                     <DialogDescription>
                         <ul className="flex flex-col gap-4 text-foreground">
                             <li><span className="font-bold">Email:</span> <span>{email}</span></li>
-                            <li><span className="font-bold">Email:</span> <span>{discord_link}</span></li>
-                            <li><span className="font-bold">Discord:</span> <span>{github_link}</span></li>
-                            <li><span className="font-bold">Github:</span> <span>{linkedin_link}</span></li>
+                            <li><span className="font-bold">Discord:</span> <span>{discord_link}</span></li>
+                            <li><span className="font-bold">Github:</span> <span>{github_link}</span></li>
+                            <li><span className="font-bold">Linkedin:</span> <span>{linkedin_link}</span></li>
                         </ul>
                     </DialogDescription>
                 </DialogHeader>

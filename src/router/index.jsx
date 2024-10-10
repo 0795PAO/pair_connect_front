@@ -98,10 +98,6 @@ const router = createBrowserRouter([
         element: <OwnerSessionDetailsPage />,
       },
       {
-        path: "/profile/:id",
-        element: <PublicProfile />,
-      },
-      {
         path: "/profile/:id/session/:sessionId", 
         element: <PublicProfile />,
       },
