@@ -41,11 +41,12 @@ const Navbar = () => {
       }, 400);
     }, 10);
   };
-  // const handleAnimationEnd = () => {
-  //   if (isRestoring) {
-  //     setIsRestoring(false);
-  //   }
-  // };
+  const handleAnimationEnd = () => {
+    if (isRestoring) {
+      setIsRestoring(false);
+    }
+  };
+
   const handleNavLinkClick = () => {
     setTimeout(() => {
       setIsOpen(false);

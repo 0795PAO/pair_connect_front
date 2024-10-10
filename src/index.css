@@ -10,7 +10,8 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary-text-color: 217 72% 65%; /* Este texto cyan primary pero mas oscura para que es mas legible en light */
+    --primary-text-color: 217 72% 65%;
+    /* Este texto cyan primary pero mas oscura para que es mas legible en light */
     --primary: 184 72% 65%;
     --primary-hover: 184, 72%, 45%;
     --primary-foreground: 222.2 84% 4.9%;
@@ -116,6 +117,18 @@
     @apply bg-background text-foreground;
     font-family: "Source Code Pro", monospace;
   }
+}
+
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
 }
 
 .cursor-pointer {
