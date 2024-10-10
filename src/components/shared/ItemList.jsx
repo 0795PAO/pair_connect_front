@@ -1,7 +1,7 @@
 import Chip from "./Chip";
 
 /* eslint-disable react/prop-types */
-const ItemList = ({ items = [], title = "Items" }) => {
+const ItemList = ({ items = [], title = "" }) => {
   if (!Array.isArray(items) || items.length === 0) {
     return (
       <p className="mb-4 lg:mb-6">
@@ -11,14 +11,13 @@ const ItemList = ({ items = [], title = "Items" }) => {
   }
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4 lg:mb-6">{title}:</h2>
-      <ul className="mb-4 lg:mb-6 flex flex-wrap gap-2">
-        {items.map((item, index) => (
-          <Chip key={index} item={item} />
-        ))}
-      </ul>
-    </div>
+
+    <ul className="flex flex-wrap gap-4 mt-6">
+      {items.map((item, index) => (
+        <Chip key={index} item={item} />
+      ))}
+    </ul>
+
   );
 };
 
