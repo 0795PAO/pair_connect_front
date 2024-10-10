@@ -14,9 +14,12 @@ import { useParams } from "react-router-dom";
 const PublicProfile = () => {
   const { id, sessionId } = useParams();
   console.log(sessionId);
-  const { data: developerData, isLoading: isDeveloperLoading, isError: isDeveloperError } = useDeveloperProfile(id, sessionId);
+  const {
+    data: developerData,
+    isLoading: isDeveloperLoading,
+    isError: isDeveloperError,
+  } = useDeveloperProfile(id, sessionId);
   const confirmParticipant = useConfirmParticipant();
-
 
   const [modalState, setModalState] = useState({
     showPopup: false,
@@ -32,7 +35,6 @@ const PublicProfile = () => {
     }));
   };
 
-
   if (isDeveloperLoading) {
     return <Loader />;
   }
@@ -44,22 +46,22 @@ const PublicProfile = () => {
 
   const developer = developerData?.profile_data;
   const hasPermission = developerData?.has_permission;
-  console.log(hasPermission)
-
-
+  console.log(hasPermission);
 
   const handleConfirmDeveloper = () => {
     confirmParticipant.mutate({ sessionId, username: developer?.username });
     toggleModal("openConfirm", false);
-  }
+  };
 
   // const isConfirmedParticipant = isConfirmed.mutate({ sessionId, })
-
 
   return (
     <div className="px-8 lg:h-[80vh]">
       <h1 className="text-4xl md:text-6xl mb-10 text-primaryText justify-self-start">
-        Perfil de <span className="font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">{developer?.username}</span>
+        Perfil de{" "}
+        <span className="font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">
+          {developer?.username}
+        </span>
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10 items-stretch">
@@ -74,55 +76,72 @@ const PublicProfile = () => {
               {developer?.name}
             </p>
             <p className="text-xl font-medium mt-4 text-textPrimary">
-              {developer?.stack ? `Desarrollador ${developer.stack_name}` : `Desarrollador Fullstack`}
+              {developer?.stack
+                ? `Desarrollador ${developer.stack_name}`
+                : `Desarrollador Fullstack`}
             </p>
           </div>
 
-          {
-            hasPermission ?
-              (
-                <div className="flex flex-col gap-4 mt-5">
-                  <Button
-                    variant="outline"
-                    className=""
-                    onClick={() => toggleModal("openContacts", true)}
-                  >
-                    Ver contactos
-                  </Button>
+          {hasPermission ? (
+            <div className="flex flex-col gap-4 mt-5">
+              <Button
+                variant="outline"
+                className=""
+                onClick={() => toggleModal("openContacts", true)}
+              >
+                Ver contactos
+              </Button>
 
-                  <Button
-                    className=""
-                    onClick={() => toggleModal("openConfirm", true)}
-                  >
-                    Confirmar participación
-                  </Button>
-
-                  {/* <p>Has confirmado este desarrollador</p> */}
-                </div>
-              ) :
-              <div className="flex items-center justify-center mt-10">
-                <Button
-                  className="mt-5"
-                  onClick={() => toggleModal("showPopup", true)}
-                >
-                  Contactar Desrollador
-                </Button>
-              </div>
-          }
+              <Button
+                className=""
+                onClick={() => toggleModal("openConfirm", true)}
+              >
+                Confirmar participación
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center mt-10">
+              <Button
+                className="mt-5"
+                onClick={() => toggleModal("showPopup", true)}
+              >
+                Contactar Desrollador
+              </Button>
+            </div>
+          )}
         </section>
 
         <div className="flex flex-col justify-between gap-8">
-          <SectionCard title="Sobre el desarrollador" content={developer?.about_me || "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"} />
+          <SectionCard
+            title="Sobre el desarrollador"
+            content={
+              developer?.about_me ||
+              "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"
+            }
+          />
 
-          <SectionCard title="Idiomas" content={developer?.language_names?.length > 0 && <ItemList items={developer?.language_names} />} />
+          <SectionCard
+            title="Idiomas"
+            content={
+              developer?.language_names?.length > 0 && (
+                <ItemList items={developer?.language_names} />
+              )
+            }
+          />
           <div className="grid grid-cols-2 items-center w-full gap-4">
-            <SectionCard title="Stack" content={developer.stack_name || "Fullstack"} />
-            <SectionCard title="Nivel" content={developer.level_name || "Junior"} />
+            <SectionCard
+              title="Stack"
+              content={developer.stack_name || "Fullstack"}
+            />
+            <SectionCard
+              title="Nivel"
+              content={developer.level_name || "Junior"}
+            />
           </div>
         </div>
       </div>
 
-      {modalState.showPopup &&
+      {modalState.showPopup && (
         <PopupWithInput
           closePopup={() => toggleModal("showPopup", false)}
           saveMessage={() => toggleModal("showPopup", false)}
@@ -132,16 +151,15 @@ const PublicProfile = () => {
           closeButtonText="Cancelar"
           saveButtonText="Contactar"
         />
-      }
-      {
-        modalState.showSimplePopUp &&
+      )}
+      {modalState.showSimplePopUp && (
         <SimplePopUp
           closePopup={() => toggleModal("showSimplePopUp", false)}
           title="��Has contactado con el desarrollador!"
           subtitle="Pronto recibirás una respuesta"
           closeButtonText="Volver al Perfil"
         />
-      }
+      )}
 
       <ContactsModal
         open={modalState.open}
@@ -157,7 +175,6 @@ const PublicProfile = () => {
         message="Estas seguro que deseas confirmar este desarrollador?"
         onOpenChange={() => handleConfirmDeveloper()}
       />
-
     </div>
   );
 };
