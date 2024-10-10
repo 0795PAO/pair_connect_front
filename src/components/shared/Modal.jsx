@@ -10,7 +10,7 @@ import {
 import { Button } from "../ui/button"
 
 
-const Modal = ({ title, message, border_color, open, onOpenChange }) => {
+const Modal = ({ title, message, border_color, open, onOpenChange, onClick}) => {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className={`${border_color} border-2`}>
@@ -22,7 +22,7 @@ const Modal = ({ title, message, border_color, open, onOpenChange }) => {
                 </DialogHeader>
                 <DialogFooter>
                     <Button type="button" variant="secondary" onClick={onOpenChange}>Cancelar</Button>
-                    <Button type="button" variant="outline" onClick={onOpenChange}>Continuar</Button>
+                    <Button type="button" variant="outline" onClick={onClick ? onClick : onOpenChange}>Continuar</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
