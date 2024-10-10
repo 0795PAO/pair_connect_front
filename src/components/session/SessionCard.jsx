@@ -20,14 +20,14 @@ const SessionCard = ({ session, to }) => {
               <img
                 src="/icon_green.svg"
                 alt="Estado Inscrito"
-                className="absolute w-2 h-2 top-2 right-2 sm:w-3 sm:h-3 sm:top-3 sm:right-3 md:w-4 md:h-4 md:top-4 md:right-4"
+                className=" object-cover absolute w-2 h-2 top-2 right-2 sm:w-3 sm:h-3 sm:top-3 sm:right-3 md:w-4 md:h-4 md:top-4 md:right-4"
               />
             )}
             {session.status === "pending" && (
               <img
                 src="/icon_yellow.svg"
                 alt="Estado Pendiente"
-                className="absolute w-2 h-2 top-2 right-2 sm:w-3 sm:h-3 sm:top-3 sm:right-3 md:w-4 md:h-4 md:top-4 md:right-4"
+                className=" object-coverabsolute w-2 h-2 top-2 right-2 sm:w-3 sm:h-3 sm:top-3 sm:right-3 md:w-4 md:h-4 md:top-4 md:right-4"
               />
             )}
             {session.status === "editable" && (
