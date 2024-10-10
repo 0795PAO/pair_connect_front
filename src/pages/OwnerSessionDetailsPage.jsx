@@ -1,4 +1,6 @@
 import { useParams, useNavigate, Link  } from "react-router-dom";
+import SectionCard from "@/components/profile/SectionCard";
+import ItemList from "@/components/shared/ItemList";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
 import { useGetInterestedUsers } from "@/hooks/useGetInterestedUsers";
@@ -63,6 +65,7 @@ const OwnerSessionDetailsPage = () => {
   const durationText = sessionData 
     ? `${parseInt(sessionData.duration.split(":")[0], 10)}h${sessionData.duration.split(":")[1] > 0 ? ' ' + sessionData.duration.split(":")[1] + "m" : ""}` 
     : '';
+  const sessionDateTime = `${formattedDate}\n${startTime} - ${endTime} [${durationText}]`;
 
   if (isSessionLoading || isProjectLoading) {
     return <Loader />;
@@ -73,110 +76,126 @@ const OwnerSessionDetailsPage = () => {
   }
 
   return (
-    <div className="p-6">
-        <div className="flex items-center justify-center min-h-screen">
-            <div className="container mx-auto p-4 space-y-8">
-                <button
-                    onClick={() => navigate(`/projects/${projectData.id}`)}
-                    className="text-white hover:text-primary flex items-center"
-                >
-                    <ArrowLeft className="w-5 h-5 mr-2" />
-                    Volver a mi proyecto
-                </button>
-                {/* Title and Image Section */}
-                <h1 className="text-4xl gradient2-text font-bold">Detalles de la sesión</h1>
-                <div className="flex flex-col md:flex-row items-start p-8">
-                    {/* Left Section: Project Image */}
-                    <div className="relative">
+    <div className="p-6 lg:h-[80vh]">
+        <button
+            onClick={() => navigate(`/projects/${projectData.id}`)}
+            className="text-white hover:text-primary flex items-center"
+        >
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Volver a mi proyecto
+        </button>
+        {/* Title and Image Section */}
+        <h1 className="text-4xl md:text-6xl mb-10 gradient2-text font-bold justify-self-start">Detalles de la sesión</h1>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10 items-stretch">
+                {/* Left Section: Project Image */}
+                <section className="flex flex-col items-center justify-between bg-card p-10 rounded-lg overflow-y-auto">
+                    <div className="flex flex-col items-center">
                         <img
                         src={projectData.image_url}
                         alt="Project"
                         className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-lg md:mr-6"
                         />
-                        <h2 className="text-4xl font-bold">{projectData.name}</h2>
+                        <h2 className="text-4xl font-bold text-textPrimary">{projectData.name}</h2>
                         <p className="text-lg mb-6">{projectData.description}</p>
                     </div>
-                    {/* Right Section: Title, Description, and Required Skills */}
-                    <div className="flex-grow flex flex-col justify-between md:text-left px-8 h-full">
-                        <div className="text-2xl font-bold pb-4">
-                            <p>{formattedDate}</p>
-                            <p>{startTime}-{endTime} [{durationText}]</p>
-                        </div>
-                        <div className="pb-4">
-                            <h3 className="text-xl font-bold">Descripción de la sesión:</h3>
-                            <p>{sessionData.description}</p>
-                        </div>
-                        <div className="pb-4">
-                            <p>Level: {sessionData.level_name}</p>
-                            <p>Stack: {sessionData.stack_name}</p>
-                            <p>Lenguajes y frameworks: {sessionData.language_names.join(" ")}</p>
-                        </div>
-                        <div className="pb-4">
-                            <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
-                            <p>Enlace sesión:  
-                                {sessionData.session_link ? 
-                                <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">{sessionData.session_link}</a>
-                                : " No disponible"}
-                            </p>
-                            <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
-                        </div>
-                    </div>
-                </div>
-                
-                {/* Participants Section */}
-                <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-4">Participantes confirmados</h2>
-                    {/* {sessionData.participants.length > 0 ? (
-                        <div className="flex flex-wrap gap-4">
-                            {sessionData.participants.map((user) => (
-                                <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
-                                    <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
-                                    <p>{user.username}</p>
-                                </Link>
-                            ))}
-                        </div>
-                    ) : ( */}
-                        <p>No hay participantes confirmados.</p>
-                    {/* )} */}
-                </div>
+                </section>
+                {/* Right Section: Title, Description, and Required Skills */}
+                <div className="flex flex-col justify-between gap-4 ">
+                    <SectionCard title={sessionDateTime} />
 
-                {/* Interested Participants Section */}
-                <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-1">Coders interesados</h2>
-                    <p className="mb-2">Alguns coders estan interesados en participar en tu sesión.</p>
-                    {interestedParticipants && interestedParticipants.length > 0 ? (
-                        <div className="flex flex-wrap gap-4">
-                            {interestedParticipants.map((user) => (
-                                <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
-                                    <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
-                                    <p>{user.username}</p>
-                                </Link>
-                            ))}
-                        </div>
-                    ) : (
-                        <p>No hay participantes interesados.</p>
-                    )}
-                </div>
-
-                {/* Recommended Users Section */}
-                <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-1">Recomendaciones</h2>
-                    <p className="mb-2">Te podria interesar estos otros coders para tu proyecto.</p>
-                    {recommendedUsers && recommendedUsers.length > 0 ? (
-                        <div className="flex flex-wrap gap-4">
-                            {recommendedUsers.map((user) => (
-                                <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
-                                    <img src={user.photo || '/path/to/default-avatar.png'} alt={user.username} className="w-10 h-10 rounded-full" />
-                                    <p>{user.username}</p>
-                                </Link>
-                            ))}
-                        </div>
-                    ) : (
-                        <p>No hay recomendaciones en este momento.</p>
-                    )}
+                    <SectionCard title="Descripción de la sesión:" content={sessionData.description} />
+                    
+                    <SectionCard
+                        content={
+                            <>
+                                <p>Level: {sessionData.level_name}</p>
+                                <p>Stack: {sessionData.stack_name}</p>
+                                Languages: <ItemList items={sessionData.language_names} title="Lenguajes y frameworks" />
+                            </>
+                        } 
+                    />
+                    
+                    <SectionCard 
+                        content={
+                            <>
+                                <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
+                                <p>Enlace sesión:  
+                                    {sessionData.session_link ? 
+                                    <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">{sessionData.session_link}</a>
+                                    : " No disponible"}
+                                </p>
+                                <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
+                            </>
+                        }
+                    />
                 </div>
             </div>
-        </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr] gap-10 items-stretch mt-8">        
+                {/* Participants Section */}
+                <div className="flex flex-col justify-between gap-8">
+                    {/* Confirmed Participants Section */}
+                    <SectionCard
+                        title="Participantes confirmados"
+                        /* content={
+                            sessionData.participants.length > 0 ? (
+                                <div className="flex flex-wrap gap-4">
+                                    {sessionData.participants.map((user) => (
+                                        <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
+                                            <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
+                                            <p>{user.username}</p>
+                                        </Link>
+                                    ))}
+                                </div>
+                            ) : (
+                                <p>No hay participantes confirmados.</p>
+                            )
+                        } */
+                    />
+                    {/* Interested Participants Section */}
+                    <SectionCard
+                        title="Coders interesados"
+                        content={
+                            <>
+                                <p className="mb-2">Algunos coders están interesados en participar en tu sesión.</p>
+                                {interestedParticipants && interestedParticipants.length > 0 ? (
+                                    <div className="flex flex-wrap gap-4">
+                                        {interestedParticipants.map((user) => (
+                                            <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
+                                                <img src={user.photo} alt={user.username} className="w-10 h-10 rounded-full" />
+                                                <p>{user.username}</p>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p>Parece que no se ha apuntado nadie aún.</p>
+                                )}
+                            </>
+                        }
+                    />
+                    {/* Recommended Coders Section */}
+                    <SectionCard
+                        title="Coders recomendados"
+                        content={
+                            <>
+                                <p className="mb-2">Te podria interesar estos otros coders para tu proyecto.</p>
+                                {recommendedUsers && recommendedUsers.length > 0 ? (
+                                    <div className="flex flex-wrap gap-4">
+                                        {recommendedUsers.map((user) => (
+                                            <Link key={user.id} to={`/profile/${user.id}`} className="flex items-center gap-2">
+                                                <img src={user.photo || '/path/to/default-avatar.png'} alt={user.username} className="w-10 h-10 rounded-full" />
+                                                <p>{user.username}</p>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p>No hay recomendaciones en este momento.</p>
+                                )}
+                            </>
+                        }
+                    />  
+                </div>
+            </div>    
     </div>
   );
 };
