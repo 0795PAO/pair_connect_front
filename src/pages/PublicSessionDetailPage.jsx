@@ -58,151 +58,113 @@ const PublicSessionDetailPage = () => {
     const projectOwnerAvatar = projectData.owner_avatar_url;
 
     return (
-        <div className="pt-2 mt-0 p-4 sm:p-6 mx-auto mb-6 max-w-[100%] md:max-w-[100%] lg:max-w-[70%] xl:max-w-[90%] rounded-lg border border-gray-300">
-            <div>
-                <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-8xl font-bold mb-4 text-center gradient2-text">
+        <div className="pt-0 mt-0 p-4 sm:p-6 mx-auto mb-6 w-full max-w-full">
+                <h1 className="text-4xl sm:text-7xl md:text-9xl lg:text-10xl xl:text-10xl font-bold mb-2 text-center gradient2-text ">
                     {projectData.name}
                 </h1>
-            </div>
-
             <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div className="flex flex-col items-start p-3 sm:p-5 text-base sm:text-lg">
-                    <img
-                        src={projectData.image_url ? projectData.image_url : "/neon2.png"}
-                        alt="proyecto"
-                        className="w-full lg:w-[500px] mb-4 rounded-lg"
-                    />
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                        Sobre el proyecto:
-                    </h2>
-                    <p className="mb-4 sm:mb-6 text-left sm:text-lg md:text-xl">
-                        {projectData.description}
-                    </p>
+                <div className="w-full bg-card text-card-foreground my-1 mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+    <img
+        src={projectData.image_url ? projectData.image_url : "/neon2.png"}
+        alt="proyecto"
+        className="w-full h-full object-cover mb-4 rounded-lg"
+    />
+</div>
 
-                    {isAuthenticated ? (
-                        projectOwnerId ? (
-                            <div className="mt-4 mb-4 text-left">
-                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                                    Responsable del proyecto:
-                                </h2>
-                                <div className="flex items-center space-x-2">
-                                    {projectOwnerAvatar && (
-                                        <img
-                                            src={projectOwnerAvatar}
-                                            alt="avatar"
-                                            className="w-8 h-8 rounded-full"
-                                        />
-                                    )}
-                                    <button
-                                        className="hover:text-primary transition-colors duration-300"
-                                        onClick={() => navigate(`/profile/${projectOwnerId}`)}
-                                    >
-                                        {projectOwnerName || "Nombre no disponible"}
-                                    </button>
-                                </div>
-                            </div>
-                        ) : (
-                            <p className="mb-4 sm:mb-6">
-                                Información del dueño no disponible.
-                            </p>
-                        )
-                    ) : (
-                        <p className="text-lg sm:text-xl font-bold mb-4 sm:mb-6">
-                            Inicia sesión para ver la información del dueño del proyecto.
+       
+                    <div className="w-full bg-card text-card-foreground my-1 mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4 ">
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                            Sobre el proyecto:
+                        </h2>
+                        <p className="mb-4 sm:mb-6 text-left sm:text-lg md:text-xl">
+                            {projectData.description}
                         </p>
+                    </div>
+
+                    {sessionData.description && (
+                        <>
+                            <div className="w-full bg-card text-card-foreground mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                                    Descripción de la sesión:
+                                </h2>
+                                <p className="mb-4 sm:mb-6">{sessionData.description}</p>
+                            </div>
+                        </>
                     )}
+
                 </div>
 
                 <div className="flex flex-col items-start p-3 sm:p-5 text-base sm:text-lg">
-                    {sessionData.description && (
+                {sessionData.schedule_date_time && (
                         <>
-                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                                Descripción de la sesión:
-                            </h2>
-                            <p className="mb-4 sm:mb-6">{sessionData.description}</p>
-                        </>
-                    )}
-                    {sessionData.schedule_date_time && (
-                        <>
-                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                                Fecha de la sesión:
-                            </h2>
-                            <p className="mb-4 sm:mb-6">
-                                {new Date(sessionData.schedule_date_time).toLocaleString()}
-                            </p>
+                            <div className="w-full bg-card text-card-foreground my-1 mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                                    Fecha de la sesión:
+                                </h2>
+                                <p className="mb-4 sm:mb-6">
+                                    {new Date(sessionData.schedule_date_time).toLocaleString()}
+                                </p>
+                            </div>
+
                         </>
                     )}
 
-                    <hr className="border-t-2 my-1" />
+                    
                     {sessionData.duration && (
                         <>
-                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                                Duración de la sesión:
-                            </h2>
-                            <p className="mb-4 sm:mb-6">{sessionData.duration}</p>
+                            <div className="w-full bg-card text-card-foreground my-1 mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                                    Duración de la sesión:
+                                </h2>
+                                <p className="mb-4 sm:mb-6">{sessionData.duration}</p>
+                            </div>
                         </>
                     )}
-                    <hr className="border-t-2 my-1" />
                     {projectData.stack_name && (
                         <>
-                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                                Stack de la sesión:
-                            </h2>
-                            <p className="mb-4 sm:mb-6">{projectData.stack_name}</p>
+                            <div className="w-full bg-card text-card-foreground my-1 mb-1  cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                                    Stack de la sesión:
+                                </h2>
+                                <p className="mb-4 sm:mb-6">{projectData.stack_name}</p>
+                            </div>
+
                         </>
                     )}
-                    <hr className="border-t-2 my-1" />
                     {Array.isArray(sessionData.language_names) &&
                         sessionData.language_names.length > 0 ? (
                         <>
-                            <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                                Lenguajes requeridos:
-                            </h2>
-                            <ul className="mb-4 sm:mb-6 flex flex-wrap gap-2">
-                                {sessionData.language_names.map((language, index) => (
-                                    <li
-                                        key={index}
-                                        className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform"
-                                    >
-                                        {language}
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className="w-full bg-card text-card-foreground my-1 mb-1  cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+                                <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                                    Lenguajes requeridos:
+                                </h2>
+                                <ul className="mb-4 sm:mb-6 flex flex-wrap gap-2">
+                                    {sessionData.language_names.map((language, index) => (
+                                        <li
+                                            key={index}
+                                            className="py-1 px-3 rounded-full text-black font-bold shadow-lg hover-shadow-custom bg-gradient-to-r from-primary to-secondary transform"
+                                        >
+                                            {language}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
                         </>
                     ) : (
-                        <p className="mb-4 sm:mb-6">
+                        <p className="text-lg sm:text-xl font-bold my-8 mb-4 sm:mb-6">
                             No se han especificado lenguajes para esta sesión.
                         </p>
                     )}
-                    <hr className="border-t-2 my-1" />
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">
-                        El perfil que se busca:
-                    </h2>
-                    <p className="mb-4 sm:mb-6">{sessionData.level_name}</p>
+                    <div className="w-full bg-card text-card-foreground my-1 mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4 text-textPrimary">
+                            El perfil que se busca:
+                        </h2>
+                        <p className="mb-4 sm:mb-6">{sessionData.level_name}</p>
+                    </div>
                 </div>
             </section>
-
-            {futureSessions && futureSessions.length > 0 && (
-                <section className="mt-8">
-                    <h2 className="text-lg sm:text-xl md:text-2xl font-bold mb-4">
-                        Futuras Sesiones
-                    </h2>
-                    <ul>
-                        {futureSessions.map((futureSession) => (
-                            <li key={futureSession.id}>
-                                <button
-                                    className="text-blue-500 underline"
-                                    onClick={() => navigate(`/sessions/${futureSession.id}`)}
-                                >
-                                    {new Date(futureSession.schedule_date_time).toLocaleString()}{" "}
-                                    - {futureSession.description}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-            )}
-
             <div className="flex justify-center mt-8">
                 <HeroButton onClick={() => setIsOpen(true)} text="Registrate" />
             </div>
