@@ -27,7 +27,7 @@ const SessionCard = ({ session, to }) => {
               <img
                 src="/icon_yellow.svg"
                 alt="Estado Pendiente"
-                className=" object-coverabsolute w-2 h-2 top-2 right-2 sm:w-3 sm:h-3 sm:top-3 sm:right-3 md:w-4 md:h-4 md:top-4 md:right-4"
+                className=" object-cover absolute w-2 h-2 top-2 right-2 sm:w-3 sm:h-3 sm:top-3 sm:right-3 md:w-4 md:h-4 md:top-4 md:right-4"
               />
             )}
             {session.status === "editable" && (
@@ -79,7 +79,7 @@ const SessionCard = ({ session, to }) => {
         <img
           src={imageUrl}
           alt="Imagen del proyecto"
-          className="absolute object-cover w-10 h-10 rounded-full bottom-2 right-2 sm:w-14 sm:h-14 md:w-24 md:h-24"
+          className="absolute object-cover w-10 h-10 rounded-full bottom-7 right-4 sm:w-14 sm:h-14 md:w-24 md:h-24"
         />
       </Link>
     </li>
