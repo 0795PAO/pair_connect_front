@@ -35,7 +35,7 @@ const SessionsDetailsPage = () => {
   return (
     <div className="pt-0 mt-0 p-6">
       <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 lg:pl-24 gap-8">
-        <ProjectInfoSession projectData={projectData} navigate={navigate} />
+        <ProjectInfoSession projectData={projectData} navigate={navigate} sessionId={sessionId} />
         <SessionInfoSection sessionData={sessionData} />
       </section>
 
