@@ -14,10 +14,14 @@ import SessionSection from "@/components/session/SessionSection";
 const UserHomePage = () => {
   const { data: user, isLoading: isProfileLoading, error } = useProfile();
 
-  // Obtener todas las sesiones sugeridas
-  const { data: suggestedSessions = [], isLoading: isSessionsLoading } = useSuggestedSessions();
+  const { data: suggestedSessions = [], isLoading: isSessionsLoading } =
+    useSuggestedSessions();
 
-  const { data: allSessions = [], isLoading: isAllSessionsLoading, error: allSessionsError } = useAllSessions();
+  const {
+    data: allSessions = [],
+    isLoading: isAllSessionsLoading,
+    error: allSessionsError,
+  } = useAllSessions();
 
   const [filteredSessions, setFilteredSessions] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,7 +33,7 @@ const UserHomePage = () => {
   const filteredSuggestedSessions = suggestedSessions.filter((session) => {
     const sessionDate = normalizeDate(new Date(session.schedule_date_time));
     const today = normalizeDate(new Date());
-    return sessionDate >= today;  
+    return sessionDate >= today;
   });
 
   useEffect(() => {
@@ -58,14 +62,17 @@ const UserHomePage = () => {
         language.toLowerCase().includes(searchTerm.toLowerCase())
       );
       const matchesStack =
-        selectedStack.length === 0 || selectedStack.includes(session.stack_name);
+        selectedStack.length === 0 ||
+        selectedStack.includes(session.stack_name);
       const matchesLevel =
-        selectedLevel.length === 0 || selectedLevel.includes(session.level_name);
+        selectedLevel.length === 0 ||
+        selectedLevel.includes(session.level_name);
 
       let matchesDate = true;
       if (selectedDate) {
         const normalizedSelectedDate = normalizeDate(selectedDate);
-        matchesDate = sessionDate.getTime() === normalizedSelectedDate.getTime();
+        matchesDate =
+          sessionDate.getTime() === normalizedSelectedDate.getTime();
       }
 
       return (
@@ -106,7 +113,9 @@ const UserHomePage = () => {
           >
             Pair Connect
           </h1>
-          <h2 className="self-start text-3xl font-semibold">Hola, {user?.username}</h2>
+          <h2 className="self-start text-3xl font-semibold">
+            Hola, {user?.username}
+          </h2>
 
           <h3 className="self-start text-xl">Sesiones sugeridas para ti:</h3>
           <div className="mt-5">
@@ -115,7 +124,11 @@ const UserHomePage = () => {
             ) : filteredSuggestedSessions.length > 0 ? (
               <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredSuggestedSessions.map((session) => (
-                  <SessionCard key={session.id} session={session} to={`sessions/${session.id}`} />
+                  <SessionCard
+                    key={session.id}
+                    session={session}
+                    to={`sessions/${session.id}`}
+                  />
                 ))}
               </ul>
             ) : (
@@ -123,7 +136,9 @@ const UserHomePage = () => {
             )}
           </div>
 
-          <h3 className="self-start text-xl mt-16">¡Busca otras sesiones de tu interés!</h3>
+          <h3 className="self-start text-xl mt-16">
+            ¡Busca otras sesiones de tu interés!
+          </h3>
 
           <div className="w-full flex flex-col lg:flex-row gap-8">
             <div className="w-full lg:w-1/2">
@@ -136,10 +151,16 @@ const UserHomePage = () => {
                 setSelectedLevel={setSelectedLevel}
               />
               <div className="w-full flex justify-center my-4">
-                <EventCalendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                <EventCalendar
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                />
               </div>
               <div className="flex gap-4 mt-4 justify-center">
-                <Button variant={"specialShadow"} onClick={handleSearchSessions}>
+                <Button
+                  variant={"specialShadow"}
+                  onClick={handleSearchSessions}
+                >
                   Buscar sesiones
                 </Button>
                 <Button variant={"outline"} onClick={handleClearFilters}>
