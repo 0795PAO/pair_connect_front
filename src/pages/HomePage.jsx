@@ -7,6 +7,7 @@ import { useAllSessions } from "@/hooks/useAllSessions";
 import SessionFilter from "@/components/session/SessionFilter";
 import { useSessionFilter } from "@/hooks/useSessionFilter";
 import SessionSection from "@/components/session/SessionSection";
+import Loader from "@/components/shared/Loader";
 
 const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +15,6 @@ const HomePage = () => {
   const { handleRegister, loading, showSuccessModal, setShowSuccessModal } =
     useRegister();
   const sessionListRef = useRef(null);
-
 
   const {
     filteredSessions,
@@ -33,7 +33,11 @@ const HomePage = () => {
   };
 
   if (loadingSessions) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
 
   return (
