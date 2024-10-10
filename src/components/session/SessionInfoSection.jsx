@@ -1,37 +1,30 @@
-import ItemList from "../shared/ItemList"
+import ItemList from "../shared/ItemList";
+import SectionCard from "../profile/SectionCard";
 
-/* eslint-disable react/prop-types */
 const SessionInfoSection = ({ sessionData }) => {
     return (
-        <>
+        <div className="flex flex-col justify-between gap-4">
             {sessionData.description && (
-                <>
-                    <h2 className="text-xl font-bold mb-4 lg:mb-6">
-                        Descripción de la sesión:
-                    </h2>
-                    <p className="mb-4 lg:mb-6">{sessionData.description}</p>
-                </>
+                <SectionCard title="Descripción de la sesión:" content={sessionData.description} />
             )}
             {sessionData.schedule_date_time && (
-                <>
-                    <h2 className="text-xl font-bold mb-4 lg:mb-6">Fecha de la sesión:</h2>
-                    <p className="mb-4 lg:mb-6">
-                        {new Date(sessionData.schedule_date_time).toLocaleString()}
-                    </p>
-                </>
+                <SectionCard
+                    title="Fecha de la sesión:"
+                    content={new Date(sessionData.schedule_date_time).toLocaleString()}
+                />
             )}
             {sessionData.duration && (
-                <>
-                    <h2 className="text-xl font-bold mb-4 lg:mb-6">Duración:</h2>
-                    <p className="mb-4 lg:mb-6">{sessionData.duration}</p>
-                </>
+                <SectionCard title="Duración:" content={sessionData.duration} />
             )}
             {sessionData.language_names && (
-                <ItemList items={sessionData.language_names} title="Lenguajes requeridos" />
+                <SectionCard
+                    title="Lenguajes requeridos:"
+                    content={<ItemList items={sessionData.language_names} />}
+                />
             )}
-            <h2 className="text-xl font-bold mb-4 lg:mb-6">Perfil requerido:</h2>
-            <p className="mb-4 lg:mb-6">{sessionData.level_name}</p>
-        </>
-    )
-}
-export default SessionInfoSection
+            <SectionCard title="Perfil requerido:" content={sessionData.level_name} />
+        </div>
+    );
+};
+
+export default SessionInfoSection;
