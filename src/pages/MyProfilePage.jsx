@@ -48,7 +48,7 @@ const MyProfilePage = () => {
                         <img
                             src={user?.photo}
                             alt="Profile"
-                            className="mb-8 rounded-full w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-60 xl:h-60"
+                            className="object-cover mb-8 rounded-full w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-60 xl:h-60"
                         />
                         <div className="flex flex-col gap-2">
                             <p className="text-3xl font-semibold">{user?.name}</p>
