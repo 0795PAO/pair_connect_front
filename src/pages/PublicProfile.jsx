@@ -32,8 +32,8 @@ const PublicProfile = () => {
     }));
   };
 
-
-  if (isDeveloperLoading) {
+  const isLoading = true
+  if (isLoading) {
     return <Loader />;
   }
 
@@ -57,7 +57,7 @@ const PublicProfile = () => {
 
 
   return (
-    <div className="px-8 lg:h-[80vh]">
+    <div className="px-8">
       <h1 className="text-4xl md:text-6xl mb-10 text-primaryText justify-self-start">
         Perfil de <span className="font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">{developer?.username}</span>
       </h1>
@@ -74,7 +74,7 @@ const PublicProfile = () => {
               {developer?.name}
             </p>
             <p className="text-xl font-medium mt-4 text-textPrimary">
-              {developer?.stack ? `Desarrollador ${developer.stack_name}` : `Desarrollador Fullstack`}
+              {developer?.stack  && developer.stack. length > 0 ? `Desarrollador ${developer.stack_name}` : `Desarrollador Fullstack`}
             </p>
           </div>
 
