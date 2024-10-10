@@ -137,7 +137,7 @@ const OwnerSessionDetailsPage = () => {
                     {/* Confirmed Participants Section */}
                     <SectionCard
                         title="Participantes confirmados"
-                        /* content={
+                        content={
                             sessionData.participants.length > 0 ? (
                                 <div className="flex flex-wrap gap-4">
                                     {sessionData.participants.map((user) => (
@@ -150,7 +150,7 @@ const OwnerSessionDetailsPage = () => {
                             ) : (
                                 <p>No hay participantes confirmados.</p>
                             )
-                        } */
+                        }
                     />
                     {/* Interested Participants Section */}
                     <SectionCard
