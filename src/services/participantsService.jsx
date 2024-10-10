@@ -58,12 +58,8 @@ export const checkUserParticipation = async (sessionId, userId) => {
         console.error(err);
         throw err;
     }
-<<<<<<< HEAD
 
 };
-
-
-
 
 
 /* export const getRecommendedUsers = async (sessionId) => {
@@ -76,6 +72,3 @@ export const checkUserParticipation = async (sessionId, userId) => {
         throw err;
     }
 }; */
-=======
-}
->>>>>>> 9c319bcfa9a66083db2f1712b42cd7b2e1490f00
