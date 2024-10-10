@@ -10,7 +10,7 @@ import { useProjects } from "@/hooks/useProjects";
 
 const filterOutPastSessions = (sessions) => {
   const today = new Date();
-  today.setHours(0, 0, 0, 0); 
+  today.setHours(0, 0, 0, 0);
 
   const result = sessions.filter((session) => {
     const sessionDate = new Date(session.schedule_date_time);
@@ -85,7 +85,6 @@ const SessionSection = forwardRef(
     return (
       <div ref={sessionListRef}>
         <section className="max-w-6xl mx-auto mt-5 lg:mt-0">
-          <h3 className="mb-4 text-4xl font-bold">Sesiones Programadas:</h3>
           <div className="my-4 flex justify-end">
             <Button
               variant="outline"
@@ -102,14 +101,16 @@ const SessionSection = forwardRef(
               <CircleChevronRight />
             </Button>
           </div>
-          <SessionList
-            sessions={enrichedSessions}
-            loading={false}
-            error={false}
-            startDate={startDate}
-            currentPage={currentPage}
-            to={to}
-          />
+          <div className="lg:overflow-y-auto max-h-[600px]">
+            <SessionList
+              sessions={enrichedSessions}
+              loading={false}
+              error={false}
+              startDate={startDate}
+              currentPage={currentPage}
+              to={to}
+            />
+          </div>
         </section>
       </div>
     );

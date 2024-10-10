@@ -43,24 +43,28 @@ const HomePage = () => {
         onArrowClick={scrollToSessions}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] md:gap-5">
-        <SessionFilter
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          selectedStack={selectedStack}
-          setSelectedStack={setSelectedStack}
-          selectedLevel={selectedLevel}
-          setSelectedLevel={setSelectedLevel}
-        />
+      <section>
+      <h3 className="mb-10 text-3xl font-bold">Sesiones Programadas:</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] md:gap-5">
 
-        <SessionSection
-          sessions={filteredSessions}
-          loading={loadingSessions}
-          error={error}
-          ref={sessionListRef}
-          to={`/public-sessions/`}
-        />
-      </div>
+          <SessionFilter
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            selectedStack={selectedStack}
+            setSelectedStack={setSelectedStack}
+            selectedLevel={selectedLevel}
+            setSelectedLevel={setSelectedLevel}
+          />
+
+          <SessionSection
+            sessions={filteredSessions}
+            loading={loadingSessions}
+            error={error}
+            ref={sessionListRef}
+            to={`/public-sessions/`}
+          />
+        </div>
+      </section>
       <section className="flex w-full flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">
         <h3 className="mb-6 text-xl font-bold">¡No te lo pienses más!</h3>
         <Button

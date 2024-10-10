@@ -8,7 +8,7 @@ const SessionCard = ({ session, to }) => {
 
   return (
     <li
-      className="special-shadow relative w-full max-w-[280px] sm:max-w-[430px] md:max-w-[588px] p-4 sm:p-5 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 
+      className="special-shadow relative w-full md:max-w-[700px] p-4 md:p-6 rounded-lg border border-neutral-300 dark:border-neutral-800 
     bg-card text-card-foreground my-2 transition-transform duration-300 ease-in-out transform hover:scale-105  cursor-pointer 
     md:min-h-[220px] lg:min-h-[240px] flex flex-col justify-between"
       data-testid="session-card"
