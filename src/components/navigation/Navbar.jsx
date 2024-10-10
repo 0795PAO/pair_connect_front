@@ -15,6 +15,7 @@ const Navbar = () => {
   const [isBreaking, setIsBreaking] = useState(false);
   const [isRestoring, setIsRestoring] = useState(false);
 
+  const logoRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -29,22 +30,30 @@ const Navbar = () => {
     };
   }, [menuRef]);
 
-  const handleLogoClick = () => {
-    setIsBreaking(false);
-    setIsRestoring(false);
-    setTimeout(() => {
-      setIsBreaking(true);
-      setTimeout(() => {
+  useEffect(() => {
+    const handleAnimationEnd = (event) => {
+      if (event.animationName === "breakEffect") {
         setIsBreaking(false);
         setIsRestoring(true);
         navigate("/");
-      }, 400);
-    }, 10);
-  };
-  const handleAnimationEnd = () => {
-    if (isRestoring) {
-      setIsRestoring(false);
+      }
+    };
+
+    const logo = logoRef.current;
+    if (logo) {
+      logo.addEventListener("animationend", handleAnimationEnd);
     }
+
+    return () => {
+      if (logo) {
+        logo.removeEventListener("animationend", handleAnimationEnd);
+      }
+    };
+  }, [navigate]);
+
+  const handleLogoClick = () => {
+    setIsBreaking(true);
+    setIsRestoring(false);
   };
 
   const handleNavLinkClick = () => {
@@ -62,11 +71,15 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <nav className="px-6 py-4 fixed top-0 left-0 right-0 z-50 bg-background" style={{ boxShadow: "var(--shadow-custom)" }}>
+    <nav
+      className="px-6 py-4 fixed top-0 left-0 right-0 z-50 bg-background"
+      style={{ boxShadow: "var(--shadow-custom)" }}
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <Link href="/" onClick={handleLogoClick} className="h-10">
+          <Link to="#" onClick={handleLogoClick} className="h-10">
             <img
+              ref={logoRef}
               src="/logo.svg"
               alt="logo"
               className={`w-[35px] ${isBreaking ? "break" : ""} ${
