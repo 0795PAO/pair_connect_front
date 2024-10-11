@@ -1,6 +1,5 @@
 import {
   getSessionDetails,
-  getProjectForSession,
   getSuggestedSessions,
   getAllSessions,
   createSession,
