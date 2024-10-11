@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 const ActivationPage = () => {
     const { uid, token } = useParams();
     const [activationStatus, setActivationStatus] = useState("");
-    const [isError, setIsError] = useState(false); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,13 +24,14 @@ const ActivationPage = () => {
             } catch (error) {
                 console.log(error);
                 setActivationStatus("Hubo un fallo en la activación. Por favor, inténtalo más tarde.");
-                setIsError(true);
             }
         };
 
         handleActivateAccount();
     }, [uid, token, navigate]);
 
+
+    
     return (
         <div className="relative flex flex-col items-center justify-center">
             <div className="max-w-4xl p-5 text-lg cursor-pointer neon-border2 bg-background">
@@ -51,7 +51,6 @@ const ActivationPage = () => {
                         <Link to="/">
                             <Button
                                 variant="specialShadow"
-                                onClick={() => setIsOpen(true)}
                                 size="lg"
                                 title={"Regresar al Inicio"}
                             >

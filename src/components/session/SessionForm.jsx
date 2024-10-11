@@ -87,6 +87,8 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
       stack_id: stackId,
       language_ids: languageIds,
       schedule_date_time: scheduleDateTime,
+      participant_limit: formData.participant_limit ? parseInt(formData.participant_limit, 10) : 0,
+      is_private: formData.is_private,
     };
 
     try {
@@ -99,7 +101,7 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
 
       toast({
         title: "Éxito",
-        description: "Los datos de la sesión se ha actualizado correctamente!",
+        description: "La sesión se ha creado correctamente!",
         variant: "success",
       });
     } catch (error) {
