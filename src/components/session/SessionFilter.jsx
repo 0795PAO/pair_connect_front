@@ -57,9 +57,9 @@ const SessionFilter = ({
   return (
     <div className="border rounded-lg mouse-light-effect" ref={elementRef}>
       <div className="p-5 card-with-light-effect">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 ">
           <div>
-            <h4 className="my-5">Filtra por lenguajes</h4>
+            <h4 className="my-5 text-center">Filtra por lenguajes</h4>
             <Input
               type="text"
               placeholder="Buscar lenguaje..."
@@ -68,7 +68,7 @@ const SessionFilter = ({
               className="border p-2 mb-4"
             />
 
-            <h4 className="my-5">Filtra por stacks</h4>
+            <h4 className="my-5 text-center">Filtra por stacks</h4>
             <div className="mb-4 flex flex-col justify-evenly items-start gap-5">
               {stacks.map((stack, index) => (
 
@@ -81,20 +81,20 @@ const SessionFilter = ({
               ))}
             </div>
 
-            <h4 className="my-5">Filtra por niveles</h4>
+            <h4 className="my-5 text-center">Filtra por niveles</h4>
             <div className="mb-4 flex flex-col justify-evenly items-start gap-5">
               {levels.map((level, index) => (
                 <CheckBox
                   key={index}
                   label={level.label}
-                  checked={selectedStack.includes(level.label)}
+                  checked={selectedLevel.includes(level.label)}
                   onChange={() => handleLevelChange(level.label)}
                 />
               ))}
             </div>
           </div>
           <div>
-            <h4 className="my-5">Filtra por fecha y hora</h4>
+            <h4 className="my-5 text-center">Filtra por fecha y hora</h4>
             <EventCalendar
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}

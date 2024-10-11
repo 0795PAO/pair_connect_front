@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import { Form } from "../ui/form";
 
-const UpdateLanguageForm =({ options, handleSubmit }) => {
+const UpdateLanguageForm =({ options, handleSubmit, defaultValues }) => {
     const schema = yup.object({
         prog_language: yup.array().of(
             yup.number()
@@ -23,6 +23,7 @@ const UpdateLanguageForm =({ options, handleSubmit }) => {
 
     const form = useForm({
         resolver: yupResolver(schema),
+        defaultValues
     });
 
     const editProfileInputs = [

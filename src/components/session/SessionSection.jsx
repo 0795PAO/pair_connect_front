@@ -41,10 +41,6 @@ const SessionSection = forwardRef(
     } = useSessionFilters(filterOutPastSessions(sessions));
 
 
-    console.log("Filtered sessions:", filteredSessions);
-    console.log("Selected time:", selectedTime);
-    console.log("Selected date:", selectedDate);
-
     const totalPages = getTotalPages(filteredSessions);
 
     const handlePrevious = () => {
@@ -92,7 +88,7 @@ const SessionSection = forwardRef(
 
     return (
       <div ref={sessionListRef}>
-        <section className="w-full grid grid-cols-1 xl:grid-cols-[4fr,5fr] gap-8 xl:gap-20">
+        <section className="w-full grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-[4fr,5fr] gap-8 2xl:gap-16">
           <div>
             <SessionFilter
               searchTerm={searchTerm}
