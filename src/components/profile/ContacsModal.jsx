@@ -24,7 +24,7 @@ const ContactsModal = ({
                 <DialogHeader>
                     <DialogTitle className="my-4">Contactos Developer:</DialogTitle>
                     <DialogDescription>
-                        <ul className="text-foreground flex flex-col gap-4">
+                        <ul className="flex flex-col gap-4 text-foreground">
                             <li><span className="font-bold">Email:</span> <span>{email}</span></li>
                             <li><span className="font-bold">Discord:</span> <span>{discord_link}</span></li>
                             <li><span className="font-bold">Github:</span> <span>{github_link}</span></li>
@@ -42,4 +42,4 @@ const ContactsModal = ({
     );
 };
 
-export default ContactsModal ;
+export default ContactsModal

@@ -1,6 +1,10 @@
+import UnderConstruction from "@/components/profile/UnderConstruction"
+
 const MyProfileBadges = () => {
     return (
-        <div>MyProfileBadges</div>
+        <div>
+            <UnderConstruction />
+        </div>
     )
 }
 export default MyProfileBadges

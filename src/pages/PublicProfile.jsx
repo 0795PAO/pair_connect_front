@@ -11,6 +11,7 @@ import { useDeveloperProfile } from "@/hooks/useDeveloperProfile";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import GoBackButton from "@/components/shared/GoBackButton";
+import { useSendInvitation } from "@/hooks/useSendInvitation";
 
 const PublicProfile = () => {
   const { id, sessionId } = useParams();
@@ -20,6 +21,7 @@ const PublicProfile = () => {
     isError: isDeveloperError,
   } = useDeveloperProfile(id, sessionId);
   const confirmParticipant = useConfirmParticipant();
+  const sendInvitation = useSendInvitation();
 
   const [modalState, setModalState] = useState({
     showPopup: false,
@@ -51,14 +53,19 @@ const PublicProfile = () => {
 
   const handleConfirmDeveloper = () => {
     confirmParticipant.mutate({ sessionId, username: developer?.username });
+    toggleModal("openConfirm", true);
     toggleModal("openConfirm", false);
   };
+
+
+
+  const saveMessage = () => sendInvitation.mutate({ sessionId, id});
 
   // const isConfirmedParticipant = isConfirmed.mutate({ sessionId, })
 
   return (
     <div className="px-8">
-      <GoBackButton text="Volver à la sesión" sessionId={sessionId} />
+      <GoBackButton text="Volver à la sesión"/>
       <h1 className="text-4xl md:text-6xl mb-10 text-primaryText justify-self-start">
         Perfil de{" "}
         <span className="font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">
@@ -146,7 +153,7 @@ const PublicProfile = () => {
       {modalState.showPopup && (
         <PopupWithInput
           closePopup={() => toggleModal("showPopup", false)}
-          saveMessage={() => toggleModal("showPopup", false)}
+          saveMessage={saveMessage}
           title="Contactar Desarrollador"
           subtitle="¿Deseas contactar con este desarrollador?"
           placeholder="Escribe tu mensaje si quieres"
