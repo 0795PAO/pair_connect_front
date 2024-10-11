@@ -7,6 +7,7 @@ import CustomDynamicInput from '../shared/CustomDynamicInput';
 import { Form } from '../ui/form';
 import { SessionCalendar } from '../shared/SessionCalendar';
 import { createSession } from '@/services/sessionService';
+import { useToast } from "@/hooks/useToast";
 
 const schema = yup.object({
   name: yup.string().required('El nombre de la sesión es obligatorio'),
@@ -31,7 +32,7 @@ const schema = yup.object({
 });
 
 const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages, projectId, projectLevelId, stacks, languages, onSessionCreated }) => {
-  // Form state with shared validation schema
+  const { toast } = useToast();
   const form = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -61,24 +62,19 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
   };
 
   const getLanguageOptions = () => {
-    console.log('Fetched languages:', languages);  // Log fetched languages for debugging
-    return projectLanguages.map(lang => ({ value: lang, label: lang }));  // Use projectLanguages array to populate
+    return projectLanguages.map(lang => ({ value: lang, label: lang })); 
   };
 
   const handleFormSubmit = async (formData) => {
-    // Find the stack ID based on the selected stack name
     const stackId = stacks?.find(s => s.label === formData.stack)?.value;
-    // Find the language IDs based on the selected languages
     const languageIds = formData.languages.map(langName => {
       const language = languages?.find(l => l.label === langName);
       return language?.value;
     });
 
-    // Prepare the session data
     const scheduleDateTime = `${formData.date.split("/").reverse().join("-")}T${formData.time}`;
-    // Convert duration to "hh:mm:ss" format
     const [hours, minutes] = formData.duration.split(":");
-    const duration = `${hours}:${minutes}:00`; // Ensures it's in "hh:mm:ss" format
+    const duration = `${hours}:${minutes}:00`;
 
     if (formData.session_link && !formData.session_link.startsWith('http')) {
       formData.session_link = `http://${formData.session_link}`;
@@ -95,21 +91,27 @@ const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, p
 
     try {
       const response = await createSession(sessionData);
-      console.log('Backend response:', response);
-
-      const createdSession = response; // or response.data if your API returns a data object
-      console.log('Session successfully created:', createdSession);
+      const createdSession = response;
 
       if (onSessionCreated) {
         onSessionCreated(createdSession);
       }
 
-      alert('Session created successfully!');
+      toast({
+        title: "Éxito",
+        description: "Los datos de la sesión se ha actualizado correctamente!",
+        variant: "success",
+      });
     } catch (error) {
       if (error.response) {
         console.error('Error response:', error.response.data);
       } else {
         console.error('Error creating session:', error.message);
+        toast({
+          title: "Error",
+          description: "¡Oops! No se ha podido actualizar los datos de la sesión. Por favor, intentalo de nuevo.",
+          variant: "destructive",
+      });
       }
     }
   };

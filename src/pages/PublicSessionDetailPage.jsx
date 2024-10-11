@@ -55,7 +55,7 @@ const PublicSessionDetailPage = () => {
             <h1 className="text-4xl sm:text-7xl md:text-9xl lg:text-10xl xl:text-10xl font-bold mb-2 text-center gradient2-text">
                 {projectData.name}
             </h1>
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <section className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10 items-stretch">
                 <div className="flex flex-col items-start p-3 sm:p-5 text-base sm:text-lg">
                     {/* Imagen del proyecto */}
                     <div className="w-full bg-card text-card-foreground my-1 mb-1 cursor-pointer rounded-lg border border-neutral-300 dark:border-neutral-800 p-4">
