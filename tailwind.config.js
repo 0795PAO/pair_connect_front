@@ -56,7 +56,7 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
-        textPrimary: "hsl(var(--primary-text-color))", 
+        textPrimary: "hsl(var(--primary-text-color))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -74,5 +74,7 @@ export default {
   plugins: [
     require("tailwindcss-animate"),
     require('@tailwindcss/line-clamp'),
+    require('tailwind-scrollbar'),
+
   ],
 };

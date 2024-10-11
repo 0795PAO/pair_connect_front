@@ -4,7 +4,7 @@ const SectionCard = ({ title, content }) => (
         <h2 className="text-2xl font-semibold text-textPrimary hover:text-secondary transition duration-300">
             {title}
         </h2>
-        <p className="mt-4 text-base">{content}</p>
+        <div className="mt-4 text-base">{content}</div>
     </section>
 );
 

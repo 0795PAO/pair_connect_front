@@ -11,18 +11,6 @@ export const getSessionDetails = async (sessionId) => {
   }
 };
 
-export const getProjectForSession = async (projectId) => {
-  try {
-    const response = await api.get(
-      `${SESSION_URLS.GET_PROJECT_BY_ID(projectId)}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching project details:", error);
-    throw error;
-  }
-};
-
 export const getSuggestedSessions = async () => {
   try {
     const response = await api.get(SESSION_URLS.GET_SUGGESTED_SESSIONS);
@@ -53,9 +41,22 @@ export const createSession = async (sessionData) => {
   }
 };
 
+export const updateSession  = async (sessionId, updatedData) => {
+  try {
+    const response = await api.patch(SESSION_URLS.UPDATE_SESSION(sessionId), updatedData);
+    console.log('API Response in service:', response);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating session:", error);
+    throw error;
+  }
+};
+
 export const deleteSession = async (sessionId) => {
   try {
-    const response = await api.delete(SESSION_URLS.GET_SESSION_BY_ID(sessionId));
+    const response = await api.delete(
+      SESSION_URLS.GET_SESSION_BY_ID(sessionId)
+    );
     return response.data;
   } catch (error) {
     console.error("Error deleting session:", error);
@@ -64,12 +65,14 @@ export const deleteSession = async (sessionId) => {
 };
 
 export const getRecommendedUsers = async (sessionId) => {
-    try {
-        const response = await api.get(SESSION_URLS.GET_RECOMMENDED_USERS_FOR_SESSION(sessionId));
-        console.log("Recommended users:", response);
-        return response.data;
-    } catch (err) {
-        console.error(err);
-        throw err;
-    }
+  try {
+    const response = await api.get(
+      SESSION_URLS.GET_RECOMMENDED_USERS_FOR_SESSION(sessionId)
+    );
+    console.log("Recommended users:", response);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
 };
