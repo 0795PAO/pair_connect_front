@@ -1,12 +1,31 @@
 /* eslint-disable react/prop-types */
 import { ArrowLeftIcon } from "lucide-react"
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const GoBackButton = ({ sessionId, text }) => {
+const GoBackButton = ({ text }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [prevLocation, setPrevLocation] = useState(null);
+
+    useEffect(() => {
+        if (location.state?.from) {
+            setPrevLocation(location.state.from);
+        }
+    }, [location]);
+
+
+    const handleGoBack = () => {
+        if (prevLocation) {
+            navigate(prevLocation);
+        } else {
+            navigate('/'); 
+        }
+    };
+
     return (
         <button
-            onClick={() => navigate(`/sessions/${sessionId}`)}
+            onClick={() => handleGoBack()}
             className="text-white hover:text-primary flex items-center mb-4"
         >
             <ArrowLeftIcon className="w-5 h-5 mr-2" />

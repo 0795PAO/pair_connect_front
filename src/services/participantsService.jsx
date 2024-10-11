@@ -72,3 +72,16 @@ export const checkUserParticipation = async (sessionId, userId) => {
         throw err;
     }
 }; */
+
+
+
+export const sendInvitation = async (data) => {
+    console.log ("SessionId:", data.sessionId, "UserId:", data.id, "Data:", data)
+    try {
+        const response = await api.post(`${PARTICIPANT_URLS.SEND_INIVTATION(data.sessionId, data.id)}`, );
+        return response.data;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+}
