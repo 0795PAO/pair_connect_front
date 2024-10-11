@@ -40,6 +40,7 @@ const HomePage = () => {
         ) : sessions && sessions.length === 0 ? (
           <p>No hay sesiones programadas.</p>
         ) : (
+
           <SessionSection sessions={sessions} ref={sessionListRef} to="/public-sessions/"/>
         )
       }
