@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 const UnderConstruction = () => {
     return (
         <div>
-            <div className="flex flex-col items-center px-4 rounded-lg sm:px-6 sm:py-24 bg-card lg:py-32">
+            <div className="flex flex-col items-center px-6 py-16 rounded-lg sm:px-6 sm:py-24 bg-card lg:py-32">
                 <h1 className="mb-16 text-3xl font-bold text-center sm:text-5xl sm:mb-36 bg-secondary">
                     🚧 Under Construction 🚧
                 </h1>

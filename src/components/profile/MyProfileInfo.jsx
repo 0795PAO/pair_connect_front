@@ -68,10 +68,10 @@ const MyProfileInfo = () => {
                     title="Contactos"
                     content={(
                         <ul className="space-y-2 text-lg font-medium">
-                            {user?.email && <li><span className="font-bold">Email:</span> {user.email}</li>}
-                            {user?.github_link && <li><span className="font-bold">Github:</span> {user.github_link}</li>}
-                            {user?.linkedin_link && <li><span className="font-bold">LinkedIn:</span> {user.linkedin_link}</li>}
-                            {user?.discord_link && <li><span className="font-bold">Discord:</span> {user.discord_link}</li>}
+                            {user?.email && <li><span className="font-bold">Email:</span> <span className="break-all">{user.email}</span></li>}
+                            {user?.github_link && <li><span className="font-bold">Github:</span> <span className="break-all">{user.github_link}</span></li>}
+                            {user?.linkedin_link && <li><span className="font-bold">LinkedIn:</span> <span className="break-all">{user.linkedin_link}</span></li>}
+                            {user?.discord_link && <li><span className="font-bold">Discord:</span> <span className="break-all">{user.discord_link}</span></li>}
                         </ul>
                     )}
                 />
