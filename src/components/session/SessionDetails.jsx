@@ -133,7 +133,7 @@ const SessionDetails = ({ isOwner }) => {
       
       {/* Owner-specific Sections */}
       {isOwner && (
-        <div className="grid grid-cols-1 gap-10 items-stretch mt-8">
+        <div className="grid grid-cols-1 gap-4 items-stretch mt-8">
           <SectionCard
             title="Participantes confirmados"
             content={
