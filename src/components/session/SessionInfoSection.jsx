@@ -53,19 +53,28 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
                 <SectionCard title="Nivel de conocimiento:" content={sessionData.level_name} />
             </div>
             {isOwner && (
-                    <SectionCard 
+                    <>
+                        <SectionCard
+                        title="Enlace sesión:"
                         content={
-                            <>
-                                <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
-                                <p>Enlace sesión:  
-                                    {sessionData.session_link ? 
-                                    <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">{sessionData.session_link}</a>
-                                    : " No disponible"}
-                                </p>
-                                <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
-                            </>
+                            sessionData.session_link ? (
+                                <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">
+                                    {sessionData.session_link}
+                                </a>
+                            ) : (
+                                "No disponible"
+                            )
                         }
-                    />
+                        />
+                        <SectionCard 
+                            content={
+                                <>
+                                    <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
+                                    <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
+                                </>
+                            }
+                        />
+                    </>
             )}
         </div>
     );
