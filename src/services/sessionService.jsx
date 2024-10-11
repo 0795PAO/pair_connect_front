@@ -41,6 +41,17 @@ export const createSession = async (sessionData) => {
   }
 };
 
+export const updateSession  = async (sessionId, updatedData) => {
+  try {
+    const response = await api.patch(SESSION_URLS.UPDATE_SESSION(sessionId), updatedData);
+    console.log('API Response in service:', response);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating session:", error);
+    throw error;
+  }
+};
+
 export const deleteSession = async (sessionId) => {
   try {
     const response = await api.delete(

@@ -262,6 +262,7 @@ const ProjectDetails = () => {
                   loading={isLoading}
                   error={isError}
                   projectImageUrl={project.image_url}
+                  projectId={project.id} 
                 />
               ) : (
                 <p className="text-lg mb-4">Crea tu primera sesión</p>
