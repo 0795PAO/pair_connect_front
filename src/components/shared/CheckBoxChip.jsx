@@ -5,7 +5,7 @@ const CheckboxChip = ({ label, checked, onChange }) => {
     return (
         <div
             onClick={onChange}
-            className={`cursor-pointer px-4 py-2 rounded-full font-medium transition-colors duration-300 ease-in-out
+            className={`cursor-pointer px-4 py-2 rounded-full transition-colors duration-300 ease-in-out
             hover:bg-primaryHover
             ${!checked ? "bg-primary text-primary-foreground" : "bg-primaryHover"}
             `}

@@ -38,20 +38,28 @@
     --shadow-white: 0 4px 12px 0 rgba(147, 112, 219, 1);
     --success: 145 63% 49%;
     --success-foreground: 0 0% 100%;
-    --gradient: linear-gradient(to right,
-        rgba(8, 223, 223, 1),
-        rgba(255, 93, 162, 1));
-    --gradient2: linear-gradient(to right,
-        rgba(240, 92, 186, 1),
-        rgba(24, 224, 234, 1),
-        rgba(239, 64, 181, 1));
-    --gradient3: linear-gradient(to right,
-        rgba(255, 93, 162, 1),
-        rgba(147, 112, 219, 1));
-    --gradient4: linear-gradient(to right,
-        rgb(255, 85, 122),
-        rgba(255, 78, 205, 1),
-        rgba(93, 207, 255, 1));
+    --gradient: linear-gradient(
+      to right,
+      rgba(8, 223, 223, 1),
+      rgba(255, 93, 162, 1)
+    );
+    --gradient2: linear-gradient(
+      to right,
+      rgba(240, 92, 186, 1),
+      rgba(24, 224, 234, 1),
+      rgba(239, 64, 181, 1)
+    );
+    --gradient3: linear-gradient(
+      to right,
+      rgba(255, 93, 162, 1),
+      rgba(147, 112, 219, 1)
+    );
+    --gradient4: linear-gradient(
+      to right,
+      rgb(255, 85, 122),
+      rgba(255, 78, 205, 1),
+      rgba(93, 207, 255, 1)
+    );
 
     --mouse-effect-color: 184 72% 45%;
   }
@@ -89,20 +97,28 @@
     --shadow-white: 0 4px 12px 0 rgba(255, 255, 255, 0.5);
     --success: 145 70% 40%;
     --success-foreground: 0 0% 100%;
-    --gradient: linear-gradient(to right,
-        rgba(8, 223, 223, 1),
-        rgba(255, 93, 162, 1));
-    --gradient2: linear-gradient(to right,
-        rgba(219, 62, 180, 1),
-        rgba(238, 213, 224, 1),
-        rgba(219, 62, 180, 1));
-    --gradient3: linear-gradient(to right,
-        rgba(255, 255, 255, 1),
-        rgba(147, 112, 219, 1));
-    --gradient4: linear-gradient(to right,
-        rgb(255, 85, 122),
-        rgba(255, 78, 205, 1),
-        rgba(93, 207, 255, 1));
+    --gradient: linear-gradient(
+      to right,
+      rgba(8, 223, 223, 1),
+      rgba(255, 93, 162, 1)
+    );
+    --gradient2: linear-gradient(
+      to right,
+      rgba(219, 62, 180, 1),
+      rgba(238, 213, 224, 1),
+      rgba(219, 62, 180, 1)
+    );
+    --gradient3: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 1),
+      rgba(147, 112, 219, 1)
+    );
+    --gradient4: linear-gradient(
+      to right,
+      rgb(255, 85, 122),
+      rgba(255, 78, 205, 1),
+      rgba(93, 207, 255, 1)
+    );
 
     --mouse-effect-color: var(--primary);
   }
@@ -151,7 +167,6 @@ body,
   font-family: "Poppins", sans-serif;
 }
 
-
 /* card with light effect */
 .card-with-light-effect {
   position: relative;
@@ -177,10 +192,12 @@ body,
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(150px at var(--mouse-x) var(--mouse-y),
-      hsl(var(--mouse-effect-color)) 0%,
-      rgba(255, 255, 255, 0.2) 40%,
-      transparent 70%);
+  background: radial-gradient(
+    150px at var(--mouse-x) var(--mouse-y),
+    hsl(var(--mouse-effect-color)) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 70%
+  );
   transition: background 0.1s ease-out;
   border-radius: inherit;
 }
@@ -228,7 +245,6 @@ body,
 
 /* arrow */
 @keyframes customBounce {
-
   0%,
   100% {
     transform: translateY(0);
@@ -274,7 +290,6 @@ body,
     background-position: 0% 50%;
   }
 }
-
 
 /* h1 with gradient2 */
 .gradient2-text {
@@ -351,21 +366,20 @@ body,
   padding: 2rem;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.05);
-  background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1)) border-box;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(90deg, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1))
+      border-box;
   border: 2px solid transparent;
-  box-shadow:
-    0 0 10px rgba(8, 223, 223, 0.7),
-    0 0 20px rgba(8, 223, 223, 0.6),
-    0 0 30px rgba(8, 223, 223, 0.5),
-    0 0 20px rgba(240, 92, 186, 0.4),
-    0 0 30px rgba(24, 224, 234, 0.3),
-    0 0 40px rgba(239, 64, 181, 0.2);
+  box-shadow: 0 0 10px rgba(8, 223, 223, 0.7), 0 0 20px rgba(8, 223, 223, 0.6),
+    0 0 30px rgba(8, 223, 223, 0.5), 0 0 20px rgba(240, 92, 186, 0.4),
+    0 0 30px rgba(24, 224, 234, 0.3), 0 0 40px rgba(239, 64, 181, 0.2);
   backdrop-filter: blur(10px);
   transition: box-shadow 1s ease-in-out;
 }
 
 .neon-border:hover {
-  box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9), 0 0 60px rgba(255, 93, 162, 0.8);
+  box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9),
+    0 0 60px rgba(255, 93, 162, 0.8);
 }
 
 /* neon from Fixed Purple and Hover Blue */
@@ -375,12 +389,12 @@ body,
   padding: 2rem;
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.05);
-  background: linear-gradient(var(--background), var(--background)) padding-box, linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(0, 255, 255, 1)) border-box;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(0, 255, 255, 1))
+      border-box;
   border: 2px solid transparent;
 
-  box-shadow:
-    0 0 10px rgba(0, 229, 255, 0.7),
-    0 0 20px rgba(193, 59, 177, 0.6),
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.7), 0 0 20px rgba(193, 59, 177, 0.6),
     0 0 30px rgba(255, 78, 205, 0.5);
 
   backdrop-filter: blur(10px);
@@ -388,8 +402,38 @@ body,
 }
 
 .neon-border2:hover {
-  box-shadow:
-    0 0 25px rgba(255, 78, 205, 1),
-    0 0 50px rgba(34, 214, 199, 0.9),
+  box-shadow: 0 0 25px rgba(255, 78, 205, 1), 0 0 50px rgba(34, 214, 199, 0.9),
     0 0 60px rgba(0, 229, 255, 0.8);
+}
+
+/*Loading*/
+@keyframes pulseEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulseEffect 1.5s ease-in-out infinite;
+}
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.loading-logo {
+  width: 80px;
+  animation: pulseEffect 1.5s infinite;
 }
