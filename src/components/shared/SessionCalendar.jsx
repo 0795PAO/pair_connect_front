@@ -27,10 +27,10 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
   const handleCalendarSelect = (date) => {
     if (!date) return;
     const formattedDate = format(date, "dd/MM/yyyy");
-    console.log("Calendar selected date:", formattedDate); // Log selected date from the calendar
+    console.log("Calendar selected date:", formattedDate); 
 
     onDateChange(formattedDate);
-    form.setValue("date", formattedDate); // Update form's date field
+    form.setValue("date", formattedDate); 
     setCurrentMonth(date);
   };
 
