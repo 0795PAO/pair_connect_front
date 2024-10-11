@@ -38,20 +38,22 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
             {sessionData.description && (
                 <SectionCard title="Descripción de la sesión:" content={sessionData.description} />
             )}
-            <div className="flex gap-4">
-                {sessionData.language_names && (
-                    <SectionCard
-                        title="En esta sesión se va a usar:"
-                        content={
-                            <div className="text-sm leading-tight">
-                                <ItemList items={sessionData.language_names} />
-                            </div>
-                        }
-                    />
-                )}
-                <SectionCard title="Stack de la sesión:" content={sessionData.stack_name} />
-                <SectionCard title="Nivel de conocimiento:" content={sessionData.level_name} />
-            </div>
+            <section className="relative">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-3">
+                    {sessionData.language_names && (
+                        <SectionCard
+                            title="Lenguaje:"
+                            content={
+                                <div className="text-sm leading-tight">
+                                    <ItemList items={sessionData.language_names} />
+                                </div>
+                            }
+                        />
+                    )}
+                    <SectionCard title="Stack:" content={sessionData.stack_name} />
+                    <SectionCard title="Nivel:" content={sessionData.level_name} />
+                </div>
+            </section>
             {isOwner && (
                     <>
                         <SectionCard
