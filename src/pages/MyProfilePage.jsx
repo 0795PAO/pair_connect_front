@@ -61,7 +61,7 @@ const MyProfilePage = () => {
                             </p>
                         </div>
                     </div>
-                </div >
+                </div>
                 <MyProfileNav />
                 <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
                 <div>
