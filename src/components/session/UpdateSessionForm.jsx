@@ -26,22 +26,21 @@ const schema = yup.object({
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`; // Format as YYYY-MM-DD
+        return `${year}-${month}-${day}`;
     };
 
-    // Convert UTC time to local time and format the time
-    const formatTimeToLocal = (dateString) => {
+    const formatTime = (dateString) => {
         const date = new Date(dateString);
-        const localHours = String(date.getUTCHours()).padStart(2, '0');
-        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
-        return `${localHours}:${minutes}`;
-    };    
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };  
 
     const form = useForm({
         resolver: yupResolver(schema),
         defaultValues: {
             date: sessionData?.schedule_date_time ? formatDate(sessionData.schedule_date_time) : '',
-            time: sessionData?.schedule_date_time ? formatTimeToLocal(sessionData.schedule_date_time) : '',
+            time: sessionData?.schedule_date_time ? formatTime(sessionData.schedule_date_time) : '',
             duration: sessionData?.duration.split(":").slice(0, 2).join(":") || '02:00',
             stack: sessionData?.stack_name || '',
             languages: sessionData?.language_names || [],
@@ -68,7 +67,7 @@ const schema = yup.object({
             ...data,
             duration,
             schedule_date_time: scheduleDateTime,
-            participant_limit: data.participant_limit ? parseInt(data.participant_limit, 10) : null,
+            participant_limit: data.participant_limit !== null ? parseInt(data.participant_limit, 10) : 0,
             is_private: Boolean(data.is_private),
         };
         onSubmit(formattedData);

@@ -13,8 +13,8 @@ const ProjectInfoSession = ({ projectData, navigate, sessionId, isOwner }) => {
             <h2 className="text-4xl font-bold text-textPrimary">
                 {projectData.name}
             </h2>
-            <h3 className="text-xl font-bold mt-8 mb-2">Sobre el proyecto:</h3>
-            <p className="mb-6">{projectData.description}</p>
+            <h3 className="text-xl text-left font-bold mt-8 mb-2">Sobre el proyecto:</h3>
+            <p className="mb-6 text-left">{projectData.description}</p>
 
             {!isOwner ? (
                 projectData.owner_id ? (

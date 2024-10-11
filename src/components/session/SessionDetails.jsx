@@ -56,7 +56,7 @@ const SessionDetails = ({ isOwner }) => {
         stack,
         languages,
         description,
-        participant_limit: participant_limit ? parseInt(participant_limit, 10) : null,
+        participant_limit: participant_limit ? parseInt(participant_limit, 10) : 0,
         session_link: session_link ? session_link.startsWith('http') ? session_link : `http://${session_link}` : null,
         is_private,
       };

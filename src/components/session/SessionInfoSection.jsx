@@ -12,17 +12,16 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
 
     const formatTime = (dateString) => {
         const date = new Date(dateString);
-        // Format time based on UTC instead of local time
-        const hours = String(date.getUTCHours()).padStart(2, '0');
-        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${hours}:${minutes}`;
     };
 
     const calculateEndTime = (startTime, duration) => {
         const [hours, minutes] = duration.split(":").map(Number);
         const startDateTime = new Date(startTime);
-        startDateTime.setUTCHours(startDateTime.getUTCHours() + hours);
-        startDateTime.setUTCMinutes(startDateTime.getUTCMinutes() + minutes);
+        startDateTime.setHours(startDateTime.getHours() + hours);
+        startDateTime.setMinutes(startDateTime.getMinutes() + minutes);
         return startDateTime;
     };
 
