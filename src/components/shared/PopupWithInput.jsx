@@ -19,7 +19,7 @@ const PopupWithInput = ({
         <h3 className="text-xl font-bold mb-4">{title}</h3>
         <p className="mb-4">{subtitle}</p>
         <textarea
-          className="border rounded-md p-2 w-full mb-4"
+          className="border rounded-md p-2 w-full mb-4 text-black"
           placeholder={placeholder}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
