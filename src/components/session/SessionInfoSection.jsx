@@ -65,7 +65,7 @@ const SessionInfoSection = ({ sessionData, isOwner, isParticipant }) => {
                                 {sessionData.session_link}
                             </a>
                         ) : (
-                            "No disponible"
+                            "No disponible aún"
                         )
                     }
                 />
