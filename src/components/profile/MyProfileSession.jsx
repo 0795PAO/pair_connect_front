@@ -1,6 +1,10 @@
+import UnderConstruction from "@/components/profile/UnderConstruction"
+
 const MyProfileSession = () => {
     return (
-        <div >MyProfileSession</div>
+        <div>
+            <UnderConstruction />
+        </div>
     )
 }
 export default MyProfileSession
