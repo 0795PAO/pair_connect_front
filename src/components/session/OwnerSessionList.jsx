@@ -39,7 +39,11 @@ const OwnerSessionList = ({ sessions, loading, error, projectId, onSessionDelete
     const sessionsByDate = groupSessionsByDate(sortedSessions);
 
     const handleSessionClick = (sessionId) => {
-        navigate(`/projects/${projectId}/sessions/${sessionId}`);
+        if (projectId) {
+            navigate(`/projects/${projectId}/sessions/${sessionId}`);
+        } else {
+            console.error("Project ID is undefined");
+        }
     };
 
     const handleSessionDelete = async (sessionId) => {

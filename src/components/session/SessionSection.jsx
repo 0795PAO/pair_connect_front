@@ -92,7 +92,7 @@ const SessionSection = forwardRef(
 
     return (
       <div ref={sessionListRef}>
-        <section className="w-full grid grid-cols-1 xl:grid-cols-[4fr,5fr] gap-8">
+        <section className="w-full grid grid-cols-1 xl:grid-cols-[4fr,5fr] gap-8 xl:gap-20">
           <div>
             <SessionFilter
               searchTerm={searchTerm}

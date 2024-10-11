@@ -34,10 +34,12 @@ export const SESSION_URLS = {
   GET_SESSION_BY_ID: (sessionId) =>
     `${API_BASE_URL}projects/sessions/${sessionId}/`,
   CREATE_SESSION: `${API_BASE_URL}projects/sessions/`,
+  UPDATE_SESSION: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/`,
   GET_PROYECT_SESSIONS: (proyectId) =>
     `${API_BASE_URL}projects/project-sessions/${proyectId}`,
   GET_SUGGESTED_SESSIONS: `${API_BASE_URL}projects/users/suggested-sessions/`,
   GET_RECOMMENDED_USERS_FOR_SESSION: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/suggested-developers/`,
+  
 }; 
 
 export const PARTICIPANT_URLS = {
@@ -46,4 +48,5 @@ export const PARTICIPANT_URLS = {
   GET_CHECK_IF_INTERESTED: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-interest/`,
   CONFIRM_PARTICIPANT: (sessionId) => `${API_BASE_URL}projects/sessions/${sessionId}/confirm-participant/`,
   CHECK_IF_PARTICIPANT: (sessionId, userId) => `${API_BASE_URL}projects/sessions/${sessionId}/check-participant/${userId}`,
+  SEND_INIVTATION: (sessionId, userId) => `${API_BASE_URL}projects/sessions/${sessionId}/developers/${userId}/invite/`,
 };
