@@ -89,6 +89,8 @@ const SessionDetails = ({ isOwner }) => {
     return <p>Error loading session or project details.</p>;
   }
 
+  const isParticipant = sessionData.participants.some((participant) => participant.id === userProfile.id);
+  
   const saveMessage = () => mutation.mutate({ session: sessionId });
 
   const filteredInterestedParticipants = interestedParticipants?.filter(
@@ -118,7 +120,7 @@ const SessionDetails = ({ isOwner }) => {
             />
           ) : (
             <>
-              <SessionInfoSection sessionData={sessionData} isOwner={isOwner} />
+              <SessionInfoSection sessionData={sessionData} isOwner={isOwner} isParticipant={isParticipant}/>
               {isOwner && (
                 <button onClick={handleEditSessionClick} className="absolute top-0 right-0">
                   <Edit className="w-7 h-7 text-gray-500 hover:text-primary" />

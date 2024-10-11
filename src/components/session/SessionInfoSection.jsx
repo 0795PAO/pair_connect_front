@@ -1,7 +1,7 @@
 import ItemList from "../shared/ItemList";
 import SectionCard from "../profile/SectionCard";
 
-const SessionInfoSection = ({ sessionData, isOwner }) => {
+const SessionInfoSection = ({ sessionData, isOwner, isParticipant }) => {
     const formatCustomDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -31,6 +31,8 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
     const durationText = `${parseInt(sessionData.duration.split(":")[0], 10)}h${sessionData.duration.split(":")[1] > 0 ? ' ' + sessionData.duration.split(":")[1] + "m" : ""}`;
     const sessionDateTime = `${formattedDate}\n${startTime} - ${endTime} [${durationText}]`;
 
+    const shouldShowSessionLink = isOwner || isParticipant || !sessionData.is_private;
+
     return (
         <div className="flex flex-col justify-between gap-4">
             <SectionCard title="Fecha y hora de la sesión:" content={sessionDateTime} />
@@ -54,29 +56,29 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
                     <SectionCard title="Nivel:" content={sessionData.level_name} />
                 </div>
             </section>
+            {shouldShowSessionLink && (
+                <SectionCard
+                    title="Enlace sesión:"
+                    content={
+                        sessionData.session_link ? (
+                            <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">
+                                {sessionData.session_link}
+                            </a>
+                        ) : (
+                            "No disponible"
+                        )
+                    }
+                />
+            )}
             {isOwner && (
-                    <>
-                        <SectionCard
-                        title="Enlace sesión:"
-                        content={
-                            sessionData.session_link ? (
-                                <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">
-                                    {sessionData.session_link}
-                                </a>
-                            ) : (
-                                "No disponible"
-                            )
-                        }
-                        />
-                        <SectionCard 
-                            content={
-                                <>
-                                    <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
-                                    <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
-                                </>
-                            }
-                        />
-                    </>
+                <SectionCard
+                    content={
+                        <>
+                            <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
+                            <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
+                        </>
+                    }
+                />
             )}
         </div>
     );
