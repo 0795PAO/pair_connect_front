@@ -1,7 +1,8 @@
 // SessionDetails.jsx
+import { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import SectionCard from "@/components/profile/SectionCard";
-import ItemList from "@/components/shared/ItemList";
 import ProjectInfoSession from "@/components/session/ProjectInfoSession";
 import SessionInfoSection from "@/components/session/SessionInfoSection";
 import FutureSessionList from "@/components/session/FutureSessionList";
@@ -9,6 +10,7 @@ import HeroButton from "@/components/landing/HeroButton";
 import PopupWithInput from "@/components/shared/PopupWithInput";
 import SimplePopUp from "@/components/shared/SimplePopUp";
 import Loader from "@/components/shared/Loader";
+import UpdateSessionForm from "@/components/session/UpdateSessionForm";
 import { useProfile } from "@/hooks/useProfile";
 import { useSessionDetails } from "@/hooks/useSessionDetails";
 import { useProjectDetails } from "@/hooks/useProjectDetails";
@@ -17,11 +19,15 @@ import { useGetRecommendedUsers } from "@/hooks/useGetRecommendedUsers";
 import { useCheckIfInterested } from "@/hooks/useCheckIfInterested";
 import useShowInterestInSession from "@/hooks/useShowInterestInSession";
 import { useFutureSessions } from "@/hooks/useFutureSessions";
-import { ArrowLeft } from "lucide-react";
+import { useToast } from "@/hooks/useToast";
+import { ArrowLeft, Edit } from "lucide-react";
+import { updateSession } from "@/services/sessionService";
 
 const SessionDetails = ({ isOwner }) => {
   const { sessionId } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { data: userProfile, isLoading: isUserLoading } = useProfile();
   const { data: sessionData, isLoading: isSessionLoading, isError: isSessionError } = useSessionDetails(sessionId);
   const { data: projectData, isLoading: isProjectLoading, isError: isProjectError } = useProjectDetails(sessionData?.project_id);
@@ -30,6 +36,50 @@ const SessionDetails = ({ isOwner }) => {
   const { data: futureSessions } = useFutureSessions(projectData?.id, sessionData?.schedule_date_time);
   const { data: isInterested, isLoading: isInterestedLoading } = useCheckIfInterested(sessionId);
   const { showPopup, showSignupPopup, setShowSignupPopup, closePopup, mutation } = useShowInterestInSession();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEditSessionClick = () => {
+    setIsEditing(true);
+  };
+  
+  const handleFormSubmit = async (updatedData) => {
+    
+      const { date, time, duration, stack, languages, description, participant_limit, session_link, is_private } = updatedData;
+      if (!date || !time) {
+        console.error("Date or time is undefined.");
+        return;
+      }
+      
+      const formattedData = {
+        schedule_date_time: `${date}T${time}`,
+        duration: duration.includes(":") ? duration : `${duration}:00`,
+        stack,
+        languages,
+        description,
+        participant_limit: participant_limit ? parseInt(participant_limit, 10) : null,
+        session_link: session_link ? session_link.startsWith('http') ? session_link : `http://${session_link}` : null,
+        is_private,
+      };
+
+      try {
+        await updateSession(sessionId, formattedData);
+
+      setIsEditing(false);
+      queryClient.invalidateQueries(["sessionDetails", sessionId]);
+      toast({
+        title: "Éxito",
+        description: "Los datos de la sesión se ha actualizado correctamente!",
+        variant: "success",
+      });
+      } catch (error) {
+        console.error('API Error:', error.response ? error.response.data : error.message);
+        toast({
+            title: "Error",
+            description: "¡Oops! No se ha podido actualizar los datos de la sesión. Por favor, intentalo de nuevo.",
+            variant: "destructive",
+        });
+    }
+  };
 
   if (isSessionLoading || isProjectLoading || isInterestedLoading || isUserLoading) {
     return <Loader />;
@@ -57,9 +107,26 @@ const SessionDetails = ({ isOwner }) => {
       <h1 className="text-4xl md:text-6xl mb-10 gradient2-text font-bold justify-self-start">Detalles de la sesión</h1>
       
       {/* Project and Session Info */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 mb-8 gap-8">
-        <ProjectInfoSession projectData={projectData} navigate={navigate} sessionId={sessionId} isOwner={isOwner}  />
-        <SessionInfoSection sessionData={sessionData} />
+      <section className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10 items-stretch">
+        <ProjectInfoSession projectData={projectData} navigate={navigate} sessionId={sessionId} isOwner={isOwner} />
+        <div className="relative">
+          {isEditing ? (
+            <UpdateSessionForm
+              sessionData={sessionData}
+              onSubmit={handleFormSubmit}
+              onCancel={() => setIsEditing(false)}
+            />
+          ) : (
+            <>
+              <SessionInfoSection sessionData={sessionData} isOwner={isOwner} />
+              {isOwner && (
+                <button onClick={handleEditSessionClick} className="absolute top-0 right-0">
+                  <Edit className="w-7 h-7 text-gray-500 hover:text-primary" />
+                </button>
+              )}
+            </>
+          )}
+        </div>
       </section>
       
       {/* Owner-specific Sections */}
