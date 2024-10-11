@@ -75,3 +75,29 @@ export const activateAccount = async (data) => {
     }
 };
 
+
+
+export const forgotPassword = async (data) => {
+    try {
+        const response = await api.post(AUTH_URLS.FORGOT_PASSWORD, data.email);
+        return response;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
+export const resetPassword = async (data) => {
+    console.log("Data:", data)
+    try {
+        const response = await api.post(AUTH_URLS.RESET_PASSWORD, data);
+        return response;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+
+

@@ -50,7 +50,7 @@ export const EventCalendar = ({
   };
 
   const handleMonthChange = (month) => {
-    setCurrentMonth(month); 
+    setCurrentMonth(month);
   };
 
 
@@ -64,15 +64,16 @@ export const EventCalendar = ({
         onChange={handleDateInputChange}
       />
 
-      <CalendarComponent
-        mode="single"
-        selected={selectedDate}
-        onSelect={handleDateSelect}
-        month={currentMonth}
-        onMonthChange={handleMonthChange}
-        className="rounded-md border w-[250px] mx-auto"
-      />
+      <div className="relative overflow-x-auto max-w-full">
 
+        <CalendarComponent
+          mode="single"
+          selected={selectedDate}
+          onSelect={handleDateSelect}
+          month={currentMonth}
+          onMonthChange={handleMonthChange}
+          className="rounded-md border w-[250px] mx-auto" />
+      </div>
       <label htmlFor="select"> Seleccione la hora</label>
       <Select value={selectedTime} onValueChange={setSelectedTime} name="time">
         <SelectTrigger className="w-[180px]">

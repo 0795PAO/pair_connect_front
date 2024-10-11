@@ -13,10 +13,11 @@ import { deleteProject, updateProjectImage, updateProject } from "@/services/pro
 import { getInterestedParticipantsPerSession } from "@/services/participantsService";
 import { useQueryClient } from '@tanstack/react-query';
 import UpdateProjectForm from '@/components/project/UpdateProjectForm';
+import { findMatchedValues } from "@/utils/findMatchedValues";
 
 const ProjectDetails = () => {
   const queryClient = useQueryClient();
-  const { id } = useParams(); // Get project ID from the URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const { data: project, isLoading, isError } = useProjectDetails(id);
   const { data: stacks } = useStacks();
@@ -30,21 +31,13 @@ const ProjectDetails = () => {
   const fileInputRef = useRef(null);
   
 
-  /* useEffect(() => {
-    if (project && project.image_url) {
-      setProjectImage(project.image_url);
-    }
-  }, [project]); */
-
   useEffect(() => {
     if (project) {
       if (project.image_url) {
         setProjectImage(project.image_url);
       }
       
-      if (project.sessions) {
-        console.log("Project Sessions Data:", project.sessions);
-        
+      if (project.sessions) {        
         const fetchInterestedUsers = async () => {
           const sessionsWithInterestedUsers = await Promise.all(
             project.sessions.map(async (session) => {
@@ -68,6 +61,8 @@ const ProjectDetails = () => {
 
   if (isLoading) return <Loader />;
   if (isError || !project) return <p>Error loading project or project not found.</p>;
+
+  const { matchedStack, matchedLanguages, matchedLevel } = findMatchedValues(project, stacks, languages, levels);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -102,11 +97,6 @@ const ProjectDetails = () => {
     }
   };
 
-  const matchedStack = stacks?.find(s => s.label === project.stack_name)?.value || ""; 
-  const matchedLanguages = project.language_names
-    ? project.language_names.map(lang => languages?.find(l => l.label === lang)?.value || "")
-    : [];
-  const matchedLevel = levels?.find(l => l.label === project.level_name)?.value || "";
 
   const handleCreateSessionClick = () => {
     setIsCreatingSession(true);
@@ -145,8 +135,6 @@ const ProjectDetails = () => {
     fileInputRef.current.click();
   };
 
-  // Check if the project has sessions
-  const hasSessions = project.sessions && project.sessions.length > 0;
 
   return (
     <div className="flex items-center justify-center min-h-screen">

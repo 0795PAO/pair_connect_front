@@ -6,6 +6,7 @@ import { useRegister } from "@/hooks/useRegister";
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import { useState, useRef } from "react";
 import TeamList from "@/components/about/TeamList";
+import Loader from "@/components/shared/Loader";
 
 const AboutUsPage = () => {
   const [isOpen, setIsOpen] = useState(false);

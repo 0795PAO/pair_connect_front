@@ -17,6 +17,8 @@ import MyProfileSession from "@/components/profile/MyProfileSession";
 import PublicSessionDetailPage from "@/pages/PublicSessionDetailPage";
 import PublicProfile from "@/pages/PublicProfile";
 import OwnerSessionDetailsPage from "@/pages/OwnerSessionDetailsPage";
+import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
+import ResetPassword from "@/pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +49,14 @@ const router = createBrowserRouter([
         path: "/public-sessions/:sessionId",
         element: <PublicSessionDetailPage />,
       },
+      {
+        path: "/forgot-password/",
+        element: <ForgotPasswordPage/>
+      },
+      {
+        path: "password/reset/confirm/:uid/:token",
+        element: <ResetPassword />
+      }
 
 
     ],
