@@ -40,7 +40,8 @@ const HomePage = () => {
         ) : sessions && sessions.length === 0 ? (
           <p>No hay sesiones programadas.</p>
         ) : (
-          <SessionSection sessions={sessions} ref={sessionListRef} to="/public-session/"/>
+
+          <SessionSection sessions={sessions} ref={sessionListRef} to="/public-sessions/"/
         )
       }
       <section className="flex w-full flex-col items-center justify-center gap-5 mt-20 mb-20 text-center">

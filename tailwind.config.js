@@ -9,6 +9,7 @@ export default {
         custom: 'var(--shadow-custom)',
         special: 'var(--special-shadow)',
         white: 'var(--shadow-white)',
+        'neon-blue': '0 0 20px rgba(0, 128, 255, 0.6), 0 0 40px rgba(0, 128, 255, 0.4)',
       },
       backgroundImage: {
         gradient: 'var(--gradient)',
