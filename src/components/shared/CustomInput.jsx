@@ -20,6 +20,7 @@ const CustomInput = ({
   label,
   placeholder,
   description,
+  className,
   name,
   form,
   type,
@@ -32,7 +33,7 @@ const CustomInput = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel htmlFor={name}>{label}</FormLabel>
+          <FormLabel htmlFor={name} className={className}>{label}</FormLabel>
           <FormControl>
             {type === "select" ? (
               <Select value={field.value || ""} onValueChange={field.onChange}>
@@ -65,6 +66,7 @@ const CustomInput = ({
                 id={name}
                 {...field}
                 value={field.value || ""}
+                className={className}
               />
             )}
           </FormControl>

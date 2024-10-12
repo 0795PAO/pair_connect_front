@@ -17,6 +17,7 @@ import { useLevels } from '@/hooks/useLevels';
 import ContactForm from './ContactForm';
 import UpdateLanguageForm from './UpdateLanguageForm';
 import { useUpdateProgLanguages } from '@/hooks/useUpdateProgLanguages';
+import { findMatchedValues } from '@/utils/findMatchedValues';
 
 
 const UpdateProfileModal = ({ open, onOpenChange, type }) => {
@@ -26,6 +27,8 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
     const { data: levels, isLoading: isLevelsLoading } = useLevels();
     const updateProfileMutation = useUpdateProfile()
     const updateProfileLanguageMutation = useUpdateProgLanguages()
+
+    console.log("User data:", user)
 
     const handleLanguageSubmit = (data) => {
         updateProfileLanguageMutation.mutate(data, {
@@ -40,6 +43,9 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
 
         });
     };
+
+    const { matchedStack, matchedLanguages, matchedLevel } = findMatchedValues(user, stacks, languages, levels);
+
 
     if (isLanguagesLoading || isStacksLoading || isUserLoading || isLevelsLoading) {
         return <Loader />
@@ -57,10 +63,19 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
                     </DialogDescription>
                     {
                         type === 'about_avatar' ?
-                            <AboutMeForm  handleSubmit={handleSubmit} defaultValues={{ photo: user?.photo, about_me: user?.about_me}}/>
-                        : type === 'contact' ?
-                            <ContactForm  handleSubmit={handleSubmit} user={user}/>
-                        : <UpdateLanguageForm handleSubmit={handleLanguageSubmit} options={{ languages, stacks, levels }} user={user} />
+                            <AboutMeForm handleSubmit={handleSubmit} defaultValues={{ photo: user?.photo, about_me: user?.about_me }} />
+                            : type === 'contact' ?
+                                <ContactForm handleSubmit={handleSubmit} user={user} />
+                                : <UpdateLanguageForm
+                                    handleSubmit={handleLanguageSubmit}
+                                    options={{ languages, stacks, levels }}
+                                    user={user}
+                                    defaultValues={{
+                                        stack: matchedStack,
+                                        prog_language: matchedLanguages,
+                                        level: matchedLevel,
+                                    }}
+                                />
                     }
                 </DialogHeader>
             </DialogContent>

@@ -7,7 +7,7 @@ const FutureSessionList = ({ futureSessions }) => {
             {futureSessions.map((futureSession) => (
                 <li key={futureSession.id}>
                     <button
-                        className="text-blue-500 underline"
+                        className="text-base hover:text-primary flex items-center mt-0 mb-2"
                         onClick={() => navigate(`/sessions/${futureSession.id}`)}
                     >
                         {new Date(futureSession.schedule_date_time).toLocaleString()}{" "}

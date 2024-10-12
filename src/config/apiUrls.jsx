@@ -6,6 +6,8 @@ export const AUTH_URLS = {
   REFRESH: `${API_BASE_URL}auth/jwt/refresh/`,
   LOGOUT: `${API_BASE_URL}auth/logout/`,
   ACTIVATE: `${API_BASE_URL}auth/users/activation/`,
+  FORGOT_PASSWORD: `${API_BASE_URL}auth/users/reset_password/`,
+  RESET_PASSWORD: `${API_BASE_URL}auth/users/reset_password_confirm/`,
 };
 
 export const PROFILE_URLS = {

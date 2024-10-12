@@ -4,7 +4,7 @@ import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 import { Link } from "react-router-dom";
 
 const SessionCard = ({ session, to }) => {
-  const imageUrl = session.projectImageUrl || "/neon2.png";
+  const imageUrl = session.project_image_url || "/neon2.png";
 
   return (
     <li
