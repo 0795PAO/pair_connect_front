@@ -89,6 +89,8 @@ const SessionDetails = ({ isOwner }) => {
     return <p>Error loading session or project details.</p>;
   }
 
+  const isParticipant = sessionData.participants.some((participant) => participant.id === userProfile.id);
+
   const saveMessage = () => mutation.mutate({ session: sessionId });
 
   const filteredInterestedParticipants = interestedParticipants?.filter(
@@ -96,9 +98,9 @@ const SessionDetails = ({ isOwner }) => {
   );
 
   return (
-    <div className="p-6">
+    <div className="px-6 pt-0 mt-0 ">
       <button
-        onClick={() => navigate(`/projects/${projectData.id}`)}
+        onClick={() => navigate(-1)}
         className="text-white hover:text-primary flex items-center mt-0 mb-4"
       >
         <ArrowLeft className="w-5 h-5 mr-2" />
@@ -118,7 +120,7 @@ const SessionDetails = ({ isOwner }) => {
             />
           ) : (
             <>
-              <SessionInfoSection sessionData={sessionData} isOwner={isOwner} />
+              <SessionInfoSection sessionData={sessionData} isOwner={isOwner} isParticipant={isParticipant}/>
               {isOwner && (
                 <button onClick={handleEditSessionClick} className="absolute top-0 right-0">
                   <Edit className="w-7 h-7 text-gray-500 hover:text-primary" />
@@ -131,7 +133,7 @@ const SessionDetails = ({ isOwner }) => {
       
       {/* Owner-specific Sections */}
       {isOwner && (
-        <div className="grid grid-cols-1 gap-10 items-stretch mt-8">
+        <div className="grid grid-cols-1 gap-4 items-stretch mt-8">
           <SectionCard
             title="Participantes confirmados"
             content={
@@ -194,10 +196,16 @@ const SessionDetails = ({ isOwner }) => {
 
       {/* Future Sessions */}
       {!isOwner && futureSessions?.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Futuras Sesiones</h2>
-          <FutureSessionList futureSessions={futureSessions} />
-        </section>
+        <div className="mt-4"> 
+        <SectionCard 
+          title="Futuras Sesiones" 
+          content={
+            <div>
+              <FutureSessionList futureSessions={futureSessions} />
+            </div>
+          } 
+        />
+        </div> 
       )}
 
       {/* Interest Button */}
