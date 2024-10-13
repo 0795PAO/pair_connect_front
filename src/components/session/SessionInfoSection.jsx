@@ -44,7 +44,7 @@ const SessionInfoSection = ({ sessionData, isOwner, isParticipant }) => {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-3">
                     {sessionData.language_names && (
                         <SectionCard
-                            title="Lenguaje:"
+                            title="Lenguajes y Frameworks:"
                             content={
                                 <div className="text-sm leading-tight">
                                     <ItemList items={sessionData.language_names} />
