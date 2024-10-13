@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const SessionCard = ({ session, to }) => {
   const imageUrl = session.project_image_url || "/neon2.png";
+  const hostImage = session.owner_avatar_url || "/avatar_no_bg.png";
 
   return (
     <li
@@ -55,11 +56,7 @@ const SessionCard = ({ session, to }) => {
           </div>
           <div className="flex items-center gap-2 sm:gap-2">
             <img
-              src={`${
-                session.host_avatar_url
-                  ? session.host_avatar_url
-                  : "/avatar_no_bg.png"
-              }`}
+              src={hostImage}
               alt={`${session.owner_name}'s avatar`}
               className="w-8 h-8 rounded-full sm:w-6 sm:h-6 md:w-8 md:h-8"
             />
