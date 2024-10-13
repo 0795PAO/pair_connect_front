@@ -14,14 +14,14 @@ const ProjectInfoSession = ({ projectData, navigate, sessionId, isOwner }) => {
                     {projectData.name}
                 </h2>
             </div>
-            <div className="mt-12 mb-2">
+            <div className="mt-8 mb-2">
                 <h3 className="text-xl text-left font-bold mt-8 mb-2">Sobre el proyecto:</h3>
                 <p className="mb-6 text-left">{projectData.description}</p>
             </div>
             {!isOwner ? (
                 projectData.owner_id ? (
-                    <div className="mt-4 mb-4 text-left w-full">
-                        <h2 className="text-xl font-bold mb-4">Responsable del proyecto:</h2>
+                    <div className="mt-8 mb-2 text-left w-full">
+                        <h2 className="text-xl font-bold mb-2">Responsable del proyecto:</h2>
                         <div className="flex items-center space-x-4">
                             {projectData.owner_avatar_url && (
                                 <img

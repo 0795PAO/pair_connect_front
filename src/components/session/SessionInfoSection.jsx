@@ -1,7 +1,7 @@
 import ItemList from "../shared/ItemList";
 import SectionCard from "../profile/SectionCard";
 
-const SessionInfoSection = ({ sessionData, isOwner }) => {
+const SessionInfoSection = ({ sessionData, isOwner, isParticipant }) => {
     const formatCustomDate = (dateString) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -31,6 +31,8 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
     const durationText = `${parseInt(sessionData.duration.split(":")[0], 10)}h${sessionData.duration.split(":")[1] > 0 ? ' ' + sessionData.duration.split(":")[1] + "m" : ""}`;
     const sessionDateTime = `${formattedDate}\n${startTime} - ${endTime} [${durationText}]`;
 
+    const shouldShowSessionLink = isOwner || isParticipant || !sessionData.is_private;
+
     return (
         <div className="flex flex-col justify-between gap-4">
             <SectionCard title="Fecha y hora de la sesión:" content={sessionDateTime} />
@@ -38,43 +40,45 @@ const SessionInfoSection = ({ sessionData, isOwner }) => {
             {sessionData.description && (
                 <SectionCard title="Descripción de la sesión:" content={sessionData.description} />
             )}
-            <div className="flex gap-4">
-                {sessionData.language_names && (
-                    <SectionCard
-                        title="En esta sesión se va a usar:"
-                        content={
-                            <div className="text-sm leading-tight">
-                                <ItemList items={sessionData.language_names} />
-                            </div>
-                        }
-                    />
-                )}
-                <SectionCard title="Stack de la sesión:" content={sessionData.stack_name} />
-                <SectionCard title="Nivel de conocimiento:" content={sessionData.level_name} />
-            </div>
-            {isOwner && (
-                    <>
+            <section className="relative">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-3">
+                    {sessionData.language_names && (
                         <SectionCard
-                        title="Enlace sesión:"
-                        content={
-                            sessionData.session_link ? (
-                                <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">
-                                    {sessionData.session_link}
-                                </a>
-                            ) : (
-                                "No disponible"
-                            )
-                        }
-                        />
-                        <SectionCard 
+                            title="Lenguaje:"
                             content={
-                                <>
-                                    <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
-                                    <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
-                                </>
+                                <div className="text-sm leading-tight">
+                                    <ItemList items={sessionData.language_names} />
+                                </div>
                             }
                         />
-                    </>
+                    )}
+                    <SectionCard title="Stack:" content={sessionData.stack_name} />
+                    <SectionCard title="Nivel:" content={sessionData.level_name} />
+                </div>
+            </section>
+            {shouldShowSessionLink && (
+                <SectionCard
+                    title="Enlace sesión:"
+                    content={
+                        sessionData.session_link ? (
+                            <a href={sessionData.session_link} target="_blank" rel="noopener noreferrer">
+                                {sessionData.session_link}
+                            </a>
+                        ) : (
+                            "No disponible aún"
+                        )
+                    }
+                />
+            )}
+            {isOwner && (
+                <SectionCard
+                    content={
+                        <>
+                            <p>Límite de participantes: {sessionData.participant_limit ? sessionData.participant_limit : "Sin límite"}</p>
+                            <p>{sessionData.is_private ? "Sesión privada" : "Sesión pública"}</p>
+                        </>
+                    }
+                />
             )}
         </div>
     );

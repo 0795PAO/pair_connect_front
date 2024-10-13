@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from "../ui/button";
 
-
 const schema = yup.object({
     github_link: yup.string().nullable(),
     linkedin_link: yup.string().nullable(),
@@ -23,7 +22,6 @@ const ContactForm = ({ handleSubmit, user }) => {
         } : {},
     });
 
-
     const inputs = [
         {
             name: 'linkedin_link',
@@ -36,7 +34,7 @@ const ContactForm = ({ handleSubmit, user }) => {
             name: 'github_link',
             type: 'text',
             placeholder: 'https://github.com/username',
-            label: 'Github',
+            label: 'GitHub',
 
         },
         {
@@ -48,11 +46,24 @@ const ContactForm = ({ handleSubmit, user }) => {
         }
     ];
 
+    const handleSubmitWithHttp = (formData) => {
+        const { github_link, linkedin_link, discord_link } = formData;
+        if (github_link && !github_link.startsWith('http')) {
+            formData.github_link = `http://${github_link}`;
+        }
+        if (linkedin_link && !linkedin_link.startsWith('http')) {
+            formData.linkedin_link = `http://${linkedin_link}`;
+        }
+        if (discord_link && !discord_link.startsWith('http')) {
+            formData.discord_link = `http://${discord_link}`;
+        }
+        handleSubmit(formData);
+    }
 
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5 my-5">
+            <form onSubmit={form.handleSubmit(handleSubmitWithHttp)} role="form" className="flex flex-col gap-5 my-5">
                 {inputs.map((input) => (
                     <CustomDynamicInput
                         key={input.name}

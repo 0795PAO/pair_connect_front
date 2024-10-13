@@ -2,7 +2,7 @@ import UpdateProfileModal from "@/components/profile/UpdateProfileModal";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useProfile } from "@/hooks/useProfile";
-import { Edit, Trash } from "lucide-react";
+import { Edit } from "lucide-react";
 import { useState } from "react";
 import MyProfileNav from "@/components/profile/MyProfileNav";
 import { Outlet } from 'react-router-dom';
@@ -33,10 +33,19 @@ const MyProfilePage = () => {
             <section className="container mx-auto p-6 max-w-[100rem]">
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10">
                     <div className="relative flex flex-col items-center p-6 py-24 rounded-lg bg-card">
-                        <p className="mb-2 text-3xl font-bold text-center sm:text-4xl md:text-4xl" style={{ fontFamily: "Source Code Pro" }} title="Saludo al usuario">
+                        <p 
+                            className="mb-2 text-2xl font-bold text-center sm:text-3xl md:text-3xl" 
+                            style={{ fontFamily: "Source Code Pro" }} 
+                            title="Saludo al usuario"
+                            aria-label={`Hola, ${user?.username || 'usuario'}`}
+                        >
                             Hola,
                         </p>
-                        <h1 className="mb-4 text-4xl font-bold text-center font-poppins sm:text-5xl md:text-5xl gradient4-text" title="Nombre del usuario">
+                        <h1 
+                            className="mb-8 text-4xl font-bold text-center font-poppins sm:text-5xl md:text-5xl gradient4-text" 
+                            title="Nombre del usuario"
+                            aria-label={`Nombre del usuario: ${user?.username}`}
+                        >
                             {user?.username}
                         </h1>
                         <div className="absolute flex gap-2 top-6 right-4">
@@ -48,28 +57,30 @@ const MyProfilePage = () => {
                                 aria-label="Editar perfil"
                                 title="Editar perfil"
                             >
-                                <Edit />
-                            </Button>
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="font-light transition-transform duration-200 transform hover:text-primary hover:scale-110"
-                                aria-label="Eliminar perfil"
-                                title="Eliminar perfil"
-                            >
-                                <Trash />
+                                <Edit aria-hidden="true" />
                             </Button>
                         </div>
                         <img
                             src={user?.photo}
-                            alt="Profile"
+                            alt={`Foto de perfil de ${user?.username}`}
                             className="object-cover mb-8 transition-shadow duration-300 rounded-full shadow-md w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-60 xl:h-60 hover:shadow-lg"
                             title="Foto de perfil del usuario"
                         />
-                        <div className="flex flex-col gap-4 mt-6 text-center">
-                            <p className="text-2xl font-semibold text-left sm:text-3xl md:text-3xl" title="Nombre completo del usuario">{user?.name}</p>
-                            <p className="text-base text-left cursor-pointer md:text-md lg:text-lg line-clamp-5" title="Descripción del usuario" onClick={() => setIsModalOpen(true)}>
-                                {user?.about_me ? user.about_me : "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"}
+                        <div className="flex flex-col gap-4 mt-6 text-left">
+                            <p 
+                                className="text-2xl font-semibold text-left sm:text-3xl md:text-3xl" 
+                                title="Nombre completo del usuario"
+                                aria-label={`Nombre completo: ${user?.name}`}
+                            >
+                                {user?.name}
+                            </p>
+                            <p 
+                                className="text-base cursor-pointer md:text-md lg:text-lg line-clamp-5" 
+                                title="Descripción del usuario" 
+                                onClick={() => setIsModalOpen(true)}
+                                aria-label={`Descripción del usuario: ${user?.about_me}`}
+                            >
+                                {user?.about_me ? user.about_me : "¡Todavía no se ha escrito una historia, pero seguro que está creando algo genial! 🎉🚀"}
                             </p>
                         </div>
                     </div>
@@ -87,14 +98,27 @@ const MyProfilePage = () => {
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
                     onClick={() => setIsModalOpen(false)}
+                    aria-modal="true"
+                    role="dialog"
+                    aria-labelledby="modal-title"
+                    aria-describedby="modal-description"
                 >
                     <div
                         className="max-w-lg p-6 bg-white rounded-lg dark:bg-gray-800 dark:text-white"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <h3 className="mb-4 font-bold text-center">{user?.name}</h3>
-                        <p className="text-sm text-center sm:text-base">
-                            {user?.about_me ? user.about_me : "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"}
+                        <h3 
+                            id="modal-title" 
+                            className="mb-4 font-bold text-center"
+                            aria-label={`Nombre del usuario: ${user?.name}`}
+                        >
+                            {user?.name}
+                        </h3>
+                        <p 
+                            id="modal-description" 
+                            className="text-sm text-left sm:text-base"
+                        >
+                            {user?.about_me ? user.about_me : "¡Todavía no se ha escrito una historia, pero seguro que está creando algo genial! 🎉🚀"}
                         </p>
                     </div>
                 </div>
