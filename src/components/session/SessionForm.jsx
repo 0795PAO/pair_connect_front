@@ -31,7 +31,7 @@ const schema = yup.object({
   is_private: yup.boolean().nullable(),
 });
 
-const SessionForm = ({ handleSubmit, loading, options, onCancel, projectStack, projectLanguages, projectId, projectLevelId, stacks, languages, onSessionCreated }) => {
+const SessionForm = ({ loading, onCancel, projectStack, projectLanguages, projectId, stacks, languages, onSessionCreated }) => {
   const { toast } = useToast();
   const form = useForm({
     resolver: yupResolver(schema),
