@@ -33,8 +33,8 @@ const ContactsModal = ({
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
-                    <Button type="button" variant="destructive" onClick={onCancel}>
-                        Close
+                    <Button type="button" variant="secondary" onClick={onCancel}>
+                        Cerrar
                     </Button>
                 </DialogFooter>
             </DialogContent>

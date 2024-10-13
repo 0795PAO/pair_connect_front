@@ -108,7 +108,7 @@ const LoginPage = () => {
           <p className="flex flex-col items-center justify-center gap-2 mt-8 text-center sm:justify-center">
             ¿Has olvidado tu contraseña?
             <Link
-              to="/recover-password"
+              to="/forgot-password"
               className="block font-bold text-secondary"
             >
               Recupera contraseña

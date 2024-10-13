@@ -65,7 +65,7 @@ const PublicProfile = () => {
 
   return (
     <div className="px-8">
-      <GoBackButton text="Volver à la sesión"/>
+      <GoBackButton text="Volver a la sesión"/>
       <h1 className="text-4xl md:text-6xl mb-10 text-primaryText justify-self-start">
         Perfil de{" "}
         <span className="font-bold bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] bg-clip-text text-transparent">
