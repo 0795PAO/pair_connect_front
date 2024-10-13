@@ -24,7 +24,7 @@ const UserHomePage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>
+    console.log(error);
   }
 
 

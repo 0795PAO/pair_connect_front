@@ -3,19 +3,9 @@ import { useState } from "react";
 import { format, parse } from "date-fns";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import CustomInput from "@/components/shared/CustomInput";
+import { generateTimeOptions } from "@/utils/generateTimeOptions";
 
-const generateTimeOptions = () => {
-  const times = [];
-  for (let hour = 0; hour < 24; hour++) {
-    for (let minutes = 0; minutes < 60; minutes += 15) {
-      const time = `${hour.toString().padStart(2, "0")}:${minutes
-        .toString()
-        .padStart(2, "0")}`;
-      times.push(time);
-    }
-  }
-  return times;
-};
+
 
 export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
   const defaultDate = selectedDate || format(new Date(), "dd/MM/yyyy");
@@ -27,8 +17,6 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
   const handleCalendarSelect = (date) => {
     if (!date) return;
     const formattedDate = format(date, "dd/MM/yyyy");
-    console.log("Calendar selected date:", formattedDate); 
-
     onDateChange(formattedDate);
     form.setValue("date", formattedDate); 
     setCurrentMonth(date);
