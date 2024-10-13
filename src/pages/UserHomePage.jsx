@@ -38,7 +38,7 @@ const UserHomePage = () => {
 
   return (
     <div className="user-home-page flex flex-col w-full gap-5 2xl:w-[80vw]">
-          <h1 className="mb-4 font-poppins font-bold text-6xl leading-[120%] text-transparent bg-clip-text"
+          <h1 className="mb-4 font-poppins font-bold text-6xl leading-[120%] text-transparent bg-clip-text text-center"
             style={{ backgroundImage: "var(--gradient)" }}>
             Pair Connect
           </h1>
