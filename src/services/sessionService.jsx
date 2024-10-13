@@ -41,10 +41,13 @@ export const createSession = async (sessionData) => {
   }
 };
 
-export const updateSession  = async (sessionId, updatedData) => {
+export const updateSession = async (sessionId, updatedData) => {
   try {
-    const response = await api.patch(SESSION_URLS.UPDATE_SESSION(sessionId), updatedData);
-    console.log('API Response in service:', response);
+    const response = await api.patch(
+      SESSION_URLS.UPDATE_SESSION(sessionId),
+      updatedData
+    );
+    console.log("API Response in service:", response);
     return response.data;
   } catch (error) {
     console.error("Error creating session:", error);
@@ -74,5 +77,45 @@ export const getRecommendedUsers = async (sessionId) => {
   } catch (err) {
     console.error(err);
     throw err;
+  }
+};
+export const getHostedSessions = async () => {
+  try {
+    const response = await api.get(SESSION_URLS.GET_HOSTED_SESSIONS);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error fetching hosted sessions",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+// Obtener sesiones en las que participas
+export const getParticipatingSessions = async () => {
+  try {
+    const response = await api.get(SESSION_URLS.GET_PARTICIPATING_SESSIONS);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error fetching participating sessions",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+};
+
+// Obtener sesiones en las que estás interesada
+export const getInterestedSessions = async () => {
+  try {
+    const response = await api.get(SESSION_URLS.GET_INTERESTED_SESSIONS);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error fetching interested sessions",
+      error.response?.data || error.message
+    );
+    throw error;
   }
 };
