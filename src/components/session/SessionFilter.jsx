@@ -50,6 +50,7 @@ const SessionFilter = ({
     setSelectedLevel([]);
     setSelectedDate(null);
     setSelectedTime(null);
+    setSearchTerm("");
   };
 
 
@@ -63,7 +64,7 @@ const SessionFilter = ({
             <Input
               type="text"
               placeholder="Buscar lenguaje..."
-              value={searchTerm}
+              value={searchTerm || ""}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="border p-2 mb-4"
             />

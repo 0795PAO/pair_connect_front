@@ -1,8 +1,8 @@
 import { useHostedSessions } from "@/hooks/useHostedSessions";
 import { useParticipatingSessions } from "@/hooks/useParticipatingSessions";
 import { useInterestedSessions } from "@/hooks/useInterestedSessions";
-import { Loader } from "lucide-react";
 import SessionCard from "../session/SessionCard";
+import Loader from "../shared/Loader";
 
 const MyProfileSession = () => {
   const { data: hostedSessions, isLoading: hostedLoading } =
