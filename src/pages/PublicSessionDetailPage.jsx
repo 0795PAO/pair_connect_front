@@ -7,6 +7,7 @@ import HeroButton from "@/components/landing/HeroButton";
 import { useAuth } from "@/hooks/useAuth";
 import RegisterDialog from "@/components/auth/RegisterDialog";
 import { useRegister } from "@/hooks/useRegister";
+import { ArrowLeft } from "lucide-react";  // Asegúrate de importar ArrowLeft
 
 const PublicSessionDetailPage = () => {
     const { sessionId } = useParams();
@@ -52,6 +53,14 @@ const PublicSessionDetailPage = () => {
 
     return (
         <div className="pt-0 mt-0 p-4 sm:p-6 mx-auto mb-6 w-full max-w-full">
+            <button
+                onClick={() => navigate("/")}
+                className="text-white hover:text-primary flex items-center"
+            >
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Volver atras
+            </button>
+
             <h1 className="text-4xl sm:text-7xl md:text-9xl lg:text-10xl xl:text-10xl font-bold mb-2 text-center gradient2-text">
                 {projectData.name}
             </h1>
