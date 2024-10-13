@@ -55,7 +55,6 @@ const MyProfileInfo = () => {
             <section className="relative" aria-labelledby="stack-nivel-title">
                 <h2 id="stack-nivel-title" className="sr-only">Stack y Nivel</h2>
                 <div className="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 lg:grid-cols-2">
-                    {/* Stack */}
                     <SectionCard
                         title="Stack"
                         content={user?.stack_name
@@ -63,7 +62,6 @@ const MyProfileInfo = () => {
                             : "Stack no definido 🚀"}
                     />
 
-                    {/* Nivel */}
                     <SectionCard
                         title="Nivel"
                         content={user?.level_name

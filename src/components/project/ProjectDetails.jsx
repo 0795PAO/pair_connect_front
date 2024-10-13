@@ -201,13 +201,13 @@ const ProjectDetails = () => {
               <h2 className="mb-4 text-2xl font-semibold transition duration-300 hover:text-secondary text-textPrimary">
                 Sobre el proyecto
               </h2>
-              <p className="text-lg text-white">{project.description}</p>
+              <p className="text-lg">{project.description}</p>
 
               <div className="absolute flex space-x-2 top-4 right-4">
-                <button onClick={handleEditClick} className="text-white hover:text-primary">
+                <button onClick={handleEditClick} className="transition-transform duration-200 transform hover:text-primary text-foreground hover:scale-110">
                   <Edit className="w-6 h-6" />
                 </button>
-                <button onClick={() => setIsModalOpen(true)} className="text-white hover:text-secondary">
+                <button onClick={() => setIsModalOpen(true)} className="transition-transform duration-200 transform hover:text-primary text-foreground hover:scale-110">
                   <Trash className="w-6 h-6" />
                 </button>
               </div>
