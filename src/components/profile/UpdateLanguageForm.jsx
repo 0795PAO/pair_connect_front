@@ -56,7 +56,7 @@ const UpdateLanguageForm =({ options, handleSubmit, defaultValues }) => {
                         name="level"
                         type="select"
                         placeholder="Seleccione nivel"
-                        label="Level"
+                        label="Nivel"
                         options={options.levels}
                     />
                 )}

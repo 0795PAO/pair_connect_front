@@ -35,7 +35,6 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
         })
     }
 
-
     const handleSubmit = (data) => {
         updateProfileMutation.mutate(data, {
             onSuccess: () => onOpenChange(false),
@@ -81,4 +80,5 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
         </Dialog>
     )
 }
+
 export default UpdateProfileModal
