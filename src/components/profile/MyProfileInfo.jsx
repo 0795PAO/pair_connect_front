@@ -11,7 +11,6 @@ const MyProfileInfo = () => {
     const { data: user, isLoading } = useProfile();
     const [open, setOpen] = useState(false);
     const [formType, setType] = useState("");
-    console.log('Estoy aquí', user)
 
     if (isLoading) {
         return <Loader />
@@ -40,10 +39,10 @@ const MyProfileInfo = () => {
 
             <section className="relative mt-6 rounded-lg bg-card" aria-labelledby="languages-title">
                 <div className="p-6 mt-6 shadow-lg lg:col-span-2">
-                    <h2 id="languages-title" className="mb-5 text-2xl font-semibold transition duration-300 hover:text-secondary text-textPrimary">
+                    <h2 id="languages-title" className="text-2xl font-semibold transition duration-300 hover:text-secondary text-textPrimary">
                         Lenguajes y Frameworks
                     </h2>
-                    <ul className="flex flex-wrap gap-4 mt-6">
+                    <ul className="flex flex-wrap gap-4 ">
                         {user?.language_names?.length > 0 ? (
                             <ItemList items={user.language_names} />
                         ) : (
@@ -92,25 +91,25 @@ const MyProfileInfo = () => {
                     content={(
                         <ul className="space-y-2 text-lg font-medium">
                             <li>
-                                <span className="font-bold">Email:</span>
+                                <span className="font-bold">Email: </span>
                                 <span className="break-all">
                                     {user?.email ? user.email : " ¿Dónde está ese @? ¡Aún sin configurar! 📧"}
                                 </span>
                             </li>
                             <li>
-                                <span className="font-bold">GitHub:</span>
+                                <span className="font-bold">GitHub: </span>
                                 <span className="break-all">
                                     {user?.github_link ? user.github_link : " Tu repositorio social necesita un push! 🛠️"}
                                 </span>
                             </li>
                             <li>
-                                <span className="font-bold">LinkedIn:</span>
+                                <span className="font-bold">LinkedIn: </span>
                                 <span className="break-all">
                                     {user?.linkedin_link ? user.linkedin_link : " El perfil está desconectado, ¿dónde está tu red? 🌐"}
                                 </span>
                             </li>
                             <li>
-                                <span className="font-bold">Discord:</span>
+                                <span className="font-bold">Discord: </span>
                                 <span className="break-all">
                                     {user?.discord_link ? user.discord_link : " Aquí falta tu enlace de Discord, ¡no seas tímido/a!"}
                                 </span>

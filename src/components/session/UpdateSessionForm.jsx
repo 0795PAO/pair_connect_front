@@ -14,10 +14,10 @@ const schema = yup.object({
     participant_limit: yup.number().min(0).nullable(),
     session_link: yup.string().nullable(),
     is_private: yup.boolean().nullable(),
-  });
-  
+});
 
-  const UpdateSessionForm = ({ sessionData, onSubmit, onCancel }) => {
+
+const UpdateSessionForm = ({ sessionData, onSubmit, onCancel }) => {
     // Log sessionData to verify its content
     console.log('sessionData:', sessionData);
 
@@ -34,7 +34,7 @@ const schema = yup.object({
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${hours}:${minutes}`;
-    };  
+    };
 
     const form = useForm({
         resolver: yupResolver(schema),
@@ -73,33 +73,33 @@ const schema = yup.object({
         onSubmit(formattedData);
     };
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col gap-5">
-        {/* Form Inputs */}
-        <CustomDynamicInput form={form} label="Fecha" name="date" type="date" />
-        <CustomDynamicInput form={form} label="Hora" name="time" type="time" />
-        <CustomDynamicInput form={form} label="Duración" name="duration" type="text" />
-        <CustomDynamicInput form={form} label="Descripción de la sesión" name="description" type="textarea" />
-        <CustomDynamicInput form={form} label="Límite de participantes" name="participant_limit" type="number" />
-        <CustomDynamicInput form={form} label="Enlace a la sesión" name="session_link" type="text" />
-        <div className="flex items-center gap-2">
-            <input
-                type="checkbox"
-                {...form.register("is_private")}
-                className="w-4 h-4 text-primary focus:ring-primary border-gray-300 rounded-sm"
-            />
-            <label htmlFor="is_private" className="text-base">
-                Sesión privada
-            </label>
-        </div>
-        <div className="flex justify-end gap-2">
-            <button type="button" onClick={onCancel} className="bg-gray-200 text-black px-4 py-2 rounded-md">Cancelar</button>
-            <button type="submit" className="bg-primary text-white px-4 py-2 rounded-md">Guardar</button>
-        </div>
-      </form>
-    </Form>
-  );
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col gap-5">
+                {/* Form Inputs */}
+                <CustomDynamicInput form={form} label="Fecha" name="date" type="date" />
+                <CustomDynamicInput form={form} label="Hora" name="time" type="time" />
+                <CustomDynamicInput form={form} label="Duración" name="duration" type="text" />
+                <CustomDynamicInput form={form} label="Descripción de la sesión" name="description" type="textarea" />
+                <CustomDynamicInput form={form} label="Límite de participantes" name="participant_limit" type="number" />
+                <CustomDynamicInput form={form} label="Enlace a la sesión" name="session_link" type="text" />
+                <div className="flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        {...form.register("is_private")}
+                        className="w-4 h-4 border-gray-300 rounded-sm text-primary focus:ring-primary"
+                    />
+                    <label htmlFor="is_private" className="text-base">
+                        Sesión privada
+                    </label>
+                </div>
+                <div className="flex justify-end gap-2">
+                    <button type="button" onClick={onCancel} className="px-4 py-2 text-black bg-gray-200 rounded-md">Cancelar</button>
+                    <button type="submit" className="px-4 py-2 text-white rounded-md bg-primary">Guardar</button>
+                </div>
+            </form>
+        </Form>
+    );
 };
 
 export default UpdateSessionForm;

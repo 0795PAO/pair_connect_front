@@ -75,7 +75,7 @@ const SessionDetails = ({ isOwner }) => {
         console.error('API Error:', error.response ? error.response.data : error.message);
         toast({
             title: "Error",
-            description: "¡Oops! No se ha podido actualizar los datos de la sesión. Por favor, intentalo de nuevo.",
+            description: "¡Oops! No se ha podido actualizar los datos de la sesión. Por favor, inténtalo de nuevo.",
             variant: "destructive",
         });
     }
@@ -101,12 +101,12 @@ const SessionDetails = ({ isOwner }) => {
     <div className="px-6 pt-0 mt-0 ">
       <button
         onClick={() => navigate(-1)}
-        className="text-white hover:text-primary flex items-center mt-0 mb-4"
+        className="flex items-center mt-0 mb-4 text-white hover:text-primary"
       >
         <ArrowLeft className="w-5 h-5 mr-2" />
         {isOwner ? "Volver a mi proyecto" : "Volver"}
       </button>
-      <h1 className="text-4xl md:text-6xl mb-10 gradient2-text font-bold justify-self-start">Detalles de la sesión</h1>
+      <h1 className="mb-10 text-4xl font-bold md:text-6xl gradient2-text justify-self-start">Detalles de la sesión</h1>
       
       {/* Project and Session Info */}
       <section className="grid grid-cols-1 lg:grid-cols-[1fr,2fr] gap-10 items-stretch">
@@ -123,7 +123,7 @@ const SessionDetails = ({ isOwner }) => {
               <SessionInfoSection sessionData={sessionData} isOwner={isOwner} isParticipant={isParticipant}/>
               {isOwner && (
                 <button onClick={handleEditSessionClick} className="absolute top-0 right-0">
-                  <Edit className="w-7 h-7 text-gray-500 hover:text-primary" />
+                  <Edit className="text-gray-500 w-7 h-7 hover:text-primary" />
                 </button>
               )}
             </>
@@ -133,7 +133,7 @@ const SessionDetails = ({ isOwner }) => {
       
       {/* Owner-specific Sections */}
       {isOwner && (
-        <div className="grid grid-cols-1 gap-4 items-stretch mt-8">
+        <div className="grid items-stretch grid-cols-1 gap-4 mt-8">
           <SectionCard
             title="Participantes confirmados"
             content={

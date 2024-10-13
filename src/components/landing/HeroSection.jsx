@@ -18,18 +18,18 @@ const HeroSection = ({ handleRegisterClick, onArrowClick  }) => {
             <div className="shooting-star-pink"></div>
 
             <h1
-                className="mb-10 font-poppins font-bold text-6xl md:text-7xl lg:text-9xl leading-[120%] gradient-text cursor-pointer animate__zoomIn animate__animated motion-reduce:transform-none"
+                className="mb-4 font-poppins font-bold text-6xl md:text-7xl lg:text-9xl leading-[120%] gradient-text cursor-pointer animate__zoomIn animate__animated motion-reduce:transform-none"
                 style={{ backgroundImage: 'var(--gradient)' }}
             >
                 Pair Connect
             </h1>
-            <p className="mb-24 text-xl md:text-2xl lg:text-3xl text-foreground">
+            <p className="mb-16 text-xl md:text-2xl lg:text-3xl text-foreground">
                 Conecta, programa y crece en equipo
             </p>
             <HeroButton text="Regístrate aquí" onClick={handleRegisterClick} />
 
 
-            <p className="mt-10 text-xs md:text-sm lg:text-sm text-foreground">
+            <p className="mt-8 text-xs md:text-sm lg:text-sm text-foreground">
                 Echa un vistazo a las próximas sesiones
             </p>
 
