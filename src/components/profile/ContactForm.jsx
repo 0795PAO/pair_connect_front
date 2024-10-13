@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Button } from "../ui/button";
 
-
 const schema = yup.object({
     github_link: yup.string().nullable(),
     linkedin_link: yup.string().nullable(),
@@ -23,7 +22,6 @@ const ContactForm = ({ handleSubmit, user }) => {
         } : {},
     });
 
-
     const inputs = [
         {
             name: 'linkedin_link',
@@ -36,7 +34,7 @@ const ContactForm = ({ handleSubmit, user }) => {
             name: 'github_link',
             type: 'text',
             placeholder: 'https://github.com/username',
-            label: 'Github',
+            label: 'GitHub',
 
         },
         {
@@ -47,8 +45,6 @@ const ContactForm = ({ handleSubmit, user }) => {
 
         }
     ];
-
-
 
     return (
         <Form {...form}>

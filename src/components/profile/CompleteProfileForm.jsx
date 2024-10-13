@@ -54,7 +54,7 @@ const CompleteProfileForm = ({ options, handleSubmit }) => {
                         name="level"
                         type="select"
                         placeholder="Seleccione nivel"
-                        label="Level"
+                        label="Nivel"
                         options={options.levels}
                     />
                 )}
@@ -65,4 +65,4 @@ const CompleteProfileForm = ({ options, handleSubmit }) => {
     );
 };
 
-export default CompleteProfileForm;
+export default CompleteProfileForm
