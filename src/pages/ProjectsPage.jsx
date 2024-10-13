@@ -64,7 +64,7 @@ const ProjectsPage = () => {
 
   return (
     <>
-      <section className="sticky w-full py-4 px-8 top-16 z-10">
+      <section className="sticky z-10 w-full px-8 py-4 top-16">
         {!isProfileLoading && user && (
           <h1 className="text-3xl font-bold text-left">
             Hola, {user.username}
@@ -73,12 +73,12 @@ const ProjectsPage = () => {
       </section>
 
       <section className="mt-8">
-        <div className="container  p-8 border rounded-lg">
-          <h2 className="text-3xl font-bold pb-4">Tus proyectos </h2>
+        <div className="container p-8 border rounded-lg">
+          <h2 className="pb-4 text-3xl font-bold">Tus proyectos </h2>
           <div className="items-center">
             {userProjects.length === 0 ? (
               <div className="text-center">
-                <p className="text-lg mb-4">
+                <p className="mb-4 text-lg">
                   Todavía no tienes proyectos creados
                 </p>
               </div>
@@ -91,7 +91,7 @@ const ProjectsPage = () => {
             )}
           </div>
         </div>
-        <div className="text-center mt-8">
+        <div className="mt-8 text-center">
           <Button onClick={handleCreateProject}>Crear Proyecto</Button>
         </div>
       </section>
@@ -99,4 +99,4 @@ const ProjectsPage = () => {
   );
 };
 
-export default ProjectsPage;
+export default ProjectsPage
