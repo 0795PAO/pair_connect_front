@@ -92,25 +92,25 @@ const MyProfileInfo = () => {
                     content={(
                         <ul className="space-y-2 text-lg font-medium">
                             <li>
-                                <span className="font-bold">Email:</span>
+                                <span className="font-bold">Email: </span>
                                 <span className="break-all">
                                     {user?.email ? user.email : " ¿Dónde está ese @? ¡Aún sin configurar! 📧"}
                                 </span>
                             </li>
                             <li>
-                                <span className="font-bold">GitHub:</span>
+                                <span className="font-bold">GitHub: </span>
                                 <span className="break-all">
                                     {user?.github_link ? user.github_link : " Tu repositorio social necesita un push! 🛠️"}
                                 </span>
                             </li>
                             <li>
-                                <span className="font-bold">LinkedIn:</span>
+                                <span className="font-bold">LinkedIn: </span>
                                 <span className="break-all">
                                     {user?.linkedin_link ? user.linkedin_link : " El perfil está desconectado, ¿dónde está tu red? 🌐"}
                                 </span>
                             </li>
                             <li>
-                                <span className="font-bold">Discord:</span>
+                                <span className="font-bold">Discord: </span>
                                 <span className="break-all">
                                     {user?.discord_link ? user.discord_link : " Aquí falta tu enlace de Discord, ¡no seas tímido/a!"}
                                 </span>
