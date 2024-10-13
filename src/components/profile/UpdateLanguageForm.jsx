@@ -46,7 +46,7 @@ const UpdateLanguageForm =({ options, handleSubmit, defaultValues }) => {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(handleSubmit)} role="form" className="flex flex-col gap-5 my-5">
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-5 my-5">
                 {editProfileInputs.map((input) => (
                     <CustomDynamicInput key={input.name} {...input} />
                 ))}

@@ -11,7 +11,6 @@ import { Outlet } from 'react-router-dom';
 const MyProfilePage = () => {
     const { data: user, isLoading, error } = useProfile();
     const [open, setOpen] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [formType, setFormType] = useState("");
 
     if (isLoading) {
@@ -68,7 +67,7 @@ const MyProfilePage = () => {
                         />
                         <div className="flex flex-col gap-4 mt-6 text-center">
                             <p className="text-2xl font-semibold text-left sm:text-3xl md:text-3xl" title="Nombre completo del usuario">{user?.name}</p>
-                            <p className="text-base text-left cursor-pointer md:text-md lg:text-lg line-clamp-5" title="Descripción del usuario" onClick={() => setIsModalOpen(true)}>
+                            <p className="text-base text-left cursor-pointer md:text-md lg:text-lg line-clamp-5" title="Descripción del usuario">
                                 {user?.about_me ? user.about_me : "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"}
                             </p>
                         </div>
@@ -83,22 +82,6 @@ const MyProfilePage = () => {
                 </div>
             </section>
 
-            {isModalOpen && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
-                    onClick={() => setIsModalOpen(false)}
-                >
-                    <div
-                        className="max-w-lg p-6 bg-white rounded-lg dark:bg-gray-800 dark:text-white"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <h3 className="mb-4 font-bold text-center">{user?.name}</h3>
-                        <p className="text-sm text-center sm:text-base">
-                            {user?.about_me ? user.about_me : "¡Este desarrollador aún no ha escrito su historia, pero seguro que está creando algo genial! 🎉🚀"}
-                        </p>
-                    </div>
-                </div>
-            )}
 
             <UpdateProfileModal open={open} onOpenChange={setOpen} type={formType} />
         </>

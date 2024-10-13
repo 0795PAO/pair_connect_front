@@ -10,19 +10,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { generateTimeOptions } from "@/utils/generateTimeOptions";
 
-const generateTimeOptions = () => {
-  const times = [];
-  for (let hour = 0; hour < 24; hour++) {
-    for (let minutes = 0; minutes < 60; minutes += 15) {
-      const time = `${hour.toString().padStart(2, "0")}:${minutes
-        .toString()
-        .padStart(2, "0")}`;
-      times.push(time);
-    }
-  }
-  return times;
-};
 
 export const EventCalendar = ({
   selectedDate,
@@ -68,12 +57,14 @@ export const EventCalendar = ({
 
         <CalendarComponent
           mode="single"
-          selected={selectedDate}
+          selected={parse(selectedDate || defaultDate, "dd/MM/yyyy", new Date())}
           onSelect={handleDateSelect}
           month={currentMonth}
           onMonthChange={handleMonthChange}
           className="rounded-md border w-[250px] mx-auto" />
       </div>
+
+
       <label htmlFor="select"> Seleccione la hora</label>
       <Select value={selectedTime} onValueChange={setSelectedTime} name="time">
         <SelectTrigger className="w-[180px]">
