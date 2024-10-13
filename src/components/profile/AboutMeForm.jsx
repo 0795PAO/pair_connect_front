@@ -13,9 +13,12 @@ const schema = yup.object({
 
 });
 
-const AboutMeForm = ({ handleSubmit }) => {
+const AboutMeForm = ({ handleSubmit, defaultValues }) => {
     const form = useForm({
         resolver: yupResolver(schema),
+        defaultValues: {
+            about_me: defaultValues?.about_me || '',
+        },
     });
 
     const inputs = [
@@ -44,13 +47,12 @@ const AboutMeForm = ({ handleSubmit }) => {
             formData.append('photo', data.photo[0]);
         }
 
-        console.log('FormData being sent:', formData.get('about_me'), formData.get('photo'));
         handleSubmit(formData);
     };
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} role="form" className="flex flex-col gap-5 my-5">
+            <form onSubmit={form.handleSubmit(onSubmit)}className="flex flex-col gap-5 my-5">
                 {inputs.map((input) => (
                     <CustomDynamicInput
                         key={input.name}
