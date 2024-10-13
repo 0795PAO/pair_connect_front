@@ -1,8 +1,8 @@
 import { useHostedSessions } from "@/hooks/useHostedSessions";
 import { useParticipatingSessions } from "@/hooks/useParticipatingSessions";
 import { useInterestedSessions } from "@/hooks/useInterestedSessions";
-import { Loader } from "lucide-react";
 import SessionCard from "../session/SessionCard";
+import Loader from "../shared/Loader";
 
 const MyProfileSession = () => {
   const { data: hostedSessions, isLoading: hostedLoading } =
@@ -25,7 +25,7 @@ const MyProfileSession = () => {
         <div className="overflow-y-scroll max-h-[300px] lg:max-h-[400px] scrollbar-thin scrollbar-thumb-primary scrollbar-track-background">
           {hostedSessions?.length ? (
             hostedSessions.map((session) => (
-              <SessionCard key={session.id} session={session} />
+              <SessionCard key={session.id} session={session} to={`sessions/${session.id}`}/>
             ))
           ) : (
             <p>No tienes sesiones propias.</p>

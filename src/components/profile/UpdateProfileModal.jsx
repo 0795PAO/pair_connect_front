@@ -28,7 +28,6 @@ const UpdateProfileModal = ({ open, onOpenChange, type }) => {
     const updateProfileMutation = useUpdateProfile()
     const updateProfileLanguageMutation = useUpdateProgLanguages()
 
-    console.log("User data:", user)
 
     const handleLanguageSubmit = (data) => {
         updateProfileLanguageMutation.mutate(data, {
