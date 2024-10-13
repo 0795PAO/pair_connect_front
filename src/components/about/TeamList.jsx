@@ -6,7 +6,7 @@ const TeamList = () => {
     const { teamMembers, stakeholder } = teamData;
     return (
         <section id="team-section">
-            <h2 className="mt-12 mb-16 text-4xl font-bold text-center">Las desarrolladoras:</h2>
+            <h2 className="mt-10 mb-8 text-2xl font-bold text-center sm:mt-16 md:mt-20 sm:text-2xl md:text-3xl lg:text-4xl sm:mb-12 md:mb-14">Las desarrolladoras:</h2>
 
             <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-2 justify-items-center">
                 {teamMembers.map((member, index) => (
@@ -14,7 +14,7 @@ const TeamList = () => {
                 ))}
             </div>
 
-            <h2 className="mt-20 text-4xl font-bold text-center mb-14 ">El Stakeholder:</h2>
+            <h2 className="mt-10 mb-8 text-xl font-bold text-center sm:mt-16 md:mt-20 sm:text-2xl md:text-3xl lg:text-4xl sm:mb-12 md:mb-14 ">El Stakeholder:</h2>
 
             <div className="flex justify-center">
                 <TeamCard member={stakeholder} />
