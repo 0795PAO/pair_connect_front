@@ -1,0 +1,55 @@
+.profile-nav {
+    position: relative;
+    backdrop-filter: blur(10px);
+    max-width: 59.375rem;
+    padding: 0.5rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profile-nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-nav li {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-nav a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.8rem 1.5rem;
+    transition: background 0.3s ease-in-out, color 0.5s ease-in-out;
+    width: 100%;
+    display: block;
+}
+
+.profile-nav li.active-glass a {
+    background: rgba(178, 39, 127, 0.448); 
+    color: rgb(0, 0, 0);
+}
+
+.dark .profile-nav li.active-glass a {
+    background: rgba(245, 53, 136, 0.514);
+    color: rgb(100, 243, 229); 
+}
+
+.profile-nav li a:hover {
+    background: rgba(137, 161, 167, 0.332);
+}
+
+.dark .profile-nav li a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .profile-nav ul {
+        flex-direction: row;
+        gap: 0.5rem; 
+    }
+}
