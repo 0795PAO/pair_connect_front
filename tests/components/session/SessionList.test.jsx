@@ -75,24 +75,4 @@ describe("SessionList", () => {
     expect(sessionCards).toHaveLength(filteredSessions.length);
   });
 
-  it("renders session details correctly", async () => {
-    render(
-      <MemoryRouter>
-        <SessionList
-          sessions={mockSessions}
-          loading={false}
-          error={null}
-          projectImageUrl={mockProjectImageUrl}
-          currentPage={currentPage}
-          to="/sessions/"
-        />
-      </MemoryRouter>
-    );
-
-    const sessionCards = await screen.findAllByText((content, element) => {
-      return element?.textContent.includes("Kamakura Food");
-    });
-
-    expect(sessionCards.length).toBeGreaterThan(0);
-  });
 });

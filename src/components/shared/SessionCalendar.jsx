@@ -11,7 +11,6 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
   const defaultDate = selectedDate || format(new Date(), "dd/MM/yyyy");
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
-  // Log form values on every change
   console.log("Form values:", form.watch());
 
   const handleCalendarSelect = (date) => {
@@ -22,7 +21,6 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
     setCurrentMonth(date);
   };
 
-  // Handle month navigation
   const handleMonthChange = (month) => {
     setCurrentMonth(month);
   };
@@ -30,7 +28,6 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
   return (
     <div className="container p-4 mx-auto space-y-8">
       <div className="flex flex-col items-start justify-between space-y-4 sm:flex-row sm:space-y-0 sm:space-x-8">
-        {/* Calendar on the Left */}
         <CalendarComponent
           mode="single"
           selected={parse(defaultDate, "dd/MM/yyyy", new Date())}
@@ -40,7 +37,6 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
           className="rounded-md border w-full sm:w-[250px]"
         />
 
-        {/* Date and Time Inputs on the Right */}
         <div className="w-full sm:w-[250px] space-y-4">
           <CustomInput
             name="date"

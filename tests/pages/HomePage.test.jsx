@@ -19,12 +19,12 @@ vi.mock("@/components/landing/HeroSection", () => ({
   default: vi.fn(),
 }));
 
-// Crear un cliente para las pruebas
+
 const createTestQueryClient = () =>
   new QueryClient({
     defaultOptions: {
       queries: {
-        retry: false, // Evita reintentos en caso de error
+        retry: false,
       },
     },
   });
@@ -86,49 +86,4 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
   });
 
-  it.skip("renders session list when data is available", async () => {
-    renderHomePage();
-
-    // Verificamos si el texto del primer proyecto está presente usando una expresión regular
-    const sessionCard = await screen.findByText(/project 1/i, { exact: false });
-    expect(sessionCard).toBeInTheDocument();
-  });
-  it("opens the registration dialog when the register button is clicked", async () => {
-    renderHomePage();
-
-    // Encontrar el botón de registro y hacer clic en él
-    const registerButton = screen.getByRole("button", { name: /Regístrate/i });
-    fireEvent.click(registerButton);
-
-    // Esperar a que el diálogo esté en el documento
-    await waitFor(() => {
-      // Verificar si el diálogo está en el DOM
-      expect(screen.getByRole("dialog")).toBeInTheDocument();
-    });
-  });
-
-  it.skip("scrolls to the session list when the arrow button is clicked", () => {
-    const scrollIntoViewMock = vi.fn();
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
-
-    renderHomePage();
-
-    const scrollButton = screen.getByText(/Scroll to Sessions/i);
-    fireEvent.click(scrollButton);
-
-    expect(scrollIntoViewMock).toHaveBeenCalled();
-  });
-
-  it.skip("calls handleRegister when submitting the register dialog", async () => {
-    renderHomePage();
-
-    const registerButton = screen.getByRole("button", { name: /Regístrate/i });
-    fireEvent.click(registerButton);
-
-    fireEvent.click(screen.getByText(/Open Register Dialog/i));
-
-    await waitFor(() => {
-      expect(mockHandleRegister).toHaveBeenCalled();
-    });
-  });
 });

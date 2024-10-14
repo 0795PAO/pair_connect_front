@@ -20,7 +20,6 @@ import MultiSelector from "@/components/ui/multiSelector";
 import CustomFileInput from "@/components/shared/CustomFileInput";
 import { useFormContext } from "react-hook-form";
 
-// Utility function to check if an option is an object with 'value' and 'label'
 const isOptionObject = (option) =>
   option && typeof option === "object" && "value" in option && "label" in option;
 
@@ -37,7 +36,6 @@ const CustomDynamicInput = ({
 }) => {
   const { control, setValue } = useFormContext();
 
-  /// Memoize options normalization to avoid unnecessary recalculations
   const normalizedOptions = useMemo(() => {
     if (!Array.isArray(options)) {
       console.error("Expected an array for options but got:", options);
@@ -53,7 +51,6 @@ const CustomDynamicInput = ({
     );
   }, [options]);
 
-  // Handle changes from MultiSelector
   const handleMultiChange = (newValues) => {
     setValue(name, newValues || [], { shouldValidate: true });
   };
@@ -101,7 +98,7 @@ const CustomDynamicInput = ({
                   value={field.value || defaultValue || []}
                   onChange={handleMultiChange}
                   placeholder={placeholder}
-                  searchable // Allow search
+                  searchable
                   name={name}
                 />
               ) : type === "file" ? (
