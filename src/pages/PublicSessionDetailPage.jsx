@@ -58,7 +58,7 @@ const PublicSessionDetailPage = () => {
                 className="text-white hover:text-primary flex items-center"
             >
                 <ArrowLeft className="w-5 h-5 mr-2" />
-                Volver atrás
+                Volver
             </button>
 
             <h1 className="text-4xl sm:text-7xl md:text-9xl lg:text-10xl xl:text-10xl font-bold mb-2 text-center gradient2-text">
