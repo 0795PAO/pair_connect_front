@@ -1,7 +1,7 @@
 const API_BASE_URL =
   import.meta.env.MODE === 'production'
-    ? "https://pair-connect.herokuapp.com/api/"
-    : "http://localhost:8000/api/"; 
+    ? "https://pair-connect-151ceba3fe72.herokuapp.com/api/"
+    : "http://localhost:8000/api/";
 
 export const AUTH_URLS = {
   LOGIN: `${API_BASE_URL}auth/jwt/create/`,
