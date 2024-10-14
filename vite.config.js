@@ -8,10 +8,16 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom', 
-    include: ['src/tests/**/*.test.{js,ts,jsx,tsx}'], 
+    setupFiles: ['./tests/setupTests.js'],
+    include: ['tests/**/*.test.{js,ts,jsx,tsx}'], 
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      exclude: ['tests', 'node_modules']
+    },
   },
   resolve: {
     alias: {
+      // eslint-disable-next-line no-undef
       "@": path.resolve(__dirname, "./src"),
     },
   },

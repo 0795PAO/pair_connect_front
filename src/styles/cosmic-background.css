@@ -1,0 +1,17 @@
+
+.sparkle {
+    position: fixed;
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+    opacity: 1;
+    pointer-events: none; 
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}

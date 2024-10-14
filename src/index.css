@@ -1,23 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 240 5% 96%;
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    --card: 210 11% 90%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
+    --primary-text-color: 217 72% 65%;
+    --primary: 184 72% 65%;
+    --primary-hover: 184, 72%, 45%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 334 100% 66%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 214 15% 85%;
+    --muted-foreground: 210 25% 45%;
+    --accent: 214 15% 85%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 80% 60%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
@@ -27,40 +30,410 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+    --button-hover: 191 100% 65%;
+    --shadow-custom: 0px 0px 10px 12px rgba(12, 183, 230, 0.127);
+    --special-shadow: 0 4px 12px 0 rgb(18, 174, 194);
+    --shadow-white: 0 4px 12px 0 rgba(147, 112, 219, 1);
+    --success: 145 63% 49%;
+    --success-foreground: 0 0% 100%;
+    --gradient: linear-gradient(
+      to right,
+      rgba(8, 223, 223, 1),
+      rgba(255, 93, 162, 1)
+    );
+    --gradient2: linear-gradient(
+      to right,
+      rgba(240, 92, 186, 1),
+      rgba(24, 224, 234, 1),
+      rgba(239, 64, 181, 1)
+    );
+    --gradient3: linear-gradient(
+      to right,
+      rgba(255, 93, 162, 1),
+      rgba(147, 112, 219, 1)
+    );
+    --gradient4: linear-gradient(
+      to right,
+      rgb(255, 85, 122),
+      rgba(255, 78, 205, 1),
+      rgba(93, 207, 255, 1)
+    );
+
+    --mouse-effect-color: 184 72% 45%;
   }
+
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 207 17% 8%;
+    --foreground: 96 5% 95%;
+    --card: 220 20% 20%;
+    --card-foreground: 96 5% 95%;
+    --popover: 207 17% 8%;
+    --popover-foreground: 96 5% 95%;
+    --primary: 184 72% 65%;
+    --primary-text-color: 184 72% 65%;
+    --primary-foreground: 207 17% 8%;
+    --primary-hover: 184, 72%, 45%;
+    --secondary: 334 100% 66%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 214 15% 30%;
+    --muted-foreground: 210 25% 65%;
+    --accent: 214 15% 30%;
+    --accent-foreground: 96 5% 95%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 15% 30%;
+    --input: 214 15% 30%;
+    --ring: 207 17% 8%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
+    --button-hover: 191 100% 65%;
+    --shadow-custom: 0 4px 12px 0 rgba(50, 209, 255, 0.25);
+    --special-shadow: 0 4px 12px 0 rgba(8, 223, 223, 1);
+    --shadow-white: 0 4px 12px 0 rgba(255, 255, 255, 0.5);
+    --success: 145 70% 40%;
+    --success-foreground: 0 0% 100%;
+    --gradient: linear-gradient(
+      to right,
+      rgba(8, 223, 223, 1),
+      rgba(255, 93, 162, 1)
+    );
+    --gradient2: linear-gradient(
+      to right,
+      rgba(219, 62, 180, 1),
+      rgba(238, 213, 224, 1),
+      rgba(219, 62, 180, 1)
+    );
+    --gradient3: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 1),
+      rgba(147, 112, 219, 1)
+    );
+    --gradient4: linear-gradient(
+      to right,
+      rgb(255, 85, 122),
+      rgba(255, 78, 205, 1),
+      rgba(93, 207, 255, 1)
+    );
+
+    --mouse-effect-color: var(--primary);
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: "Source Code Pro", monospace;
   }
-} 
+}
+
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.custom-shadow {
+  --shadow-custom: 36px 36px 36px 36px rgba(50, 209, 255, 0.5);
+}
+
+.hover-shadow-custom:hover {
+  box-shadow: var(--shadow-custom);
+}
+
+.border-gradient {
+  border: 2px solid var(--gradient);
+}
+
+.font-poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+/* card with light effect */
+.card-with-light-effect {
+  position: relative;
+  background-color: hsl(var(--background));
+  border-radius: var(--radius);
+}
+
+.card-with-light-effect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+.mouse-light-effect {
+  position: relative;
+  padding: 2px;
+}
+
+.mouse-light-effect::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    150px at var(--mouse-x) var(--mouse-y),
+    hsl(var(--mouse-effect-color)) 0%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 70%
+  );
+  transition: background 0.1s ease-out;
+  border-radius: inherit;
+}
+
+.special-shadow:hover {
+  box-shadow: var(--special-shadow);
+}
+
+@keyframes breakEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5) rotate(20deg);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes restoreEffect {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.break {
+  animation: breakEffect 0.5s ease forwards;
+}
+
+.restore {
+  animation: restoreEffect 0.5s ease forwards;
+}
+
+/* arrow */
+@keyframes customBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.slow-bounce {
+  animation: customBounce 1.7s infinite;
+}
+
+/* h1 with gradient */
+.gradient-text {
+  background-image: var(--gradient);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* h1 with gradient2 */
+.gradient2-text {
+  background-image: var(--gradient2);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient2-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+/* h1 with gradient3 */
+.gradient3-text {
+  background-image: var(--gradient3);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient3-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* h1 with gradient4 */
+.gradient4-text {
+  background-image: var(--gradient4);
+  background-size: 100% auto;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.5s ease, background-position 0.5s ease;
+}
+
+.gradient4-text:hover {
+  background-size: 200% auto;
+  animation: gradientMove 3s ease-in-out infinite;
+  will-change: background-size, background-position;
+}
+
+
+/*neon from cian to pinkk */
+.neon-border {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(90deg, rgba(8, 223, 223, 1), rgba(255, 93, 162, 1))
+      border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 0 10px rgba(8, 223, 223, 0.7), 0 0 20px rgba(8, 223, 223, 0.6),
+    0 0 30px rgba(8, 223, 223, 0.5), 0 0 20px rgba(240, 92, 186, 0.4),
+    0 0 30px rgba(24, 224, 234, 0.3), 0 0 40px rgba(239, 64, 181, 0.2);
+  backdrop-filter: blur(10px);
+  transition: box-shadow 1s ease-in-out;
+}
+
+.neon-border:hover {
+  box-shadow: 0 0 25px rgba(255, 93, 162, 1), 0 0 50px rgba(255, 93, 162, 0.9),
+    0 0 60px rgba(255, 93, 162, 0.8);
+}
+
+/* neon from Fixed Purple and Hover Blue */
+.neon-border2 {
+  position: relative;
+  z-index: 10;
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(90deg, rgba(255, 255, 255, 1), rgba(0, 255, 255, 1))
+      border-box;
+  border: 2px solid transparent;
+
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.7), 0 0 20px rgba(193, 59, 177, 0.6),
+    0 0 30px rgba(255, 78, 205, 0.5);
+
+  backdrop-filter: blur(10px);
+  transition: box-shadow 1s ease-in-out;
+}
+
+.neon-border2:hover {
+  box-shadow: 0 0 25px rgba(255, 78, 205, 1), 0 0 50px rgba(34, 214, 199, 0.9),
+    0 0 60px rgba(0, 229, 255, 0.8);
+}
+
+/*Loading*/
+@keyframes pulseEffect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulseEffect 1.5s ease-in-out infinite;
+}
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.loading-logo {
+  width: 80px;
+  animation: pulseEffect 1.5s infinite;
+}
