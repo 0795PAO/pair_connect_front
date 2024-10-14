@@ -15,7 +15,7 @@ const ActivationPage = () => {
                 const response = await activateAccount({ uid, token });
                 console.log(response);
                 setActivationStatus("¡Cuenta activada con éxito!");
-                setIsError(false); 
+                //setIsError(false); 
 
                 setTimeout(() => {
                     navigate("/login");
