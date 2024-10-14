@@ -7,8 +7,8 @@ import { formatTime, formatDate } from "@/utils/formaDateAndTime";
 const formatCustomDate = (dateString) => {
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const year = String(date.getFullYear()).slice(-2); // Get the last two digits of the year
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear()).slice(-2);
   return `${day}/${month}/${year}`;
 };
 
@@ -49,7 +49,6 @@ const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
       onClick={isModalOpen ? null : onClick}
     >
       <div className="flex flex-col items-start justify-between">
-        {/* Trash button */}
         <Button
           variant="ghost"
           size="icon"
@@ -59,17 +58,14 @@ const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
           <Trash />
         </Button>
 
-        {/* Interested participants icon */}
         {session.interested_users?.length > 0 && (
           <Users className="absolute bottom-2 right-2 text-primary w-5 h-5" />
         )}
 
-        {/* Date and Time */}
         <p className="text-xs sm:text-sm md:text-lg text-muted-foreground dark:text-muted-foreground-dark">
         {formatCustomDate(session.schedule_date_time)}: {formatTime(session.schedule_date_time)}-{formatTime(endTime)}  
         </p>
 
-        {/* Description */}
         <div className="flex items-center">
           <h2 className="mr-2 text-xs sm:text-sm md:text-base font-semibold">Descripción:</h2>
           <p className="text-xs sm:text-sm md:text-base line-clamp-2">
@@ -77,12 +73,10 @@ const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
           </p>
         </div>
 
-        {/* Stack */}
         <p className="text-xs sm:text-sm md:text-base text-muted-foreground dark:text-muted-foreground-dark">
           Stack: {session.stack_name}
         </p>
 
-        {/* Languages */}
         <p className="text-xs sm:text-sm md:text-base text-muted-foreground mt-0 dark:text-muted-foreground-dark">
           Languages:{" "}
           {session.language_names
@@ -90,7 +84,7 @@ const OwnerSessionCard = ({ session, onClick, onSessionDelete }) => {
             : "No languages specified"}
         </p>
       </div>
-      {/* Confirmation Modal for Deleting the Session */}
+
       <ModalConfirm
         title="Confirmación borrar sesión"
         message={`¿Estas seguro que quieres borrar la sesión "${session.description}"?`}

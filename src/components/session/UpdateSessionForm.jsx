@@ -18,7 +18,6 @@ const schema = yup.object({
 
 
 const UpdateSessionForm = ({ sessionData, onSubmit, onCancel }) => {
-    // Log sessionData to verify its content
     console.log('sessionData:', sessionData);
 
     const formatDate = (dateString) => {
@@ -52,7 +51,7 @@ const UpdateSessionForm = ({ sessionData, onSubmit, onCancel }) => {
     });
 
     const handleFormSubmit = (data) => {
-        console.log('Submitted data:', data); // Debug log to ensure data is correct
+        console.log('Submitted data:', data);
 
         const [hours, minutes] = data.duration.split(":");
         const duration = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
@@ -76,7 +75,6 @@ const UpdateSessionForm = ({ sessionData, onSubmit, onCancel }) => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col gap-5">
-                {/* Form Inputs */}
                 <CustomDynamicInput form={form} label="Fecha" name="date" type="date" />
                 <CustomDynamicInput form={form} label="Hora" name="time" type="time" />
                 <CustomDynamicInput form={form} label="Duración" name="duration" type="text" />

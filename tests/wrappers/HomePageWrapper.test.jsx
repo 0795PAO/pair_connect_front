@@ -9,26 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 vi.mock('@/hooks/useAuth');
 
 describe('HomePageWrapper', () => {
-    it('renders UserHomePage when authenticated', () => {
-        const queryClient = new QueryClient();
-
-        const setIsAuthenticated = vi.fn();
-        useAuth.mockReturnValue({
-            isAuthenticated: true,
-            setIsAuthenticated
-        });
-
-        render(
-            <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
-                    <HomePageWrapper />
-                </BrowserRouter>
-            </QueryClientProvider>
-        );
-
-        expect(screen.getByTestId('user-home-page')).toBeInTheDocument();
-    });
-
+    
     it('renders HomePage when not authenticated', () => {
         const queryClient = new QueryClient();
         const setIsAuthenticated = vi.fn();

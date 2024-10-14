@@ -5,7 +5,7 @@ import { Camera } from "lucide-react";
 
 const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
   const inputRef = useRef(null);
-  const [fileName, setFileName] = useState(""); // Local state to track file name
+  const [fileName, setFileName] = useState("");
 
   const handleClick = () => {
     inputRef.current.click();
@@ -13,33 +13,15 @@ const CustomFileInput = ({ field, accept, multiple, placeholder }) => {
 
   const handleChange = (e) => {
     const files = e.target.files;
-      field.onChange(files); // Pass the file data to React Hook Form
+      field.onChange(files);
       if (files.length > 0) {
-  // Update the displayed file name
+
       const selectedFileName = Array.from(files).map((file) => file.name).join(", ");
-      setFileName(selectedFileName); // Set the local state with the file name
+      setFileName(selectedFileName);
     } else {
-    setFileName(""); // Clear the file name if no file is selected
+    setFileName("");
     }
   };
-
-/*   const handleChange = (e) => {
-    const files = e.target.files;
-
-    if (multiple) {
-      field.onChange(files);
-    } else {
-      field.onChange(files[0]);
-
-      if (files.length > 0) {
-
-        const selectedFileName = Array.from(files).map((file) => file.name).join(", ");
-        setFileName(selectedFileName);
-      } else {
-        setFileName("");
-      }
-    };
-  } */
 
     return (
       <div className="relative w-full">

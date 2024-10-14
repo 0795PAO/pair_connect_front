@@ -11,7 +11,6 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
     --primary-text-color: 217 72% 65%;
-    /* Este texto cyan primary pero mas oscura para que es mas legible en light */
     --primary: 184 72% 65%;
     --primary-hover: 184, 72%, 45%;
     --primary-foreground: 222.2 84% 4.9%;

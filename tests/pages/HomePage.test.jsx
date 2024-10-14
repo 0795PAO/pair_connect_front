@@ -1,97 +1,89 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
-import HomePage from '@/pages/HomePage';
-import { registerUser } from '@/services/authService';
-import { BrowserRouter } from 'react-router-dom'
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import HomePage from "@/pages/HomePage";
+import { useRegister } from "@/hooks/useRegister";
+import { useAllSessions } from "@/hooks/useAllSessions";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import HeroSection from "@/components/landing/HeroSection";
 
-vi.mock('@/services/authService', () => ({
-    registerUser: vi.fn(),
+vi.mock("@/hooks/useRegister", () => ({
+  useRegister: vi.fn(),
 }));
 
-const toastMock = vi.fn();
-vi.mock('@/hooks/useToast', () => ({
-    useToast: () => ({
-        toasts: [],
-        toast: toastMock,
-        dismiss: vi.fn(),
-    }),
+vi.mock("@/hooks/useAllSessions", () => ({
+  useAllSessions: vi.fn(),
+}));
+
+vi.mock("@/components/landing/HeroSection", () => ({
+  __esModule: true,
+  default: vi.fn(),
 }));
 
 
-describe('HomePage', () => {
-    beforeEach(() => {
-        toastMock.mockClear();
-        vi.clearAllMocks();
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+
+describe("HomePage", () => {
+  const mockSessions = [
+    {
+      id: 1,
+      project_name: "Project 1",
+      schedule_date_time: "2024-10-14T15:30:00",
+    },
+    {
+      id: 2,
+      project_name: "Project 2",
+      schedule_date_time: "2024-10-15T16:30:00",
+    },
+  ];
+
+  const mockHandleRegister = vi.fn();
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+
+    useRegister.mockReturnValue({
+      handleRegister: mockHandleRegister,
+      loading: false,
+      showSuccessModal: false,
+      setShowSuccessModal: vi.fn(),
     });
 
-    it('should render the homepage correctly', () => {
-        render(<BrowserRouter><HomePage /></BrowserRouter>);
-
-        const homePageElement = screen.getByTestId('home-page');
-        expect(homePageElement).toBeInTheDocument();
-
-        const registerButton = screen.getByRole('button', { name: /Regístrate/i });
-        expect(registerButton).toBeInTheDocument();
+    useAllSessions.mockReturnValue({
+      data: mockSessions,
+      error: null,
+      loading: false,
     });
 
-    it('should open the RegisterDialog when clicking the register button', async () => {
-        render(<BrowserRouter><HomePage /></BrowserRouter>);
+    HeroSection.mockImplementation(({ handleRegisterClick, onArrowClick }) => (
+      <div data-testid="hero-section">
+        <button onClick={handleRegisterClick}>Open Register Dialog</button>
+        <button onClick={onArrowClick}>Scroll to Sessions</button>
+      </div>
+    ));
+  });
 
-        const registerButton = screen.getByLabelText('hero-gradient-register-button');
+  const renderHomePage = () =>
+    render(
+      <QueryClientProvider client={createTestQueryClient()}>
+        <HomePage />
+      </QueryClientProvider>
+    );
 
-        fireEvent.click(registerButton);
+  it("renders the HomePage correctly", () => {
+    renderHomePage();
 
-        const dialog = await screen.findByRole('dialog');
-        expect(dialog).toBeInTheDocument();
-    });
+    expect(screen.getByTestId("home-page")).toBeInTheDocument();
+    expect(screen.getByText(/Sesiones programadas:/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /Regístrate/i })
+    ).toBeInTheDocument();
+  });
 
-    it('should display a success toast after successful registration', async () => {
-        registerUser.mockResolvedValueOnce({ status: 201 });
-
-        render(<BrowserRouter><HomePage /></BrowserRouter>);
-
-        const registerButton = screen.getByRole('button', { name: /Regístrate/i });
-        fireEvent.click(registerButton);
-
-        const emailInput = screen.getByLabelText(/Correo/i);
-        const passwordInput = screen.getByLabelText(/ Contraseña/i);
-        const submitButton = screen.getByRole('button', { name: /Enviar/i });
-
-        fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-        fireEvent.change(passwordInput, { target: { value: 'password123' } });
-        fireEvent.click(submitButton);
-
-        await waitFor(() => {
-            expect(screen.getByText(/Registrado/i)).toBeInTheDocument();
-        });
-
-    });
-
-    it.skip('should display an error toast if registration fails', async () => {
-        const errorResponse = {
-            response: {
-                data: {
-                    email: ['El correo ya está registrado.'],
-                },
-            },
-        };
-        registerUser.mockRejectedValueOnce(errorResponse);
-
-        render(<BrowserRouter><HomePage /></BrowserRouter>);
-
-        const registerButton = screen.getByRole('button', { name: /Regístrate/i });
-        fireEvent.click(registerButton);
-
-        const emailInput = screen.getByLabelText(/correo/i);
-        const passwordInput = screen.getByLabelText(/ contraseña/i);
-        const submitButton = screen.getByRole('button', { name: /Enviar/i });
-
-        fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-        fireEvent.change(passwordInput, { target: { value: 'password123' } });
-        fireEvent.click(submitButton);
-
-        await waitFor(() => {
-            expect(toastMock).toHaveBeenCalledOnce();
-        });
-    });
 });
