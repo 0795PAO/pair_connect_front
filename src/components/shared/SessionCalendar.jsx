@@ -28,8 +28,8 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
   };
 
   return (
-    <div className="container mx-auto space-y-8 p-4">
-      <div className="flex justify-between items-start space-x-8">
+    <div className="container p-4 mx-auto space-y-8">
+      <div className="flex flex-col items-start justify-between space-y-4 sm:flex-row sm:space-y-0 sm:space-x-8">
         {/* Calendar on the Left */}
         <CalendarComponent
           mode="single"
@@ -37,11 +37,11 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
           onSelect={handleCalendarSelect}
           month={currentMonth}
           onMonthChange={handleMonthChange}
-          className="rounded-md border w-[250px]"
+          className="rounded-md border w-full sm:w-[250px]"
         />
 
         {/* Date and Time Inputs on the Right */}
-        <div className="w-[250px] space-y-4">
+        <div className="w-full sm:w-[250px] space-y-4">
           <CustomInput
             name="date"
             label="Seleccione la fecha"
@@ -55,7 +55,7 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
             type="select"
             options={generateTimeOptions()}
             form={form}
-            onChange={(e) => console.log("Time selected:", e.target.value)} // Log time change
+            onChange={(e) => console.log("Time selected:", e.target.value)}
           />
 
           <CustomInput
@@ -64,7 +64,7 @@ export const SessionCalendar = ({ selectedDate, onDateChange, form }) => {
             type="text"
             placeholder="hh:mm"
             form={form}
-            onChange={(e) => console.log("Duration entered:", e.target.value)} // Log duration change
+            onChange={(e) => console.log("Duration entered:", e.target.value)}
           />
 
         </div>

@@ -4,40 +4,44 @@ import { useProjectDetails } from "@/hooks/useProjectDetails";
 import { useStacks } from "@/hooks/useStacks";
 import { useLevels } from "@/hooks/useLevels";
 import { useLanguages } from "@/hooks/useLanguages";
-import Loader from "@/components/shared/Loader";
-import OwnerSessionList from "../session/OwnerSessionList";
-import SessionForm from "../session/SessionForm";
-import { Edit, Trash, ArrowLeft } from "lucide-react";
-import ConfirmModal from "../shared/ModalConfirm";
-import { deleteProject, updateProjectImage, updateProject } from "@/services/projectService"; 
-import { getInterestedParticipantsPerSession } from "@/services/participantsService";
+import { useProfile } from "@/hooks/useProfile";
 import { useQueryClient } from '@tanstack/react-query';
-import UpdateProjectForm from '@/components/project/UpdateProjectForm';
+import { Edit, Trash, ArrowLeft } from "lucide-react";
+import { deleteProject, updateProjectImage, updateProject } from "@/services/projectService";
+import { getInterestedParticipantsPerSession } from "@/services/participantsService";
 import { findMatchedValues } from "@/utils/findMatchedValues";
+import Loader from "@/components/shared/Loader";
+import ConfirmModal from "@/components/shared/ModalConfirm";
+import SectionCard from "@/components/profile/SectionCard";
+import UpdateProjectForm from '@/components/project/UpdateProjectForm';
+import OwnerSessionList from "@/components/session/OwnerSessionList";
+import SessionForm from "@/components/session/SessionForm";
 
 const ProjectDetails = () => {
   const queryClient = useQueryClient();
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const { data: project, isLoading, isError } = useProjectDetails(id);
   const { data: stacks } = useStacks();
   const { data: levels } = useLevels();
   const { data: languages } = useLanguages();
+  const { data: user, isLoading: isUserLoading, isError: isUserError } = useProfile();
+
   const [projectImage, setProjectImage] = useState(project?.image_url || "/default_project_image.png");
   const [isEditing, setIsEditing] = useState(false);
   const [isCreatingSession, setIsCreatingSession] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
-  
 
   useEffect(() => {
     if (project) {
       if (project.image_url) {
         setProjectImage(project.image_url);
       }
-      
-      if (project.sessions) {        
+
+      if (project.sessions) {
         const fetchInterestedUsers = async () => {
           const sessionsWithInterestedUsers = await Promise.all(
             project.sessions.map(async (session) => {
@@ -50,17 +54,20 @@ const ProjectDetails = () => {
               }
             })
           );
-          
           setSessions(sessionsWithInterestedUsers);
         };
-  
+
         fetchInterestedUsers();
       }
     }
   }, [project]);
 
+
   if (isLoading) return <Loader />;
   if (isError || !project) return <p>Error loading project or project not found.</p>;
+
+  if (isUserLoading) return <Loader />;
+  if (isUserError || !user) return <p>Error al cargar el perfil o el usuario no existe.</p>;
 
   const { matchedStack, matchedLanguages, matchedLevel } = findMatchedValues(project, stacks, languages, levels);
 
@@ -68,8 +75,18 @@ const ProjectDetails = () => {
     setIsEditing(true);
   };
 
-  const handleDeleteClick = () => {
-    setIsModalOpen(true);
+  const handleCreateSessionClick = () => {
+    setIsCreatingSession(true);
+  };
+
+  const handleCancelSessionCreation = () => {
+    setIsCreatingSession(false);
+  };
+
+  const handleSessionCreated = (sessionData) => {
+    setIsCreatingSession(false);
+    console.log("Session created:", sessionData);
+    queryClient.invalidateQueries(['projectDetails', id]);
   };
 
   const handleConfirmDelete = async () => {
@@ -90,26 +107,11 @@ const ProjectDetails = () => {
     try {
       const updatedProject = await updateProject(id, updatedData);
       console.log("Project updated successfully:", updatedProject);
-      setIsEditing(false); // Close the form after submitting
-      queryClient.invalidateQueries(['projects']); // Invalidate to refetch the updated project list
+      setIsEditing(false);
+      queryClient.invalidateQueries(['projects']);
     } catch (error) {
       console.error("Error updating project:", error);
     }
-  };
-
-
-  const handleCreateSessionClick = () => {
-    setIsCreatingSession(true);
-  };
-
-  const handleCancelSessionCreation = () => {
-    setIsCreatingSession(false);
-  };
-
-  const handleSessionCreated = (sessionData) => {
-    setIsCreatingSession(false);
-    console.log("Session created:", sessionData);
-    queryClient.invalidateQueries(['projectDetails', id]);
   };
 
   const handleImageChange = async (event) => {
@@ -119,10 +121,8 @@ const ProjectDetails = () => {
       formData.append("image", file);
 
       try {
-        const updatedProject = await updateProjectImage(id, formData); 
-        setProjectImage(updatedProject.image_url); // Update the image URL locally in state
-        
-        // Invalidate the 'projects' query to refetch the updated project list
+        const updatedProject = await updateProjectImage(id, formData);
+        setProjectImage(updatedProject.image_url);
         queryClient.invalidateQueries(['projects']);
       } catch (error) {
         console.error("Error updating project image:", error);
@@ -130,40 +130,43 @@ const ProjectDetails = () => {
     }
   };
 
-  // Trigger the file input dialog
   const handleEditImageClick = () => {
     fileInputRef.current.click();
   };
 
-
   return (
-    <div className="flex items-center justify-center min-h-screen">
-    <div className="container mx-auto p-4 space-y-8">
+    <div className="container mx-auto max-w-[90rem] px-4 sm:px-6 py-4">
       <button
         onClick={() => navigate("/projects")}
-        className="text-white hover:text-primary flex items-center"
+        className="flex items-center mt-0 mb-4 text-white hover:text-primary"
       >
         <ArrowLeft className="w-5 h-5 mr-2" />
         Volver a mis proyectos
       </button>
 
-      {/* Title and Image Section */}
-      <h1 className="text-4xl gradient2-text font-bold">Detalles del proyecto</h1>
-      <div className="flex flex-col md:flex-row items-start p-8 border rounded-lg">
-        {/* Left Section: Project Image */}
-        <div className="relative">
-            <img
-              src={projectImage}
-              alt="Project"
-              className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-cover rounded-lg md:mr-6"
-            />
+      <h1 className="mb-10 text-4xl font-bold leading-none md:text-6xl gradient2-text" style={{ lineHeight: '1.2' }}>
+        Detalles del proyecto
+      </h1>
+
+      <section className="grid grid-cols-1 gap-6 mb-10 lg:grid-cols-3">
+        <div className="col-span-1 p-6 rounded-lg shadow-lg bg-card">
+          <h2 className="mt-4 mb-4 text-xl font-bold text-center transition duration-300 sm:text-2xl md:text-3xl lg:text-3xl hover:text-secondary text-textPrimary">
+            {project.name}
+          </h2>
+          <div className="relative ">
+            <div className="w-full overflow-hidden rounded-lg aspect-w-16 aspect-h-9">
+              <img
+                src={projectImage}
+                alt="Project"
+                className="object-cover object-center w-full h-full"
+              />
+            </div>
             <button
-              className="absolute bottom-2 right-2 bg-muted text-white hover:text-primary p-2 rounded-full"
-              onClick={handleEditImageClick} // Trigger file input dialog
+              className="absolute p-2 text-white rounded-full bottom-2 right-2 bg-muted hover:text-primary"
+              onClick={handleEditImageClick}
             >
               <Edit className="w-5 h-5" />
             </button>
-            {/* Hidden file input for image selection */}
             <input
               type="file"
               ref={fileInputRef}
@@ -172,96 +175,111 @@ const ProjectDetails = () => {
               onChange={handleImageChange}
             />
           </div>
+        </div>
 
-        {/* Right Section: Title, Description, and Required Skills */}
-        <div className="flex-grow flex flex-col justify-between md:text-left h-full">
-          <div className="flex justify-between items-center">
-            <h2 className="text-4xl font-bold mb-4">{project.name}</h2>
-            <div className="flex space-x-4">
-                <button
-                  onClick={handleEditClick}
-                  className="text-white hover:text-primary"
-                >
-                  <Edit className="w-6 h-6" />
-                </button>
-                <button
-                  onClick={handleDeleteClick}
-                  className="text-white hover:text-secondary"
-                >
-                  <Trash className="w-6 h-6" />
-                </button>
-              </div>
-          </div>
-
-          {/* Conditionally render the UpdateProjectForm */}
-          {isEditing && stacks && languages && levels ? (
-          <UpdateProjectForm
-            handleSubmit={handleFormSubmit}
-            loading={false} 
-            options={{
-              stacks: stacks,
-              languages: languages,
-              levels: levels,
-            }}
-            defaultValues={{
-              name: project.name,
-              description: project.description,
-              stack: matchedStack, 
-              languages: matchedLanguages, 
-              level: matchedLevel,
-            }}
-              onCancel={() => setIsEditing(false)}  // Close the form on cancel
+        <div className="relative p-6 rounded-lg shadow-lg lg:col-span-2 bg-card">
+          {isEditing ? (
+            <UpdateProjectForm
+              handleSubmit={handleFormSubmit}
+              loading={false}
+              options={{
+                stacks: stacks,
+                languages: languages,
+                levels: levels,
+              }}
+              defaultValues={{
+                name: project.name,
+                description: project.description,
+                stack: matchedStack,
+                languages: matchedLanguages,
+                level: matchedLevel,
+              }}
+              onCancel={() => setIsEditing(false)}
             />
           ) : (
             <>
-              <h3 className="text-2xl font-semibold">Sobre el proyecto:</h3>
-              <p className="text-lg mb-4">{project.description}</p>
-            
-              {/* Required Skills Section */}
-              <section className="mt-8">
-                <h2 className="text-2xl font-semibold">Competencias del proyecto:</h2>
-                <p>Stack: {project.stack_name}</p>
-                <p>Languages & Frameworks: {project.language_names.join(", ")}</p>
-                <p>Nivel: {project.level_name}</p>
-              </section>
+              <h2 className="mb-4 text-2xl font-semibold transition duration-300 hover:text-secondary text-textPrimary">
+                Sobre el proyecto
+              </h2>
+              <p className="text-lg">{project.description}</p>
+
+              <div className="absolute flex space-x-2 top-4 right-4">
+                <button onClick={handleEditClick} className="transition-transform duration-200 transform hover:text-primary text-foreground hover:scale-110">
+                  <Edit className="w-6 h-6" />
+                </button>
+                <button onClick={() => setIsModalOpen(true)} className="transition-transform duration-200 transform hover:text-primary text-foreground hover:scale-110">
+                  <Trash className="w-6 h-6" />
+                </button>
+              </div>
             </>
           )}
         </div>
-      </div>
-      
+      </section>
 
-      {/* Sessions section */}
-      <section className="mt-8 ">
+      <section className="relative mt-6 rounded-lg bg-card" aria-labelledby="languages-title">
+        <div className="p-6 mt-6 shadow-lg lg:col-span-2">
+          <h2 id="languages-title" className="mb-6 text-2xl font-semibold transition duration-300 hover:text-secondary text-textPrimary">
+            Lenguajes y Frameworks
+          </h2>
+          <ul className="flex flex-wrap gap-4">
+            {project?.language_names?.length > 0 ? (
+              project.language_names.map((language, index) => (
+                <li
+                  key={index}
+                  className=" text-black py-2 px-4 rounded-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--secondary))] font-semibold shadow-md hover:shadow-lg transition-transform duration-300 hover:scale-105">
+                  {language}
+                </li>
+              ))
+            ) : (
+              <li>No hay lenguajes o frameworks definidos.</li>
+            )}
+          </ul>
+        </div>
+      </section>
+
+      <section className="relative mt-6" aria-labelledby="stack-nivel-title">
+        <h2 id="stack-nivel-title" className="sr-only">Stack y Nivel</h2>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
+          <SectionCard
+            title="Stack"
+            content={project.stack_name ? project.stack_name : "Stack no definido 🚀"}
+          />
+          <SectionCard
+            title="Nivel"
+            content={project.level_name ? project.level_name : "Nivel no definido 🧑‍💻"}
+          />
+        </div>
+      </section>
+
+      <section className="mt-8">
         <h2 className="text-4xl font-semibold gradient3-text">Sesiones</h2>
-        <div className="flex flex-col lg:flex-row gap-8 mt-4 p-4">
-          {/* Left column: Session List */}
+        <div className="flex flex-col gap-8 p-4 mt-4 lg:flex-row">
           <div className="flex-1">
-              {!isCreatingSession && (
-                <button
-                  className="bg-primary text-black p-2 rounded-lg mb-4"
-                  onClick={handleCreateSessionClick}
-                >
-                  Crear nueva sesión
-                </button>
-              )}
-              {project.sessions && project.sessions.length > 0 ? (
-                <OwnerSessionList
-                  sessions={sessions}
-                  loading={isLoading}
-                  error={isError}
-                  projectImageUrl={project.image_url}
-                  projectId={project.id} 
-                />
-              ) : (
-                <p className="text-lg mb-4">Crea tu primera sesión</p>
-              )}
-            </div>
-          
-          {/* Right column */}
+            {!isCreatingSession && (
+              <button
+                className="p-2 mb-4 text-black rounded-lg bg-primary"
+                onClick={handleCreateSessionClick}
+              >
+                Crear nueva sesión
+              </button>
+            )}
+            {project.sessions && project.sessions.length > 0 ? (
+              <OwnerSessionList
+                sessions={sessions}
+                loading={isLoading}
+                error={isError}
+                projectImageUrl={project.image_url}
+                projectId={project.id}
+              />
+            ) : (
+              <p className="mb-4 text-lg">Crea tu primera sesión</p>
+            )}
+          </div>
+
           <div className="flex-1">
             {isCreatingSession && stacks && languages && (
               <section className="mt-8">
-                <h2 className="text-xl font-semibold mb-4">Programar nueva sesión</h2>
+                <h2 className="mb-4 text-xl font-semibold">Programar nueva sesión</h2>
                 <SessionForm
                   options={{ stacks, languages }}
                   projectStack={project.stack_name}
@@ -279,20 +297,17 @@ const ProjectDetails = () => {
         </div>
       </section>
 
-      {/* Confirmation Modal */}
       <ConfirmModal
-          title="Confirmación borrar proyecto"
-          message={`¿Estás seguro de que quieres borrar el proyecto "${project.name}"?`}
-          border_color="border-red-600"
-          open={isModalOpen}
-          onConfirm={handleConfirmDelete}
-          onCancel={handleModalClose}
-          confirmButtonText="Borrar"
-        />
-      
-    </div>
+        title="Confirmación borrar proyecto"
+        message={`¿Estás seguro de que quieres borrar el proyecto "${project.name}"?`}
+        border_color="border-red-600"
+        open={isModalOpen}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleModalClose}
+        confirmButtonText="Borrar"
+      />
     </div>
   );
 };
 
-export default ProjectDetails;
+export default ProjectDetails

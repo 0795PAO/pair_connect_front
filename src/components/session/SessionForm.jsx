@@ -120,17 +120,19 @@ const SessionForm = ({ loading, onCancel, projectStack, projectLanguages, projec
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleFormSubmit)} role="form" className="flex flex-col gap-5 w-full">
+      <form onSubmit={form.handleSubmit(handleFormSubmit)} role="form" className="flex flex-col w-full gap-5 p-4">
+      <div className="w-full">
         <SessionCalendar
           selectedDate={form.watch('date')}
           onDateChange={(date) => form.setValue('date', date)}
           form={form}
         />
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <CustomDynamicInput
             form={form}
-            placeholder="Titulo de la sesión"
+            placeholder="Título de la sesión"
             label="Nombre"
             name="name"
             type="text"
@@ -154,24 +156,24 @@ const SessionForm = ({ loading, onCancel, projectStack, projectLanguages, projec
           />
 
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <CustomDynamicInput
             form={form}
             placeholder="Ilimitado por defecto"
             label="Límite de participantes"
             name="participant_limit"
             type="number"
-            className="appearance-none background-none" // Removes background styling for arrows
+            className="appearance-none background-none"
           />
-          <div className="flex items-start space-x-2 pt-1">
-            <label className="block text-md font-medium text-white mr-2">
+          <div className="flex items-start pt-1 space-x-2">
+            <label className="block mr-2 font-medium text-white text-md">
               Sesión privada
             </label>
             <CustomDynamicInput
               form={form}
               name="is_private"
               type="checkbox"
-              className="w-4 h-4 mt-0" // Ensures checkbox is in line with the label
+              className="w-4 h-4 mt-0"
             />
           </div>
         </div>
@@ -192,12 +194,12 @@ const SessionForm = ({ loading, onCancel, projectStack, projectLanguages, projec
           className="w-full"
         />
 
-        <div className="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 space-x-2 col-span-1 sm:col-span-2">
+        <div className="flex flex-col justify-center col-span-1 space-x-2 space-y-2 sm:flex-row sm:space-y-0 sm:col-span-2">
           <Button variant="secondary" className="w-[35%] self-center whitespace-normal break-words" onClick={onCancel}>
             Ahora no
           </Button>
           <Button type="submit" className="w-[50%] self-center whitespace-normal break-words">
-            {loading ? 'Cargando...' : 'Crear Sesion'}
+            {loading ? 'Cargando...' : 'Crear Sesión'}
           </Button>
         </div>
       </form>
@@ -205,4 +207,4 @@ const SessionForm = ({ loading, onCancel, projectStack, projectLanguages, projec
   );
 };
 
-export default SessionForm;
+export default SessionForm
