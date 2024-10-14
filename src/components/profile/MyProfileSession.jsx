@@ -25,7 +25,7 @@ const MyProfileSession = () => {
         <div className="overflow-y-scroll max-h-[300px] lg:max-h-[400px] scrollbar-thin scrollbar-thumb-primary scrollbar-track-background">
           {hostedSessions?.length ? (
             hostedSessions.map((session) => (
-              <SessionCard key={session.id} session={session} to={`sessions/${session.id}`}/>
+              <SessionCard key={session.id} session={session} to={`/sessions/${session.id}`}/>
             ))
           ) : (
             <p>No tienes sesiones propias.</p>
