@@ -198,7 +198,7 @@ const SessionDetails = ({ isOwner }) => {
       {!isOwner && futureSessions?.length > 0 && (
         <div className="mt-4"> 
         <SectionCard 
-          title="Futuras Sesiones" 
+          title="Otras sesiones del proyecto" 
           content={
             <div>
               <FutureSessionList futureSessions={futureSessions} />
