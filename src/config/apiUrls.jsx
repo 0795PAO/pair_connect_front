@@ -1,4 +1,7 @@
-export const API_BASE_URL = "http://localhost:8000/api/";
+const API_BASE_URL = import.meta.env.VITE_REACT_APP_API_BASE_URL || 
+  (import.meta.env.MODE === 'production'
+    ? "https://pair-connect-151ceba3fe72.herokuapp.com/api/"
+    : "http://localhost:8000/api/");
 
 export const AUTH_URLS = {
   LOGIN: `${API_BASE_URL}auth/jwt/create/`,
@@ -62,3 +65,5 @@ export const PARTICIPANT_URLS = {
   SEND_INIVTATION: (sessionId, userId) =>
     `${API_BASE_URL}projects/sessions/${sessionId}/developers/${userId}/invite/`,
 };
+
+export default API_BASE_URL;
