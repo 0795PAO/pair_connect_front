@@ -65,28 +65,7 @@ const ProjectsPage = () => {
   return (
     <>
       <section className="container mx-auto px-4 py-6 sm:px-6 md:px-8 max-w-[100rem]">
-        <section className="sticky z-10 w-full px-0 py-4 sm:px-2 top-16">
-          <p
-            className="mb-2 text-2xl font-bold text-left sm:text-3xl md:text-3xl"
-            style={{ fontFamily: "Source Code Pro" }}
-            title="Saludo al usuario"
-            aria-label={`Hola, ${user?.username || "usuario"}`}
-          >
-            Hola,
-          </p>
-
-          <div className="gradient4-text-container">
-            <h1
-              className="mb-8 text-4xl font-bold text-left text-purple-400 font-poppins sm:text-5xl md:text-5xl"
-              title="Nombre del usuario"
-              aria-label={`Nombre del usuario: ${user?.username}`}
-            >
-              {user?.username}
-            </h1>
-          </div>
-        </section>
-
-        <div className="container max-w-full px-2 py-6 mx-auto border rounded-lg sm:px-6 md:px-8">
+        <div className="container max-w-full px-2 py-6 mx-auto sm:px-6 md:px-8">
           <h2 className="pb-4 text-3xl font-bold text-left">Tus proyectos</h2>
           <div className="items-center">
             {userProjects.length === 0 ? (
